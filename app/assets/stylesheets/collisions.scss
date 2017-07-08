@@ -1,0 +1,126 @@
+/* --- RESET --- */
+
+html, body, header, nav, h1, a, ul, li,
+strong, main, section, img, div, h2, h3, p,
+form, fieldset, label, input, textarea,
+button, article, footer, small {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  box-sizing: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  vertical-align: inherit;
+  color: inherit;
+  background: transparent;
+}
+
+/* --- ELEMENTS --- */
+
+body {
+  background-color: #ccc;
+  font-family: 'Arimo', sans-serif;
+}
+
+.container {
+  width: 1000px;
+  margin: 0 auto;
+  padding: 50px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* --- ASIDE --- */
+
+aside {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.logo img {
+  width: 60px;
+  height: auto;
+}
+
+.logo h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 40px;
+}
+
+h3 {
+  font-size: 18px;
+  text-align: center;
+}
+h2 {
+  font-size: 20px;
+  margin: 10px;
+}
+
+.links i {
+  margin: 5px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.links i:hover {
+  cursor: pointer;
+  background-color: #bbb;
+}
+
+.links i:active {
+  background-color: #aaa;
+}
+
+/* --- FilterForm --- */
+
+.filter {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  line-height: 1.67;
+  text-align: center;
+}
+
+select {
+  text-align: center;
+  font-size: 14px;
+  padding: 10px;
+  margin: 0 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.clickable-div {
+  margin: 5px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.clickable-div:hover {
+  cursor: pointer;
+  background-color: #bbb;
+}
+
+.clickable-div:active {
+  background-color: #aaa;
+}
+
+/* --- MAP --- */
+
+.index-map {
+  width: 600px;
+  height: 600px;
+}

@@ -1,0 +1,12 @@
+json.extract! collision,
+  :id, :time, :lat, :lng, :zip, :borough, :on_street, :cross_street, :off_street,
+  :number_of_persons_injured, :number_of_persons_killed,
+  :number_of_pedestrians_injured, :number_of_pedestrians_killed,
+  :number_of_cyclist_injured, :number_of_cyclist_killed,
+  :number_of_motorist_injured, :number_of_motorist_killed,
+  :unique_key,
+  :contributing_factor_vehicle_1, :contributing_factor_vehicle_2,
+  :contributing_factor_vehicle_3, :contributing_factor_vehicle_4,
+  :contributing_factor_vehicle_5,
+  :vehicle_type_code_1, :vehicle_type_code_2, :vehicle_type_code_3,
+  :vehicle_type_code_4, :vehicle_type_code_5
