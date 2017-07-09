@@ -7,9 +7,9 @@ Rails.application.routes.draw do
     resources :collisions, only: [:index, :show]
   end
 
-  # root "static_pages#root"
+  root "static_pages#root"
 
   # for collision data import from csv
-  root to: 'collisions#index'
+  # root to: 'collisions#index'
 
 end
