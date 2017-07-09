@@ -48,8 +48,8 @@ class Collision < ActiveRecord::Base
 
       collision = Collision.new
 
-      time = Time.parse(row['TIME'])
       date = Date.strptime(row['DATE'], "%m/%d/%Y")
+      time = Time.parse(row['TIME'])
       date_time = (date + time.seconds_since_midnight.seconds).to_datetime
       collision.time = date_time
       collision.lat = row['LATITUDE']

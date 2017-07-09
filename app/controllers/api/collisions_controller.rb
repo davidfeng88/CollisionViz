@@ -18,11 +18,8 @@ class Api::CollisionsController < ApplicationController
   private
 
   def time_range
-    # params[:timeStart] minutes later than midnight
-    # params[:timeInteval] in minutes
-    Time.zone = 'Eastern Time (US & Canada)'
     d = Time.parse('2017-06-22')
-    offset = Time.parse("0:00", d)
+    offset = Time.parse("4:00", d)
     start = offset + params[:start].to_i.minutes
     finish = offset + params[:finish].to_i.minutes
     start..finish
