@@ -17,7 +17,7 @@ class Search extends React.Component {
   }
 
   render() {
-    let { collisions, filters, 
+    let { collisions, filters,
       updateFilter, resetFilter } = this.props;
     return(
       <div className='container'>
@@ -28,7 +28,7 @@ class Search extends React.Component {
           </div>
           <h3>A visualization of motor vehicle collisions
           in NYC on 6/22/2017 (Fri.)</h3>
-          <h2>by Ge "David" Feng</h2>
+          <h2>by <a href='http://davidfeng.us/' target="_blank">Ge "David" Feng</a></h2>
           <div className='links'>
             <a href='https://github.com/davidfeng88' target="_blank">
               <i className="fa fa-github fa-2x" aria-hidden="true"></i>
@@ -39,7 +39,7 @@ class Search extends React.Component {
             <a href='https://angel.co/ge-david-feng' target="_blank">
               <i className="fa fa-angellist fa-2x" aria-hidden="true"></i>
             </a>
-            <a href='#'>
+            <a href='http://davidfeng.us/' target="_blank">
               <i className="fa fa-link fa-2x" aria-hidden="true"></i>
             </a>
           </div>
