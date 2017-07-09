@@ -41,12 +41,17 @@ class Collision < ActiveRecord::Base
 
   def self.import(file)
     Collision.destroy_all
-    d = Time.parse('2017-06-22')
+
+    Time.zone = 'Eastern Time (US & Canada)'
 
     CSV.foreach(file.path, headers: true) do |row|
 
       collision = Collision.new
-      collision.time = Time.parse(row['TIME'], d)
+
+      time = Time.parse(row['TIME'])
+      date = Date.strptime(row['DATE'], "%m/%d/%Y")
+      date_time = (date + time.seconds_since_midnight.seconds).to_datetime
+      collision.time = date_time
       collision.lat = row['LATITUDE']
       collision.lng = row['LONGITUDE']
       collision.zip = row['ZIP CODE']
