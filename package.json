@@ -15,6 +15,10 @@
     "redux-thunk": "^2.2.0",
     "webpack": "^3.1.0"
   },
+  "engines": {
+    "node": "6.10.1",
+    "npm": "3.10.10"
+  },
   "scripts": {
     "start": "webpack --watch",
     "postinstall": "webpack"
