@@ -14,7 +14,9 @@ During the visualization, a marker for a certain collision appears on the embedd
 ## Implementation
 
 ### Data import
-The [NYPD data][https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95] are in a CSV file. The entries were imported to a PostgreSQL database using ActiveRecord.
+The [NYPD data][data_link] are in a CSV file. The entries were imported to a PostgreSQL database using ActiveRecord.
+
+[data_link]: https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95
 
 ### Filtering the collisions
 The `filter_form` front-end component converts the current map time and the time a collision stays on map into start and finish time to filter the collisions. It also handles several edge cases, for example, when the visualization just started, collisions happened before the start time should not be included.
