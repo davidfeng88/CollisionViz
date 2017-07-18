@@ -28,6 +28,12 @@ class MarkerManager {
       icon: {
         url: window.staticImages.logo,
         scaledSize: new google.maps.Size(20, 20),
+        // url: window.staticImages.taxi,
+        // scaledSize: new google.maps.Size(40, 40),
+        // url: window.staticImages.motorcycle,
+        // scaledSize: new google.maps.Size(30, 30),
+        // url: window.staticImages.bike,
+        // scaledSize: new google.maps.Size(30, 30),
       },
       collisionId: collision.id
     });
