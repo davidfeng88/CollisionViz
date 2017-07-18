@@ -28,7 +28,7 @@ class Search extends React.Component {
           </div>
           <h3>A visualization of motor vehicle collisions
           in NYC on 6/22/2017 (Fri.)</h3>
-          <h2>by <a href='http://davidfeng.us/' target="_blank">Ge "David" Feng</a></h2>
+          <h2>by <a href='https://davidfeng.us/' target="_blank">Ge "David" Feng</a></h2>
           <div className='links'>
             <a href='https://github.com/davidfeng88' target="_blank">
               <i className="fa fa-github fa-2x" aria-hidden="true"></i>
@@ -39,8 +39,8 @@ class Search extends React.Component {
             <a href='https://angel.co/ge-david-feng' target="_blank">
               <i className="fa fa-angellist fa-2x" aria-hidden="true"></i>
             </a>
-            <a href='http://davidfeng.us/' target="_blank">
-              <i className="fa fa-link fa-2x" aria-hidden="true"></i>
+            <a href='https://davidfeng.us/' target="_blank">
+              <i className="fa fa-user fa-2x" aria-hidden="true"></i>
             </a>
           </div>
 

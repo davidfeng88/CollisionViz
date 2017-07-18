@@ -165,7 +165,6 @@ class FilterForm extends React.Component {
           <label htmlFor='time-start'>Set start time</label>
           <select id="time-start" value={this.state.currentTime}
             onChange={this.updateField('currentTime')} >
-            <option value='360' >6:00 Morning</option>
             <option value='420' >7:00 Morning</option>
             <option value='0' >0:00 Midnight</option>
             <option value='720' >12:00 Noon</option>

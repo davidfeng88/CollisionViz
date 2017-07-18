@@ -25,6 +25,10 @@ class MarkerManager {
     const marker = new google.maps.Marker({
       position,
       map: this.map,
+      icon: {
+        url: window.staticImages.logo,
+        scaledSize: new google.maps.Size(20, 20),
+      },
       collisionId: collision.id
     });
 
