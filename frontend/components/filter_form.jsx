@@ -45,6 +45,9 @@ class FilterForm extends React.Component {
       currentTime: this.props.filters.finish,
       initialTime: this.props.filters.start,
 
+      taxi: false,
+      bike: false,
+      motorcycle: false,
       intervalId: null,
       collisionMapTime: 29,
       stepTime: 200,
@@ -77,6 +80,15 @@ class FilterForm extends React.Component {
         [field]: parseInt(e.currentTarget.value)
       });
     }
+  }
+
+  toggleCheckbox(field) {
+    return e => {
+      this.setState({
+        [field]: !this.state[field],
+      });
+      this.props.updateFilter({[field]: !this.state[field]});
+    };
   }
 
   updateForm(newTime) {
@@ -207,6 +219,37 @@ class FilterForm extends React.Component {
             <div className='clickable-div' onClick={this.oneStepForward}>
               <i className="fa fa-step-forward fa-2x" aria-hidden="true"></i>
             </div>
+          </div>
+
+          <div className='icons'>
+          Show special icons for:
+            <label htmlFor='taxi'>
+            <input
+              type="checkbox"
+              id='taxi'
+              value={this.state.taxi}
+              onChange={this.toggleCheckbox('taxi')}
+            />&nbsp;
+            <img src={window.staticImages.taxi} />
+            &nbsp;Taxi</label>
+            <label htmlFor='bike'>
+            <input
+              type="checkbox"
+              id='bike'
+              value={this.state.bike}
+              onChange={this.toggleCheckbox('bike')}
+            />&nbsp;
+            <img src={window.staticImages.bike} />
+            &nbsp;Bike</label>
+            <label htmlFor='motorcycle'>
+            <input
+              type="checkbox"
+              id='motorcycle'
+              value={this.state.motorcycle}
+              onChange={this.toggleCheckbox('motorcycle')}
+            />&nbsp;
+            <img src={window.staticImages.motorcycle} />
+            &nbsp;Motorcycle</label>
           </div>
         </form>
       </div>

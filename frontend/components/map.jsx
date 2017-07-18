@@ -12,20 +12,35 @@ const mapOptions = {
 };
 
 
-class IndexMap extends React.Component {
+class Map extends React.Component {
   componentDidMount() {
     const map = this.refs.map;
     this.map = new google.maps.Map(map, mapOptions);
     this.MarkerManager = new MarkerManager(this.map, this.handleMarkerClick.bind(this));
-    this.MarkerManager.updateMarkers(this.props.collisions);
+    this.MarkerManager.updateMarkers(
+      this.props.collisions,
+      this.props.taxi,
+      this.props.bike,
+      this.props.motorcycle
+    );
   }
 
   componentDidUpdate() {
-    this.MarkerManager.updateMarkers(this.props.collisions);
+    this.MarkerManager.updateMarkers(
+      this.props.collisions,
+      this.props.taxi,
+      this.props.bike,
+      this.props.motorcycle
+    );
   }
 
   componentWillReceiveProps(newProps) {
-    this.MarkerManager.updateMarkers(newProps.collisions);
+    this.MarkerManager.updateMarkers(
+      newProps.collisions,
+      newProps.taxi,
+      newProps.bike,
+      newProps.motorcycle
+    );
   }
 
   handleMarkerClick(collision) {
@@ -41,4 +56,4 @@ class IndexMap extends React.Component {
   }
 }
 
-export default IndexMap;
+export default Map;

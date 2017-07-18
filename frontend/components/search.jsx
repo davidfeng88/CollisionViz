@@ -19,6 +19,7 @@ class Search extends React.Component {
   render() {
     let { collisions, filters,
       updateFilter, resetFilter } = this.props;
+    let { taxi, bike, motorcycle } = filters;
     return(
       <div className='container'>
         <aside>
@@ -53,7 +54,8 @@ class Search extends React.Component {
 
         </aside>
 
-        <Map collisions={collisions} />
+        <Map collisions={collisions}
+          taxi={taxi} bike={bike} motorcycle={motorcycle} />
 
       </div>
     );

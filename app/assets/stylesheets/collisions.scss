@@ -121,6 +121,19 @@ select {
 .clickable-div:active {
   background-color: #aaa;
 }
+.icons {
+  // line-height: 20px;
+    vertical-align: middle;
+}
+.icons label {
+
+  display: block;
+}
+
+.icons img {
+  // height: 30px;
+  width: 30px;
+}
 
 /* --- MAP --- */
 

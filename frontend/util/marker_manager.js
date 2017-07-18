@@ -7,34 +7,71 @@ class MarkerManager {
     this.handleClick = handleClick;
   }
 
-  updateMarkers(collisions){
+  updateMarkers(collisions, taxi, bike, motorcycle){
     const collisionsObj = {};
     collisions.forEach(collision => collisionsObj[collision.id] = collision);
 
     collisions
       .filter(collision => !this.markers[collision.id])
-      .forEach(newCollision => this.createMarkerFromCollision(newCollision));
+      .forEach(newCollision => this.createMarkerFromCollision(
+        newCollision, taxi, bike, motorcycle));
 
     Object.keys(this.markers)
       .filter(collisionId => !collisionsObj[collisionId])
       .forEach((collisionId) => this.removeMarker(this.markers[collisionId]));
   }
 
-  createMarkerFromCollision(collision) {
+  iconStyle(collision, taxi, bike, motorcycle) {
+    if (taxi && (
+      collision.vehicle_type_code_1 === 'Taxi' ||
+      collision.vehicle_type_code_2 === 'Taxi' ||
+      collision.vehicle_type_code_3 === 'Taxi' ||
+      collision.vehicle_type_code_4 === 'Taxi' ||
+      collision.vehicle_type_code_5 === 'Taxi'
+    )) {
+      return {
+        url: window.staticImages.taxi,
+        scaledSize: new google.maps.Size(20, 20),
+      };
+    } else if (bike && (
+      collision.vehicle_type_code_1 === 'Bicycle' ||
+      collision.vehicle_type_code_2 === 'Bicycle' ||
+      collision.vehicle_type_code_3 === 'Bicycle' ||
+      collision.vehicle_type_code_4 === 'Bicycle' ||
+      collision.vehicle_type_code_5 === 'Bicycle'
+    )) {
+      return {
+        url: window.staticImages.bike,
+        scaledSize: new google.maps.Size(30, 30),
+      };
+    }
+    if (motorcycle && (
+      collision.vehicle_type_code_1 === 'Motorcycle' ||
+      collision.vehicle_type_code_2 === 'Motorcycle' ||
+      collision.vehicle_type_code_3 === 'Motorcycle' ||
+      collision.vehicle_type_code_4 === 'Motorcycle' ||
+      collision.vehicle_type_code_5 === 'Motorcycle'
+    )) {
+      return {
+        url: window.staticImages.motorcycle,
+        scaledSize: new google.maps.Size(30, 30),
+      };
+    } else {
+      return {
+        url: window.staticImages.logo,
+        scaledSize: new google.maps.Size(20, 20),
+      };
+    }
+  }
+
+
+  createMarkerFromCollision(collision, taxi, bike, motorcycle) {
     const position = new google.maps.LatLng(collision.lat, collision.lng);
+    const iconStyle = this.iconStyle(collision, taxi, bike, motorcycle);
     const marker = new google.maps.Marker({
       position,
       map: this.map,
-      icon: {
-        url: window.staticImages.logo,
-        scaledSize: new google.maps.Size(20, 20),
-        // url: window.staticImages.taxi,
-        // scaledSize: new google.maps.Size(40, 40),
-        // url: window.staticImages.motorcycle,
-        // scaledSize: new google.maps.Size(30, 30),
-        // url: window.staticImages.bike,
-        // scaledSize: new google.maps.Size(30, 30),
-      },
+      icon: iconStyle,
       collisionId: collision.id
     });
 
