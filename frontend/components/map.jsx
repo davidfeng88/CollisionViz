@@ -44,7 +44,7 @@ class Map extends React.Component {
   }
 
   handleMarkerClick(collision) {
-    // render the collision detail component
+    this.props.updateHighlight(collision.id);
   }
 
   render() {

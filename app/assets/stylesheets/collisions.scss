@@ -28,9 +28,39 @@ body {
   width: 1000px;
   margin: 0 auto;
   padding: 50px 0;
+}
+
+.main {
+  display: flex;
+  justify-content: space-around;
+}
+
+.highlight {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 20px;
   display: flex;
   justify-content: space-between;
 }
+
+.clear-highlight {
+  font-size: 20px;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.clear-highlight:hover {
+  cursor: pointer;
+  background-color: #bbb;
+}
+
+.clear-highlight:active {
+  cursor: pointer;
+  background-color: #aaa;
+}
+
+
 
 /* --- ASIDE --- */
 

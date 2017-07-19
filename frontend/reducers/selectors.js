@@ -4,3 +4,8 @@ export const collisionsToArray = state => {
     .map(id => state.collisions[id]);
   return collisionsArray.reverse();
 };
+
+export const selectHighlight = state => {
+  let highlight = state.collisions[state.highlight];
+  return highlight ? highlight : null;
+};
