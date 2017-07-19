@@ -5,9 +5,9 @@ import { UPDATE_FILTER, RESET_FILTER } from '../actions/filter_actions';
 const defaultFilters = Object.freeze({
   start: 420, // in minutes, later from midnight.
   finish: 420, // in minutes
-  taxi: false,
-  bike: false,
-  motorcycle: false,
+  taxi: true,
+  bike: true,
+  motorcycle: true,
 });
 
 const FiltersReducer = (state = defaultFilters, action) => {

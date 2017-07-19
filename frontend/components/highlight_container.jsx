@@ -47,7 +47,8 @@ class Highlight extends React.Component {
         <div className='highlight'>
           <div className='highlight-first-row'>
             <div>
-              Collision Details: (Time is in UTC, map time is in New York local time(with daylight saving time, UTC−04:00))
+              Collision Details: (Time is in UTC, map time is in New York local time
+                (with daylight saving time, UTC−04:00))
             </div>
 
             <div className='clear-highlight' onClick={this.props.resetHighlight}>

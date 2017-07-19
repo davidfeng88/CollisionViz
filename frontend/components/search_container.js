@@ -44,7 +44,6 @@ class Search extends React.Component {
             <img src={window.staticImages.logo} />
             <h1>CollisionViz</h1>
           </div>
-          <h2>by <a href='https://davidfeng.us/' target="_blank">Ge "David" Feng</a></h2>
           <h3>
           A visualization of motor vehicle collisions
           in NYC on 6/22/2017.<br />

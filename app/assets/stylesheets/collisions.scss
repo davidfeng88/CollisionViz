@@ -66,6 +66,10 @@ body {
   background-color: #aaa;
 }
 
+.highlight-info {
+  line-height: 20px;
+}
+
 /* --- ASIDE --- */
 
 aside {
@@ -155,10 +159,18 @@ select {
 .clickable-div:active {
   background-color: #aaa;
 }
+
+
 .icons {
-  // line-height: 20px;
-    vertical-align: middle;
+  vertical-align: middle;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
 }
+
+.github-repo {
+  padding-top: 10px;
+}
+
 .icons label {
 
   display: block;
