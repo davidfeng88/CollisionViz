@@ -47,12 +47,13 @@ body {
 .highlight-first-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .clear-highlight {
-  font-size: 20px;
+  font-size: 18px;
   padding: 5px;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .clear-highlight:hover {
