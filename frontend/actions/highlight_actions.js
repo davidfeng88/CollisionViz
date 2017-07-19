@@ -1,6 +1,16 @@
-export const UPDATE_HIGHLIGHT = 'UPDATE_HIGHLIGHT';
+import * as APIUtil from '../util/collision_api_util';
 
-export const updateHighlight = (collisionId) => ({
-  type: UPDATE_HIGHLIGHT,
-  collisionId,
-});
+export const RECEIVE_COLLISION = "RECEIVE_COLLISION";
+
+export const receiveCollision = collision => {
+  return {
+    type: RECEIVE_COLLISION,
+    collision
+  };
+};
+
+export const updateHighlight = id => dispatch => (
+  APIUtil.fetchCollision(id).then(
+    (collisionData) => dispatch(receiveCollision(collisionData))
+  )
+);

@@ -1,12 +1,12 @@
-import { UPDATE_HIGHLIGHT } from '../actions/highlight_actions';
+import { RECEIVE_COLLISION } from '../actions/highlight_actions';
 
-const defaultFilters = -1;
+const defaultHighlight = null;
 
-const HighlightReducer = (state = defaultFilters, action) => {
+const HighlightReducer = (state = defaultHighlight, action) => {
 
   switch (action.type) {
-    case UPDATE_HIGHLIGHT:
-      return action.collisionId;
+    case RECEIVE_COLLISION:
+      return action.collision;
     default:
       return state;
   }

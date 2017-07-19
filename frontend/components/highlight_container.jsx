@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateHighlight: (collisionId) => dispatch(updateHighlight(collisionId)),
+  Highlight: () => dispatch(updateHighlight(-1)),
 });
 
 class Highlight extends React.Component {
@@ -19,13 +19,14 @@ class Highlight extends React.Component {
   render() {
     let { highlight } = this.props;
     if (highlight) {
+      let { id } = highlight;
       return(
         <div className='highlight'>
           <div className='highlight-info'>
-            Collision Details:
+            Collision Details: {id}
           </div>
 
-          <div className='clear-highlight' onClick={this.props.updateHighlight}>
+          <div className='clear-highlight' onClick={this.props.clearHighlight}>
           ×
           </div>
         </div>

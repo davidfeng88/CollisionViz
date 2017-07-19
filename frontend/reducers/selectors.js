@@ -6,6 +6,6 @@ export const collisionsToArray = state => {
 };
 
 export const selectHighlight = state => {
-  let highlight = state.collisions[state.highlight];
+  let highlight = state.highlight;
   return highlight ? highlight : null;
 };
