@@ -35,11 +35,16 @@ body {
   justify-content: space-around;
 }
 
+/* --- HIGHLIGHT --- */
+
 .highlight {
   border: 1px solid black;
   border-radius: 5px;
   padding: 20px;
   margin: 20px;
+}
+
+.highlight-first-row {
   display: flex;
   justify-content: space-between;
 }
