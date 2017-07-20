@@ -52,11 +52,17 @@ class Map extends React.Component {
 
     this.props.heatmapFetchAllCollisions().then(() => {
       const heatmapData = this.props.collisionsForHeatmap.map( collision => {
-        return new google.maps.LatLng(collision[0], collision[1]);
+        if (collision.length === 2) {
+          return new google.maps.LatLng(collision[0], collision[1]);
+        } else {
+          return {
+            location: new google.maps.LatLng(collision[0], collision[1]),
+            weight: collision[2]
+          };
+        }
       });
       this.heatmap = new google.maps.visualization.HeatmapLayer({
         data: heatmapData,
-        radius: 5,
       });
       this.heatmap.setMap(this.map);
     });
@@ -110,7 +116,7 @@ class Map extends React.Component {
   }
 
   changeRadius() {
-    this.heatmap.set('radius', this.heatmap.get('radius') === 5 ? 10 : 5);
+    this.heatmap.set('radius', this.heatmap.get('radius')? null : 20);
   }
 
   changeOpacity() {
