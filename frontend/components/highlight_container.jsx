@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { selectHighlight } from '../reducers/selectors';
-import DetailEntry from './detail_entry';
 
 import {
   updateHighlight,
@@ -15,6 +14,15 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   resetHighlight: () => dispatch(resetHighlight()),
 });
+
+const DetailEntry = ({ name, value }) => {
+  return(
+    <tr>
+      <th>{name}</th>
+      <td>{value}</td>
+    </tr>
+  );
+};
 
 class Highlight extends React.Component {
   constructor(props) {

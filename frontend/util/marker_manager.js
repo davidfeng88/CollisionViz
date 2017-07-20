@@ -71,7 +71,6 @@ class MarkerManager {
     }
   }
 
-
   createMarkerFromCollision(collision, taxi, bike, motorcycle, ped) {
     const position = new google.maps.LatLng(collision.lat, collision.lng);
     const iconStyle = this.iconStyle(collision, taxi, bike, motorcycle, ped);
