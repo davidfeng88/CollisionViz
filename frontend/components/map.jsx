@@ -12,6 +12,16 @@ const mapOptions = {
 };
 
 class Map extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.toggleHeatmap = this.toggleHeatmap.bind(this);
+    this.changeRadius = this.changeRadius.bind(this);
+    this.changeGradient = this.changeGradient.bind(this);
+    this.changeOpacity = this.changeOpacity.bind(this);
+
+  }
+
   componentDidMount() {
     const map = this.refs.map;
     this.map = new google.maps.Map(map, mapOptions);
@@ -19,10 +29,10 @@ class Map extends React.Component {
     const heatmapData = [
       new google.maps.LatLng(40.73, -74)
     ];
-    const heatmap = new google.maps.visualization.HeatmapLayer({
+    this.heatmap = new google.maps.visualization.HeatmapLayer({
       data: heatmapData
     });
-    heatmap.setMap(this.map);
+    this.heatmap.setMap(this.map);
     this.MarkerManager = new MarkerManager(this.map, this.handleMarkerClick.bind(this));
     this.MarkerManager.updateMarkers(
       this.props.collisions,
@@ -55,19 +65,36 @@ class Map extends React.Component {
   }
 
   toggleHeatmap() {
-
+    this.heatmap.setMap(this.heatmap.getMap() ? null : this.map);
   }
 
   changeGradient() {
-
+    let gradient = [
+      'rgba(0, 255, 255, 0)',
+      'rgba(0, 255, 255, 1)',
+      'rgba(0, 191, 255, 1)',
+      'rgba(0, 127, 255, 1)',
+      'rgba(0, 63, 255, 1)',
+      'rgba(0, 0, 255, 1)',
+      'rgba(0, 0, 223, 1)',
+      'rgba(0, 0, 191, 1)',
+      'rgba(0, 0, 159, 1)',
+      'rgba(0, 0, 127, 1)',
+      'rgba(63, 0, 91, 1)',
+      'rgba(127, 0, 63, 1)',
+      'rgba(191, 0, 31, 1)',
+      'rgba(255, 0, 0, 1)'
+    ];
+    this.heatmap.set(
+      'gradient', this.heatmap.get('gradient') ? null : gradient);
   }
 
   changeRadius() {
-
+    this.heatmap.set('radius', this.heatmap.get('radius') ? null : 20);
   }
 
   changeOpacity() {
-
+    this.heatmap.set('opacity', this.heatmap.get('opacity') ? null : 0.2);
   }
 
   render() {
