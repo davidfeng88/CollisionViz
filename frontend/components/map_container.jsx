@@ -132,9 +132,9 @@ class Map extends React.Component {
       <div className='map-container'>
         <div className="floating-panel">
           <div className='button' onClick={this.toggleHeatmap}>Toggle Heatmap</div>
-          <div className='button' onClick={this.changeGradient}>Change gradient</div>
-          <div className='button' onClick={this.changeRadius}>Change radius</div>
-          <div className='button' onClick={this.changeOpacity}>Change opacity</div>
+          <div className='button' onClick={this.changeGradient}>Change Gradient</div>
+          <div className='button' onClick={this.changeRadius}>Change Radius</div>
+          <div className='button' onClick={this.changeOpacity}>Change Opacity</div>
         </div>
         <div className="index-map" ref="map">
           Map

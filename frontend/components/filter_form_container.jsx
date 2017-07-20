@@ -203,7 +203,7 @@ class FilterForm extends React.Component {
           </select>
           <br />
           <label htmlFor='collision-map-time'>
-            Collisions stay on map for: </label>
+            Collisions stay on the map for: </label>
           <select id="collision-map-time" value={this.state.collisionMapTime}
             onChange={this.updateField('collisionMapTime')} >
             <option value='4' >5 minutes</option>
