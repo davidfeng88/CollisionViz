@@ -34,42 +34,6 @@ body {
   justify-content: space-between;
 }
 
-/* --- HIGHLIGHT --- */
-
-.highlight {
-  border: 1px solid black;
-  border-radius: 5px;
-
-  padding: 20px;
-  margin: 10px auto;
-}
-
-.highlight-first-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.clear-highlight {
-  font-size: 18px;
-  padding: 5px;
-  border-radius: 4px;
-}
-
-.clear-highlight:hover {
-  cursor: pointer;
-  background-color: #bbb;
-}
-
-.clear-highlight:active {
-  cursor: pointer;
-  background-color: #aaa;
-}
-
-.highlight-info {
-  line-height: 20px;
-}
-
 /* --- ASIDE --- */
 
 aside {
@@ -160,7 +124,6 @@ select {
   background-color: #aaa;
 }
 
-
 .icons {
   vertical-align: middle;
   border-bottom: 1px solid black;
@@ -186,4 +149,46 @@ select {
 .index-map {
   width: 600px;
   height: 600px;
+}
+
+/* --- HIGHLIGHT --- */
+
+.highlight {
+  border: 1px solid black;
+  border-radius: 5px;
+
+  padding: 20px;
+  margin: 10px auto;
+}
+
+.highlight-first-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clear-highlight {
+  font-size: 18px;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.clear-highlight:hover {
+  cursor: pointer;
+  background-color: #bbb;
+}
+
+.clear-highlight:active {
+  cursor: pointer;
+  background-color: #aaa;
+}
+
+.highlight-info {
+  line-height: 20px;
+  margin-left: 80px;
+}
+
+.highlight-info th {
+width: 300px;
+
 }
