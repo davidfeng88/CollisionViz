@@ -9,3 +9,7 @@ export const selectHighlight = state => {
   let highlight = state.highlight;
   return highlight ? highlight : null;
 };
+
+export const heatmapCollisionsToArray = state => {
+  return [[40.73, -74], [40.74, -74]];
+};

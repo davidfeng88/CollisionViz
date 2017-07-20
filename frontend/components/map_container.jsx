@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { collisionsToArray } from '../reducers/selectors';
+import {
+  collisionsToArray,
+  heatmapCollisionsToArray
+} from '../reducers/selectors';
 import { updateHighlight } from '../actions/highlight_actions';
+import { heatmapFetchAllCollisions } from '../actions/heatmap_actions';
 import MarkerManager from '../util/marker_manager';
 
 const mapStateToProps = state => ({
@@ -9,10 +13,12 @@ const mapStateToProps = state => ({
   taxi: state.filters.taxi,
   bike: state.filters.bike,
   motorcycle: state.filters.motorcycle,
+  collisionsForHeatmap: heatmapCollisionsToArray(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   updateHighlight: (collisionId) => dispatch(updateHighlight(collisionId)),
+  heatmapFetchAllCollisions: () => dispatch(heatmapFetchAllCollisions()),
 });
 
 const mapOptions = {
@@ -34,16 +40,9 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
+    this.props.heatmapFetchAllCollisions();
     const map = this.refs.map;
     this.map = new google.maps.Map(map, mapOptions);
-
-    const heatmapData = [
-      new google.maps.LatLng(40.73, -74)
-    ];
-    this.heatmap = new google.maps.visualization.HeatmapLayer({
-      data: heatmapData
-    });
-    this.heatmap.setMap(this.map);
     this.MarkerManager = new MarkerManager(this.map, this.handleMarkerClick.bind(this));
     this.MarkerManager.updateMarkers(
       this.props.collisions,
@@ -51,6 +50,14 @@ class Map extends React.Component {
       this.props.bike,
       this.props.motorcycle
     );
+
+    const heatmapData = this.props.collisionsForHeatmap.map( collision => {
+      return new google.maps.LatLng(collision[0], collision[1]);
+    });
+    this.heatmap = new google.maps.visualization.HeatmapLayer({
+      data: heatmapData
+    });
+    this.heatmap.setMap(this.map);
   }
 
   componentDidUpdate() {

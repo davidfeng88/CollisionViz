@@ -9,7 +9,7 @@ export const heatmapReceiveAllCollisions = collisions => {
   };
 };
 
-export const fetchAllCollisions = () => dispatch => (
+export const heatmapFetchAllCollisions = () => dispatch => (
   APIUtil.fetchAllCollisions().then(
     (collisionsData) => dispatch(heatmapReceiveAllCollisions(collisionsData))
   )
