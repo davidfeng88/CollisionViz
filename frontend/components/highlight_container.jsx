@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { selectHighlight } from '../reducers/selectors';
+import DetailEntry from './detail_entry';
+
 import {
   updateHighlight,
   resetHighlight,
@@ -33,10 +35,21 @@ class Highlight extends React.Component {
       ) {
         continue;
       }
-      detailsArray.push(`${this.capitalize(key)}: ${collision[key]}`);
-      detailsArray.push(<span key={key}><br /></span>);
+    detailsArray.push([this.capitalize(key), collision[key]]);
+    // detailsArray.push(`${this.capitalize(key)}: ${collision[key]}`);
+    // detailsArray.push(<span key={key}><br /></span>);
     }
-    return detailsArray;
+    let detailsEntries = detailsArray.map( detail => (
+        <DetailEntry key={ detail[0] }
+          name={ detail[0] } value={ detail[1] } />
+    ));
+    return (
+      <table className='highlight-info'>
+        <tbody>
+        {detailsEntries}
+        </tbody>
+      </table>
+    );
   }
 
   render() {
@@ -55,10 +68,7 @@ class Highlight extends React.Component {
             ×
             </div>
           </div>
-
-          <div className='highlight-info'>
-            {this.details(highlight)}
-          </div>
+          {this.details(highlight)}
         </div>
       );
     } else {
