@@ -1,9 +1,9 @@
 # CollisionViz
 [CollisionViz live][heroku]
 
-[heroku]: http://collisionviz.davidfeng.us/
+[heroku]: https://collisionviz.davidfeng.us/
 
-CollisionViz is a web application which visualizes the location and time of all the motor vehicle collisions during a certain period of time in New York City. On the back-end, CollisionViz utilizes Ruby on Rails and a PostgreSQL database; on the front-end, it uses React.js with a Redux architectural framework. Currently, it shows collisions on 6/22/2017. Data are from NYPD.
+CollisionViz shows the location and time of motor vehicle collisions in New York City on 6/22/2017. It uses Ruby on Rails, a PostgreSQL database, React.js, Redux, and Google Maps JavaScript API. Collision data are from NYPD.
 
 ![screenshot](screenshot.png)
 
