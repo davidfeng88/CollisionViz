@@ -5,8 +5,8 @@ import { updateFilter, resetFilter } from '../actions/filter_actions';
 import { collisionsToArray } from '../reducers/selectors';
 
 import FilterForm from './filter_form';
-import HighlightContainer from './highlight_container';
 import MapContainer from './map_container';
+import HighlightContainer from './highlight_container';
 
 const mapStateToProps = state => ({
   collisions: collisionsToArray(state),
@@ -46,7 +46,6 @@ class Search extends React.Component {
             A visualization of motor vehicle collisions
             in NYC on 6/22/2017.<br />
             Click on markers for collision details.</h3>
-
             <div className='links'>
             <a href='https://github.com/davidfeng88' target="_blank">
             <i className="fa fa-github fa-2x" aria-hidden="true"></i>
@@ -61,32 +60,20 @@ class Search extends React.Component {
             <i className="fa fa-user fa-2x" aria-hidden="true"></i>
             </a>
             </div>
-
-
             <FilterForm
               filters={filters}
               updateFilter={updateFilter}
               resetFilter={resetFilter}
               collisions={collisions}
             />
-
           </aside>
-
           <MapContainer />
         </div>
-
         <HighlightContainer />
-
       </div>
     );
   }
 }
-
-
-
-
-
-
 
 export default connect(
   mapStateToProps,
