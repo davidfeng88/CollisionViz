@@ -61,6 +61,7 @@ class FilterForm extends React.Component {
       taxi: true,
       bike: true,
       motorcycle: true,
+      ped: true,
       intervalId: null,
       collisionMapTime: 29,
       stepTime: 200,
@@ -267,6 +268,15 @@ class FilterForm extends React.Component {
               />&nbsp;
               <img src={window.staticImages.motorcycle} />
               &nbsp;Motorcycle</label>
+              <label htmlFor='ped'>
+              <input
+                type="checkbox"
+                id='ped'
+                checked={this.state.ped}
+                onChange={this.toggleCheckbox('ped')}
+              />&nbsp;
+              <img src={window.staticImages.ped} />
+              &nbsp;Pedestrian</label>
             </div>
 
             <div className='github-repo'>

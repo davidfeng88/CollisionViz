@@ -13,6 +13,7 @@ const mapStateToProps = state => ({
   taxi: state.filters.taxi,
   bike: state.filters.bike,
   motorcycle: state.filters.motorcycle,
+  ped: state.filters.ped,
   collisionsForHeatmap: heatmapCollisionsToArray(state),
 });
 
@@ -47,7 +48,8 @@ class Map extends React.Component {
       this.props.collisions,
       this.props.taxi,
       this.props.bike,
-      this.props.motorcycle
+      this.props.motorcycle,
+      this.props.ped
     );
 
     this.props.heatmapFetchAllCollisions().then(() => {
@@ -73,7 +75,8 @@ class Map extends React.Component {
       this.props.collisions,
       this.props.taxi,
       this.props.bike,
-      this.props.motorcycle
+      this.props.motorcycle,
+      this.props.ped
     );
   }
 
@@ -82,7 +85,8 @@ class Map extends React.Component {
       newProps.collisions,
       newProps.taxi,
       newProps.bike,
-      newProps.motorcycle
+      newProps.motorcycle,
+      this.props.ped
     );
   }
 
