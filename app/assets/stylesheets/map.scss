@@ -1,0 +1,42 @@
+/* --- MAP --- */
+
+.index-map {
+  width: 600px;
+  height: 600px;
+}
+
+.map-container{
+  position: relative;
+}
+
+.floating-panel {
+  width: 450px;
+  font-size: 12px;
+  position: absolute;
+  top: 10px;
+  left: 20%;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  border-radius: 5px;
+  text-align: center;
+  padding-left: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.button {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #999;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: #bbb;
+}
+
+.button:active {
+  background-color: #aaa;
+}

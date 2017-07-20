@@ -15,7 +15,7 @@ class Map extends React.Component {
   componentDidMount() {
     const map = this.refs.map;
     this.map = new google.maps.Map(map, mapOptions);
-    
+
     const heatmapData = [
       new google.maps.LatLng(40.73, -74)
     ];
@@ -54,10 +54,34 @@ class Map extends React.Component {
     this.props.updateHighlight(collision.id);
   }
 
+  toggleHeatmap() {
+
+  }
+
+  changeGradient() {
+
+  }
+
+  changeRadius() {
+
+  }
+
+  changeOpacity() {
+
+  }
+
   render() {
     return (
-      <div className="index-map" ref="map">
-        Map
+      <div className='map-container'>
+        <div className="floating-panel">
+          <div className='button' onClick={this.toggleHeatmap}>Toggle Heatmap</div>
+          <div className='button' onClick={this.changeGradient}>Change gradient</div>
+          <div className='button' onClick={this.changeRadius}>Change radius</div>
+          <div className='button' onClick={this.changeOpacity}>Change opacity</div>
+        </div>
+        <div className="index-map" ref="map">
+          Map
+        </div>
       </div>
     );
   }
