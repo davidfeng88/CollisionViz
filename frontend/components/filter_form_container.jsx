@@ -1,4 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { updateFilter, resetFilter } from '../actions/filter_actions';
+import { collisionsToArray } from '../reducers/selectors';
+
+const mapStateToProps = state => ({
+  collisions: collisionsToArray(state),
+  filters: state.filters,
+});
+
+const mapDispatchToProps = dispatch => ({
+  updateFilter: (filters) => dispatch(updateFilter(filters)),
+  resetFilter: () => dispatch(resetFilter()),
+});
 
 const START_TIME = 0;
 const END_TIME = 1439;
@@ -60,6 +73,10 @@ class FilterForm extends React.Component {
     this.oneStepBackward = this.oneStepBackward.bind(this);
     this.handlePlay = this.handlePlay.bind(this);
     this.handleStop = this.handleStop.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.updateFilter();
   }
 
   componentWillReceiveProps(newProps) {
@@ -266,5 +283,7 @@ class FilterForm extends React.Component {
 
 }
 
-
-export default FilterForm;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FilterForm);

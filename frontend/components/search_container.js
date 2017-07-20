@@ -1,39 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { updateFilter, resetFilter } from '../actions/filter_actions';
 
-import { collisionsToArray } from '../reducers/selectors';
-
-import FilterForm from './filter_form';
+import FilterFormContainer from './filter_form_container';
 import MapContainer from './map_container';
 import HighlightContainer from './highlight_container';
-
-const mapStateToProps = state => ({
-  collisions: collisionsToArray(state),
-  filters: state.filters,
-});
-
-const mapDispatchToProps = dispatch => ({
-  updateFilter: (filters) => dispatch(updateFilter(filters)),
-  resetFilter: () => dispatch(resetFilter()),
-});
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.updateFilter();
-  }
-
-  componentWillUnmount() {
-    this.props.resetFilter();
-  }
-
   render() {
-    let { collisions, filters,
-      updateFilter, resetFilter } = this.props;
     return(
       <div className='container'>
         <div className='main'>
@@ -60,12 +36,7 @@ class Search extends React.Component {
             <i className="fa fa-user fa-2x" aria-hidden="true"></i>
             </a>
             </div>
-            <FilterForm
-              filters={filters}
-              updateFilter={updateFilter}
-              resetFilter={resetFilter}
-              collisions={collisions}
-            />
+            <FilterFormContainer />
           </aside>
           <MapContainer />
         </div>
@@ -75,7 +46,4 @@ class Search extends React.Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Search);
+export default Search;
