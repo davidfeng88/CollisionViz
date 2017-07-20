@@ -41,13 +41,18 @@ select {
   padding-bottom: 10px;
 }
 
+.icon-line {
+  display: flex;
+  justify-content: space-around;
+}
+
 .github-repo {
   padding-top: 10px;
 }
 
-.icons label {
-  display: block;
-}
+// .icons label {
+//   display: block;
+// }
 
 .icons img {
   // height: 30px;

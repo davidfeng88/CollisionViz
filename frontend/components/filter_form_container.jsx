@@ -240,7 +240,10 @@ class FilterForm extends React.Component {
           </div>
 
           <div className='icons'>
+            <div className='icon-line'>
             Show special icons for:
+            </div>
+            <div className='icon-line'>
               <label htmlFor='taxi'>
               <input
                 type="checkbox"
@@ -259,6 +262,8 @@ class FilterForm extends React.Component {
               />&nbsp;
               <img src={window.staticImages.bike} />
               &nbsp;Bicycle</label>
+            </div>
+            <div className='icon-line'>
               <label htmlFor='motorcycle'>
               <input
                 type="checkbox"
@@ -278,12 +283,13 @@ class FilterForm extends React.Component {
               <img src={window.staticImages.ped} />
               &nbsp;Pedestrian</label>
             </div>
+          </div>
 
-            <div className='github-repo'>
-              <a href='https://github.com/davidfeng88/CollisionViz' target="_blank">
-              GitHub Repo
-              </a>
-            </div>
+          <div className='github-repo'>
+            <a href='https://github.com/davidfeng88/CollisionViz' target="_blank">
+            GitHub Repo
+            </a>
+          </div>
         </form>
       </div>
     );
