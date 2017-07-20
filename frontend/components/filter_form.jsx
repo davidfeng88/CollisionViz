@@ -240,7 +240,7 @@ class FilterForm extends React.Component {
                 onChange={this.toggleCheckbox('bike')}
               />&nbsp;
               <img src={window.staticImages.bike} />
-              &nbsp;Bike</label>
+              &nbsp;Bicycle</label>
               <label htmlFor='motorcycle'>
               <input
                 type="checkbox"

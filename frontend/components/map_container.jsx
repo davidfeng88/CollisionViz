@@ -1,7 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import { connect } from 'react-redux';
+import { collisionsToArray } from '../reducers/selectors';
+import { updateHighlight } from '../actions/highlight_actions';
 import MarkerManager from '../util/marker_manager';
+
+const mapStateToProps = state => ({
+  collisions: collisionsToArray(state),
+  taxi: state.filters.taxi,
+  bike: state.filters.bike,
+  motorcycle: state.filters.motorcycle,
+});
+
+const mapDispatchToProps = dispatch => ({
+  updateHighlight: (collisionId) => dispatch(updateHighlight(collisionId)),
+});
 
 const mapOptions = {
   center: {
@@ -19,7 +32,6 @@ class Map extends React.Component {
     this.changeRadius = this.changeRadius.bind(this);
     this.changeGradient = this.changeGradient.bind(this);
     this.changeOpacity = this.changeOpacity.bind(this);
-
   }
 
   componentDidMount() {
@@ -114,4 +126,7 @@ class Map extends React.Component {
   }
 }
 
-export default Map;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Map);
