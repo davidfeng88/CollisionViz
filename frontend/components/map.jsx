@@ -11,11 +11,18 @@ const mapOptions = {
   zoom: 10
 };
 
-
 class Map extends React.Component {
   componentDidMount() {
     const map = this.refs.map;
     this.map = new google.maps.Map(map, mapOptions);
+    
+    const heatmapData = [
+      new google.maps.LatLng(40.73, -74)
+    ];
+    const heatmap = new google.maps.visualization.HeatmapLayer({
+      data: heatmapData
+    });
+    heatmap.setMap(this.map);
     this.MarkerManager = new MarkerManager(this.map, this.handleMarkerClick.bind(this));
     this.MarkerManager.updateMarkers(
       this.props.collisions,
