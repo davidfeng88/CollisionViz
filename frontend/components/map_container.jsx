@@ -40,7 +40,6 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
-    this.props.heatmapFetchAllCollisions();
     const map = this.refs.map;
     this.map = new google.maps.Map(map, mapOptions);
     this.MarkerManager = new MarkerManager(this.map, this.handleMarkerClick.bind(this));
@@ -51,13 +50,16 @@ class Map extends React.Component {
       this.props.motorcycle
     );
 
-    const heatmapData = this.props.collisionsForHeatmap.map( collision => {
-      return new google.maps.LatLng(collision[0], collision[1]);
+    this.props.heatmapFetchAllCollisions().then(() => {
+      const heatmapData = this.props.collisionsForHeatmap.map( collision => {
+        return new google.maps.LatLng(collision[0], collision[1]);
+      });
+      this.heatmap = new google.maps.visualization.HeatmapLayer({
+        data: heatmapData,
+        radius: 5,
+      });
+      this.heatmap.setMap(this.map);
     });
-    this.heatmap = new google.maps.visualization.HeatmapLayer({
-      data: heatmapData
-    });
-    this.heatmap.setMap(this.map);
   }
 
   componentDidUpdate() {
@@ -108,7 +110,7 @@ class Map extends React.Component {
   }
 
   changeRadius() {
-    this.heatmap.set('radius', this.heatmap.get('radius') ? null : 20);
+    this.heatmap.set('radius', this.heatmap.get('radius') === 5 ? 10 : 5);
   }
 
   changeOpacity() {

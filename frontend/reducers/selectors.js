@@ -11,5 +11,9 @@ export const selectHighlight = state => {
 };
 
 export const heatmapCollisionsToArray = state => {
-  return [[40.73, -74], [40.74, -74]];
+  let heatmapData = Object.values(state.heatmap)
+    .map(collision => {
+      return [collision.lat, collision.lng];
+    });
+  return heatmapData;
 };
