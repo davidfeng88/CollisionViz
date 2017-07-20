@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  collisionsToArray,
-  heatmapCollisionsToArray
-} from '../reducers/selectors';
+
+import * as APIUtil from '../util/collision_api_util';
+import { collisionsToArray } from '../reducers/selectors';
 import { updateHighlight } from '../actions/highlight_actions';
-import { heatmapFetchAllCollisions } from '../actions/heatmap_actions';
 import MarkerManager from '../util/marker_manager';
 
 const mapStateToProps = state => ({
@@ -14,12 +12,10 @@ const mapStateToProps = state => ({
   bike: state.filters.bike,
   motorcycle: state.filters.motorcycle,
   ped: state.filters.ped,
-  collisionsForHeatmap: heatmapCollisionsToArray(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   updateHighlight: (collisionId) => dispatch(updateHighlight(collisionId)),
-  heatmapFetchAllCollisions: () => dispatch(heatmapFetchAllCollisions()),
 });
 
 const mapOptions = {
@@ -52,22 +48,35 @@ class Map extends React.Component {
       this.props.ped
     );
 
-    this.props.heatmapFetchAllCollisions().then(() => {
-      const heatmapData = this.props.collisionsForHeatmap.map( collision => {
-        if (collision.length === 2) {
-          return new google.maps.LatLng(collision[0], collision[1]);
-        } else {
-          return {
-            location: new google.maps.LatLng(collision[0], collision[1]),
-            weight: collision[2]
-          };
-        }
-      });
-      this.heatmap = new google.maps.visualization.HeatmapLayer({
-        data: heatmapData,
-      });
-      this.heatmap.setMap(this.map);
-    });
+    APIUtil.fetchAllCollisions().then(
+      (collisionsData) => {
+        const latLngWeights = Object.values(collisionsData)
+          .map(collision => {
+            let injuries = collision.number_of_persons_injured;
+            let deaths = collision.number_of_persons_killed;
+            if (injuries === 0 && deaths === 0) {
+              return [collision.lat, collision.lng];
+            } else {
+              let weight = injuries * 5 + deaths * 100;
+              return [collision.lat, collision.lng, weight];
+            }
+          });
+        const heatmapData = latLngWeights.map( latLngWeight => {
+          if (latLngWeight.length === 2) {
+            return new google.maps.LatLng(latLngWeight[0], latLngWeight[1]);
+          } else {
+            return {
+              location: new google.maps.LatLng(latLngWeight[0], latLngWeight[1]),
+              weight: latLngWeight[2]
+            };
+          }
+        });
+        this.heatmap = new google.maps.visualization.HeatmapLayer({
+          data: heatmapData,
+        });
+        this.heatmap.setMap(this.map);
+      }
+    );
   }
 
   componentDidUpdate() {
