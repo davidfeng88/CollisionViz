@@ -17,6 +17,8 @@ const App = () => {
           A visualization of motor vehicle collisions
           in NYC on 6/22/2017.<br />
           Click on markers for collision details.</h3>
+          <h2>by <a href='https://davidfeng.us/' target="_blank">
+            Ge "David" Feng</a></h2>
           <div className='links'>
           <a href='https://github.com/davidfeng88' target="_blank">
           <i className="fa fa-github fa-2x" aria-hidden="true"></i>
