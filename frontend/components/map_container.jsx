@@ -5,6 +5,8 @@ import * as APIUtil from '../util/collision_api_util';
 import styles from '../util/map_style';
 import { collisionsToArray } from '../reducers/selectors';
 import { updateHighlight } from '../actions/highlight_actions';
+
+import MapInfoContainer from './map_info_container';
 import MarkerManager from '../util/marker_manager';
 
 const mapStateToProps = state => ({
@@ -141,9 +143,7 @@ class Map extends React.Component {
   render() {
     return (
       <div className='map-container'>
-        <div className='map-info'>
-        {this.props.collisions.length} collision(s) on Map
-        </div>
+        <MapInfoContainer />
         <div className="heatmap-panel">
           <div className='button' onClick={this.toggleHeatmap}>
             Toggle Heatmap</div>

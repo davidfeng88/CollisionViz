@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateFilter, resetFilter } from '../actions/filter_actions';
-import { collisionsToArray } from '../reducers/selectors';
 
 const mapStateToProps = state => ({
-  collisions: collisionsToArray(state),
   filters: state.filters,
 });
 
@@ -16,64 +14,31 @@ const mapDispatchToProps = dispatch => ({
 const START_TIME = 0;
 const END_TIME = 1439;
 
-const parseTime = (totalMinutes) => {
-  let hours = Math.floor(totalMinutes / 60).toString();
-  if (hours.length === 1) {
-    hours = `0${hours}`;
-  }
-  let minutes = (totalMinutes % 60).toString();
-  if (minutes.length === 1) {
-    minutes = `0${minutes}`;
-  }
-  return `${hours}:${minutes}`;
-};
-
-const timeLine = (currentTime, collisionMapTime, initialTime) => {
-  let finish = parseInt(currentTime);
-  let start = finish - parseInt(collisionMapTime);
-
-  if (start > END_TIME || finish > END_TIME) {
-    start = END_TIME - parseInt(collisionMapTime);
-    finish = END_TIME;
-  }
-
-  if (start < initialTime) {
-    start = initialTime;
-  }
-
-  if (start < START_TIME || finish < START_TIME) {
-    start = START_TIME;
-    finish = START_TIME + parseInt(collisionMapTime);
-  }
-
-  return(
-    `${parseTime(start)} - ${parseTime(finish)}`
-  );
-};
-
 class FilterForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentTime: this.props.filters.finish,
+      intervalId: null,
+
       initialTime: this.props.filters.start,
+      collisionMapTime: 29,
+      stepTime: 200,
 
       taxi: this.props.filters.taxi,
       bike: this.props.filters.bike,
       motorcycle: this.props.filters.motorcycle,
       ped: this.props.filters.ped,
-      intervalId: null,
-      collisionMapTime: 29,
-      stepTime: 200,
     };
 
     this.updateField = this.updateField.bind(this);
-    this.updateForm = this.updateForm.bind(this);
-    this.handleReset = this.handleReset.bind(this);
-    this.oneStepForward = this.oneStepForward.bind(this);
-    this.oneStepBackward = this.oneStepBackward.bind(this);
+    this.updateTimeInState = this.updateTimeInState.bind(this);
+
     this.handlePlay = this.handlePlay.bind(this);
     this.handleStop = this.handleStop.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+    this.oneStepBackward = this.oneStepBackward.bind(this);
+    this.oneStepForward = this.oneStepForward.bind(this);
   }
 
   componentDidMount() {
@@ -81,18 +46,21 @@ class FilterForm extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    // update state from props
     this.setState({
-      currentTime: this.props.filters.finish,
+      currentTime: newProps.filters.finish,
     });
   }
 
   updateField(field) {
-    if (field === 'currentTime') {
-      return e => this.setState({
-        initialTime: parseInt(e.currentTarget.value),
-        [field]: parseInt(e.currentTarget.value)
-      });
+
+    if (field === 'initialTime') {
+      return e => {
+        this.setState({
+          initialTime: parseInt(e.currentTarget.value),
+          currentTime: parseInt(e.currentTarget.value),
+        });
+      this.updateTimeInState(this.state.currentTime);
+      };
     } else {
       return e => this.setState({
         [field]: parseInt(e.currentTarget.value)
@@ -100,31 +68,12 @@ class FilterForm extends React.Component {
     }
   }
 
-  toggleCheckbox(field) {
-    return e => {
-      this.setState({
-        [field]: !this.state[field],
-      });
-      this.props.updateFilter({[field]: !this.state[field]});
-    };
-  }
-
-  updateForm(newTime) {
+  updateTimeInState(newTime) {
     let start = newTime - this.state.collisionMapTime;
     let finish = newTime;
-
-    if (start < this.state.initialTime) {
-      start = this.state.initialTime;
-    }
-
-    if (start < START_TIME) {
-      start = START_TIME;
-    }
-
-    if (finish > END_TIME) {
-      finish = END_TIME;
-    }
-
+    start = start < this.state.initialTime ? this.state.initialTime : start;
+    start = start < START_TIME ? START_TIME : start;
+    finish = finish > END_TIME ? END_TIME : finish;
     this.props.updateFilter({
       start,
       finish,
@@ -138,6 +87,7 @@ class FilterForm extends React.Component {
     .then(
       () => this.setState({
         initialTime: this.props.filters.start,
+        currentTime: this.props.filters.finish,
       })
     );
   }
@@ -169,32 +119,48 @@ class FilterForm extends React.Component {
     // if (newTime > END_TIME + this.state.collisionMapTime) {
     //   this.handleStop();
     // }
-    this.updateForm(newTime);
+    this.updateTimeInState(newTime);
+  }
+
+  toggleCheckbox(field) {
+    return e => {
+      this.setState({
+        [field]: !this.state[field],
+      });
+      this.props.updateFilter({[field]: !this.state[field]});
+    };
   }
 
   render() {
     const {
       updateFilter,
       resetFilter,
-      collisions,
     } = this.props;
 
     return(
       <div className="filter">
-        Current Map Time: {parseTime(this.state.currentTime)}
-        <br />
-        {collisions.length} collision(s) during&nbsp;
-        {timeLine(
-          this.state.currentTime,
-          this.state.collisionMapTime,
-          this.state.initialTime
-        )}
-        <br />
-        <form>
+        <div>
+        Internal state:
+        InitialTime: {this.state.initialTime}<br />
+        currentTime: {this.state.currentTime}<br />
 
+        intervalId: {this.state.intervalId}<br />
+
+        collisionMapTime: {this.state.collisionMapTime}<br />
+        stepTime: {this.state.stepTime} <br />
+
+        taxi: {this.state.taxi.toString()} <br />
+
+        External state:
+        start: {this.props.filters.start} <br />
+        finish: {this.props.filters.finish} <br />
+
+        taxi: {this.props.filters.taxi.toString()}
+        </div>
+        <form>
           <label htmlFor='time-start'>Set start time</label>
-          <select id="time-start" value={this.state.currentTime}
-            onChange={this.updateField('currentTime')} >
+          <select id="time-start" value={this.state.initialTime}
+            onChange={this.updateField('initialTime')} >
             <option value='420' >7:00 Morning</option>
             <option value='0' >0:00 Midnight</option>
             <option value='720' >12:00 Noon</option>
@@ -284,19 +250,15 @@ class FilterForm extends React.Component {
               &nbsp;Pedestrian</label>
             </div>
           </div>
-
-          <div className='github-repo'>
-            <a href='https://github.com/davidfeng88/CollisionViz' target="_blank">
-            GitHub Repo
-            </a>
-          </div>
         </form>
+          <div className='github-repo'>
+          <a href='https://github.com/davidfeng88/CollisionViz' target="_blank">
+          GitHub Repo
+          </a>
+          </div>
       </div>
     );
-
-
   }
-
 }
 
 export default connect(
