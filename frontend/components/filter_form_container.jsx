@@ -31,8 +31,10 @@ class FilterForm extends React.Component {
       ped: this.props.filters.ped,
     };
 
-    this.updateField = this.updateField.bind(this);
-    this.updateTimeInState = this.updateTimeInState.bind(this);
+    this.updateInitialTime = this.updateInitialTime.bind(this);
+    this.updateCollisionMapTime = this.updateCollisionMapTime.bind(this);
+    this.updateStepTime = this.updateStepTime.bind(this);
+    this.updateTime = this.updateTime.bind(this);
 
     this.handlePlay = this.handlePlay.bind(this);
     this.handleStop = this.handleStop.bind(this);
@@ -51,32 +53,31 @@ class FilterForm extends React.Component {
     });
   }
 
-  updateField(field) {
+  updateCollisionMapTime(e) {
+    let collisionMapTime = parseInt(e.currentTarget.value);
+    this.setState({ collisionMapTime });
+  }
 
-    if (field === 'initialTime') {
-      return e => {
-        this.setState({
-          initialTime: parseInt(e.currentTarget.value),
-          currentTime: parseInt(e.currentTarget.value),
-        });
-      this.updateTimeInState(this.state.currentTime);
-      };
-    } else {
-      return e => this.setState({
-        [field]: parseInt(e.currentTarget.value)
-      });
+  updateStepTime(e) {
+    let stepTime = parseInt(e.currentTarget.value);
+    this.setState({ stepTime });
+    if (this.state.intervalId) {
+      clearInterval(this.state.intervalId);
+      let intervalId = setInterval(this.oneStepForward, stepTime);
+        // do not use this.state.stepTime since the setState can be async
+      this.setState({ intervalId });
     }
   }
 
-  updateTimeInState(newTime) {
-    let start = newTime - this.state.collisionMapTime;
-    let finish = newTime;
-    start = start < this.state.initialTime ? this.state.initialTime : start;
-    start = start < START_TIME ? START_TIME : start;
-    finish = finish > END_TIME ? END_TIME : finish;
+  updateInitialTime(e) {
+    let newTime = parseInt(e.currentTarget.value);
+    this.setState({
+      initialTime: newTime,
+      currentTime: newTime,
+    });
     this.props.updateFilter({
-      start,
-      finish,
+      start: newTime,
+      finish: newTime,
     });
   }
 
@@ -92,7 +93,7 @@ class FilterForm extends React.Component {
     );
   }
 
-  handlePlay(e) {
+  handlePlay() {
     if (!this.state.intervalId) {
       let intervalId = setInterval(this.oneStepForward, this.state.stepTime);
       this.setState({ intervalId });
@@ -107,60 +108,49 @@ class FilterForm extends React.Component {
   }
 
   oneStepBackward() {
-    this.updateTime(-1);
+    this.oneStep(-1);
   }
 
   oneStepForward() {
-    this.updateTime(1);
+    this.oneStep(1);
   }
 
-  updateTime(delta) {
+  oneStep(delta) {
     let newTime = this.state.currentTime + delta;
-    // if (newTime > END_TIME + this.state.collisionMapTime) {
-    //   this.handleStop();
-    // }
-    this.updateTimeInState(newTime);
+    if (newTime > END_TIME) {
+      this.handleStop();
+    } else {
+      this.updateTime(newTime);
+    }
+  }
+
+  updateTime(newTime) {
+    let start = newTime - this.state.collisionMapTime;
+    let finish = newTime;
+    start = start < this.state.initialTime ? this.state.initialTime : start;
+    start = start < START_TIME ? START_TIME : start;
+    finish = finish > END_TIME ? END_TIME : finish;
+    this.props.updateFilter({
+      start,
+      finish,
+    });
   }
 
   toggleCheckbox(field) {
     return e => {
-      this.setState({
-        [field]: !this.state[field],
-      });
-      this.props.updateFilter({[field]: !this.state[field]});
+      let newValue = !this.state[field];
+      this.props.updateFilter({[field]: newValue});
+      this.setState({ [field]: newValue });
     };
   }
 
   render() {
-    const {
-      updateFilter,
-      resetFilter,
-    } = this.props;
-
     return(
       <div className="filter">
-        <div>
-        Internal state:
-        InitialTime: {this.state.initialTime}<br />
-        currentTime: {this.state.currentTime}<br />
-
-        intervalId: {this.state.intervalId}<br />
-
-        collisionMapTime: {this.state.collisionMapTime}<br />
-        stepTime: {this.state.stepTime} <br />
-
-        taxi: {this.state.taxi.toString()} <br />
-
-        External state:
-        start: {this.props.filters.start} <br />
-        finish: {this.props.filters.finish} <br />
-
-        taxi: {this.props.filters.taxi.toString()}
-        </div>
         <form>
           <label htmlFor='time-start'>Set start time</label>
           <select id="time-start" value={this.state.initialTime}
-            onChange={this.updateField('initialTime')} >
+            onChange={this.updateInitialTime} >
             <option value='420' >7:00 Morning</option>
             <option value='0' >0:00 Midnight</option>
             <option value='720' >12:00 Noon</option>
@@ -171,7 +161,7 @@ class FilterForm extends React.Component {
           <label htmlFor='collision-map-time'>
             Collisions stay on the map for: </label>
           <select id="collision-map-time" value={this.state.collisionMapTime}
-            onChange={this.updateField('collisionMapTime')} >
+            onChange={this.updateCollisionMapTime} >
             <option value='4' >5 minutes</option>
             <option value='9' >10 minutes</option>
             <option value='29' >30 minutes</option>
@@ -181,7 +171,7 @@ class FilterForm extends React.Component {
           <label htmlFor='step-time'>
             Time lapse rate: </label>
           <select id="step-time" value={this.state.stepTime}
-            onChange={this.updateField('stepTime')} >
+            onChange={this.updateStepTime} >
             <option value='100' >Fast</option>
             <option value='200' >Default</option>
             <option value='400' >Slow</option>
