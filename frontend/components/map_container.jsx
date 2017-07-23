@@ -141,11 +141,18 @@ class Map extends React.Component {
   render() {
     return (
       <div className='map-container'>
-        <div className="floating-panel">
-          <div className='button' onClick={this.toggleHeatmap}>Toggle Heatmap</div>
-          <div className='button' onClick={this.changeGradient}>Change Gradient</div>
-          <div className='button' onClick={this.changeRadius}>Change Radius</div>
-          <div className='button' onClick={this.changeOpacity}>Change Opacity</div>
+        <div className='map-info'>
+        {this.props.collisions.length} collision(s) on Map
+        </div>
+        <div className="heatmap-panel">
+          <div className='button' onClick={this.toggleHeatmap}>
+            Toggle Heatmap</div>
+          <div className='button' onClick={this.changeGradient}>
+            Change Gradient</div>
+          <div className='button' onClick={this.changeRadius}>
+            Change Radius</div>
+          <div className='button' onClick={this.changeOpacity}>
+            Change Opacity</div>
         </div>
         <div className="index-map" ref="map">
           Map

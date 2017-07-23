@@ -9,7 +9,24 @@
   position: relative;
 }
 
-.floating-panel {
+.map-info {
+  width: 200px;
+  font-size: 12px;
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  border-radius: 5px;
+  text-align: center;
+  padding-left: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.heatmap-panel {
   width: 450px;
   font-size: 12px;
   position: absolute;
