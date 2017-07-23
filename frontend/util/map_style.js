@@ -1,4 +1,7 @@
-const styles = [
+const styles = [];
+
+/*
+[
   {
     "stylers": [
       {
@@ -219,6 +222,6 @@ const styles = [
       }
     ]
   }
-];
+]; */
 
 export default styles;

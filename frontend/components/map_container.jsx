@@ -35,9 +35,10 @@ class Map extends React.Component {
     super(props);
 
     this.toggleHeatmap = this.toggleHeatmap.bind(this);
-    this.changeRadius = this.changeRadius.bind(this);
-    this.changeGradient = this.changeGradient.bind(this);
-    this.changeOpacity = this.changeOpacity.bind(this);
+    this.toggleTraffic = this.toggleTraffic.bind(this);
+    this.toggleTransit = this.toggleTransit.bind(this);
+    this.toggleBicycling = this.toggleBicycling.bind(this);
+
   }
 
   componentDidMount() {
@@ -51,6 +52,12 @@ class Map extends React.Component {
       this.props.motorcycle,
       this.props.ped
     );
+    this.trafficLayer = new google.maps.TrafficLayer();
+    this.trafficLayer.setMap(null);
+    this.transitLayer = new google.maps.TransitLayer();
+    this.transitLayer.setMap(null);
+    this.bikeLayer = new google.maps.BicyclingLayer();
+    this.bikeLayer.setMap(null);
 
     APIUtil.fetchAllCollisions().then(
       (collisionsData) => {
@@ -111,33 +118,16 @@ class Map extends React.Component {
     this.heatmap.setMap(this.heatmap.getMap() ? null : this.map);
   }
 
-  changeGradient() {
-    let gradient = [
-      'rgba(0, 255, 255, 0)',
-      'rgba(0, 255, 255, 1)',
-      'rgba(0, 191, 255, 1)',
-      'rgba(0, 127, 255, 1)',
-      'rgba(0, 63, 255, 1)',
-      'rgba(0, 0, 255, 1)',
-      'rgba(0, 0, 223, 1)',
-      'rgba(0, 0, 191, 1)',
-      'rgba(0, 0, 159, 1)',
-      'rgba(0, 0, 127, 1)',
-      'rgba(63, 0, 91, 1)',
-      'rgba(127, 0, 63, 1)',
-      'rgba(191, 0, 31, 1)',
-      'rgba(255, 0, 0, 1)'
-    ];
-    this.heatmap.set(
-      'gradient', this.heatmap.get('gradient') ? null : gradient);
+  toggleTraffic() {
+    this.trafficLayer.setMap(this.trafficLayer.getMap() ? null : this.map);
   }
 
-  changeRadius() {
-    this.heatmap.set('radius', this.heatmap.get('radius')? null : 20);
+  toggleTransit() {
+    this.transitLayer.setMap(this.transitLayer.getMap() ? null : this.map);
   }
 
-  changeOpacity() {
-    this.heatmap.set('opacity', this.heatmap.get('opacity') ? null : 0.2);
+  toggleBicycling() {
+    this.bikeLayer.setMap(this.bikeLayer.getMap() ? null : this.map);
   }
 
   render() {
@@ -147,12 +137,12 @@ class Map extends React.Component {
         <div className="heatmap-panel">
           <div className='button' onClick={this.toggleHeatmap}>
             Toggle Heatmap</div>
-          <div className='button' onClick={this.changeGradient}>
-            Change Gradient</div>
-          <div className='button' onClick={this.changeRadius}>
-            Change Radius</div>
-          <div className='button' onClick={this.changeOpacity}>
-            Change Opacity</div>
+          <div className='button' onClick={this.toggleTraffic}>
+            Toggle Traffic</div>
+          <div className='button' onClick={this.toggleTransit}>
+            Toggle Transit</div>
+          <div className='button' onClick={this.toggleBicycling}>
+            Toggle Bicycling</div>
         </div>
         <div className="index-map" ref="map">
           Map
