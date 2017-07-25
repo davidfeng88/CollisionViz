@@ -1,8 +1,9 @@
 class Api::CollisionsController < ApplicationController
 
   def index
-    @collisions = Collision.all
-
+    # @collisions = Collision.all
+    @collisions = bounds ? Collision.in_bounds(bounds) : Collision.all
+    
     if (params[:start] && params[:finish])
       @collisions = @collisions.where(time: time_range)
     end
@@ -23,6 +24,10 @@ class Api::CollisionsController < ApplicationController
     start = offset + params[:start].to_i.minutes
     finish = offset + params[:finish].to_i.minutes
     start..finish
+  end
+
+  def bounds
+    params[:bounds]
   end
 
 end

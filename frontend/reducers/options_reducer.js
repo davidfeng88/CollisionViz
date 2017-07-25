@@ -3,6 +3,7 @@ import merge from 'lodash/merge';
 import { UPDATE_OPTION, RESET_OPTION } from '../actions/option_actions';
 
 const defaultOptions = Object.freeze({
+  bounds: {},
   start: 420, // in minutes, later from midnight.
   finish: 420, // in minutes
   taxi: true,

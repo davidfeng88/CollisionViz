@@ -5,6 +5,7 @@ import * as APIUtil from '../util/collision_api_util';
 import styles from '../util/map_style';
 import { collisionsToArray } from '../reducers/selectors';
 import { updateHighlight } from '../actions/highlight_actions';
+import { updateOption } from '../actions/option_actions';
 
 import MapInfoContainer from './map_info_container';
 import MarkerManager from '../util/marker_manager';
@@ -18,6 +19,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateOption: (options) => dispatch(updateOption(options)),
   updateHighlight: (collisionId) => dispatch(updateHighlight(collisionId)),
 });
 
@@ -45,6 +47,14 @@ class Map extends React.Component {
     const map = this.refs.map;
     this.map = new google.maps.Map(map, mapOptions);
     this.MarkerManager = new MarkerManager(this.map, this.handleClick.bind(this));
+    google.maps.event.addListener(this.map, 'idle', () => {
+      const { north, south, east, west } = this.map.getBounds().toJSON();
+      const bounds = {
+        northEast: { lat:north, lng: east },
+        southWest: { lat:south, lng: west },
+      };
+      this.props.updateOption({bounds: bounds});
+    });
     this.MarkerManager.updateMarkers(
       this.props.collisions,
       this.props.taxi,
