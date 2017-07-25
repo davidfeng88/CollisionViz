@@ -8,7 +8,7 @@ import {
 } from '../actions/highlight_actions';
 
 const mapStateToProps = state => ({
-  highlight: selectHighlight(state),
+  collision: selectHighlight(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -61,9 +61,8 @@ class Highlight extends React.Component {
   }
 
   render() {
-    let { highlight } = this.props;
-    if (highlight) {
-      let { id } = highlight;
+    let { collision } = this.props;
+    if (collision) {
       return(
         <div className='highlight'>
           <div className='highlight-first-row'>
@@ -76,7 +75,7 @@ class Highlight extends React.Component {
             ×
             </div>
           </div>
-          {this.details(highlight)}
+          {this.details(collision)}
         </div>
       );
     } else {
