@@ -95,6 +95,8 @@ class FilterForm extends React.Component {
 
   handlePlay() {
     if (!this.state.intervalId) {
+      let traffic = document.getElementById("traffic");
+      traffic.play();
       let intervalId = setInterval(this.oneStepForward, this.state.stepTime);
       this.setState({ intervalId });
     }
@@ -102,6 +104,8 @@ class FilterForm extends React.Component {
 
   handleStop() {
     if (this.state.intervalId) {
+      let traffic = document.getElementById("traffic");
+      traffic.pause();
       clearInterval(this.state.intervalId);
       this.setState({ intervalId: null });
     }

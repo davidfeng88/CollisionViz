@@ -7,6 +7,10 @@ import HighlightContainer from './highlight_container';
 const App = () => {
   return (
     <div className='container'>
+
+      <audio id='traffic' src={window.staticSounds.traffic}>
+        Your browser does not support the <code>audio</code> element.
+      </audio>
       <div className='main'>
         <aside>
           <div className='logo'>
