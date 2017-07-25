@@ -29,12 +29,14 @@ class FilterForm extends React.Component {
       bike: this.props.filters.bike,
       motorcycle: this.props.filters.motorcycle,
       ped: this.props.filters.ped,
+      mute: this.props.filters.mute,
     };
 
     this.updateInitialTime = this.updateInitialTime.bind(this);
     this.updateCollisionMapTime = this.updateCollisionMapTime.bind(this);
     this.updateStepTime = this.updateStepTime.bind(this);
     this.updateTime = this.updateTime.bind(this);
+    this.toggleMute = this.toggleMute.bind(this);
 
     this.handlePlay = this.handlePlay.bind(this);
     this.handleStop = this.handleStop.bind(this);
@@ -95,10 +97,12 @@ class FilterForm extends React.Component {
 
   handlePlay() {
     if (!this.state.intervalId) {
-      let traffic = document.getElementById("traffic");
-      traffic.play();
       let intervalId = setInterval(this.oneStepForward, this.state.stepTime);
       this.setState({ intervalId });
+    }
+    if (!this.state.mute) {
+      let traffic = document.getElementById("traffic");
+      traffic.play();
     }
   }
 
@@ -147,6 +151,38 @@ class FilterForm extends React.Component {
       this.setState({ [field]: newValue });
     };
   }
+  // fat arrow functions automatic bind this
+
+  toggleMute() {
+    let newValue = !this.state.mute;
+    this.props.updateFilter({mute: newValue});
+    this.setState({ mute: newValue });
+    let traffic = document.getElementById("traffic");
+    if (this.state.intervalId && !newValue) {
+      traffic.play();
+    } else {
+      traffic.pause();
+    }
+  }
+
+  speakerIcon() {
+    if (this.state.mute) {
+      return(
+        <div className="fa-stack">
+          <i className="fa fa-lg fa-volume-off fa-stack-2x"
+            aria-hidden="true"></i>
+          <i className="fa fa-lg fa-ban fa-stack-2x red"
+            aria-hidden="true"></i>
+        </div>
+      );
+    } else {
+      return(
+        <div>
+          <i className="fa fa-lg fa-volume-up" aria-hidden="true"></i>
+        </div>
+      );
+    }
+  }
 
   render() {
     return(
@@ -183,19 +219,22 @@ class FilterForm extends React.Component {
 
           <div className='buttons'>
             <div className='clickable-div' onClick={this.handlePlay}>
-              <i className="fa fa-play fa-2x" aria-hidden="true"></i>
+              <i className="fa fa-play fa-lg" aria-hidden="true"></i>
             </div>
             <div className='clickable-div' onClick={this.handleStop}>
-              <i className="fa fa-pause fa-2x" aria-hidden="true"></i>
+              <i className="fa fa-pause fa-lg" aria-hidden="true"></i>
             </div>
             <div className='clickable-div' onClick={this.handleReset}>
-              <i className="fa fa-repeat fa-2x" aria-hidden="true"></i>
+              <i className="fa fa-repeat fa-lg" aria-hidden="true"></i>
             </div>
             <div className='clickable-div' onClick={this.oneStepBackward}>
-            <i className="fa fa-step-backward fa-2x" aria-hidden="true"></i>
+            <i className="fa fa-step-backward fa-lg" aria-hidden="true"></i>
             </div>
             <div className='clickable-div' onClick={this.oneStepForward}>
-              <i className="fa fa-step-forward fa-2x" aria-hidden="true"></i>
+              <i className="fa fa-step-forward fa-lg" aria-hidden="true"></i>
+            </div>
+            <div className='clickable-div' onClick={this.toggleMute}>
+              {this.speakerIcon()}
             </div>
           </div>
 

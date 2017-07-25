@@ -23,7 +23,8 @@ select {
 .clickable-div {
   margin: 5px;
   border-radius: 5px;
-  padding: 10px;
+  padding: 5px;
+  vertical-align: middle;
 }
 
 .clickable-div:hover {
@@ -57,4 +58,8 @@ select {
 .icons img {
   // height: 30px;
   width: 30px;
+}
+
+.red {
+  color: red;
 }

@@ -9,6 +9,7 @@ const defaultFilters = Object.freeze({
   bike: true,
   motorcycle: true,
   ped: true,
+  mute: true,
 });
 
 const FiltersReducer = (state = defaultFilters, action) => {
