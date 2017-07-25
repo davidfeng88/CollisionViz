@@ -10,15 +10,18 @@ CollisionViz shows the location and time of motor vehicle collisions in New York
 The user can select the start time of the visualization, how long a collision stays on the map, and the time lapse rate. The "Reset" button resets these settings to the default.
 
 The user can start/pause/resume the visualization. The user can also step one minute (map time) forward/backward. The optional background traffic sound can be turned on and off.
+
 The user can choose to show special icons for collisions involving taxis, bicycles, motorcycles, and pedestrians. These settings do not change the icons that are already on the map. Also, the icons have priorities as taxi > bicycle > motorcycle > pedestrian (e.g. if a taxi hit a bicycle, the icon would be a taxi).
 
 ### The map
 During the visualization, markers representing collisions appear on the embedded Google Map at the corresponding time recorded in the NYPD database, so the number of collisions on the round clock (e.g. 13:00) might be overrated. the current map time and the number of collisions on the map are updated simultaneously.
+
 The user can toggle four layers on and off the map. The Heatmap layer shows a heatmap based on all the collisions on 6/22/2017. One injury is counted as five normal collisions (where nobody was injured or killed). One death is counted as 100 normal collisions (fortunately the number of deaths is 0 on that day). The Traffic layer shows the real-time (user time) traffic information. The Transit layer displays the public transit network. The Bicycling Layer renders a layer of bike paths, suggested bike routes and other overlays specific to bicycling usage. By default, the Heatmap layer is turned on while the other three are turned off.
 
 ### Collision details
 When the user click on the marker on the map, a box containing details of the collision appears.
 The columns where value is `0` (e.g. number of persons injured) or `null` and the `id` column are not shown.
+
 The time stored in the database is in `datetime` type and is in [Coordinated Universal Time (UTC)](https://www.wikiwand.com/en/Coordinated_Universal_Time). The local time in New York City is UTC-04:00 (with daylight saving time).
 
 ## Implementation
@@ -29,25 +32,23 @@ The [NYPD data][data_link] come in a CSV file. The entries were imported to a Po
 [data_link]: https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95
 
 ### Filtering the collisions
-The `filter_form` front-end component converts the current map time and the time a collision stays on map into start and finish time to filter the collisions. It also handles several edge cases, for example, when the visualization just started, collisions happened before the start time should not be included.
+The internal state of `ControlPanel` component contains a field for `currentTime`. `oneStepForward` function increases `currentTime` by one minute, calculates the `start` and `finish` options (with `collisionMapTime`, which is set by the user), and updates the `collisions` slice of the Redux state with collisions which happened in the new time range. The Map then renders markers for the collisions.
 
-### The player
-In the `filter_form`, the `oneStepForward` and `oneStepBackward` functions move the current map time 1 minute forward and backward respectively.
-In the internal state of the `filter_form`, I set a `intervalId` field to store the intervalId. Default value is null (visualization is not playing).
-If the visualization is not playing, the `handlePlay` function calls the `setInterval` function, with the `oneStepForward` callback and a interval time, which comes from the setting for map time lapse rate. It also stores the intervalId in the internal state.
+It also handles several edge cases, for example, when the visualization just started, collisions happened before the start time should not be included.
+
+The `handlePlay` function uses the `setInterval` function to call `oneStepForward` repeatedly. The delay time is also set by the user.
+
 The `handleStop` function calls the `clearInterval` function, and set the intervalId in the internal state to null.
 
-### Icon variation
-Use different icons for collisions involving taxi, bikes, etc.
+### the map
+The `marker_manager` updates markers on the map based on the collisions in the Redux state. Markers have `onClick` listeners, which dispatches an action to update the `highlight` slice of the state.
+
+The `MapInfo` component receives `start` and `finish` time from the `options` slice of the state and renders them.
+
+[Custom markers](https://developers.google.com/maps/documentation/javascript/custom-markers), [heatmap](https://developers.google.com/maps/documentation/javascript/heatmaplayer), and [traffic, transit and bicycling layer](https://developers.google.com/maps/documentation/javascript/trafficlayer) are created using the Google Maps JavaScript API.
 
 ### Collision details
-Click on a marker on the map shows a new collision detail React component.
-
-heatmap
-
-
-### Sound effects
-Play an optional sound effect when markers for new collisions are placed on the map.
+The `Highlight` component will render if the `highlight` slice of the state is not `null`. To make the component persist even after the marker disappear from the map, I had to create a separate `highlight` slice to hold the information of this collision, instead of using the information already in the `collisions` slice.
 
 ## Future Directions
 

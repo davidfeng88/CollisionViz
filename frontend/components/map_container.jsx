@@ -44,7 +44,7 @@ class Map extends React.Component {
   componentDidMount() {
     const map = this.refs.map;
     this.map = new google.maps.Map(map, mapOptions);
-    this.MarkerManager = new MarkerManager(this.map, this.handleMarkerClick.bind(this));
+    this.MarkerManager = new MarkerManager(this.map, this.handleClick.bind(this));
     this.MarkerManager.updateMarkers(
       this.props.collisions,
       this.props.taxi,
@@ -110,7 +110,7 @@ class Map extends React.Component {
     );
   }
 
-  handleMarkerClick(collision) {
+  handleClick(collision) {
     this.props.updateHighlight(collision.id);
   }
 

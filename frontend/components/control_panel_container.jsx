@@ -49,12 +49,6 @@ class ControlPanel extends React.Component {
     this.props.updateOption();
   }
 
-  componentWillReceiveProps(newProps) {
-    this.setState({
-      currentTime: newProps.options.finish,
-    });
-  }
-
   updateCollisionMapTime(e) {
     let collisionMapTime = parseInt(e.currentTarget.value);
     this.setState({ collisionMapTime });
@@ -135,6 +129,7 @@ class ControlPanel extends React.Component {
   }
 
   updateTime(newTime) {
+    this.setState({ currentTime: newTime });
     let start = newTime - this.state.collisionMapTime;
     let finish = newTime;
     start = start < this.state.initialTime ? this.state.initialTime : start;
