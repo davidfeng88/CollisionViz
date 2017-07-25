@@ -40,7 +40,7 @@ class Map extends React.Component {
     this.toggleTraffic = this.toggleTraffic.bind(this);
     this.toggleTransit = this.toggleTransit.bind(this);
     this.toggleBicycling = this.toggleBicycling.bind(this);
-
+    this.resetBounds = this.resetBounds.bind(this);
   }
 
   componentDidMount() {
@@ -96,6 +96,7 @@ class Map extends React.Component {
           data: heatmapData,
         });
         this.heatmap.setMap(this.map);
+        this.bounds = this.map.getBounds();
       }
     );
   }
@@ -140,6 +141,11 @@ class Map extends React.Component {
     this.bikeLayer.setMap(this.bikeLayer.getMap() ? null : this.map);
   }
 
+  resetBounds() {
+    this.map.fitBounds(this.bounds);
+  }
+
+
   render() {
     return (
       <div className='map-container'>
@@ -153,6 +159,8 @@ class Map extends React.Component {
             Toggle Transit</div>
           <div className='button' onClick={this.toggleBicycling}>
             Toggle Bicycling</div>
+          <div className='button' onClick={this.resetBounds}>
+            Reset Bound</div>
         </div>
         <div className="index-map" ref="map">
           Map
