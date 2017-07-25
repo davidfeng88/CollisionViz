@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import * as APIUtil from '../util/collision_api_util';
-import styles from '../util/map_style';
 import { collisionsToArray } from '../reducers/selectors';
 import { updateHighlight } from '../actions/highlight_actions';
 import { updateOption } from '../actions/option_actions';
@@ -29,7 +28,6 @@ const mapOptions = {
     lng: -73.993479
   }, // NYC coords
   zoom: 10,
-  styles: styles,
 };
 
 class Map extends React.Component {
