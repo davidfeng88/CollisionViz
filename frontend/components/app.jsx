@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FilterFormContainer from './filter_form_container';
+import ControlPanelContainer from './control_panel_container';
 import MapContainer from './map_container';
 import HighlightContainer from './highlight_container';
 
@@ -37,7 +37,7 @@ const App = () => {
           <i className="fa fa-user fa-lg" aria-hidden="true"></i>
           </a>
           </div>
-          <FilterFormContainer />
+          <ControlPanelContainer />
         </aside>
         <MapContainer />
       </div>

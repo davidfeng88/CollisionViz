@@ -1,16 +1,28 @@
 # CollisionViz
-[CollisionViz live][heroku]
+Interact with CollisionViz [here](https://collisionviz.davidfeng.us/) or [here](https://collisionviz.herokuapp.com/).
 
-[heroku]: https://collisionviz.davidfeng.us/
+CollisionViz shows the location and time of motor vehicle collisions in New York City on 6/22/2017 (Friday). It uses Ruby on Rails, a PostgreSQL database, React.js, Redux, and Google Maps JavaScript API. Collision data are from NYPD.
 
-CollisionViz shows the location and time of motor vehicle collisions in New York City on 6/22/2017. It uses Ruby on Rails, a PostgreSQL database, React.js, Redux, and Google Maps JavaScript API. Collision data are from NYPD.
-
-![screenshot](screenshot.png)
+![play_demo](play_demo.gif)
 
 ## Features
-The user can set the start time of the visualization, how long (map time) a collision stays on the map, and the time lapse rate. The "Reset" button resets these settings to defaults.
-The user can start/pause/resume the visualization. The user can also step 1 minute (map time) forward or backward when the visualization is paused.
+### The control panel
+The user can select the start time of the visualization, how long a collision stays on the map, and the time lapse rate. The "Reset" button resets these settings to the default.
+The user can start/pause/resume the visualization. The user can also step one minute (map time) forward/backward. The optional background traffic sound can be turned on and off.
+The user can choose to show special icons for collisions involving taxis, bicycles, motorcycles, and pedestrians. These settings do not change the icons that are already on the map. Also, the icons have priorities as taxi > bicycle > motorcycle > pedestrian (e.g. if a taxi hit a bicycle, the icon would be a taxi).
+
+### The map
 During the visualization, a marker for a certain collision appears on the embedded Google Map on the corresponding time in the NYPD database, so the number of collisions on the round clock (e.g. 13:00) might be overrated. After a certain time (set by the user), the marker disappears. the current map time and the number of collisions are updated simultaneously.
+
+### Icon variation
+Use different icons for collisions involving taxi, bikes, etc.
+
+### Collision details
+Click on a marker on the map shows a new collision detail React component.
+
+### Sound effects
+Play an optional sound effect when markers for new collisions are placed on the map.
+
 
 ## Implementation
 
@@ -33,11 +45,5 @@ The `handleStop` function calls the `clearInterval` function, and set the interv
 ### Collision filter by map borders
 Resize/move the map eliminates the collisions that are outside of the map border.
 
-### Icon variation
-Use different icons for collisions involving taxi, bikes, etc.
-
-### Collision details
-Click on a marker on the map shows a new collision detail React component.
-
-### Sound effects
-Play an optional sound effect when markers for new collisions are placed on the map.
+### Show collisions in multiple days
+Include collision data from multiple days and allow the user to select the date. Compare time/location distributions of collisions between different days (e.g. weekday vs. weekend, winter vs. summer, rainy vs. sunny, etc.).
