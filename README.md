@@ -7,7 +7,7 @@ CollisionViz shows the location and time of motor vehicle collisions in New York
 
 ## Features
 ### The control panel
-The user can select the start time of the visualization, how long a collision stays on the map, and the time lapse rate. The "Reset" button resets these settings to the default.
+The user can select the start time of the visualization, how long a collision stays on the map, and the time lapse rate. The "Reset" button resets these settings to the default.\n
 The user can start/pause/resume the visualization. The user can also step one minute (map time) forward/backward. The optional background traffic sound can be turned on and off.
 The user can choose to show special icons for collisions involving taxis, bicycles, motorcycles, and pedestrians. These settings do not change the icons that are already on the map. Also, the icons have priorities as taxi > bicycle > motorcycle > pedestrian (e.g. if a taxi hit a bicycle, the icon would be a taxi).
 
