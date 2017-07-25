@@ -29,7 +29,7 @@ class FilterForm extends React.Component {
       bike: this.props.filters.bike,
       motorcycle: this.props.filters.motorcycle,
       ped: this.props.filters.ped,
-      mute: this.props.filters.mute,
+      mute: true,
     };
 
     this.updateInitialTime = this.updateInitialTime.bind(this);
@@ -103,6 +103,8 @@ class FilterForm extends React.Component {
     if (!this.state.mute) {
       let traffic = document.getElementById("traffic");
       traffic.play();
+      traffic.loop = true;
+      traffic.volume = 0.2;
     }
   }
 
@@ -155,11 +157,12 @@ class FilterForm extends React.Component {
 
   toggleMute() {
     let newValue = !this.state.mute;
-    this.props.updateFilter({mute: newValue});
     this.setState({ mute: newValue });
     let traffic = document.getElementById("traffic");
     if (this.state.intervalId && !newValue) {
       traffic.play();
+      traffic.loop = true;
+      traffic.volume = 0.2;
     } else {
       traffic.pause();
     }
