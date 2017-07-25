@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateFilter, resetFilter } from '../actions/filter_actions';
+import { updateOption, resetOption } from '../actions/option_actions';
 
 const mapStateToProps = state => ({
-  filters: state.filters,
+  options: state.options,
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateFilter: (filters) => dispatch(updateFilter(filters)),
-  resetFilter: () => dispatch(resetFilter()),
+  updateOption: (options) => dispatch(updateOption(options)),
+  resetOption: () => dispatch(resetOption()),
 });
 
 const START_TIME = 0;
@@ -18,17 +18,17 @@ class ControlPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentTime: this.props.filters.finish,
+      currentTime: this.props.options.finish,
       intervalId: null,
 
-      initialTime: this.props.filters.start,
+      initialTime: this.props.options.start,
       collisionMapTime: 29,
       stepTime: 200,
 
-      taxi: this.props.filters.taxi,
-      bike: this.props.filters.bike,
-      motorcycle: this.props.filters.motorcycle,
-      ped: this.props.filters.ped,
+      taxi: this.props.options.taxi,
+      bike: this.props.options.bike,
+      motorcycle: this.props.options.motorcycle,
+      ped: this.props.options.ped,
       mute: true,
     };
 
@@ -46,12 +46,12 @@ class ControlPanel extends React.Component {
   }
 
   componentDidMount() {
-    this.props.updateFilter();
+    this.props.updateOption();
   }
 
   componentWillReceiveProps(newProps) {
     this.setState({
-      currentTime: newProps.filters.finish,
+      currentTime: newProps.options.finish,
     });
   }
 
@@ -77,7 +77,7 @@ class ControlPanel extends React.Component {
       initialTime: newTime,
       currentTime: newTime,
     });
-    this.props.updateFilter({
+    this.props.updateOption({
       start: newTime,
       finish: newTime,
     });
@@ -85,12 +85,12 @@ class ControlPanel extends React.Component {
 
   handleReset() {
     this.handleStop();
-    this.props.resetFilter();
-    this.props.updateFilter()
+    this.props.resetOption();
+    this.props.updateOption()
     .then(
       () => this.setState({
-        initialTime: this.props.filters.start,
-        currentTime: this.props.filters.finish,
+        initialTime: this.props.options.start,
+        currentTime: this.props.options.finish,
       })
     );
   }
@@ -140,7 +140,7 @@ class ControlPanel extends React.Component {
     start = start < this.state.initialTime ? this.state.initialTime : start;
     start = start < START_TIME ? START_TIME : start;
     finish = finish > END_TIME ? END_TIME : finish;
-    this.props.updateFilter({
+    this.props.updateOption({
       start,
       finish,
     });
@@ -149,7 +149,7 @@ class ControlPanel extends React.Component {
   toggleCheckbox(field) {
     return e => {
       let newValue = !this.state[field];
-      this.props.updateFilter({[field]: newValue});
+      this.props.updateOption({[field]: newValue});
       this.setState({ [field]: newValue });
     };
   }
@@ -189,7 +189,7 @@ class ControlPanel extends React.Component {
 
   render() {
     return(
-      <div className="filter">
+      <div className="control-panel">
         <form>
           <label htmlFor='time-start'>Set start time</label>
           <select id="time-start" value={this.state.initialTime}

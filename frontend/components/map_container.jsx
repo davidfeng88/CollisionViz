@@ -11,10 +11,10 @@ import MarkerManager from '../util/marker_manager';
 
 const mapStateToProps = state => ({
   collisions: collisionsToArray(state),
-  taxi: state.filters.taxi,
-  bike: state.filters.bike,
-  motorcycle: state.filters.motorcycle,
-  ped: state.filters.ped,
+  taxi: state.options.taxi,
+  bike: state.options.bike,
+  motorcycle: state.options.motorcycle,
+  ped: state.options.ped,
 });
 
 const mapDispatchToProps = dispatch => ({
