@@ -16,11 +16,11 @@ The user can choose to show special icons for collisions involving taxis, bicycl
 ### The map
 During the visualization, markers representing collisions appear on the embedded Google Map at the corresponding time recorded in the NYPD database, so the number of collisions on the round clock (e.g. 13:00) might be overrated. the current map time and the number of collisions on the map are updated simultaneously.
 
-The user can toggle four layers on and off the map. The Heatmap layer shows a heatmap based on all the collisions on 6/22/2017. One injury is counted as five normal collisions (where nobody was injured or killed). One death is counted as 100 normal collisions (fortunately the number of deaths is 0 on that day). The Traffic layer shows the real-time (user time) traffic information. The Transit layer displays the public transit network. The Bicycling Layer renders a layer of bike paths, suggested bike routes and other overlays specific to bicycling usage. By default, the Heatmap layer is turned on while the other three are turned off.
+The user can toggle four layers on and off the map. The Heat map layer shows a heat map based on all the collisions on 6/22/2017. One injury is counted as five normal collisions (where nobody was injured or killed). One death is counted as 100 normal collisions (fortunately the number of deaths is 0 on that day). The Traffic layer shows the real-time (user time) traffic information. The Transit layer displays the public transit network. The Bicycling Layer renders a layer of bike paths, suggested bike routes and other overlays specific to bicycling usage. By default, the Heat map layer is turned on while the other three are turned off.
 
 ### Collision details
-When the user click on the marker on the map, a box containing details of the collision appears.
-The columns where value is `0` (e.g. number of persons injured) or `null` and the `id` column are not shown.
+When the user clicks on the marker on the map, a box containing details of the collision appears.
+The columns where the value is `0` (e.g. number of persons injured) or `null` and the `id` column are not shown.
 
 The time stored in the database is in `datetime` type and is in [Coordinated Universal Time (UTC)](https://www.wikiwand.com/en/Coordinated_Universal_Time). The local time in New York City is UTC-04:00 (with daylight saving time).
 
@@ -38,7 +38,7 @@ It also handles several edge cases, for example, when the visualization just sta
 
 The `handlePlay` function uses the `setInterval` function to call `oneStepForward` repeatedly. The delay time is also set by the user.
 
-The `handleStop` function calls the `clearInterval` function, and set the intervalId in the internal state to null.
+The `handleStop` function calls the `clearInterval` function, and sets the intervalId in the internal state to null.
 
 ### the map
 The `marker_manager` updates markers on the map based on the collisions in the Redux state. Markers have `onClick` listeners, which dispatches an action to update the `highlight` slice of the state.
@@ -48,7 +48,7 @@ The `MapInfo` component receives `start` and `finish` time from the `options` sl
 [Custom markers](https://developers.google.com/maps/documentation/javascript/custom-markers), [heatmap](https://developers.google.com/maps/documentation/javascript/heatmaplayer), and [traffic, transit and bicycling layer](https://developers.google.com/maps/documentation/javascript/trafficlayer) are created using the Google Maps JavaScript API.
 
 ### Collision details
-The `Highlight` component will render if the `highlight` slice of the state is not `null`. To make the component persist even after the marker disappear from the map, I had to create a separate `highlight` slice to hold the information of this collision, instead of using the information already in the `collisions` slice.
+The `Highlight` component will render if the `highlight` slice of the state is not `null`. To make the component persist even after the marker disappears from the map, I created a separate `highlight` slice to hold the information of this collision, instead of using the information already in the `collisions` slice.
 
 ## Future Directions
 
@@ -59,7 +59,7 @@ Resize/move the map eliminates the collisions that are outside of the map border
 Include collision data from multiple days and allow the user to select the date. Compare time/location distributions of collisions between different days (e.g. weekday vs. weekend, winter vs. summer, rainy vs. sunny, etc.).
 
 ### Incorporate other tools
-* [Fusion Tables](https://developers.google.com/maps/documentation/javascript/fusiontableslayer): to handle [heatmap](https://developers.google.com/maps/documentation/javascript/heatmaplayer) and collision data.
+* [Fusion Tables](https://developers.google.com/maps/documentation/javascript/fusiontableslayer): to handle [heat map](https://developers.google.com/maps/documentation/javascript/heatmaplayer) and collision data.
 
 * [Google BigQuery](https://cloud.google.com/bigquery/public-data/nypd-mv-collisions): to enhance scalability.
 
