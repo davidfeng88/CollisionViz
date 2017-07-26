@@ -7,7 +7,7 @@ CollisionViz shows the location and time of motor vehicle collisions in New York
 
 ## Features
 ### Control panel
-The control panel has three parts:
+The control panel is consisted of three parts:
 
 1. Basic settings
 
@@ -32,8 +32,12 @@ The user can choose to show custom icons for collisions involving taxis, bicycle
 
 **Note**: this does not change the icons that are already on the map. Also, the icons have priorities as taxi > bicycle > motorcycle > pedestrian (e.g. if a taxi hit a bicycle, the icon would be a taxi).
 
+***Start HERE***
 ### Map
 During the visualization, markers representing collisions appear on the map at the corresponding time recorded in the NYPD database. The current map time and the number of collisions on the map are updated simultaneously. **Note**: the number of collisions on the round clock (e.g. 13:00) may be overrated.
+
+### Collision filter by map borders
+Resize/move the map eliminates the collisions that are outside of the map border.
 
 The user can toggle four layers on and off the map. The heat map layer shows a heat map based on all the collisions on 6/22/2017. One injury is counted as five normal collisions (where nobody was injured or killed). One death is counted as 100 normal collisions (fortunately the number of deaths is 0 on that day). The traffic layer shows the real-time (user time) traffic information. The transit layer displays the public transit network. The bicycling Layer renders bike paths, suggested bike routes and other overlays specific to bicycling usage. By default, the heat map layer is turned on while the other three are turned off.
 
@@ -68,9 +72,6 @@ The `MapInfo` component receives `start` and `finish` time from the `options` sl
 The `Highlight` component will render if the `highlight` slice of the state is not `null`. To make the component persist even after the corresponding marker disappears from the map, I created a separate `highlight` slice to hold the information of this collision, instead of using the information already in the `collisions` slice.
 
 ## Future Directions
-
-### Collision filter by map borders
-Resize/move the map eliminates the collisions that are outside of the map border.
 
 ### Show collisions in multiple days
 Include collision data from multiple days and allow the user to select the date. Compare time/location distributions of collisions between different days (e.g. weekday vs. weekend, winter vs. summer, rainy vs. sunny, etc.).
