@@ -146,8 +146,7 @@ class Map extends React.Component {
   render() {
     return (
       <div className='map-container'>
-        <MapInfoContainer />
-        <div className="heatmap-panel">
+        <div className="map-panel">
           <div className='button' onClick={this.toggleHeatmap}>
             Toggle Heatmap</div>
           <div className='button' onClick={this.toggleTraffic}>
@@ -162,6 +161,7 @@ class Map extends React.Component {
         <div className="index-map" ref="map">
           Map
         </div>
+        <MapInfoContainer />
       </div>
     );
   }
