@@ -22,12 +22,12 @@ const mapDispatchToProps = dispatch => ({
   updateHighlight: (collisionId) => dispatch(updateHighlight(collisionId)),
 });
 
+const NYC_CENTER = {lat: 40.732663, lng: -73.993479};
+const DEFAULT_ZOOM_LEVEL = 10;
+
 const mapOptions = {
-  center: {
-    lat: 40.732663,
-    lng: -73.993479
-  }, // NYC coords
-  zoom: 10,
+  center: NYC_CENTER,
+  zoom: DEFAULT_ZOOM_LEVEL,
 };
 
 class Map extends React.Component {
@@ -38,7 +38,7 @@ class Map extends React.Component {
     this.toggleTraffic = this.toggleTraffic.bind(this);
     this.toggleTransit = this.toggleTransit.bind(this);
     this.toggleBicycling = this.toggleBicycling.bind(this);
-    this.resetBounds = this.resetBounds.bind(this);
+    this.resetMap = this.resetMap.bind(this);
   }
 
   componentDidMount() {
@@ -94,7 +94,6 @@ class Map extends React.Component {
           data: heatmapData,
         });
         this.heatmap.setMap(this.map);
-        this.bounds = this.map.getBounds();
       }
     );
   }
@@ -139,10 +138,10 @@ class Map extends React.Component {
     this.bikeLayer.setMap(this.bikeLayer.getMap() ? null : this.map);
   }
 
-  resetBounds() {
-    this.map.fitBounds(this.bounds);
+  resetMap() {
+    this.map.setCenter(NYC_CENTER);
+    this.map.setZoom(DEFAULT_ZOOM_LEVEL);
   }
-
 
   render() {
     return (
@@ -157,8 +156,8 @@ class Map extends React.Component {
             Toggle Transit</div>
           <div className='button' onClick={this.toggleBicycling}>
             Toggle Bicycling</div>
-          <div className='button' onClick={this.resetBounds}>
-            Reset Bound</div>
+          <div className='button' onClick={this.resetMap}>
+            Reset Map</div>
         </div>
         <div className="index-map" ref="map">
           Map

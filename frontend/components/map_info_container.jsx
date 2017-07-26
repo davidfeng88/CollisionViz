@@ -30,7 +30,7 @@ const MapInfo = ({ start, finish, collisions }) => (
   <div className='map-info'>
   Current Map Time: {parseTime(finish)}
   <br />
-  {collisions.length} collision(s) during&nbsp;
+  {collisions.length} collision(s) on map during&nbsp;
   {timeLine(start, finish)}
   </div>
 );
