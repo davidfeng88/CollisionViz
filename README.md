@@ -12,9 +12,11 @@ The control panel has three parts:
 1. Basic settings
 
 ![control_panel_top](docs/control_panel_top.png)
+
 2. The player
 
 ![control_panel_mid](docs/control_panel_mid.png)
+
 * Play: starts/resumes the visualization
 * Pause: pauses the visualization
 * Reset: resets the basic settings to default values
@@ -22,9 +24,10 @@ The control panel has three parts:
 * Step forward: move map time one minute forward
 * Unmute/mute: turn on and off background traffic sound
 
-3. Icons
+3. Icon settings
 
 ![control_panel_bottom](docs/control_panel_bottom.png)
+
 The user can choose to show custom icons for collisions involving taxis, bicycles, motorcycles, and collisions that caused pedestrian injuries or deaths.
 
 **Note**: this does not change the icons that are already on the map. Also, the icons have priorities as taxi > bicycle > motorcycle > pedestrian (e.g. if a taxi hit a bicycle, the icon would be a taxi).
