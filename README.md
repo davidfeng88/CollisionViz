@@ -3,20 +3,32 @@ Interact with CollisionViz [here](https://collisionviz.davidfeng.us/) or [here](
 
 CollisionViz shows the location and time of motor vehicle collisions in New York City on 6/22/2017 (Friday). It uses Ruby on Rails, a PostgreSQL database, React.js, Redux, and Google Maps JavaScript API. Collision data are from NYPD.
 
-![play_demo](play_demo.gif)
+![play_demo](docs/play_demo.gif)
 
 ## Features
 ### Control panel
-The user can select the start time of the visualization, how long a collision stays on the map, and the time lapse rate. The "Reset" button resets these settings to the default.
+The control panel has three parts:
 
-The user can start/pause/resume the visualization. The user can also step one minute (map time) forward/backward. The optional background traffic sound can be turned on and off.
+1. Basic settings
+![control_panel_top](docs/control_panel_top.png)
 
-The user can choose to show special icons for collisions involving taxis, bicycles, motorcycles, and pedestrians.
+2. The player
+![control_panel_mid](docs/control_panel_mid.png)
+* Play: starts/resumes the visualization
+* Pause: pauses the visualization
+* Reset: resets the basic settings to default values
+* Step backward: move map time one minute backward
+* Step forward: move map time one minute forward
+* Unmute/mute: turn on and off background traffic sound
+
+3. Icons
+![control_panel_bottom](docs/control_panel_bottom.png)
+The user can choose to show custom icons for collisions involving taxis, bicycles, motorcycles, and collisions that caused pedestrian injuries or deaths.
 
 **Note**: this does not change the icons that are already on the map. Also, the icons have priorities as taxi > bicycle > motorcycle > pedestrian (e.g. if a taxi hit a bicycle, the icon would be a taxi).
 
 ### Map
-During the visualization, markers representing collisions appear on the embedded Google Map at the corresponding time recorded in the NYPD database. The current map time and the number of collisions on the map are updated simultaneously. **Note**: the number of collisions on the round clock (e.g. 13:00) may be overrated.
+During the visualization, markers representing collisions appear on the map at the corresponding time recorded in the NYPD database. The current map time and the number of collisions on the map are updated simultaneously. **Note**: the number of collisions on the round clock (e.g. 13:00) may be overrated.
 
 The user can toggle four layers on and off the map. The heat map layer shows a heat map based on all the collisions on 6/22/2017. One injury is counted as five normal collisions (where nobody was injured or killed). One death is counted as 100 normal collisions (fortunately the number of deaths is 0 on that day). The traffic layer shows the real-time (user time) traffic information. The transit layer displays the public transit network. The bicycling Layer renders bike paths, suggested bike routes and other overlays specific to bicycling usage. By default, the heat map layer is turned on while the other three are turned off.
 
