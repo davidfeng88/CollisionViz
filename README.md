@@ -10,9 +10,10 @@ CollisionViz shows the location and time of motor vehicle collisions in New York
 The control panel has three parts:
 
 1. Basic settings
-![control_panel_top](docs/control_panel_top.png)
 
+![control_panel_top](docs/control_panel_top.png)
 2. The player
+
 ![control_panel_mid](docs/control_panel_mid.png)
 * Play: starts/resumes the visualization
 * Pause: pauses the visualization
@@ -22,6 +23,7 @@ The control panel has three parts:
 * Unmute/mute: turn on and off background traffic sound
 
 3. Icons
+
 ![control_panel_bottom](docs/control_panel_bottom.png)
 The user can choose to show custom icons for collisions involving taxis, bicycles, motorcycles, and collisions that caused pedestrian injuries or deaths.
 
