@@ -79,22 +79,18 @@ Data in the `Time` column is of `datetime` type and are in [Coordinated Universa
 ```
 The state contains three slices:
 - `options` contains options for the map icons (e.g. whether to show special icons for taxis or not) and filters for the collisions (map bounds, start time and finish time).
-  * Options: options are set by the control panel and used by the map component.
-  * Filters: start time and finish time are set by the control panel and used by the map information box. Map bounds is set by the map. Whenever a filter is updated, an AJAX request is sent to the backend with the filter, and collisions that meet those conditions are populated in the `collisions` slice.
-- `collisions` contains all the collisions that meet the filter conditions. It is set by the filters, and it is used by the map component.
-- `highlight` contains information of the highlighted collision, which is shown in the `Highlight` component. When the user clicks on a marker on map, an AJAX request is sent to the backend with the collision's id, and its information is populated in this slice.This slice is created because we want the highlighted collision information to persist even if the collision is not in the `collisions` slice anymore, i.e. after the corresponding marker disappears from the map.
+  * Options: options are set by the control panel, and used by the map component.
+  * Filters: start time and finish time are set by the control panel, and used by the map information box. Map bounds is set by the map. Whenever a filter is updated, an AJAX request is sent to the backend with the filter, and collisions that meet those conditions are populated in the `collisions` slice.
+- `collisions` contains all the collisions that meet the filter conditions. It is set by the filters, and used by the map component.
+- `highlight` contains information of the highlighted collision, which is shown in the `Highlight` component. When the user clicks on a marker on map, an AJAX request is sent to the backend with the collision's id, and its information is populated in this slice. This slice is created because we want the highlighted collision information to persist even if the collision is not in the `collisions` slice anymore, i.e. after the corresponding marker disappears from the map.
 
 ### Filtering the collisions
-The internal state of `ControlPanel` component contains a field for `currentTime`. `oneStepForward` function increases `currentTime` by one minute, calculates the `start` and `finish` options (with `collisionMapTime`, which is set by the user), and updates the `collisions` slice of the Redux state with collisions which happened in the new time range. The map then renders markers for the collisions.
-
-Several edge cases are also handled. For example, when the visualization just started, collisions happened before the start time should not be shown.
+The internal state of `ControlPanel` component contains a field for `currentTime`. `oneStepForward` function increases `currentTime` by one minute, calculates the `start` and `finish` options (with `collisionMapTime`, which is set by the user), and updates the `collisions` state slice. Several edge cases are also handled. For example, when the visualization just started, collisions happened before the start time should not be shown.
 
 The `handlePlay` function uses the `setInterval` function to call `oneStepForward` repeatedly. The delay time is set by the user. The `handleStop` function calls the `clearInterval` function.
 
 ### Map
-The `marker_manager` updates markers on the map based on the collisions in the Redux state. Markers have `onClick` listeners, which dispatches an action to update the `highlight` slice of the state.
-
-The `MapInfo` component receives `start` and `finish` time from the `options` slice of the state and renders them.
+The `marker_manager` updates markers on the map based on the `collisions` state slice. The map has a listener to update its bounds in the `options` state slice when it is resized/moved. Markers have `onClick` listeners, which dispatches an action to update the `highlight` slice of the state.
 
 [Custom markers](https://developers.google.com/maps/documentation/javascript/custom-markers), [heatmap](https://developers.google.com/maps/documentation/javascript/heatmaplayer), and [traffic, transit and bicycling layer](https://developers.google.com/maps/documentation/javascript/trafficlayer) are created using the Google Maps JavaScript API.
 
