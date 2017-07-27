@@ -9,11 +9,11 @@ CollisionViz shows the location and time of motor vehicle collisions in New York
 ### Control panel
 The control panel is consisted of three parts:
 
-+ Basic settings
+- Basic settings
 
 ![control_panel_top](docs/control_panel_top.png)
 
-+ The player
+- The player
 
 ![control_panel_mid](docs/control_panel_mid.png)
 
@@ -24,7 +24,7 @@ The control panel is consisted of three parts:
   * Step forward: move map time one minute forward
   * Unmute/mute: turn on and off background traffic sound
 
-+ Icon settings
+- Icon settings
 
 ![control_panel_bottom](docs/control_panel_bottom.png)
 
@@ -38,7 +38,7 @@ During the visualization, markers representing collisions appear on the map at t
 
 **Note**: the number of collisions on the round clock (e.g. 13:00) may be overrated.
 
-+ Map panel
+- Map panel
 
 The user can toggle four layers on and off the map. By default, the heat map layer is turned on while the other three are turned off.
 
@@ -52,11 +52,11 @@ The user can toggle four layers on and off the map. By default, the heat map lay
 
     * Reset map: resets the map center and zoom level to default values.
 
-+ Map information box
+- Map information box
 
 Shows current map time, the number of collisions on the map, and the time range of those collisions.
 
-+ Interaction with the map
+- Interaction with the map
 
 When the user resizes/moves the map, collisions that are outside of the map border are eliminated, map info panel is updated accordingly.
 
@@ -99,7 +99,7 @@ Data in the `Time` column is of `datetime` type and are in [Coordinated Universa
 
 The state contains three slices:
 
-+ `options`
+- `options`
 
 This slice contains options for the map icons (e.g. whether to show special icons for taxis or not) and filters for the collisions (map bounds, start time and finish time).
 
@@ -107,11 +107,11 @@ This slice contains options for the map icons (e.g. whether to show special icon
 
   * Filters: start time and finish time are set by the control panel and used by the map information box. Map bounds is set by the map. Whenever a filter is updated, an AJAX request is sent to the backend with the filter, and collisions that meet those conditions are populated in the `collisions` slice.
 
-+ `collisions`
+- `collisions`
 
 This slice contains all the collisions that meet the filter conditions. It is set by the filters, and it is used by the map component.
 
-+ `highlight`
+- `highlight`
 
 When the user clicks on a marker on map, an AJAX request is sent to the backend with the collision's id, and its information is populated in this slice.
 
