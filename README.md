@@ -8,11 +8,10 @@ CollisionViz shows the location and time of motor vehicle collisions in New York
 ### Control panel
 The control panel is consisted of three parts:
 - Basic settings
-
-![control_panel_top](docs/control_panel_top.png)
+  * Start time
+  * How long a collision stays on the map
+  * Time lapse rate
 - The player
-
-![control_panel_mid](docs/control_panel_mid.png)
   * Play: starts/resumes the visualization
   * Pause: pauses the visualization
   * Reset: resets the basic settings to default values
@@ -20,9 +19,6 @@ The control panel is consisted of three parts:
   * Step forward: move map time one minute forward
   * Unmute/mute: turn on and off background traffic sound
 - Icon settings
-
-![control_panel_bottom](docs/control_panel_bottom.png)
-
   The user can choose to show custom icons for collisions involving taxis, bicycles, motorcycles, and collisions that caused pedestrian injuries or deaths.
 
   **Note**: this does not change the icons that are already on the map. Also, the icons have priorities as taxi > bicycle > motorcycle > pedestrian (e.g. if a taxi hit a bicycle, the icon would be a taxi).
@@ -33,9 +29,7 @@ During the visualization, markers representing collisions appear on the map at t
 
 **Note**: the number of collisions on the round clock (e.g. 13:00) may be overrated.
 
-- Map panel
-
-The user can toggle four layers on and off the map. By default, the heat map layer is turned on while the other three are turned off.
+- Map panel: the user can toggle four layers on and off the map. By default, the heat map layer is turned on while the other three are turned off.
   * The heat map layer: shows a heat map based on all the collisions on 6/22/2017. One injury is counted as five normal collisions (where nobody was injured or killed). One death is counted as 100 normal collisions (fortunately the number of deaths is 0 on that day).
   * The traffic layer: shows the real-time (user time) traffic information.
   * The transit layer: displays the public transit network.
@@ -43,7 +37,7 @@ The user can toggle four layers on and off the map. By default, the heat map lay
   * Reset map: resets the map center and zoom level to default values.
 - Map information box
 
-Shows current map time, the number of collisions on the map, and the time range of those collisions.
+  Shows current map time, the number of collisions on the map, and the time range of those collisions.
 - Interaction with the map
 
   When the user resizes/moves the map, collisions that are outside of the map border are eliminated, map info panel is updated accordingly.
@@ -57,9 +51,8 @@ The `id` column and columns with `null` or `0` values are not shown.
 Data in the `Time` column is of `datetime` type and are in [Coordinated Universal Time (UTC)](https://www.wikiwand.com/en/Coordinated_Universal_Time). The local time in New York City is UTC-04:00 (with daylight saving time).
 
 ## Implementation
-
 ### Sample Redux state
-```
+```javascript
 {
   options: {
     bike: true,
@@ -84,13 +77,12 @@ Data in the `Time` column is of `datetime` type and are in [Coordinated Universa
   }
 }
 ```
-
 The state contains three slices:
-- `options`: contains options for the map icons (e.g. whether to show special icons for taxis or not) and filters for the collisions (map bounds, start time and finish time).
+- `options` contains options for the map icons (e.g. whether to show special icons for taxis or not) and filters for the collisions (map bounds, start time and finish time).
   * Options: options are set by the control panel and used by the map component.
   * Filters: start time and finish time are set by the control panel and used by the map information box. Map bounds is set by the map. Whenever a filter is updated, an AJAX request is sent to the backend with the filter, and collisions that meet those conditions are populated in the `collisions` slice.
-- `collisions`: contains all the collisions that meet the filter conditions. It is set by the filters, and it is used by the map component.
-- `highlight`: contains information of the highlighted collision, which is shown in the `Highlight` component. When the user clicks on a marker on map, an AJAX request is sent to the backend with the collision's id, and its information is populated in this slice.This slice is created because we want the highlighted collision information to persist even if the collision is not in the `collisions` slice anymore, i.e. after the corresponding marker disappears from the map.
+- `collisions` contains all the collisions that meet the filter conditions. It is set by the filters, and it is used by the map component.
+- `highlight` contains information of the highlighted collision, which is shown in the `Highlight` component. When the user clicks on a marker on map, an AJAX request is sent to the backend with the collision's id, and its information is populated in this slice.This slice is created because we want the highlighted collision information to persist even if the collision is not in the `collisions` slice anymore, i.e. after the corresponding marker disappears from the map.
 
 ### Filtering the collisions
 The internal state of `ControlPanel` component contains a field for `currentTime`. `oneStepForward` function increases `currentTime` by one minute, calculates the `start` and `finish` options (with `collisionMapTime`, which is set by the user), and updates the `collisions` slice of the Redux state with collisions which happened in the new time range. The map then renders markers for the collisions.
@@ -117,6 +109,6 @@ The [NYPD data][data_link] come in a CSV file. The entries were imported to a Po
 Include collision data from multiple days and allow the user to select the date. Compare time/location distributions of collisions between different days (e.g. weekday vs. weekend, winter vs. summer, rainy vs. sunny, etc.).
 
 ### Incorporate other tools
-* [Fusion Tables](https://developers.google.com/maps/documentation/javascript/fusiontableslayer): to handle [heat map](https://developers.google.com/maps/documentation/javascript/heatmaplayer) and collision data.
-* [Google BigQuery](https://cloud.google.com/bigquery/public-data/nypd-mv-collisions): to enhance scalability.
-* [Firebase](https://firebase.google.com/): to host collision data.
+* Use [fusion Tables](https://developers.google.com/maps/documentation/javascript/fusiontableslayer) to handle [heat map](https://developers.google.com/maps/documentation/javascript/heatmaplayer) and collision data.
+* Use [Google BigQuery](https://cloud.google.com/bigquery/public-data/nypd-mv-collisions) to enhance scalability.
+* Use [Firebase](https://firebase.google.com/) to host collision data.
