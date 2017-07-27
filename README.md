@@ -14,9 +14,7 @@ The control panel is consisted of three parts:
 ![control_panel_top](docs/control_panel_top.png)
 
 - The player
-
 ![control_panel_mid](docs/control_panel_mid.png)
-
   * Play: starts/resumes the visualization
   * Pause: pauses the visualization
   * Reset: resets the basic settings to default values
