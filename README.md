@@ -9,11 +9,11 @@ CollisionViz shows the location and time of motor vehicle collisions in New York
 ### Control panel
 The control panel is consisted of three parts:
 
-1. Basic settings
++ Basic settings
 
 ![control_panel_top](docs/control_panel_top.png)
 
-2. The player
++ The player
 
 ![control_panel_mid](docs/control_panel_mid.png)
 
@@ -24,7 +24,7 @@ The control panel is consisted of three parts:
 * Step forward: move map time one minute forward
 * Unmute/mute: turn on and off background traffic sound
 
-3. Icon settings
++ Icon settings
 
 ![control_panel_bottom](docs/control_panel_bottom.png)
 
@@ -32,27 +32,94 @@ The user can choose to show custom icons for collisions involving taxis, bicycle
 
 **Note**: this does not change the icons that are already on the map. Also, the icons have priorities as taxi > bicycle > motorcycle > pedestrian (e.g. if a taxi hit a bicycle, the icon would be a taxi).
 
-***Start HERE***
 ### Map
-During the visualization, markers representing collisions appear on the map at the corresponding time recorded in the NYPD database. The current map time and the number of collisions on the map are updated simultaneously. **Note**: the number of collisions on the round clock (e.g. 13:00) may be overrated.
 
-### Collision filter by map borders
-Resize/move the map eliminates the collisions that are outside of the map border.
+During the visualization, markers representing collisions appear on the map at the corresponding time recorded in the NYPD database.
 
-The user can toggle four layers on and off the map. The heat map layer shows a heat map based on all the collisions on 6/22/2017. One injury is counted as five normal collisions (where nobody was injured or killed). One death is counted as 100 normal collisions (fortunately the number of deaths is 0 on that day). The traffic layer shows the real-time (user time) traffic information. The transit layer displays the public transit network. The bicycling Layer renders bike paths, suggested bike routes and other overlays specific to bicycling usage. By default, the heat map layer is turned on while the other three are turned off.
+**Note**: the number of collisions on the round clock (e.g. 13:00) may be overrated.
+
++ Map panel
+
+The user can toggle four layers on and off the map. By default, the heat map layer is turned on while the other three are turned off.
+
+* The heat map layer: shows a heat map based on all the collisions on 6/22/2017. One injury is counted as five normal collisions (where nobody was injured or killed). One death is counted as 100 normal collisions (fortunately the number of deaths is 0 on that day).
+
+* The traffic layer: shows the real-time (user time) traffic information.
+
+* The transit layer: displays the public transit network.
+
+* The bicycling Layer: renders bike paths, suggested bike routes and other overlays specific to bicycling usage.
+
+* Reset map: resets the map center and zoom level to default values.
+
++ Map information box
+
+Shows current map time, the number of collisions on the map, and the time range of those collisions.
+
++ Interaction with the map
+
+When the user resizes/moves the map, collisions that are outside of the map border are eliminated, map info panel is updated accordingly.
+
+When the user clicks on the marker on the map, a box containing details of the collision appears.
 
 ### Collision details
-When the user clicks on the marker on the map, a box containing details of the collision appears.
+
 The `id` column and columns with `null` or `0` values are not shown.
 
 Data in the `Time` column is of `datetime` type and are in [Coordinated Universal Time (UTC)](https://www.wikiwand.com/en/Coordinated_Universal_Time). The local time in New York City is UTC-04:00 (with daylight saving time).
 
 ## Implementation
 
-### Data import
-The [NYPD data][data_link] come in a CSV file. The entries were imported to a PostgreSQL database using Active Record.
+### Sample Redux state
+```
+{
+  options: {
+    bike: true,
+    taxi: true,
+    ...
+  },
+  collisions: {
+    59: {
+      borough: "Brooklyn",
+      contributing_factor_vehicle_1: "Unspecified",
+      contributing_factor_vehicle_2: "Unspecified",
+    },
+    60: {
+      ...
+    }
+    ...
+  },
+  highlight: {
+    borough: null,
+    contributing_factor_vehicle_1: "Reaction to Other Uninvolved Vehicle",
+    ...
+  }
+}
+```
 
-[data_link]: https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95
+The state contains three slices:
+
++ `options`
+
+This slice contains options for the map icons (e.g. whether to show special icons for taxis or not) and filters for the collisions (map bounds, start time and finish time).
+
+* Options: options are set by the control panel and used by the map component.
+
+* Filters: start time and finish time are set by the control panel and used by the map information box. Map bounds is set by the map. Whenever a filter is updated, an AJAX request is sent to the backend with the filter, and collisions that meet those conditions are populated in the `collisions` slice.
+
++ `collisions`
+
+This slice contains all the collisions that meet the filter conditions. It is set by the filters, and it is used by the map component.
+
++ `highlight`
+
+When the user clicks on a marker on map, an AJAX request is sent to the backend with the collision's id, and its information is populated in this slice.
+
+This slice contains information of the highlighted collision, which is shown in the `Highlight` component. It is created because we want the highlighted collision information to persist even if the collision is not in the `collisions` slice anymore, i.e. after the corresponding marker disappears from the map.
+
+
+
+The `Highlight` component will render if the `highlight` slice of the state is not `null`.
 
 ### Filtering the collisions
 The internal state of `ControlPanel` component contains a field for `currentTime`. `oneStepForward` function increases `currentTime` by one minute, calculates the `start` and `finish` options (with `collisionMapTime`, which is set by the user), and updates the `collisions` slice of the Redux state with collisions which happened in the new time range. The map then renders markers for the collisions.
@@ -68,8 +135,10 @@ The `MapInfo` component receives `start` and `finish` time from the `options` sl
 
 [Custom markers](https://developers.google.com/maps/documentation/javascript/custom-markers), [heatmap](https://developers.google.com/maps/documentation/javascript/heatmaplayer), and [traffic, transit and bicycling layer](https://developers.google.com/maps/documentation/javascript/trafficlayer) are created using the Google Maps JavaScript API.
 
-### Collision details
-The `Highlight` component will render if the `highlight` slice of the state is not `null`. To make the component persist even after the corresponding marker disappears from the map, I created a separate `highlight` slice to hold the information of this collision, instead of using the information already in the `collisions` slice.
+### Data import
+The [NYPD data][data_link] come in a CSV file. The entries were imported to a PostgreSQL database using Active Record.
+
+[data_link]: https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95
 
 ## Future Directions
 
