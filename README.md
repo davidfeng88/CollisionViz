@@ -17,12 +17,12 @@ The control panel is consisted of three parts:
 
 ![control_panel_mid](docs/control_panel_mid.png)
 
-* Play: starts/resumes the visualization
-* Pause: pauses the visualization
-* Reset: resets the basic settings to default values
-* Step backward: move map time one minute backward
-* Step forward: move map time one minute forward
-* Unmute/mute: turn on and off background traffic sound
+  * Play: starts/resumes the visualization
+  * Pause: pauses the visualization
+  * Reset: resets the basic settings to default values
+  * Step backward: move map time one minute backward
+  * Step forward: move map time one minute forward
+  * Unmute/mute: turn on and off background traffic sound
 
 + Icon settings
 
@@ -42,15 +42,15 @@ During the visualization, markers representing collisions appear on the map at t
 
 The user can toggle four layers on and off the map. By default, the heat map layer is turned on while the other three are turned off.
 
-* The heat map layer: shows a heat map based on all the collisions on 6/22/2017. One injury is counted as five normal collisions (where nobody was injured or killed). One death is counted as 100 normal collisions (fortunately the number of deaths is 0 on that day).
+    * The heat map layer: shows a heat map based on all the collisions on 6/22/2017. One injury is counted as five normal collisions (where nobody was injured or killed). One death is counted as 100 normal collisions (fortunately the number of deaths is 0 on that day).
 
-* The traffic layer: shows the real-time (user time) traffic information.
+    * The traffic layer: shows the real-time (user time) traffic information.
 
-* The transit layer: displays the public transit network.
+    * The transit layer: displays the public transit network.
 
-* The bicycling Layer: renders bike paths, suggested bike routes and other overlays specific to bicycling usage.
+    * The bicycling Layer: renders bike paths, suggested bike routes and other overlays specific to bicycling usage.
 
-* Reset map: resets the map center and zoom level to default values.
+    * Reset map: resets the map center and zoom level to default values.
 
 + Map information box
 
@@ -103,9 +103,9 @@ The state contains three slices:
 
 This slice contains options for the map icons (e.g. whether to show special icons for taxis or not) and filters for the collisions (map bounds, start time and finish time).
 
-* Options: options are set by the control panel and used by the map component.
+  * Options: options are set by the control panel and used by the map component.
 
-* Filters: start time and finish time are set by the control panel and used by the map information box. Map bounds is set by the map. Whenever a filter is updated, an AJAX request is sent to the backend with the filter, and collisions that meet those conditions are populated in the `collisions` slice.
+  * Filters: start time and finish time are set by the control panel and used by the map information box. Map bounds is set by the map. Whenever a filter is updated, an AJAX request is sent to the backend with the filter, and collisions that meet those conditions are populated in the `collisions` slice.
 
 + `collisions`
 
