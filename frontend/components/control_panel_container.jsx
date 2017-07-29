@@ -215,7 +215,7 @@ class ControlPanel extends React.Component {
             <option value='400' >Slow</option>
           </select>
           <div className='clickable-div' onClick={this.handleReset}>
-            reset
+            reset time
           </div>
 
           <div className='buttons'>

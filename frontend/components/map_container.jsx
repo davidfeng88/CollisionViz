@@ -143,11 +143,9 @@ class Map extends React.Component {
   }
 
   render() {
-    if (this.state.loaded) {
-      return (
+    return (
         <div className='map-container'>
           <div className="map-panel">
-            <div className='button'>
             <label className="switch">
               <input type="checkbox"
               checked={this.state.heatmap}
@@ -177,28 +175,16 @@ class Map extends React.Component {
               <span className="slider round"></span>
             </label>
 
-
-              </div>
-
             <div className='button' onClick={this.resetMap}>
               Reset Map</div>
-          </div>
+            </div>
           <div className="index-map" ref="map">
             Map
           </div>
           <MapInfoContainer />
         </div>
       );
-    } else {
-      return(
-        <div>
-        <img className='spinner' src={window.staticImages.spinner} />
-        <div className="index-map" ref="map">
-          Map
-        </div>
-        </div>
-      );
-    }
+
   }
 }
 
