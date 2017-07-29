@@ -41,10 +41,6 @@ class Map extends React.Component {
       loaded: false
     };
 
-    this.toggleHeatmap = this.toggleHeatmap.bind(this);
-    this.toggleTraffic = this.toggleTraffic.bind(this);
-    this.toggleTransit = this.toggleTransit.bind(this);
-    this.toggleBicycling = this.toggleBicycling.bind(this);
     this.resetMap = this.resetMap.bind(this);
   }
 
@@ -67,12 +63,12 @@ class Map extends React.Component {
       this.props.motorcycle,
       this.props.ped
     );
-    this.trafficLayer = new google.maps.TrafficLayer();
-    this.trafficLayer.setMap(null);
-    this.transitLayer = new google.maps.TransitLayer();
-    this.transitLayer.setMap(null);
-    this.bikeLayer = new google.maps.BicyclingLayer();
-    this.bikeLayer.setMap(null);
+    this.traffic = new google.maps.TrafficLayer();
+    this.traffic.setMap(null);
+    this.transit = new google.maps.TransitLayer();
+    this.transit.setMap(null);
+    this.bicycling = new google.maps.BicyclingLayer();
+    this.bicycling.setMap(null);
 
     APIUtil.fetchAllCollisions().then(
       (collisionsData) => {
@@ -130,43 +126,14 @@ class Map extends React.Component {
     this.props.updateHighlight(collision.id);
   }
 
-  toggleHeatmap() {
-    if (this.state.heatmap) {
-      this.heatmap.setMap(null);
-      this.setState({heatmap: false});
+  toggleMapLayer(field) {
+    // fat arrow takes care of binding
+    if (this.state[field]) {
+      this[field].setMap(null);
+      this.setState({[field]: false});
     } else {
-      this.heatmap.setMap(this.map);
-      this.setState({heatmap: true});
-    }
-  }
-
-  toggleTraffic() {
-    if (this.state.traffic) {
-      this.trafficLayer.setMap(null);
-      this.setState({traffic: false});
-    } else {
-      this.trafficLayer.setMap(this.map);
-      this.setState({traffic: true});
-    }
-  }
-
-  toggleTransit() {
-    if (this.state.transit) {
-      this.transitLayer.setMap(null);
-      this.setState({transit: false});
-    } else {
-      this.transitLayer.setMap(this.map);
-      this.setState({transit: true});
-    }
-  }
-
-  toggleBicycling() {
-    if (this.state.bicycling) {
-      this.bikeLayer.setMap(null);
-      this.setState({bicycling: false});
-    } else {
-      this.bikeLayer.setMap(this.map);
-      this.setState({bicycling: true});
+      this[field].setMap(this.map);
+      this.setState({[field]: true});
     }
   }
 
@@ -175,8 +142,6 @@ class Map extends React.Component {
     this.map.setZoom(DEFAULT_ZOOM_LEVEL);
   }
 
-  // checked={this.state.heatmap}
-  // onChange={this.toggleCheckbox('heatmap')}
   render() {
     if (this.state.loaded) {
       return (
@@ -186,28 +151,28 @@ class Map extends React.Component {
             <label className="switch">
               <input type="checkbox"
               checked={this.state.heatmap}
-              onChange={this.toggleHeatmap}
+              onChange={() => this.toggleMapLayer('heatmap')}
               />
               <span className="slider round"></span>
             </label>
             <label className="switch">
               <input type="checkbox"
               checked={this.state.traffic}
-              onChange={this.toggleTraffic}
+              onChange={() => this.toggleMapLayer('traffic')}
               />
               <span className="slider round"></span>
             </label>
             <label className="switch">
               <input type="checkbox"
               checked={this.state.transit}
-              onChange={this.toggleTransit}
+              onChange={() => this.toggleMapLayer('transit')}
               />
               <span className="slider round"></span>
             </label>
             <label className="switch">
               <input type="checkbox"
               checked={this.state.bicycling}
-              onChange={this.toggleBicycling}
+              onChange={() => this.toggleMapLayer('bicycling')}
               />
               <span className="slider round"></span>
             </label>
