@@ -238,7 +238,7 @@ class ControlPanel extends React.Component {
           </div>
         </form>
 
-        <table>
+        <table className='icons'>
           <caption>Show Special Icons</caption>
           <thead>
             <tr>
@@ -302,54 +302,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ControlPanel);
-
-// <label htmlFor='taxi'>
-// <input
-//   type="checkbox"
-//   id='taxi'
-//   checked={this.state.taxi}
-//   onChange={this.toggleCheckbox('taxi')}
-// />&nbsp;
-// </label>
-
-// <div className='icons'>
-//   <div className='icon-line'>
-//   Show special icons for:
-//   </div>
-//   <div className='icon-line'>
-//
-
-//
-//
-//
-//     <label htmlFor='bike'>
-//     <input
-//       type="checkbox"
-//       id='bike'
-//       checked={this.state.bike}
-//       onChange={this.toggleCheckbox('bike')}
-//     />&nbsp;
-//     <img src={window.staticImages.bike} />
-//     &nbsp;Bicycle</label>
-//   </div>
-//   <div className='icon-line'>
-//     <label htmlFor='motorcycle'>
-//     <input
-//       type="checkbox"
-//       id='motorcycle'
-//       checked={this.state.motorcycle}
-//       onChange={this.toggleCheckbox('motorcycle')}
-//     />&nbsp;
-//     <img src={window.staticImages.motorcycle} />
-//     &nbsp;Motorcycle</label>
-//     <label htmlFor='ped'>
-//     <input
-//       type="checkbox"
-//       id='ped'
-//       checked={this.state.ped}
-//       onChange={this.toggleCheckbox('ped')}
-//     />&nbsp;
-//     <img src={window.staticImages.ped} />
-//     &nbsp;Pedestrian</label>
-//   </div>
-// </div>

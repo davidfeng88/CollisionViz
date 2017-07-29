@@ -33,6 +33,13 @@ const mapOptions = {
 class Map extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      heatmap: true,
+      traffic: false,
+      transit: false,
+      bicycling: false,
+      loaded: false
+    };
 
     this.toggleHeatmap = this.toggleHeatmap.bind(this);
     this.toggleTraffic = this.toggleTraffic.bind(this);
@@ -94,6 +101,7 @@ class Map extends React.Component {
           data: heatmapData,
         });
         this.heatmap.setMap(this.map);
+        this.setState({loaded: true});
       }
     );
   }
@@ -123,19 +131,43 @@ class Map extends React.Component {
   }
 
   toggleHeatmap() {
-    this.heatmap.setMap(this.heatmap.getMap() ? null : this.map);
+    if (this.state.heatmap) {
+      this.heatmap.setMap(null);
+      this.setState({heatmap: false});
+    } else {
+      this.heatmap.setMap(this.map);
+      this.setState({heatmap: true});
+    }
   }
 
   toggleTraffic() {
-    this.trafficLayer.setMap(this.trafficLayer.getMap() ? null : this.map);
+    if (this.state.traffic) {
+      this.trafficLayer.setMap(null);
+      this.setState({traffic: false});
+    } else {
+      this.trafficLayer.setMap(this.map);
+      this.setState({traffic: true});
+    }
   }
 
   toggleTransit() {
-    this.transitLayer.setMap(this.transitLayer.getMap() ? null : this.map);
+    if (this.state.transit) {
+      this.transitLayer.setMap(null);
+      this.setState({transit: false});
+    } else {
+      this.transitLayer.setMap(this.map);
+      this.setState({transit: true});
+    }
   }
 
   toggleBicycling() {
-    this.bikeLayer.setMap(this.bikeLayer.getMap() ? null : this.map);
+    if (this.state.bicycling) {
+      this.bikeLayer.setMap(null);
+      this.setState({bicycling: false});
+    } else {
+      this.bikeLayer.setMap(this.map);
+      this.setState({bicycling: true});
+    }
   }
 
   resetMap() {
@@ -143,27 +175,65 @@ class Map extends React.Component {
     this.map.setZoom(DEFAULT_ZOOM_LEVEL);
   }
 
+  // checked={this.state.heatmap}
+  // onChange={this.toggleCheckbox('heatmap')}
   render() {
-    return (
-      <div className='map-container'>
-        <div className="map-panel">
-          <div className='button' onClick={this.toggleHeatmap}>
-            Toggle Heatmap</div>
-          <div className='button' onClick={this.toggleTraffic}>
-            Toggle Traffic</div>
-          <div className='button' onClick={this.toggleTransit}>
-            Toggle Transit</div>
-          <div className='button' onClick={this.toggleBicycling}>
-            Toggle Bicycling</div>
-          <div className='button' onClick={this.resetMap}>
-            Reset Map</div>
+    if (this.state.loaded) {
+      return (
+        <div className='map-container'>
+          <div className="map-panel">
+            <div className='button'>
+            <label className="switch">
+              <input type="checkbox"
+              checked={this.state.heatmap}
+              onChange={this.toggleHeatmap}
+              />
+              <span className="slider round"></span>
+            </label>
+            <label className="switch">
+              <input type="checkbox"
+              checked={this.state.traffic}
+              onChange={this.toggleTraffic}
+              />
+              <span className="slider round"></span>
+            </label>
+            <label className="switch">
+              <input type="checkbox"
+              checked={this.state.transit}
+              onChange={this.toggleTransit}
+              />
+              <span className="slider round"></span>
+            </label>
+            <label className="switch">
+              <input type="checkbox"
+              checked={this.state.bicycling}
+              onChange={this.toggleBicycling}
+              />
+              <span className="slider round"></span>
+            </label>
+
+
+              </div>
+
+            <div className='button' onClick={this.resetMap}>
+              Reset Map</div>
+          </div>
+          <div className="index-map" ref="map">
+            Map
+          </div>
+          <MapInfoContainer />
         </div>
+      );
+    } else {
+      return(
+        <div>
+        <img className='spinner' src={window.staticImages.spinner} />
         <div className="index-map" ref="map">
           Map
         </div>
-        <MapInfoContainer />
-      </div>
-    );
+        </div>
+      );
+    }
   }
 }
 
