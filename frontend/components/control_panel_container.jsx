@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateOption, resetOption } from '../actions/option_actions';
+import { updateFilter, resetFilter } from '../actions/filter_actions';
 
 const mapStateToProps = state => ({
-  options: state.options,
+  filters: state.filters,
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateOption: (options) => dispatch(updateOption(options)),
-  resetOption: () => dispatch(resetOption()),
+  updateFilter: (filters) => dispatch(updateFilter(filters)),
+  resetFilter: () => dispatch(resetFilter()),
 });
 
 const START_TIME = 0;
@@ -18,10 +18,10 @@ class ControlPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentTime: this.props.options.finish,
+      currentTime: this.props.filters.finish,
       intervalId: null,
 
-      initialTime: this.props.options.start,
+      initialTime: this.props.filters.start,
       collisionMapTime: 29,
       stepTime: 200,
 
@@ -42,7 +42,7 @@ class ControlPanel extends React.Component {
   }
 
   componentDidMount() {
-    this.props.updateOption();
+    this.props.updateFilter();
   }
 
   updateCollisionMapTime(e) {
@@ -67,7 +67,7 @@ class ControlPanel extends React.Component {
       initialTime: newTime,
       currentTime: newTime,
     });
-    this.props.updateOption({
+    this.props.updateFilter({
       start: newTime,
       finish: newTime,
     });
@@ -75,12 +75,12 @@ class ControlPanel extends React.Component {
 
   handleReset() {
     this.handleStop();
-    this.props.resetOption();
-    this.props.updateOption()
+    this.props.resetFilter();
+    this.props.updateFilter()
     .then(
       () => this.setState({
-        initialTime: this.props.options.start,
-        currentTime: this.props.options.finish,
+        initialTime: this.props.filters.start,
+        currentTime: this.props.filters.finish,
       })
     );
   }
@@ -131,7 +131,7 @@ class ControlPanel extends React.Component {
     start = start < this.state.initialTime ? this.state.initialTime : start;
     start = start < START_TIME ? START_TIME : start;
     finish = finish > END_TIME ? END_TIME : finish;
-    this.props.updateOption({
+    this.props.updateFilter({
       start,
       finish,
     });

@@ -4,8 +4,8 @@ import { collisionsToArray } from '../reducers/selectors';
 
 const mapStateToProps = state => ({
   collisions: collisionsToArray(state),
-  start: state.options.start,
-  finish: state.options.finish,
+  start: state.filters.start,
+  finish: state.filters.finish,
 });
 
 const parseTime = (totalMinutes) => {

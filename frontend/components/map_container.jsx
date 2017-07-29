@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as APIUtil from '../util/collision_api_util';
 import { collisionsToArray } from '../reducers/selectors';
 import { updateHighlight } from '../actions/highlight_actions';
-import { updateOption } from '../actions/option_actions';
+import { updateFilter } from '../actions/filter_actions';
 
 import MapInfoContainer from './map_info_container';
 import MarkerManager from '../util/marker_manager';
@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateOption: (options) => dispatch(updateOption(options)),
+  updateFilter: (filters) => dispatch(updateFilter(filters)),
   updateHighlight: (collisionId) => dispatch(updateHighlight(collisionId)),
 });
 
@@ -56,7 +56,7 @@ class Map extends React.Component {
         northEast: { lat:north, lng: east },
         southWest: { lat:south, lng: west },
       };
-      this.props.updateOption({bounds: bounds});
+      this.props.updateFilter({bounds: bounds});
     });
     this.MarkerManager.updateMarkers(
       this.props.collisions,

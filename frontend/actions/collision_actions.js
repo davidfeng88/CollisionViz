@@ -9,8 +9,8 @@ export const receiveAllCollisions = collisions => {
   };
 };
 
-export const fetchAllCollisions = (options) => dispatch => (
-  APIUtil.fetchAllCollisions(options).then(
+export const fetchAllCollisions = (filters) => dispatch => (
+  APIUtil.fetchAllCollisions(filters).then(
     (collisionsData) => dispatch(receiveAllCollisions(collisionsData))
   )
 );
