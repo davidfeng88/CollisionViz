@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Header from './header/header';
 import ControlPanelContainer from './control_panel_container';
 import MapContainer from './map_container';
 import HighlightContainer from './highlight_container';
@@ -7,20 +8,7 @@ import HighlightContainer from './highlight_container';
 const App = () => {
   return (
     <div className='container'>
-      <audio id='traffic' src={window.staticSounds.traffic}>
-        Your browser does not support the <code>audio</code> element.
-      </audio>
-      <header>
-        <div className='logo'>
-          <img src={window.staticImages.logo} />
-          <h1>CollisionViz</h1>
-        </div>
-        <div className='header-links'>
-          <a>About CollisionViz</a>
-          <a>About Me</a>
-          <a>Credits</a>
-        </div>
-      </header>
+      <Header />
       <ControlPanelContainer />
       <MapContainer />
       <HighlightContainer />
