@@ -1,0 +1,55 @@
+/* --- HEADER --- */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.logo img {
+  width: 60px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.logo h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 40px;
+}
+
+.header-links {
+  text-align: right;
+  line-height: 1.5em;
+}
+
+h3 {
+  font-size: 18px;
+  text-align: center;
+}
+
+.links i {
+  margin: 5px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.links i:hover {
+  cursor: pointer;
+  background-color: #bbb;
+}
+
+.links i:active {
+  background-color: #aaa;
+}
+
+a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

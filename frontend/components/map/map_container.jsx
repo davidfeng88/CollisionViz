@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as APIUtil from '../util/collision_api_util';
-import { collisionsToArray } from '../reducers/selectors';
-import { updateHighlight } from '../actions/highlight_actions';
-import { updateFilter } from '../actions/filter_actions';
+import * as APIUtil from '../../util/collision_api_util';
+import { collisionsToArray } from '../../reducers/selectors';
+import { updateHighlight } from '../../actions/highlight_actions';
+import { updateFilter } from '../../actions/filter_actions';
 
 import MapInfoContainer from './map_info_container';
-import MarkerManager from '../util/marker_manager';
+import MarkerManager from '../../util/marker_manager';
 
 const mapStateToProps = state => ({
   collisions: collisionsToArray(state),

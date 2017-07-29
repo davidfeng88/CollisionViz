@@ -12,7 +12,9 @@ const Header = () => {
       </div>
       <div className='header-links'>
         <a>About CollisionViz</a>
+        <br />
         <a>About Me</a>
+        <br />
         <a>Credits</a>
       </div>
     </header>
