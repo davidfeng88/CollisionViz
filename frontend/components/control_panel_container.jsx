@@ -195,7 +195,7 @@ class ControlPanel extends React.Component {
             <option value='1080' >18:00 Afternoon</option>
             <option value='1320' >22:00 Night</option>
           </select>
-          <br />
+          &nbsp;
           <label htmlFor='collision-map-time'>
             Collisions stay on the map for: </label>
           <select id="collision-map-time" value={this.state.collisionMapTime}
@@ -205,7 +205,7 @@ class ControlPanel extends React.Component {
             <option value='29' >30 minutes</option>
             <option value='59' >60 minutes</option>
           </select>
-          <br />
+          &nbsp;
           <label htmlFor='step-time'>
             Time lapse rate: </label>
           <select id="step-time" value={this.state.stepTime}
@@ -214,6 +214,9 @@ class ControlPanel extends React.Component {
             <option value='200' >Default</option>
             <option value='400' >Slow</option>
           </select>
+          <div className='clickable-div' onClick={this.handleReset}>
+            reset
+          </div>
 
           <div className='buttons'>
             <div className='clickable-div' onClick={this.handlePlay}>
@@ -222,9 +225,7 @@ class ControlPanel extends React.Component {
             <div className='clickable-div' onClick={this.handleStop}>
               <i className="fa fa-pause fa-lg" aria-hidden="true"></i>
             </div>
-            <div className='clickable-div' onClick={this.handleReset}>
-              <i className="fa fa-repeat fa-lg" aria-hidden="true"></i>
-            </div>
+
             <div className='clickable-div' onClick={this.oneStepBackward}>
             <i className="fa fa-step-backward fa-lg" aria-hidden="true"></i>
             </div>
@@ -235,58 +236,63 @@ class ControlPanel extends React.Component {
               {this.speakerIcon()}
             </div>
           </div>
-
-          <div className='icons'>
-            <div className='icon-line'>
-            Show special icons for:
-            </div>
-            <div className='icon-line'>
-              <label htmlFor='taxi'>
-              <input
-                type="checkbox"
-                id='taxi'
-                checked={this.state.taxi}
-                onChange={this.toggleCheckbox('taxi')}
-              />&nbsp;
-              <img src={window.staticImages.taxi} />
-              &nbsp;Taxi</label>
-              <label htmlFor='bike'>
-              <input
-                type="checkbox"
-                id='bike'
-                checked={this.state.bike}
-                onChange={this.toggleCheckbox('bike')}
-              />&nbsp;
-              <img src={window.staticImages.bike} />
-              &nbsp;Bicycle</label>
-            </div>
-            <div className='icon-line'>
-              <label htmlFor='motorcycle'>
-              <input
-                type="checkbox"
-                id='motorcycle'
-                checked={this.state.motorcycle}
-                onChange={this.toggleCheckbox('motorcycle')}
-              />&nbsp;
-              <img src={window.staticImages.motorcycle} />
-              &nbsp;Motorcycle</label>
-              <label htmlFor='ped'>
-              <input
-                type="checkbox"
-                id='ped'
-                checked={this.state.ped}
-                onChange={this.toggleCheckbox('ped')}
-              />&nbsp;
-              <img src={window.staticImages.ped} />
-              &nbsp;Pedestrian</label>
-            </div>
-          </div>
         </form>
-          <div className='github-repo'>
-          <a href='https://github.com/davidfeng88/CollisionViz' target="_blank">
-          GitHub Repo
-          </a>
-          </div>
+
+        <table>
+          <caption>Show Special Icons</caption>
+          <thead>
+            <tr>
+              <th><img src={window.staticImages.taxi} />
+              &nbsp;Taxi</th>
+              <th><img src={window.staticImages.bike} />
+              &nbsp;Bicycle</th>
+              <th><img src={window.staticImages.motorcycle} />
+              &nbsp;Motorcycle</th>
+              <th><img src={window.staticImages.ped} />
+              &nbsp;Pedestrian</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <label className="switch">
+                  <input type="checkbox"
+                  checked={this.state.taxi}
+                  onChange={this.toggleCheckbox('taxi')}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </td>
+              <td>
+                <label className="switch">
+                  <input type="checkbox"
+                  checked={this.state.bike}
+                  onChange={this.toggleCheckbox('bike')}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </td>
+              <td>
+                <label className="switch">
+                  <input type="checkbox"
+                  checked={this.state.motorcycle}
+                  onChange={this.toggleCheckbox('motorcycle')}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </td>
+              <td>
+                <label className="switch">
+                  <input type="checkbox"
+                  checked={this.state.ped}
+                  onChange={this.toggleCheckbox('ped')}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     );
   }
@@ -296,3 +302,54 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ControlPanel);
+
+// <label htmlFor='taxi'>
+// <input
+//   type="checkbox"
+//   id='taxi'
+//   checked={this.state.taxi}
+//   onChange={this.toggleCheckbox('taxi')}
+// />&nbsp;
+// </label>
+
+// <div className='icons'>
+//   <div className='icon-line'>
+//   Show special icons for:
+//   </div>
+//   <div className='icon-line'>
+//
+
+//
+//
+//
+//     <label htmlFor='bike'>
+//     <input
+//       type="checkbox"
+//       id='bike'
+//       checked={this.state.bike}
+//       onChange={this.toggleCheckbox('bike')}
+//     />&nbsp;
+//     <img src={window.staticImages.bike} />
+//     &nbsp;Bicycle</label>
+//   </div>
+//   <div className='icon-line'>
+//     <label htmlFor='motorcycle'>
+//     <input
+//       type="checkbox"
+//       id='motorcycle'
+//       checked={this.state.motorcycle}
+//       onChange={this.toggleCheckbox('motorcycle')}
+//     />&nbsp;
+//     <img src={window.staticImages.motorcycle} />
+//     &nbsp;Motorcycle</label>
+//     <label htmlFor='ped'>
+//     <input
+//       type="checkbox"
+//       id='ped'
+//       checked={this.state.ped}
+//       onChange={this.toggleCheckbox('ped')}
+//     />&nbsp;
+//     <img src={window.staticImages.ped} />
+//     &nbsp;Pedestrian</label>
+//   </div>
+// </div>

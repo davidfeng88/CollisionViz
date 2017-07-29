@@ -29,11 +29,15 @@ body {
   margin: 20px auto;
 }
 
-.main {
+/* --- HEADER --- */
+header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
+.header-links a {
+  display: block;
+}
 /* --- ASIDE --- */
 
 aside {
