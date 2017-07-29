@@ -25,10 +25,6 @@ class ControlPanel extends React.Component {
       collisionMapTime: 29,
       stepTime: 200,
 
-      taxi: this.props.options.taxi,
-      bike: this.props.options.bike,
-      motorcycle: this.props.options.motorcycle,
-      ped: this.props.options.ped,
       mute: true,
     };
 
@@ -141,14 +137,7 @@ class ControlPanel extends React.Component {
     });
   }
 
-  toggleCheckbox(field) {
-    return e => {
-      let newValue = !this.state[field];
-      this.props.updateOption({[field]: newValue});
-      this.setState({ [field]: newValue });
-    };
-  }
-  // fat arrow functions automatic bind this
+
 
   toggleMute() {
     let newValue = !this.state.mute;
@@ -238,61 +227,7 @@ class ControlPanel extends React.Component {
           </div>
         </form>
 
-        <table className='icons'>
-          <caption>Show Special Icons</caption>
-          <thead>
-            <tr>
-              <th><img src={window.staticImages.taxi} />
-              &nbsp;Taxi</th>
-              <th><img src={window.staticImages.bike} />
-              &nbsp;Bicycle</th>
-              <th><img src={window.staticImages.motorcycle} />
-              &nbsp;Motorcycle</th>
-              <th><img src={window.staticImages.ped} />
-              &nbsp;Pedestrian</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <label className="switch">
-                  <input type="checkbox"
-                  checked={this.state.taxi}
-                  onChange={this.toggleCheckbox('taxi')}
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </td>
-              <td>
-                <label className="switch">
-                  <input type="checkbox"
-                  checked={this.state.bike}
-                  onChange={this.toggleCheckbox('bike')}
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </td>
-              <td>
-                <label className="switch">
-                  <input type="checkbox"
-                  checked={this.state.motorcycle}
-                  onChange={this.toggleCheckbox('motorcycle')}
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </td>
-              <td>
-                <label className="switch">
-                  <input type="checkbox"
-                  checked={this.state.ped}
-                  onChange={this.toggleCheckbox('ped')}
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+
       </div>
     );
   }

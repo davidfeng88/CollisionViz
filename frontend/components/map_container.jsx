@@ -11,10 +11,6 @@ import MarkerManager from '../util/marker_manager';
 
 const mapStateToProps = state => ({
   collisions: collisionsToArray(state),
-  taxi: state.options.taxi,
-  bike: state.options.bike,
-  motorcycle: state.options.motorcycle,
-  ped: state.options.ped,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -34,11 +30,17 @@ class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // special icons
+      taxi: true,
+      bike: true,
+      motorcycle: true,
+      ped: true,
+
+      // map layers
       heatmap: true,
       traffic: false,
       transit: false,
       bicycling: false,
-      loaded: false
     };
 
     this.resetMap = this.resetMap.bind(this);
@@ -58,10 +60,10 @@ class Map extends React.Component {
     });
     this.MarkerManager.updateMarkers(
       this.props.collisions,
-      this.props.taxi,
-      this.props.bike,
-      this.props.motorcycle,
-      this.props.ped
+      this.state.taxi,
+      this.state.bike,
+      this.state.motorcycle,
+      this.state.ped
     );
     this.traffic = new google.maps.TrafficLayer();
     this.traffic.setMap(null);
@@ -97,7 +99,6 @@ class Map extends React.Component {
           data: heatmapData,
         });
         this.heatmap.setMap(this.map);
-        this.setState({loaded: true});
       }
     );
   }
@@ -105,26 +106,34 @@ class Map extends React.Component {
   componentDidUpdate() {
     this.MarkerManager.updateMarkers(
       this.props.collisions,
-      this.props.taxi,
-      this.props.bike,
-      this.props.motorcycle,
-      this.props.ped
+      this.state.taxi,
+      this.state.bike,
+      this.state.motorcycle,
+      this.state.ped
     );
   }
 
   componentWillReceiveProps(newProps) {
     this.MarkerManager.updateMarkers(
       newProps.collisions,
-      newProps.taxi,
-      newProps.bike,
-      newProps.motorcycle,
-      this.props.ped
+      this.state.taxi,
+      this.state.bike,
+      this.state.motorcycle,
+      this.state.ped
     );
   }
 
   handleClick(collision) {
     this.props.updateHighlight(collision.id);
   }
+
+  toggleIcon(field) {
+    return e => {
+      let newValue = !this.state[field];
+      this.setState({ [field]: !this.state[field] });
+    };
+  }
+  // fat arrow functions automatic bind this
 
   toggleMapLayer(field) {
     // fat arrow takes care of binding
@@ -144,45 +153,101 @@ class Map extends React.Component {
 
   render() {
     return (
-        <div className='map-container'>
-          <div className="map-panel">
-            <label className="switch">
-              <input type="checkbox"
-              checked={this.state.heatmap}
-              onChange={() => this.toggleMapLayer('heatmap')}
-              />
-              <span className="slider round"></span>
-            </label>
-            <label className="switch">
-              <input type="checkbox"
-              checked={this.state.traffic}
-              onChange={() => this.toggleMapLayer('traffic')}
-              />
-              <span className="slider round"></span>
-            </label>
-            <label className="switch">
-              <input type="checkbox"
-              checked={this.state.transit}
-              onChange={() => this.toggleMapLayer('transit')}
-              />
-              <span className="slider round"></span>
-            </label>
-            <label className="switch">
-              <input type="checkbox"
-              checked={this.state.bicycling}
-              onChange={() => this.toggleMapLayer('bicycling')}
-              />
-              <span className="slider round"></span>
-            </label>
+      <div className='map-container'>
+      <table className='icons'>
+        <caption>Show Special Icons</caption>
+        <thead>
+          <tr>
+            <th><img src={window.staticImages.taxi} />
+            &nbsp;Taxi</th>
+            <th><img src={window.staticImages.bike} />
+            &nbsp;Bicycle</th>
+            <th><img src={window.staticImages.motorcycle} />
+            &nbsp;Motorcycle</th>
+            <th><img src={window.staticImages.ped} />
+            &nbsp;Pedestrian</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <label className="switch">
+                <input type="checkbox"
+                checked={this.state.taxi}
+                onChange={this.toggleIcon('taxi')}
+                />
+                <span className="slider round"></span>
+              </label>
+            </td>
+            <td>
+              <label className="switch">
+                <input type="checkbox"
+                checked={this.state.bike}
+                onChange={this.toggleIcon('bike')}
+                />
+                <span className="slider round"></span>
+              </label>
+            </td>
+            <td>
+              <label className="switch">
+                <input type="checkbox"
+                checked={this.state.motorcycle}
+                onChange={this.toggleIcon('motorcycle')}
+                />
+                <span className="slider round"></span>
+              </label>
+            </td>
+            <td>
+              <label className="switch">
+                <input type="checkbox"
+                checked={this.state.ped}
+                onChange={this.toggleIcon('ped')}
+                />
+                <span className="slider round"></span>
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-            <div className='button' onClick={this.resetMap}>
-              Reset Map</div>
-            </div>
-          <div className="index-map" ref="map">
-            Map
+        <div className="map-panel">
+          <label className="switch">
+            <input type="checkbox"
+            checked={this.state.heatmap}
+            onChange={() => this.toggleMapLayer('heatmap')}
+            />
+            <span className="slider round"></span>
+          </label>
+          <label className="switch">
+            <input type="checkbox"
+            checked={this.state.traffic}
+            onChange={() => this.toggleMapLayer('traffic')}
+            />
+            <span className="slider round"></span>
+          </label>
+          <label className="switch">
+            <input type="checkbox"
+            checked={this.state.transit}
+            onChange={() => this.toggleMapLayer('transit')}
+            />
+            <span className="slider round"></span>
+          </label>
+          <label className="switch">
+            <input type="checkbox"
+            checked={this.state.bicycling}
+            onChange={() => this.toggleMapLayer('bicycling')}
+            />
+            <span className="slider round"></span>
+          </label>
+
+          <div className='button' onClick={this.resetMap}>
+            Reset Map</div>
           </div>
-          <MapInfoContainer />
+        <div className="index-map" ref="map">
+          Map
         </div>
+        <MapInfoContainer />
+      </div>
       );
 
   }
