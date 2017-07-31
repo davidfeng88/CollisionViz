@@ -5,21 +5,17 @@ import Modal from './sampleModal';
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    // change showModal to a string instead of a boolean to handle different MODALS
 
-    this.state = { showModal: "" };
-    this.toggleModal = this.toggleModal.bind(this);
+    this.state = { shownModal: "" };
+    this.showModal = this.showModal.bind(this);
   }
 
-  toggleModal(modalName) {
-    this.setState({showModal: modalName});
+  showModal(modalName) {
+    return ( e => {
+      e.preventDefault();
+      this.setState({shownModal: modalName});
+    });
   }
-
-  // onClick version 1 & version 2
-  // return( e => {
-  //   e.preventDefault();
-  //   this.setState({showModal: [field]});
-  // });
 
   render() {
     return (
@@ -32,21 +28,22 @@ class Header extends React.Component {
           <h1>CollisionViz</h1>
         </div>
         <div className='header-links'>
-          <button onClick={ e => this.toggleModal('modal1')}>
+
+          <button onClick={this.showModal("modal1")}>
             Open modal1
           </button>
 
-          <Modal show={this.state.showModal === 'modal1'}
-            closeModal={ e => this.toggleModal("")} >
+          <Modal show={this.state.shownModal === 'modal1'}
+            closeModal={this.showModal("")} >
             This is modal1
           </Modal>
 
-          <button onClick={ e => this.toggleModal('modal2')}>
+          <button onClick={this.showModal("modal2")}>
             Open modal2
           </button>
 
-          <Modal show={this.state.showModal === 'modal2'}
-            closeModal={ e => this.toggleModal("")} >
+          <Modal show={this.state.shownModal === 'modal2'}
+            closeModal={this.showModal("")} >
             This is modal2
           </Modal>
 
