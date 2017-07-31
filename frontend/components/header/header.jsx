@@ -29,7 +29,7 @@ class Header extends React.Component {
           <img src={window.staticImages.logo} />
           <h1>CollisionViz</h1>
         </div>
-        <div className='header-links'>
+        <div className='modal-buttons'>
           <button onClick={this.switchModal("AboutCollisionViz")}>
             About CollisionViz
           </button>
@@ -42,12 +42,10 @@ class Header extends React.Component {
             Credits
           </button>
         </div>
-
         <ModalSwitcher
           currentModal={this.state.currentModal}
           closeModal={this.switchModal("")}
         />
-
       </header>
     );
   }

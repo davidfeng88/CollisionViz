@@ -33,7 +33,7 @@ select {
 }
 
 .clickable-div:active {
-  background-color: #aaa;
+  background-color: #555;
 }
 
 .icons {
@@ -66,24 +66,27 @@ select {
   display: inline-block;
   width: 60px;
   height: 34px;
+  z-index: 1;
 }
 
 .switch input {display:none;}
 
 .slider {
   position: absolute;
+  z-index: 2;
   cursor: pointer;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #111;
+  background-color: #ccc;
   -webkit-transition: .4s;
   transition: .4s;
 }
 
 .slider:before {
   position: absolute;
+  z-index: 2;
   content: "";
   height: 26px;
   width: 26px;

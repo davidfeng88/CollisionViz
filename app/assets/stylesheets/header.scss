@@ -24,58 +24,90 @@ header {
   font-size: 40px;
 }
 
-.header-links {
+.modal-buttons {
   text-align: right;
   line-height: 1.5em;
 }
 
-.header-links button:hover {
+.modal-buttons button:hover {
   cursor: pointer;
   text-decoration: underline;
 }
 
-/* --- MODALS?? --- */
+/* --- MODAL TEMPLATE --- */
 
 .modal-backdrop {
   position: fixed;
+  z-index: 3;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.7);
   padding: 50px;
 }
 
 .modal {
+  position: relative;
+  z-index: 4;
   background-color: #fff;
   border-radius: 5px;
-  max-width: 500px;
-  min-height: 300px;
+  max-width: 300px;
   margin: 0 auto;
-  padding: 30px;
+  padding: 20px 30px;
 };
 
-h3 {
-  font-size: 18px;
-  text-align: center;
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  opacity: 0.5;
 }
 
-.links i {
-  margin: 5px;
-  border-radius: 5px;
-  padding: 10px;
-}
-
-.links i:hover {
+.close-modal:hover {
   cursor: pointer;
-  background-color: #bbb;
+  opacity: 0.7;
 }
 
-.links i:active {
-  background-color: #aaa;
+/* --- MODALS --- */
+
+h3 {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+p {
+  margin: 5px auto;
+}
+
+a {
+  color: #3b99fc;
 }
 
 a:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.modal-link-div {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.modal-link-div i {
+  margin: 5px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.modal-link-div i:hover {
+  cursor: pointer;
+  background-color: #bbb;
+}
+
+.modal-link-div i:active {
+  background-color: #aaa;
 }
