@@ -52,17 +52,3 @@ class Header extends React.Component {
 }
 
 export default Header;
-
-// phase 1
-// <Modal show={this.state.currentModal === 'AboutCollisionViz'}
-//   closeModal={this.switchModal("")} >
-//   This is AboutCollisionViz Modal
-// </Modal>
-// <Modal show={this.state.currentModal === 'AboutMe'}
-//   closeModal={this.switchModal("")} >
-//   This is AboutMe Modal
-// </Modal>
-// <Modal show={this.state.currentModal === 'Credits'}
-//   closeModal={this.switchModal("")} >
-//   This is Credits Modal
-// </Modal>

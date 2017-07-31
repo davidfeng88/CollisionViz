@@ -1,4 +1,4 @@
-/* --- ControlPanel --- */
+/* --- CONTROL PANEL --- */
 
 .control-panel {
   border: 1px solid black;
@@ -6,18 +6,6 @@
   padding: 10px;
   line-height: 1.67;
   text-align: center;
-}
-
-select {
-  text-align: center;
-  font-size: 14px;
-  padding: 10px;
-  margin: 0 10px;
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-around;
 }
 
 .clickable-div {
@@ -36,86 +24,28 @@ select {
   background-color: #555;
 }
 
-.icons {
-  vertical-align: middle;
+/* line 1 */
+
+.control-panel-line1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid black;
-  padding-bottom: 10px;
 }
 
-.icon-line {
+select {
+  text-align: center;
+  font-size: 14px;
+  padding: 10px;
+  margin: 0 10px;
+}
+
+#reset-time {
+  border: 1px black solid;
+}
+
+/* line 2 */
+.control-panel-line2 {
   display: flex;
   justify-content: space-around;
-}
-
-.github-repo {
-  padding-top: 10px;
-}
-
-.icons img {
-  width: 30px;
-}
-
-.red {
-  color: red;
-}
-
-/* On/off toggle */
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-  z-index: 1;
-}
-
-.switch input {display:none;}
-
-.slider {
-  position: absolute;
-  z-index: 2;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  z-index: 2;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #3b99fc;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #3b99fc;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
 }

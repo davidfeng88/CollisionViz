@@ -174,60 +174,67 @@ class ControlPanel extends React.Component {
   render() {
     return(
       <div className="control-panel">
-        <form>
-          <label htmlFor='time-start'>Set start time</label>
-          <select id="time-start" value={this.state.initialTime}
-            onChange={this.updateInitialTime} >
-            <option value='420' >7:00 Morning</option>
-            <option value='0' >0:00 Midnight</option>
-            <option value='720' >12:00 Noon</option>
-            <option value='1080' >18:00 Afternoon</option>
-            <option value='1320' >22:00 Night</option>
-          </select>
+        <div className='control-panel-line1'>
+          Set Time:
+          <label>
+            Start time
+            <select value={this.state.initialTime}
+              onChange={this.updateInitialTime} >
+              <option value='420' >07:00</option>
+              <option value='0' >00:00</option>
+              <option value='720' >12:00</option>
+              <option value='1080' >18:00</option>
+              <option value='1320' >22:00</option>
+            </select>
+          </label>
           &nbsp;
-          <label htmlFor='collision-map-time'>
-            Collisions stay on the map for: </label>
-          <select id="collision-map-time" value={this.state.collisionMapTime}
-            onChange={this.updateCollisionMapTime} >
-            <option value='4' >5 minutes</option>
-            <option value='9' >10 minutes</option>
-            <option value='29' >30 minutes</option>
-            <option value='59' >60 minutes</option>
-          </select>
+          <label >
+            Collisions stay on the map for
+            <select value={this.state.collisionMapTime}
+              onChange={this.updateCollisionMapTime} >
+              <option value='4' >5 minutes</option>
+              <option value='9' >10 minutes</option>
+              <option value='29' >30 minutes</option>
+              <option value='59' >60 minutes</option>
+            </select>
+          </label>
           &nbsp;
           <label htmlFor='step-time'>
-            Time lapse rate: </label>
+            Time lapse rate </label>
           <select id="step-time" value={this.state.stepTime}
             onChange={this.updateStepTime} >
             <option value='100' >Fast</option>
             <option value='200' >Default</option>
             <option value='400' >Slow</option>
           </select>
-          <div className='clickable-div' onClick={this.handleReset}>
+          <div id='reset-time' className='clickable-div' onClick={this.handleReset}>
             reset time
           </div>
+        </div>
 
-          <div className='buttons'>
-            <div className='clickable-div' onClick={this.handlePlay}>
-              <i className="fa fa-play fa-lg" aria-hidden="true"></i>
-            </div>
-            <div className='clickable-div' onClick={this.handleStop}>
-              <i className="fa fa-pause fa-lg" aria-hidden="true"></i>
-            </div>
-
-            <div className='clickable-div' onClick={this.oneStepBackward}>
-            <i className="fa fa-step-backward fa-lg" aria-hidden="true"></i>
-            </div>
-            <div className='clickable-div' onClick={this.oneStepForward}>
-              <i className="fa fa-step-forward fa-lg" aria-hidden="true"></i>
-            </div>
-            <div className='clickable-div' onClick={this.toggleMute}>
-              {this.speakerIcon()}
-            </div>
+        <div className='control-panel-line2'>
+          <div className='clickable-div' onClick={this.handlePlay}>
+            <i className="fa fa-play fa-lg" aria-hidden="true"></i>
           </div>
-        </form>
-
-
+          <div className='clickable-div' onClick={this.handleStop}>
+            <i className="fa fa-pause fa-lg" aria-hidden="true"></i>
+          </div>
+          <div className='clickable-div' onClick={this.oneStepBackward}>
+          <i className="fa fa-step-backward fa-lg" aria-hidden="true"></i>
+          </div>
+          <div className='clickable-div' onClick={this.oneStepForward}>
+            <i className="fa fa-step-forward fa-lg" aria-hidden="true"></i>
+          </div>
+          <label className="switch">
+            Traffic Sound: OFF
+            <input type="checkbox"
+            checked={!this.state.mute}
+            onChange={this.toggleMute}
+            />
+            <span className="slider round"></span>
+            ON
+          </label>
+        </div>
       </div>
     );
   }
