@@ -29,6 +29,11 @@ header {
   line-height: 1.5em;
 }
 
+.header-links button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 /* --- MODALS?? --- */
 
 .modal-backdrop {
