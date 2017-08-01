@@ -154,84 +154,72 @@ class Map extends React.Component {
 
   render() {
     return (
-      <div className='map-container'>
-      <table className='icons'>
-        <caption>Show Special Icons</caption>
-        <thead>
-          <tr>
-            <th><img src={window.staticImages.taxi} />
-            &nbsp;Taxi</th>
-            <th><img src={window.staticImages.bike} />
-            &nbsp;Bicycle</th>
-            <th><img src={window.staticImages.motorcycle} />
-            &nbsp;Motorcycle</th>
-            <th><img src={window.staticImages.ped} />
-            &nbsp;Pedestrian</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <Toggle
-                checked={this.state.taxi}
-                onChange={this.toggleIcon('taxi')}
-              />
-            </td>
-            <td>
-              <Toggle
-                checked={this.state.bike}
-                onChange={this.toggleIcon('bike')}
-              />
-            </td>
-            <td>
-              <Toggle
-                checked={this.state.motorcycle}
-                onChange={this.toggleIcon('motorcycle')}
-              />
-            </td>
-            <td>
-              <Toggle
-                checked={this.state.ped}
-                onChange={this.toggleIcon('ped')}
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-        <div className="map-panel">
-              <Toggle
-            checked={this.state.heatmap}
-            onChange={() => this.toggleMapLayer('heatmap')}
-            />
-
-              <Toggle
-            checked={this.state.traffic}
-            onChange={() => this.toggleMapLayer('traffic')}
-            />
-
-              <Toggle
-            checked={this.state.transit}
-            onChange={() => this.toggleMapLayer('transit')}
-            />
-
-              <Toggle
-            checked={this.state.bicycling}
-            onChange={() => this.toggleMapLayer('bicycling')}
-            />
-
-
-          <div className='button' onClick={this.resetMap}>
-            Reset Map</div>
+      <div>
+        <div className='control-panel'>
+          <table className='icons'>
+            <thead>
+              <tr>
+                <th><img src={window.staticImages.taxi} />
+                &nbsp;Taxi</th>
+                <th><img src={window.staticImages.bike} />
+                &nbsp;Bicycle</th>
+                <th><img src={window.staticImages.motorcycle} />
+                &nbsp;Motorcycle</th>
+                <th><img src={window.staticImages.ped} />
+                &nbsp;Pedestrian</th>
+                <th>Heatmap</th>
+                <th>Real-time traffic</th>
+                <th>Public transit</th>
+                <th>Bicycling</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <Toggle checked={this.state.taxi}
+                    onChange={this.toggleIcon('taxi')} />
+                </td>
+                <td>
+                  <Toggle checked={this.state.bike}
+                    onChange={this.toggleIcon('bike')} />
+                </td>
+                <td>
+                  <Toggle checked={this.state.motorcycle}
+                    onChange={this.toggleIcon('motorcycle')} />
+                </td>
+                <td>
+                  <Toggle checked={this.state.ped}
+                    onChange={this.toggleIcon('ped')} />
+                </td>
+                <td>
+                  <Toggle checked={this.state.heatmap}
+                    onChange={() => this.toggleMapLayer('heatmap')} />
+                </td>
+                <td>
+                  <Toggle checked={this.state.traffic}
+                    onChange={() => this.toggleMapLayer('traffic')} />
+                </td>
+                <td>
+                  <Toggle checked={this.state.transit}
+                    onChange={() => this.toggleMapLayer('transit')} />
+                </td>
+                <td>
+                  <Toggle checked={this.state.bicycling}
+                    onChange={() => this.toggleMapLayer('bicycling')} />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div className='clickable-div border' onClick={this.resetMap}>
+            Reset Map
           </div>
-        <MapInfoContainer />
-        <div className="index-map" ref="map">
-          Map
         </div>
-
+      <MapInfoContainer />
+      <div className="index-map" ref="map">
+        Map
       </div>
-      );
-
+    </div>
+    );
   }
 }
 

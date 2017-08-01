@@ -9,10 +9,6 @@
   width: 30px;
 }
 
-.red {
-  color: red;
-}
-
 /* --- MAP --- */
 
 .index-map {
@@ -35,31 +31,4 @@
   padding: 10px;
   border: 1px solid #999;
   border-radius: 5px;
-}
-
-.map-panel {
-  width: 450px;
-  font-size: 12px;
-  background-color: #fff;
-  padding: 5px;
-  border: 1px solid #999;
-  border-radius: 5px;
-  text-align: center;
-  display: flex;
-  justify-content: space-around;
-}
-
-.button {
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid #999;
-}
-
-.button:hover {
-  cursor: pointer;
-  background-color: #bbb;
-}
-
-.button:active {
-  background-color: #aaa;
 }
