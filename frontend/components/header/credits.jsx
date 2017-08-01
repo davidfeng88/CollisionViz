@@ -22,6 +22,10 @@ const Credits = props => {
         Traffic sound effect: <a href='https://www.youtube.com/watch?v=cX-1TfLP_y0' target="_blank">
         Partners In Rhyme</a>
       </p>
+      <p>
+        Toggle switch: <a href='https://www.w3schools.com/howto/howto_css_switch.asp' target="_blank">
+        W3schools</a>
+      </p>
 
     </ModalTemplate>
   );

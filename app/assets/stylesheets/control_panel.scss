@@ -6,12 +6,15 @@
   padding: 10px;
   line-height: 1.67;
   text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .clickable-div {
   margin: 5px;
   border-radius: 5px;
-  padding: 5px;
+  padding: 5px 10px;
   vertical-align: middle;
 }
 
@@ -24,28 +27,9 @@
   background-color: #555;
 }
 
-/* line 1 */
-
-.control-panel-line1 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid black;
-}
-
 select {
   text-align: center;
   font-size: 14px;
   padding: 10px;
   margin: 0 10px;
-}
-
-#reset-time {
-  border: 1px black solid;
-}
-
-/* line 2 */
-.control-panel-line2 {
-  display: flex;
-  justify-content: space-around;
 }
