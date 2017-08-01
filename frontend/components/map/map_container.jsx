@@ -6,6 +6,7 @@ import { collisionsToArray } from '../../reducers/selectors';
 import { updateHighlight } from '../../actions/highlight_actions';
 import { updateFilter } from '../../actions/filter_actions';
 
+import Toggle from '../toggle';
 import MapInfoContainer from './map_info_container';
 import MarkerManager from '../../util/marker_manager';
 
@@ -171,82 +172,63 @@ class Map extends React.Component {
         <tbody>
           <tr>
             <td>
-              <label className="switch">
-                <input type="checkbox"
+              <Toggle
                 checked={this.state.taxi}
                 onChange={this.toggleIcon('taxi')}
-                />
-                <span className="slider round"></span>
-              </label>
+              />
             </td>
             <td>
-              <label className="switch">
-                <input type="checkbox"
+              <Toggle
                 checked={this.state.bike}
                 onChange={this.toggleIcon('bike')}
-                />
-                <span className="slider round"></span>
-              </label>
+              />
             </td>
             <td>
-              <label className="switch">
-                <input type="checkbox"
+              <Toggle
                 checked={this.state.motorcycle}
                 onChange={this.toggleIcon('motorcycle')}
-                />
-                <span className="slider round"></span>
-              </label>
+              />
             </td>
             <td>
-              <label className="switch">
-                <input type="checkbox"
+              <Toggle
                 checked={this.state.ped}
                 onChange={this.toggleIcon('ped')}
-                />
-                <span className="slider round"></span>
-              </label>
+              />
             </td>
           </tr>
         </tbody>
       </table>
 
         <div className="map-panel">
-          <label className="switch">
-            <input type="checkbox"
+              <Toggle
             checked={this.state.heatmap}
             onChange={() => this.toggleMapLayer('heatmap')}
             />
-            <span className="slider round"></span>
-          </label>
-          <label className="switch">
-            <input type="checkbox"
+
+              <Toggle
             checked={this.state.traffic}
             onChange={() => this.toggleMapLayer('traffic')}
             />
-            <span className="slider round"></span>
-          </label>
-          <label className="switch">
-            <input type="checkbox"
+
+              <Toggle
             checked={this.state.transit}
             onChange={() => this.toggleMapLayer('transit')}
             />
-            <span className="slider round"></span>
-          </label>
-          <label className="switch">
-            <input type="checkbox"
+
+              <Toggle
             checked={this.state.bicycling}
             onChange={() => this.toggleMapLayer('bicycling')}
             />
-            <span className="slider round"></span>
-          </label>
+
 
           <div className='button' onClick={this.resetMap}>
             Reset Map</div>
           </div>
+        <MapInfoContainer />
         <div className="index-map" ref="map">
           Map
         </div>
-        <MapInfoContainer />
+
       </div>
       );
 

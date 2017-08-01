@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateFilter, resetFilter } from '../actions/filter_actions';
+import Toggle from './toggle';
 
 const mapStateToProps = state => ({
   filters: state.filters,
@@ -137,8 +138,6 @@ class ControlPanel extends React.Component {
     });
   }
 
-
-
   toggleMute() {
     let newValue = !this.state.mute;
     this.setState({ mute: newValue });
@@ -149,25 +148,6 @@ class ControlPanel extends React.Component {
       traffic.volume = 0.2;
     } else {
       traffic.pause();
-    }
-  }
-
-  speakerIcon() {
-    if (this.state.mute) {
-      return(
-        <div className="fa-stack">
-          <i className="fa fa-lg fa-volume-off fa-stack-2x"
-            aria-hidden="true"></i>
-          <i className="fa fa-lg fa-ban fa-stack-2x red"
-            aria-hidden="true"></i>
-        </div>
-      );
-    } else {
-      return(
-        <div>
-          <i className="fa fa-lg fa-volume-up" aria-hidden="true"></i>
-        </div>
-      );
     }
   }
 
@@ -254,16 +234,9 @@ class ControlPanel extends React.Component {
           <div>
             Sound
           </div>
-          <div>
-            <label className="switch">
-              <input
-                type="checkbox"
-                checked={!this.state.mute}
-                onChange={this.toggleMute}
-              />
-              <span className="slider round"></span>
-            </label>
-          </div>
+          <Toggle
+            checked={!this.state.mute}
+            onChange={this.toggleMute} />
         </div>
       </div>
     );
