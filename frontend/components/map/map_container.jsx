@@ -9,6 +9,7 @@ import { updateFilter } from '../../actions/filter_actions';
 import Toggle from '../toggle';
 import MapInfoContainer from './map_info_container';
 import MarkerManager from '../../util/marker_manager';
+import alternativeMapStyle from './styles';
 
 const mapStateToProps = state => ({
   collisions: collisionsToArray(state),
@@ -31,19 +32,21 @@ class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showExtra: false,
+      alternativeMapStyle: false,
+
       // map layers
       heatmap: true,
       traffic: false,
       transit: false,
       bicycling: false,
-
-      showExtra: false,
-
       // special icons
       taxi: true,
       bike: true,
       motorcycle: true,
       ped: true,
+
+
     };
 
     this.resetMap = this.resetMap.bind(this);
@@ -135,6 +138,10 @@ class Map extends React.Component {
     return e => {
       let newValue = !this.state[field];
       this.setState({ [field]: !this.state[field] });
+      if (field === 'alternativeMapStyle') {
+        let newStyle = newValue ? alternativeMapStyle : [];
+        this.map.setOptions({styles: newStyle});
+      }
     };
   }
   // fat arrow functions automatic bind this
@@ -209,6 +216,13 @@ class Map extends React.Component {
               label="Bicycling"
               checked={this.state.bicycling}
               onChange={() => this.toggleMapLayer('bicycling')} />
+          </div>
+
+          <div className='flex-row extra-panel-row'>
+            <Toggle
+              label="Alternative Map Style"
+              checked={this.state.alternativeMapStyle}
+              onChange={this.toggle('alternativeMapStyle')} />
           </div>
         </div>
       );
