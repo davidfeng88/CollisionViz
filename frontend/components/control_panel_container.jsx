@@ -177,7 +177,7 @@ class ControlPanel extends React.Component {
           <div className='flex-row extra-panel-row bold'>
             More Settings
           </div>
-          <div className="flex-row extra-panel-row">
+          <div className="extra-panel-row">
             <label htmlFor='collision-map-time'>
               Collisions Map Time
             </label>
@@ -191,7 +191,7 @@ class ControlPanel extends React.Component {
               <option value='59' >60 minutes</option>
             </select>
           </div>
-          <div className="flex-row extra-panel-row">
+          <div className="extra-panel-row">
             <label htmlFor='step-time'>
               Time Lapse Rate
             </label>

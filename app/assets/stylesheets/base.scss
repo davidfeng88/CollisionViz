@@ -53,6 +53,7 @@ body {
 
 label {
   display: block;
+  margin-bottom: 5px;
 }
 
 .close {
@@ -71,7 +72,7 @@ label {
 .clickable-div {
   margin: 5px;
   border-radius: 5px;
-  padding: 5px 10px;
+  padding: 10px;
   vertical-align: middle;
 }
 
@@ -86,7 +87,6 @@ label {
 
 .main-panel {
   padding: 10px 0;
-  line-height: 1.67;
   border-bottom: 1px solid black;
   width: $inner-width;
   margin: 0 auto;
