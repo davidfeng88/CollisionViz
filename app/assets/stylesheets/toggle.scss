@@ -5,7 +5,6 @@
   display: inline-block;
   width: 54px;
   height: 24px;
-  z-index: 1;
   margin-top: 3px;
 }
 
@@ -13,7 +12,6 @@
 
 .slider {
   position: absolute;
-  z-index: 2;
   cursor: pointer;
   top: 0;
   left: 0;
@@ -26,7 +24,6 @@
 
 .slider:before {
   position: absolute;
-  z-index: 2;
   content: "";
   height: 20px;
   width: 20px;
