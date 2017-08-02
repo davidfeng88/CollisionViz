@@ -32,6 +32,7 @@ body {
 
 .bordered {
   border: 1px black solid;
+  border-radius: 5px;
 }
 
 .bold {
@@ -41,6 +42,8 @@ body {
 .flex-row {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  text-align: center;
 }
 
 label {

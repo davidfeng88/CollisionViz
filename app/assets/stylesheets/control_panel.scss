@@ -1,14 +1,8 @@
 /* --- CONTROL PANEL --- */
 
 .control-panel {
-  border: 1px solid black;
-  border-radius: 5px;
   padding: 10px;
   line-height: 1.67;
-  text-align: center;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
 }
 
 #play-button {
@@ -23,11 +17,10 @@ select {
 }
 
 /* --- EXTRA PANEL --- */
+
 .extra-panel {
-  text-align: center;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 20px;
+  right: 20px;
   padding: 10px;
-  border: 1px solid black;
 }

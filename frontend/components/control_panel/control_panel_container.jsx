@@ -60,7 +60,7 @@ class ControlPanel extends React.Component {
     if (this.state.intervalId) {
       clearInterval(this.state.intervalId);
       let intervalId = setInterval(this.oneStepForward, stepTime);
-        // do not use this.state.stepTime since the setState can be async
+      // do not use this.state.stepTime since the setState can be async
       this.setState({ intervalId });
     }
   }
@@ -111,12 +111,12 @@ class ControlPanel extends React.Component {
     }
   }
 
-
   playPauseButton() {
     let playPauseButtonText = this.state.intervalId ? "Pause" : "Play";
     let handleClick = this.state.intervalId ? this.handleStop : this.handlePlay;
     return (
-      <div id='play-button' className="clickable-div bordered" onClick={handleClick}>
+      <div id='play-button'
+        className="clickable-div bordered" onClick={handleClick}>
         {playPauseButtonText}
       </div>
     );
@@ -168,7 +168,7 @@ class ControlPanel extends React.Component {
   extraPanel() {
     if (this.state.showExtra) {
       return(
-        <div className='extra-panel'>
+        <div className='extra-panel bordered'>
           <label htmlFor='collision-map-time'>
             Collisions stay on the map for
           </label>
@@ -192,14 +192,10 @@ class ControlPanel extends React.Component {
             <option value='200' >Default</option>
             <option value='400' >Slow</option>
           </select>
-          <div>
-            <div>
-              Sound
-            </div>
-            <Toggle
-              checked={!this.state.mute}
-              onChange={this.toggleMute} />
-          </div>
+          <Toggle
+            label="Sound"
+            checked={!this.state.mute}
+            onChange={this.toggleMute} />
         </div>
       );
     } else {
@@ -216,7 +212,7 @@ class ControlPanel extends React.Component {
 
   render() {
     return(
-      <div className="control-panel">
+      <div className="control-panel flex-row bordered">
         <div>
           <label htmlFor='initial-time'>
             Start Time
@@ -233,18 +229,13 @@ class ControlPanel extends React.Component {
           </select>
         </div>
         {this.playPauseButton()}
-        <div
-          className='clickable-div bordered'
-          onClick={this.handleReset}>
+        <div className='clickable-div bordered' onClick={this.handleReset}>
           Reset Time
         </div>
-
-          <Toggle
-            label="More Settings"
-            checked={this.state.showExtra}
-            onChange={this.toggle('showExtra')} />
-
-
+        <Toggle
+          label="More Settings"
+          checked={this.state.showExtra}
+          onChange={this.toggle('showExtra')} />
         {this.extraPanel()}
       </div>
     );
@@ -255,12 +246,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ControlPanel);
-
-// <div>
-//   <div>
-//     More Settings
-//   </div>
-//   <Toggle
-//     checked={this.state.showExtra}
-//     onChange={this.toggle('showExtra')} />
-// </div>
