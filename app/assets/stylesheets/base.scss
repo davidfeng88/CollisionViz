@@ -25,9 +25,13 @@ body {
   font-weight: normal;
 }
 
+$blue: #3b99fc;
+$inner-width: 600px;
+$outer-width: 650px;
+
 .container {
-  width: 600px;
-  margin: 20px auto;
+  width: $outer-width;
+  margin: 0 auto;
 }
 
 .bordered {
@@ -50,7 +54,6 @@ label {
   display: block;
 }
 
-$blue: #3b99fc;
 
 .clickable-div {
   margin: 5px;
@@ -66,4 +69,21 @@ $blue: #3b99fc;
 
 .clickable-div:active {
   background-color: #555;
+}
+
+.panel {
+  padding: 10px 0;
+  line-height: 1.67;
+  border-bottom: 1px solid black;
+  width: $inner-width;
+  margin: 0 auto;
+}
+
+.panel-row {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.panel-row:last-child {
+  margin-bottom: 0;
 }

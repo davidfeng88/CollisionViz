@@ -1,4 +1,12 @@
-/* --- MAP CONTROL PANEL --- */
+/* --- MAP --- */
+
+.index-map {
+  width: 600px;
+  height: 600px;
+  margin: 20px auto;
+}
+
+/* --- EXTRA MAP PANEL --- */
 
 .icons {
   vertical-align: middle;
@@ -9,24 +17,10 @@
   width: 30px;
 }
 
-/* --- MAP --- */
-
-.index-map {
-  width: 600px;
-  height: 572px;
-}
-
-.map-container {
-  // position: relative;
-}
-
-
-
 .extra-map-panel {
-  text-align: center;
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 20px;
+  bottom: 20px;
   padding: 10px;
-  border: 1px solid black;
+  width: 300px;
 }

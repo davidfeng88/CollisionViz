@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateFilter, resetFilter } from '../../actions/filter_actions';
-import Toggle from '../toggle';
+import { updateFilter, resetFilter } from '../actions/filter_actions';
+import Toggle from './toggle';
 
 const mapStateToProps = state => ({
   filters: state.filters,
@@ -212,7 +212,7 @@ class ControlPanel extends React.Component {
 
   render() {
     return(
-      <div className="control-panel flex-row bordered">
+      <div className="panel flex-row">
         <div>
           <label htmlFor='initial-time'>
             Start Time
