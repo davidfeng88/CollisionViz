@@ -11,23 +11,7 @@
 }
 
 .highlight {
-  text-align: left;
-  border: 1px solid black;
-  border-radius: 5px;
-  background-color: #ccc;
   padding: 10px;
-}
-
-.detail-entry {
-  margin: 10px 0;
-}
-
-.column-name {
-  color: $blue;
-}
-
-.value {
-  margin-bottom: 10px;
 }
 
 .highlight-first-row {
@@ -38,24 +22,4 @@
 
 .clear-highlight {
   font-size: 18px;
-  padding: 5px;
-  border-radius: 4px;
-}
-
-.clear-highlight:hover {
-  cursor: pointer;
-  background-color: #bbb;
-}
-
-.clear-highlight:active {
-  cursor: pointer;
-  background-color: #aaa;
-}
-
-.highlight-info {
-  line-height: 20px;
-}
-
-.highlight-info th {
-  width: 300px;
 }

@@ -169,29 +169,33 @@ class ControlPanel extends React.Component {
     if (this.state.showExtra) {
       return(
         <div className='extra-panel bordered'>
-          <label htmlFor='collision-map-time'>
-            Collisions stay on the map for
-          </label>
-          <select
-            id='collision-map-time'
-            value={this.state.collisionMapTime}
-            onChange={this.updateCollisionMapTime} >
-            <option value='4' >5 minutes</option>
-            <option value='9' >10 minutes</option>
-            <option value='29' >30 minutes</option>
-            <option value='59' >60 minutes</option>
-          </select>
-          <label htmlFor='step-time'>
-            Time lapse rate
-          </label>
-          <select
-            id="step-time"
-            value={this.state.stepTime}
-            onChange={this.updateStepTime} >
-            <option value='100' >Fast</option>
-            <option value='200' >Default</option>
-            <option value='400' >Slow</option>
-          </select>
+          <div className="flex-row panel-row">
+            <label htmlFor='collision-map-time'>
+              Collisions Map Time
+            </label>
+            <select
+              id='collision-map-time'
+              value={this.state.collisionMapTime}
+              onChange={this.updateCollisionMapTime} >
+              <option value='4' >5 minutes</option>
+              <option value='9' >10 minutes</option>
+              <option value='29' >30 minutes</option>
+              <option value='59' >60 minutes</option>
+            </select>
+          </div>
+          <div className="flex-row panel-row">
+            <label htmlFor='step-time'>
+              Time Lapse Rate
+            </label>
+            <select
+              id="step-time"
+              value={this.state.stepTime}
+              onChange={this.updateStepTime} >
+              <option value='100' >Fast</option>
+              <option value='200' >Default</option>
+              <option value='400' >Slow</option>
+            </select>
+          </div>
           <Toggle
             label="Sound"
             checked={!this.state.mute}

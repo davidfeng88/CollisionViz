@@ -18,7 +18,7 @@ const mapDispatchToProps = dispatch => ({
 const DetailEntry = ({ name, value }) => {
   return(
     <section>
-      <p className='detail-entry'><span className='bold'>{name}</span>
+      <p className='panel-row'><span className='bold'>{name}</span>
       <br />
       {value}</p>
     </section>
@@ -52,11 +52,7 @@ class Highlight extends React.Component {
         <DetailEntry key={ detail[0] }
           name={ detail[0] } value={ detail[1] } />
     ));
-    return (
-      <div className='highlight-info'>
-        {detailsEntries}
-      </div>
-    );
+    return detailsEntries;
   }
 
   render() {
@@ -64,20 +60,23 @@ class Highlight extends React.Component {
     if (collision) {
       return(
         <div className='highlight-wrapper'>
-          <div className='highlight'>
+          <div className='highlight bordered'>
             <div className='highlight-first-row'>
               <div>
                 Collision Details:
               </div>
-
-              <div className='clear-highlight' onClick={this.props.resetHighlight}>
-              ×
+              <div className='clear-highlight clickable-div'
+                onClick={this.props.resetHighlight}>
+                ×
               </div>
             </div>
+            <div className='panel-row'>
+              <span className='bold'>Note</span>:<br />
+              Time is shown in UTC.<br />
+              New York local time is UTC−04:00 <br />
+              with daylight saving time.
+            </div>
             {this.details(collision)}
-            Note:<br />
-            Time is shown in UTC.<br />
-            New York local time is UTC−04:00 with daylight saving time.
           </div>
         </div>
       );
