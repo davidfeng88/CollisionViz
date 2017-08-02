@@ -158,7 +158,7 @@ class Map extends React.Component {
   extraPanel() {
     if (this.state.showExtra) {
       return(
-        <div className='extra-panel'>
+        <div className='extra-map-panel'>
         <table className='icons'>
           <caption>
             Show special icons
@@ -198,6 +198,36 @@ class Map extends React.Component {
             </tr>
           </tbody>
         </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Heatmap</th>
+              <th>Real-time traffic</th>
+              <th>Public transit</th>
+              <th>Bicycling</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <Toggle checked={this.state.heatmap}
+                  onChange={() => this.toggleMapLayer('heatmap')} />
+              </td>
+              <td>
+                <Toggle checked={this.state.traffic}
+                  onChange={() => this.toggleMapLayer('traffic')} />
+              </td>
+              <td>
+                <Toggle checked={this.state.transit}
+                  onChange={() => this.toggleMapLayer('transit')} />
+              </td>
+              <td>
+                <Toggle checked={this.state.bicycling}
+                  onChange={() => this.toggleMapLayer('bicycling')} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
         </div>
       );
     } else {
@@ -209,41 +239,18 @@ class Map extends React.Component {
     return (
       <div>
         <div className='control-panel'>
-          <table>
-            <thead>
-              <tr>
-                <th>Heatmap</th>
-                <th>Real-time traffic</th>
-                <th>Public transit</th>
-                <th>Bicycling</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <Toggle checked={this.state.heatmap}
-                    onChange={() => this.toggleMapLayer('heatmap')} />
-                </td>
-                <td>
-                  <Toggle checked={this.state.traffic}
-                    onChange={() => this.toggleMapLayer('traffic')} />
-                </td>
-                <td>
-                  <Toggle checked={this.state.transit}
-                    onChange={() => this.toggleMapLayer('transit')} />
-                </td>
-                <td>
-                  <Toggle checked={this.state.bicycling}
-                    onChange={() => this.toggleMapLayer('bicycling')} />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+
           <div className='clickable-div border' onClick={this.resetMap}>
             Reset Map
           </div>
-          <div className='clickable-div border' onClick={this.toggle("showExtra")}>
-            Toggle extra settings
+
+          <div>
+            <div>
+              Additional map options
+            </div>
+            <Toggle
+              checked={this.state.showExtra}
+              onChange={this.toggle('showExtra')} />
           </div>
         </div>
       {this.extraPanel()}

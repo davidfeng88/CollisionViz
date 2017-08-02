@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateFilter, resetFilter } from '../actions/filter_actions';
-import Toggle from './toggle';
+import { updateFilter, resetFilter } from '../../actions/filter_actions';
+import Toggle from '../toggle';
 
 const mapStateToProps = state => ({
   filters: state.filters,
@@ -27,6 +27,7 @@ class ControlPanel extends React.Component {
       stepTime: 200,
 
       mute: true,
+      showExtra: false,
     };
 
     this.updateInitialTime = this.updateInitialTime.bind(this);
@@ -40,6 +41,8 @@ class ControlPanel extends React.Component {
     this.handleReset = this.handleReset.bind(this);
     this.oneStepBackward = this.oneStepBackward.bind(this);
     this.oneStepForward = this.oneStepForward.bind(this);
+
+    this.extraPanel = this.extraPanel.bind(this);
   }
 
   componentDidMount() {
@@ -151,6 +154,61 @@ class ControlPanel extends React.Component {
     }
   }
 
+  extraPanel() {
+    if (this.state.showExtra) {
+      return(
+        <div className='extra-panel'>
+          <label htmlFor='collision-map-time'>
+            Collisions stay on the map for
+          </label>
+          <select
+            id='collision-map-time'
+            value={this.state.collisionMapTime}
+            onChange={this.updateCollisionMapTime} >
+            <option value='4' >5 minutes</option>
+            <option value='9' >10 minutes</option>
+            <option value='29' >30 minutes</option>
+            <option value='59' >60 minutes</option>
+          </select>
+          <label htmlFor='step-time'>
+            Time lapse rate
+          </label>
+          <select
+            id="step-time"
+            value={this.state.stepTime}
+            onChange={this.updateStepTime} >
+            <option value='100' >Fast</option>
+            <option value='200' >Default</option>
+            <option value='400' >Slow</option>
+          </select>
+          <div className='clickable-div' onClick={this.oneStepBackward}>
+            <i className="fa fa-step-backward fa-lg" aria-hidden="true"></i>
+          </div>
+          <div className='clickable-div' onClick={this.oneStepForward}>
+            <i className="fa fa-step-forward fa-lg" aria-hidden="true"></i>
+          </div>
+          <div>
+            <div>
+              Sound
+            </div>
+            <Toggle
+              checked={!this.state.mute}
+              onChange={this.toggleMute} />
+          </div>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  toggle(field) {
+    return e => {
+      let newValue = !this.state[field];
+      this.setState({ [field]: !this.state[field] });
+    };
+  }
+
   render() {
     return(
       <div className="control-panel">
@@ -160,16 +218,6 @@ class ControlPanel extends React.Component {
               <th>
                 <label htmlFor='initial-time'>
                   Start time
-                </label>
-              </th>
-              <th>
-                <label htmlFor='collision-map-time'>
-                  Collisions stay on the map for
-                </label>
-              </th>
-              <th>
-                <label htmlFor='step-time'>
-                  Time lapse rate
                 </label>
               </th>
             </tr>
@@ -188,27 +236,6 @@ class ControlPanel extends React.Component {
                   <option value='1320' >22:00</option>
                 </select>
               </td>
-              <td>
-                <select
-                  id='collision-map-time'
-                  value={this.state.collisionMapTime}
-                  onChange={this.updateCollisionMapTime} >
-                  <option value='4' >5 minutes</option>
-                  <option value='9' >10 minutes</option>
-                  <option value='29' >30 minutes</option>
-                  <option value='59' >60 minutes</option>
-                </select>
-              </td>
-              <td>
-                <select
-                  id="step-time"
-                  value={this.state.stepTime}
-                  onChange={this.updateStepTime} >
-                  <option value='100' >Fast</option>
-                  <option value='200' >Default</option>
-                  <option value='400' >Slow</option>
-                </select>
-              </td>
             </tr>
           </tbody>
         </table>
@@ -224,20 +251,17 @@ class ControlPanel extends React.Component {
         <div className='clickable-div' onClick={this.handleStop}>
           <i className="fa fa-pause fa-lg" aria-hidden="true"></i>
         </div>
-        <div className='clickable-div' onClick={this.oneStepBackward}>
-          <i className="fa fa-step-backward fa-lg" aria-hidden="true"></i>
-        </div>
-        <div className='clickable-div' onClick={this.oneStepForward}>
-          <i className="fa fa-step-forward fa-lg" aria-hidden="true"></i>
-        </div>
+
+
         <div>
           <div>
-            Sound
+            Additional Settings
           </div>
           <Toggle
-            checked={!this.state.mute}
-            onChange={this.toggleMute} />
+            checked={this.state.showExtra}
+            onChange={this.toggle('showExtra')} />
         </div>
+        {this.extraPanel()}
       </div>
     );
   }
