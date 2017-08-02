@@ -9,7 +9,7 @@ CollisionViz shows the location and time of motor vehicle collisions in New York
 
 The user can select the start time and start/pause/resume the visualization.
 
-The current map time and the number of collisions on map are shown. The user can move/zoom the map and the collision counter will update accordingly.
+The current map time and the number of collisions on the map are shown. The user can move/zoom the map and the collision counter will update accordingly.
 
 The user can click on map icons to see the collision details.
 
@@ -23,10 +23,10 @@ The user can choose to show custom icons for collisions involving taxis, bicycle
 ### Map layers
 
 Map panel: the user can toggle four layers on and off the map. By default, the heat map layer is turned on while the other three are turned off.
-* The heat map layer: shows a heat map based on all the collisions on 6/22/2017. One injury is counted as five normal collisions (where nobody was injured or killed). One death is counted as 100 normal collisions (fortunately the number of deaths is 0 on that day).
-* The traffic layer: shows the real-time (user time) traffic information.
-* The transit layer: displays the public transit network.
-* The bicycling Layer: renders bike paths, suggested bike routes and other overlays specific to bicycling usage.
+* The heat map layer shows a heat map based on all the collisions on 6/22/2017. One injury is counted as five normal collisions (where nobody was injured or killed). One death is counted as 100 normal collisions (fortunately the number of deaths is 0 on that day).
+* The traffic layer shows the real-time (user time) traffic information.
+* The transit layer displays the public transit network.
+* The bicycling Layer renders bike paths, suggested bike routes and other overlays specific to bicycling usage.
 
 ### Collision details
 
@@ -62,10 +62,9 @@ Map panel: the user can toggle four layers on and off the map. By default, the h
 }
 ```
 The state contains three slices:
-- `filters` contains filters for the collisions (map bounds, start time and finish time).
-  * Filters: start time and finish time are set by the control panel, and rendered by the map information box. Map bounds is set by the map. Whenever a filter is updated, an AJAX request is sent to the backend with the filter, and collisions that meet those conditions are populated in the `collisions` slice.
-- `collisions` contains all the collisions that meet the filter conditions. It is set by the filters, and rendered by the map component.
-- `highlight` contains information of the highlighted collision, which is shown in the `Highlight` component. When the user clicks on a marker on map, an AJAX request is sent to the backend with the collision's id, and its information is populated in this slice. This slice is created because we want the highlighted collision information to persist even if the collision is not in the `collisions` slice anymore, i.e. after the corresponding marker disappears from the map.
+- `filters` contains filters for the collisions (map bounds, start time and finish time). The start time and finish time are set by the control panel and rendered by the map information box. Map bounds are set by the map. Whenever a filter is updated, an AJAX request is sent to the backend with the filter, and collisions that meet those conditions are populated in the `collisions` slice.
+- `collisions` contains all the collisions that meet the filter conditions. It is set by the filters and rendered by the map component.
+- `highlight` contains information about the highlighted collision, which is shown in the `Highlight` component. When the user clicks on a marker on the map, an AJAX request is sent to the backend with the collision's id, and its information is populated in this slice. This slice is created because we want the highlighted collision information to persist even if the collision is not in the `collisions` slice anymore, i.e. after the corresponding marker disappears from the map.
 
 ### Filtering the collisions
 The internal state of `ControlPanel` component contains a field for `currentTime`. `oneStepForward` function increases `currentTime` by one minute, calculates the `start` and `finish` filters, and updates the `collisions` state slice. Several edge cases are also handled. For example, when the visualization just started, collisions happened before the start time should not be shown.
