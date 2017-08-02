@@ -46,3 +46,21 @@ body {
 label {
   display: block;
 }
+
+$blue: #3b99fc;
+
+.clickable-div {
+  margin: 5px;
+  border-radius: 5px;
+  padding: 5px 10px;
+  vertical-align: middle;
+}
+
+.clickable-div:hover {
+  cursor: pointer;
+  background-color: #bbb;
+}
+
+.clickable-div:active {
+  background-color: #555;
+}

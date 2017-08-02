@@ -111,6 +111,17 @@ class ControlPanel extends React.Component {
     }
   }
 
+
+  playPauseButton() {
+    let playPauseButtonText = this.state.intervalId ? "Pause" : "Play";
+    let handleClick = this.state.intervalId ? this.handleStop : this.handlePlay;
+    return (
+      <div id='play-button' className="clickable-div bordered" onClick={handleClick}>
+        {playPauseButtonText}
+      </div>
+    );
+  }
+
   oneStepBackward() {
     this.oneStep(-1);
   }
@@ -181,12 +192,6 @@ class ControlPanel extends React.Component {
             <option value='200' >Default</option>
             <option value='400' >Slow</option>
           </select>
-          <div className='clickable-div' onClick={this.oneStepBackward}>
-            <i className="fa fa-step-backward fa-lg" aria-hidden="true"></i>
-          </div>
-          <div className='clickable-div' onClick={this.oneStepForward}>
-            <i className="fa fa-step-forward fa-lg" aria-hidden="true"></i>
-          </div>
           <div>
             <div>
               Sound
@@ -227,26 +232,19 @@ class ControlPanel extends React.Component {
             <option value='1320' >22:00</option>
           </select>
         </div>
-        <div className='clickable-div' onClick={this.handlePlay}>
-          <i className="fa fa-play fa-lg" aria-hidden="true"></i>
-        </div>
-        <div className='clickable-div' onClick={this.handleStop}>
-          <i className="fa fa-pause fa-lg" aria-hidden="true"></i>
-        </div>
+        {this.playPauseButton()}
         <div
           className='clickable-div bordered'
           onClick={this.handleReset}>
           Reset Time
         </div>
-        
-        <div>
-          <div>
-            More Settings
-          </div>
+
           <Toggle
+            label="More Settings"
             checked={this.state.showExtra}
             onChange={this.toggle('showExtra')} />
-        </div>
+
+
         {this.extraPanel()}
       </div>
     );
@@ -257,3 +255,12 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ControlPanel);
+
+// <div>
+//   <div>
+//     More Settings
+//   </div>
+//   <Toggle
+//     checked={this.state.showExtra}
+//     onChange={this.toggle('showExtra')} />
+// </div>
