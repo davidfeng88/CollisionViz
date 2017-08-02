@@ -159,6 +159,14 @@ class Map extends React.Component {
     if (this.state.showExtra) {
       return(
         <div className='extra-map-panel extra-panel bordered'>
+          <div
+            onClick={(e) => this.setState({showExtra: false})}
+            className='close'>
+            ×
+          </div>
+          <div className='flex-row extra-panel-row bold'>
+            More Map Options
+          </div>
           <div className='flex-row bold'>
             Toggle Special Icons
           </div>

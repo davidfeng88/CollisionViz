@@ -61,14 +61,12 @@ class Highlight extends React.Component {
       return(
         <div className='highlight-wrapper'>
           <div className='highlight bordered'>
-            <div className='highlight-first-row'>
-              <div>
-                Collision Details:
-              </div>
-              <div className='clear-highlight clickable-div'
-                onClick={this.props.resetHighlight}>
-                ×
-              </div>
+            <div className='close'
+              onClick={this.props.resetHighlight}>
+              ×
+            </div>
+            <div className='extra-panel-row bold'>
+              Collision Details:
             </div>
             <div className='extra-panel-row'>
               <span className='bold'>Note</span>:<br />

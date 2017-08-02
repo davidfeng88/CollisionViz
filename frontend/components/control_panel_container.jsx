@@ -169,6 +169,14 @@ class ControlPanel extends React.Component {
     if (this.state.showExtra) {
       return(
         <div className='extra-panel extra-control-panel bordered'>
+          <div
+            onClick={(e) => this.setState({showExtra: false})}
+            className='close'>
+            ×
+          </div>
+          <div className='flex-row extra-panel-row bold'>
+            More Settings
+          </div>
           <div className="flex-row extra-panel-row">
             <label htmlFor='collision-map-time'>
               Collisions Map Time

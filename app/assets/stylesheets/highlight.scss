@@ -13,15 +13,6 @@
 
 .highlight {
   padding: 10px;
+  position: relative;
   background-color: $background-color;
-}
-
-.highlight-first-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.clear-highlight {
-  font-size: 18px;
 }

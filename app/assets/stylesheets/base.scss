@@ -55,6 +55,18 @@ label {
   display: block;
 }
 
+.close {
+  position: absolute;
+  top: 2px;
+  right: 10px;
+  font-size: 30px;
+  opacity: 0.5;
+}
+
+.close:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
 
 .clickable-div {
   margin: 5px;
