@@ -15,10 +15,6 @@ const Credits = props => {
         Ge "David" Feng</a>
       </p>
       <p className="extra-panel-row">
-        Icons: <a href='http://fontawesome.io/' target="_blank">
-        Font Awesome</a>
-      </p>
-      <p className="extra-panel-row">
         Traffic sound effect: <a href='https://www.youtube.com/watch?v=cX-1TfLP_y0' target="_blank">
         Partners In Rhyme</a>
       </p>
