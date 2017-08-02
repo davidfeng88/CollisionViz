@@ -1,11 +1,33 @@
 /* --- HIGHLIGHT --- */
 
+.highlight-wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
 .highlight {
+  text-align: left;
   border: 1px solid black;
   border-radius: 5px;
+  background-color: #ccc;
+  padding: 10px;
+}
 
-  padding: 20px;
-  margin: 10px auto;
+.detail-entry {
+  margin: 10px 0;
+}
+
+.column-name {
+  color: #3b99fc;
+}
+
+.value {
+  margin-bottom: 10px;
 }
 
 .highlight-first-row {
@@ -32,7 +54,6 @@
 
 .highlight-info {
   line-height: 20px;
-  margin-left: 80px;
 }
 
 .highlight-info th {

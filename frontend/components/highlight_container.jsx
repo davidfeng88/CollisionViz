@@ -17,10 +17,11 @@ const mapDispatchToProps = dispatch => ({
 
 const DetailEntry = ({ name, value }) => {
   return(
-    <tr>
-      <th>{name}</th>
-      <td>{value}</td>
-    </tr>
+    <section>
+      <p className='detail-entry'>{name}
+      <br />
+      {value}</p>
+    </section>
   );
 };
 
@@ -52,11 +53,9 @@ class Highlight extends React.Component {
           name={ detail[0] } value={ detail[1] } />
     ));
     return (
-      <table className='highlight-info'>
-        <tbody>
+      <div className='highlight-info'>
         {detailsEntries}
-        </tbody>
-      </table>
+      </div>
     );
   }
 
@@ -64,18 +63,22 @@ class Highlight extends React.Component {
     let { collision } = this.props;
     if (collision) {
       return(
-        <div className='highlight'>
-          <div className='highlight-first-row'>
-            <div>
-              Collision Details: (Time is in UTC, map time is in New York local time
-                (with daylight saving time, UTC−04:00))
-            </div>
+        <div className='highlight-wrapper'>
+          <div className='highlight'>
+            <div className='highlight-first-row'>
+              <div>
+                Collision Details:
+              </div>
 
-            <div className='clear-highlight' onClick={this.props.resetHighlight}>
-            ×
+              <div className='clear-highlight' onClick={this.props.resetHighlight}>
+              ×
+              </div>
             </div>
+            {this.details(collision)}
+            Note:<br />
+            Time is shown in UTC.<br />
+            New York local time is UTC−04:00 with daylight saving time.
           </div>
-          {this.details(collision)}
         </div>
       );
     } else {
