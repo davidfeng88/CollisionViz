@@ -168,8 +168,8 @@ class ControlPanel extends React.Component {
   extraPanel() {
     if (this.state.showExtra) {
       return(
-        <div className='extra-panel bordered'>
-          <div className="flex-row panel-row">
+        <div className='extra-panel extra-control-panel bordered'>
+          <div className="flex-row extra-panel-row">
             <label htmlFor='collision-map-time'>
               Collisions Map Time
             </label>
@@ -183,7 +183,7 @@ class ControlPanel extends React.Component {
               <option value='59' >60 minutes</option>
             </select>
           </div>
-          <div className="flex-row panel-row">
+          <div className="flex-row extra-panel-row">
             <label htmlFor='step-time'>
               Time Lapse Rate
             </label>
@@ -216,7 +216,7 @@ class ControlPanel extends React.Component {
 
   render() {
     return(
-      <div className="panel flex-row">
+      <div className="main-panel flex-row">
         <div>
           <label htmlFor='initial-time'>
             Start Time

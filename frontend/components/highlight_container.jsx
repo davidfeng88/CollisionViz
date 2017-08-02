@@ -18,7 +18,7 @@ const mapDispatchToProps = dispatch => ({
 const DetailEntry = ({ name, value }) => {
   return(
     <section>
-      <p className='panel-row'><span className='bold'>{name}</span>
+      <p className='extra-panel-row'><span className='bold'>{name}</span>
       <br />
       {value}</p>
     </section>
@@ -70,7 +70,7 @@ class Highlight extends React.Component {
                 ×
               </div>
             </div>
-            <div className='panel-row'>
+            <div className='extra-panel-row'>
               <span className='bold'>Note</span>:<br />
               Time is shown in UTC.<br />
               New York local time is UTC−04:00 <br />

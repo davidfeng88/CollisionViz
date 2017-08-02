@@ -158,11 +158,11 @@ class Map extends React.Component {
   extraPanel() {
     if (this.state.showExtra) {
       return(
-        <div className='extra-map-panel bordered'>
+        <div className='extra-map-panel extra-panel bordered'>
           <div className='flex-row bold'>
             Toggle Special Icons
           </div>
-          <div className='flex-row panel-row'>
+          <div className='flex-row extra-panel-row'>
             <Toggle
               label="Taxi"
               checked={this.state.taxi}
@@ -184,7 +184,7 @@ class Map extends React.Component {
           <div className='flex-row bold'>
             Toggle Map Layers
           </div>
-          <div className='flex-row panel-row'>
+          <div className='flex-row extra-panel-row'>
             <Toggle
               label="Heatmap"
               checked={this.state.heatmap}
@@ -212,7 +212,7 @@ class Map extends React.Component {
   render() {
     return (
       <div>
-        <div className='panel flex-row'>
+        <div className='main-panel flex-row'>
           <MapInfoContainer />
           <div className='clickable-div bordered' onClick={this.resetMap}>
             Reset Map

@@ -19,15 +19,16 @@ button, article, footer, small {
 
 /* --- ELEMENTS --- */
 
-body {
-  background-color: #aaa;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: normal;
-}
-
 $blue: #3b99fc;
 $inner-width: 600px;
 $outer-width: 650px;
+$background-color: #aaa;
+
+body {
+  background-color: $background-color;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+}
 
 .container {
   width: $outer-width;
@@ -71,7 +72,7 @@ label {
   background-color: #555;
 }
 
-.panel {
+.main-panel {
   padding: 10px 0;
   line-height: 1.67;
   border-bottom: 1px solid black;
@@ -79,11 +80,17 @@ label {
   margin: 0 auto;
 }
 
-.panel-row {
+.extra-panel {
+  position: absolute;
+  background-color: $background-color;
+  z-index: 1;
+}
+
+.extra-panel-row {
   margin-top: 5px;
   margin-bottom: 15px;
 }
 
-.panel-row:last-child {
+.extra-panel-row:last-child {
   margin-bottom: 0;
 }
