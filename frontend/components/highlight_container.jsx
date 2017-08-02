@@ -18,7 +18,7 @@ const mapDispatchToProps = dispatch => ({
 const DetailEntry = ({ name, value }) => {
   return(
     <section>
-      <p className='detail-entry'>{name}
+      <p className='detail-entry'><span className='bold'>{name}</span>
       <br />
       {value}</p>
     </section>

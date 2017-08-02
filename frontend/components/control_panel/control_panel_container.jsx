@@ -212,38 +212,20 @@ class ControlPanel extends React.Component {
   render() {
     return(
       <div className="control-panel">
-        <table>
-          <thead>
-            <tr>
-              <th>
-                <label htmlFor='initial-time'>
-                  Start time
-                </label>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <select
-                  id='initial-time'
-                  value={this.state.initialTime}
-                  onChange={this.updateInitialTime} >
-                  <option value='420' >07:00</option>
-                  <option value='0' >00:00</option>
-                  <option value='720' >12:00</option>
-                  <option value='1080' >18:00</option>
-                  <option value='1320' >22:00</option>
-                </select>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div
-          className='clickable-div bordered'
-          onClick={this.handleReset}>
-          reset time
+        <div>
+          <label htmlFor='initial-time'>
+            Start Time
+          </label>
+          <select
+            id='initial-time'
+            value={this.state.initialTime}
+            onChange={this.updateInitialTime} >
+            <option value='420' >07:00</option>
+            <option value='0' >00:00</option>
+            <option value='720' >12:00</option>
+            <option value='1080' >18:00</option>
+            <option value='1320' >22:00</option>
+          </select>
         </div>
         <div className='clickable-div' onClick={this.handlePlay}>
           <i className="fa fa-play fa-lg" aria-hidden="true"></i>
@@ -251,11 +233,15 @@ class ControlPanel extends React.Component {
         <div className='clickable-div' onClick={this.handleStop}>
           <i className="fa fa-pause fa-lg" aria-hidden="true"></i>
         </div>
-
-
+        <div
+          className='clickable-div bordered'
+          onClick={this.handleReset}>
+          Reset Time
+        </div>
+        
         <div>
           <div>
-            Additional Settings
+            More Settings
           </div>
           <Toggle
             checked={this.state.showExtra}

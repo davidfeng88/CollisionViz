@@ -21,7 +21,8 @@ button, article, footer, small {
 
 body {
   background-color: #aaa;
-  font-family: 'Arimo', sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
 }
 
 .container {
@@ -33,6 +34,15 @@ body {
   border: 1px black solid;
 }
 
-th, td {
-  padding: 0 10px;
+.bold {
+  font-weight: bold;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+label {
+  display: block;
 }
