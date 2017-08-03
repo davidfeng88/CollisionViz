@@ -81,7 +81,15 @@ class MarkerManager {
       collisionId: collision.id
     });
 
-    marker.addListener('click', () => this.handleClick(collision));
+    marker.addListener('click', () => {
+      let contentString = "<div>This is an infowindow for collision #" +
+        collision.id + "</div>";
+      let infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+      infowindow.open(this.map, marker);
+      this.handleClick(collision);
+    });
     this.markers[marker.collisionId] = marker;
   }
 
