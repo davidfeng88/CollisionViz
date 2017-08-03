@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import * as APIUtil from '../../util/collision_api_util';
 import { collisionsToArray } from '../../reducers/selectors';
-import { updateHighlight } from '../../actions/highlight_actions';
 import { updateFilter } from '../../actions/filter_actions';
 
 import Toggle from '../toggle';
@@ -17,7 +16,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   updateFilter: (filters) => dispatch(updateFilter(filters)),
-  updateHighlight: (collisionId) => dispatch(updateHighlight(collisionId)),
 });
 
 const NYC_CENTER = {lat: 40.732663, lng: -73.993479};
@@ -45,8 +43,6 @@ class Map extends React.Component {
       bike: true,
       motorcycle: true,
       ped: true,
-
-
     };
 
     this.resetMap = this.resetMap.bind(this);
@@ -56,7 +52,7 @@ class Map extends React.Component {
   componentDidMount() {
     const map = this.refs.map;
     this.map = new google.maps.Map(map, mapOptions);
-    this.MarkerManager = new MarkerManager(this.map, this.handleClick.bind(this));
+    this.MarkerManager = new MarkerManager(this.map);
     google.maps.event.addListener(this.map, 'idle', () => {
       const { north, south, east, west } = this.map.getBounds().toJSON();
       const bounds = {
@@ -128,10 +124,6 @@ class Map extends React.Component {
       this.state.motorcycle,
       this.state.ped
     );
-  }
-
-  handleClick(collision) {
-    this.props.updateHighlight(collision.id);
   }
 
   toggle(field) {

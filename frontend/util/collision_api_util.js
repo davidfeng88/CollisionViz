@@ -5,10 +5,3 @@ export const fetchAllCollisions = data => (
     data
   })
 );
-
-export const fetchCollision = (id) => (
-  $.ajax({
-    method: 'GET',
-    url: `/api/collisions/${id}`
-  })
-);

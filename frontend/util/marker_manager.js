@@ -23,10 +23,9 @@ const details = (collision) => {
 };
 
 class MarkerManager {
-  constructor(map, handleClick){
+  constructor(map){
     this.map = map;
     this.markers = {};
-    this.handleClick = handleClick;
   }
 
   updateMarkers(collisions, taxi, bike, motorcycle, ped){
@@ -109,7 +108,6 @@ class MarkerManager {
           content: contentString
         });
       infowindow.open(this.map, marker);
-      this.handleClick(collision);
     });
     this.markers[marker.collisionId] = marker;
   }
