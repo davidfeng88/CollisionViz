@@ -1,5 +1,27 @@
 /* global google:false */
 
+const detailEntry = (key, value) => (
+  "<section><p><b>"+key+"</b><br />"+value+"</p></section>");
+
+const capitalize = (string) => (
+  string.charAt(0).toUpperCase() + string.slice(1));
+
+const details = (collision) => {
+  let detailsString = "<div>";
+  for (let key in collision) {
+    if (
+      key ==='id' ||
+      collision[key] === null ||
+      collision[key] === 0
+    ) {
+      continue;
+    }
+    detailsString += detailEntry(capitalize(key), collision[key]);
+  }
+  detailsString += "</div>";
+  return detailsString;
+};
+
 class MarkerManager {
   constructor(map, handleClick){
     this.map = map;
@@ -82,8 +104,7 @@ class MarkerManager {
     });
 
     marker.addListener('click', () => {
-      let contentString = "<div>This is an infowindow for collision #" +
-        collision.id + "</div>";
+      let contentString = details(collision);
       let infowindow = new google.maps.InfoWindow({
           content: contentString
         });

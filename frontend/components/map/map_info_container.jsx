@@ -28,10 +28,10 @@ const timeLine = (start, finish) => {
 
 const MapInfo = ({ start, finish, collisions }) => (
   <div>
-    Current Map Time: <span className='bold'>{parseTime(finish)}</span>
+    Current Map Time: <b>{parseTime(finish)}</b>
     <br />
-    <span className='bold'>{collisions.length}</span> collision(s) on map during&nbsp;
-    <span className='bold'>{timeLine(start, finish)}</span>
+    <b>{collisions.length}</b> collision(s) on map during&nbsp;
+    <b>{timeLine(start, finish)}</b>
   </div>
 );
 

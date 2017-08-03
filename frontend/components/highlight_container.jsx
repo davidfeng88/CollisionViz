@@ -44,9 +44,9 @@ class Highlight extends React.Component {
       ) {
         continue;
       }
-    detailsArray.push([this.capitalize(key), collision[key]]);
-    // detailsArray.push(`${this.capitalize(key)}: ${collision[key]}`);
-    // detailsArray.push(<span key={key}><br /></span>);
+      detailsArray.push([this.capitalize(key), collision[key]]);
+      // detailsArray.push(`${this.capitalize(key)}: ${collision[key]}`);
+      // detailsArray.push(<span key={key}><br /></span>);
     }
     let detailsEntries = detailsArray.map( detail => (
         <DetailEntry key={ detail[0] }

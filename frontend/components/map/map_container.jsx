@@ -171,11 +171,11 @@ class Map extends React.Component {
             className='close'>
             ×
           </div>
-          <div className='flex-row extra-panel-row bold'>
-            More Map Options
+          <div className='flex-row extra-panel-row'>
+            <b>More Map Options</b>
           </div>
-          <div className='flex-row bold'>
-            Toggle Special Icons
+          <div className='flex-row'>
+            <b>Toggle Special Icons</b>
           </div>
           <div className='flex-row extra-panel-row'>
             <Toggle
@@ -196,8 +196,8 @@ class Map extends React.Component {
               checked={this.state.ped}
               onChange={this.toggle('ped')} />
           </div>
-          <div className='flex-row bold'>
-            Toggle Map Layers
+          <div className='flex-row'>
+            <b>Toggle Map Layers</b>
           </div>
           <div className='flex-row extra-panel-row'>
             <Toggle

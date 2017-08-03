@@ -164,8 +164,8 @@ class ControlPanel extends React.Component {
             className='close'>
             ×
           </div>
-          <div className='flex-row extra-panel-row bold'>
-            More Settings
+          <div className='flex-row extra-panel-row'>
+            <b>More Settings</b>
           </div>
           <div className="extra-panel-row">
             <label htmlFor='collision-map-time'>
