@@ -26,24 +26,26 @@ const mapOptions = {
   zoom: DEFAULT_ZOOM_LEVEL,
 };
 
+const defaultMapState = {
+  showExtra: false,
+  alternativeMapStyle: false,
+
+  // map layers
+  heatmap: true,
+  traffic: false,
+  transit: false,
+  bicycling: false,
+  // special icons
+  taxi: true,
+  bike: true,
+  motorcycle: true,
+  ped: true,
+};
+
 class Map extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showExtra: false,
-      alternativeMapStyle: false,
-
-      // map layers
-      heatmap: true,
-      traffic: false,
-      transit: false,
-      bicycling: false,
-      // special icons
-      taxi: true,
-      bike: true,
-      motorcycle: true,
-      ped: true,
-    };
+    this.state = defaultMapState;
 
     this.resetMap = this.resetMap.bind(this);
     this.extraPanel = this.extraPanel.bind(this);
@@ -152,6 +154,7 @@ class Map extends React.Component {
   resetMap() {
     this.map.setCenter(NYC_CENTER);
     this.map.setZoom(DEFAULT_ZOOM_LEVEL);
+    // this.setState(defaultMapState);
   }
 
   extraPanel() {
