@@ -20,8 +20,8 @@ button, article, footer, small {
 /* --- ELEMENTS --- */
 
 $blue: #3b99fc;
-$inner-width: 600px;
-$outer-width: 650px;
+$inner-width: 950px;
+$outer-width: 1000px;
 $background-color: #aaa;
 
 body {
@@ -32,7 +32,7 @@ body {
 
 .container {
   width: $outer-width;
-  margin: 0 auto;
+  margin-left: 5%;
 }
 
 .bordered {

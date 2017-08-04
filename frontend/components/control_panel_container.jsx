@@ -27,7 +27,7 @@ class ControlPanel extends React.Component {
       stepTime: 200,
 
       mute: true,
-      showExtra: false,
+      showExtra: true,
     };
 
     this.updateField = this.updateField.bind(this);

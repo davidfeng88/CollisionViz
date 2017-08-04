@@ -27,7 +27,7 @@ const mapOptions = {
 };
 
 const defaultMapState = {
-  showExtra: false,
+  showExtra: true,
   alternativeMapStyle: false,
 
   // map layers
