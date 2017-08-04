@@ -23,7 +23,14 @@ const Credits = props => {
         W3schools</a>
       </p>
       <p className="extra-panel-row">
-        Google Maps alternative style: <a href='https://mapstyle.withgoogle.com/' target="_blank">
+        Google Maps JavaScript API<br/>
+        <a href='https://developers.google.com/maps/documentation/javascript/custom-markers'
+          target="_blank">Custom Markers</a><br />
+        <a href='https://developers.google.com/maps/documentation/javascript/heatmaplayer'
+          target="_blank">Heatmap Layer</a><br />
+        <a href='https://developers.google.com/maps/documentation/javascript/trafficlayer'
+          target="_blank">Traffic, Transit and Bicycling Layer</a><br />
+        <a href='https://mapstyle.withgoogle.com/' target="_blank">
         Google Maps APIs Styling Wizard</a>
       </p>
 

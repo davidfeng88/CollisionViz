@@ -11,7 +11,7 @@ The user can select the start time and start/pause/resume the visualization.
 
 The current map time and the number of collisions on the map are shown. The user can move/zoom the map and the collision counter will update accordingly.
 
-The user can click on map icons to see the collision details (shown in [`Info Windows`](https://developers.google.com/maps/documentation/javascript/infowindows).
+The user can click on map icons to see the collision details (shown in [Info Windows](https://developers.google.com/maps/documentation/javascript/infowindows)).
 
 More settings and more map options are also available.
 
