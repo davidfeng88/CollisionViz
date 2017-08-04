@@ -11,7 +11,7 @@ The user can select the start time and start/pause/resume the visualization.
 
 The current map time and the number of collisions on the map are shown. The user can move/zoom the map and the collision counter will update accordingly.
 
-The user can click on map icons to see the collision details.
+The user can click on map icons to see the collision details (shown in [`Info Windows`](https://developers.google.com/maps/documentation/javascript/infowindows).
 
 More settings and more map options are also available.
 
@@ -30,7 +30,6 @@ Map panel: the user can toggle four layers on and off the map. By default, the h
 
 ### Collision details
 
-* The number of collisions on the round clock (e.g. 13:00) may be overrated in the NYPD database.
 * The `id` column and columns with `null` or `0` values are not shown.
 * Data in the `Time` column is of `datetime` type and are in [Coordinated Universal Time (UTC)](https://www.wikiwand.com/en/Coordinated_Universal_Time). The local time in New York City is UTC-04:00 (with daylight saving time).
 
@@ -53,18 +52,12 @@ Map panel: the user can toggle four layers on and off the map. By default, the h
       ...
     }
     ...
-  },
-  highlight: {
-    borough: null,
-    contributing_factor_vehicle_1: "Reaction to Other Uninvolved Vehicle",
-    ...
   }
 }
 ```
 The state contains three slices:
 - `filters` contains filters for the collisions (map bounds, start time and finish time). The start time and finish time are set by the control panel and rendered by the map information box. Map bounds are set by the map. Whenever a filter is updated, an AJAX request is sent to the backend with the filter, and collisions that meet those conditions are populated in the `collisions` slice.
 - `collisions` contains all the collisions that meet the filter conditions. It is set by the filters and rendered by the map component.
-- `highlight` contains information about the highlighted collision, which is shown in the `Highlight` component. When the user clicks on a marker on the map, an AJAX request is sent to the backend with the collision's id, and its information is populated in this slice. This slice is created because we want the highlighted collision information to persist even if the collision is not in the `collisions` slice anymore, i.e. after the corresponding marker disappears from the map.
 
 ### Filtering the collisions
 The internal state of `ControlPanel` component contains a field for `currentTime`. `oneStepForward` function increases `currentTime` by one minute, calculates the `start` and `finish` filters, and updates the `collisions` state slice. Several edge cases are also handled. For example, when the visualization just started, collisions happened before the start time should not be shown.
@@ -72,7 +65,7 @@ The internal state of `ControlPanel` component contains a field for `currentTime
 The `handlePlay` function uses the `setInterval` function to call `oneStepForward` repeatedly. The delay time is set by the user. The `handleStop` function calls the `clearInterval` function.
 
 ### Map
-The `marker_manager` updates markers on the map based on the `collisions` state slice. The map has a listener to update its bounds in the `filters` state slice when it is resized/moved. Markers have `onClick` listeners, which dispatches an action to update the `highlight` slice of the state.
+The `marker_manager` updates markers on the map based on the `collisions` state slice. The map has a listener to update its bounds in the `filters` state slice when it is resized/moved.
 
 [Custom markers](https://developers.google.com/maps/documentation/javascript/custom-markers), [heatmap](https://developers.google.com/maps/documentation/javascript/heatmaplayer), and [traffic, transit and bicycling layer](https://developers.google.com/maps/documentation/javascript/trafficlayer) are created using the Google Maps JavaScript API.
 
