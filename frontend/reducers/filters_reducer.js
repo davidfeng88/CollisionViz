@@ -3,7 +3,6 @@ import merge from 'lodash/merge';
 import { UPDATE_FILTER, RESET_FILTER } from '../actions/filter_actions';
 
 const defaultFilters = Object.freeze({
-  bounds: {},
   start: 420, // in minutes, later from midnight.
   finish: 420, // in minutes
 });
