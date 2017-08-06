@@ -10,9 +10,6 @@ const AboutCollisionViz = props => {
         A visualization of motor vehicle collisions in NYC on 6/22/2017.
       </p>
       <p className="extra-panel-row">
-        Move/zoom the map, and the collision counter will update accordingly.
-      </p>
-      <p className="extra-panel-row">
         Click on map icons for collision details.
       </p>
       <div className='modal-link-div'>

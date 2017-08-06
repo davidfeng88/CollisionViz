@@ -9,7 +9,7 @@ CollisionViz shows the location and time of motor vehicle collisions in New York
 
 The user can select the start time and start/pause/resume the visualization.
 
-The current map time and the number of collisions on the map are shown. The user can move/zoom the map and the collision counter will update accordingly.
+The current map time and time range of collisions are shown.
 
 The user can click on map icons to see the collision details (shown in [Info Windows](https://developers.google.com/maps/documentation/javascript/infowindows)).
 
@@ -40,7 +40,6 @@ Map panel: the user can toggle four layers on and off the map. By default, the h
   filters: {
     start: 420,
     finish: 420,
-    ...
   },
   collisions: {
     59: {
@@ -56,7 +55,7 @@ Map panel: the user can toggle four layers on and off the map. By default, the h
 }
 ```
 The state contains three slices:
-- `filters` contains filters for the collisions (map bounds, start time and finish time). The start time and finish time are set by the control panel and rendered by the map information box. Map bounds are set by the map. Whenever a filter is updated, an AJAX request is sent to the backend with the filter, and collisions that meet those conditions are populated in the `collisions` slice.
+- `filters` contains filters (start time and finish time) for the collisions. They are set by the control panel and rendered by the map information box. Whenever a filter is updated, an AJAX request is sent to the backend with the filter, and collisions that meet those conditions are populated in the `collisions` slice.
 - `collisions` contains all the collisions that meet the filter conditions. It is set by the filters and rendered by the map component.
 
 ### Filtering the collisions
@@ -65,7 +64,7 @@ The internal state of `ControlPanel` component contains a field for `currentTime
 The `handlePlay` function uses the `setInterval` function to call `oneStepForward` repeatedly. The delay time is set by the user. The `handleStop` function calls the `clearInterval` function.
 
 ### Map
-The `marker_manager` updates markers on the map based on the `collisions` state slice. The map has a listener to update its bounds in the `filters` state slice when it is resized/moved.
+The `marker_manager` updates markers on the map based on the `collisions` state slice.
 
 [Custom markers](https://developers.google.com/maps/documentation/javascript/custom-markers), [heatmap](https://developers.google.com/maps/documentation/javascript/heatmaplayer), and [traffic, transit and bicycling layer](https://developers.google.com/maps/documentation/javascript/trafficlayer) are created using the Google Maps JavaScript API.
 
