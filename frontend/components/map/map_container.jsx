@@ -154,7 +154,6 @@ class Map extends React.Component {
   resetMap() {
     this.map.setCenter(NYC_CENTER);
     this.map.setZoom(DEFAULT_ZOOM_LEVEL);
-    // this.setState(defaultMapState);
   }
 
   extraPanel() {
@@ -232,7 +231,7 @@ class Map extends React.Component {
         <div className='main-panel flex-row'>
           <MapInfoContainer />
           <div className='clickable-div bordered' onClick={this.resetMap}>
-            Reset Map
+            Reset Map Borders
           </div>
           <Toggle
             label="More Map Options"
