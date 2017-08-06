@@ -47,7 +47,7 @@ class Map extends React.Component {
     super(props);
     this.state = defaultMapState;
 
-    this.resetMap = this.resetMap.bind(this);
+    this.resetMapBorders = this.resetMapBorders.bind(this);
     this.extraPanel = this.extraPanel.bind(this);
   }
 
@@ -55,14 +55,7 @@ class Map extends React.Component {
     const map = this.refs.map;
     this.map = new google.maps.Map(map, mapOptions);
     this.MarkerManager = new MarkerManager(this.map);
-    google.maps.event.addListener(this.map, 'idle', () => {
-      const { north, south, east, west } = this.map.getBounds().toJSON();
-      const bounds = {
-        northEast: { lat:north, lng: east },
-        southWest: { lat:south, lng: west },
-      };
-      this.props.updateFilter({bounds: bounds});
-    });
+
     this.MarkerManager.updateMarkers(
       this.props.collisions,
       this.state.taxi,
@@ -151,7 +144,7 @@ class Map extends React.Component {
     }
   }
 
-  resetMap() {
+  resetMapBorders() {
     this.map.setCenter(NYC_CENTER);
     this.map.setZoom(DEFAULT_ZOOM_LEVEL);
   }
@@ -230,7 +223,7 @@ class Map extends React.Component {
       <div>
         <div className='main-panel flex-row'>
           <MapInfoContainer />
-          <div className='clickable-div bordered' onClick={this.resetMap}>
+          <div className='clickable-div bordered' onClick={this.resetMapBorders}>
             Reset Map Borders
           </div>
           <Toggle
