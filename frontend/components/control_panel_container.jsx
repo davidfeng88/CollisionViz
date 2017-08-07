@@ -43,6 +43,12 @@ class ControlPanel extends React.Component {
     this.handleReset = this.handleReset.bind(this);
     this.oneStepForward = this.oneStepForward.bind(this);
     this.extraPanel = this.extraPanel.bind(this);
+    this.handleFetch = this.handleFetch.bind(this);
+  }
+
+  handleFetch(e) {
+    e.preventDefault();
+    this.props.fetchApiCollisions(this.state.date);
   }
 
   componentDidMount() {
@@ -251,7 +257,7 @@ class ControlPanel extends React.Component {
         <div className="flex-row">
           Select Date (between 2012-07-01 - 2017-08-01)
           <input value={this.state.date} type="date" min="2012-07-01" max="2017-08-01" onChange={ (e) => this.setState({date: e.currentTarget.value})}/>
-          <div className='clickable-div bordered' onClick={fetchApiCollisions(this.state.date)}>
+          <div className='clickable-div bordered' onClick={this.handleFetch}>
             Fetch {this.state.date}
           </div>
         </div>

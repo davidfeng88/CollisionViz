@@ -24,7 +24,6 @@ export const receiveApiCollisions = collisions => {
 };
 
 export const fetchApiCollisions = date => dispatch => {
-  debugger;
   return(
   APIUtil.fetchApiCollisions(date).then(
     (collisionsData) => dispatch(receiveApiCollisions(collisionsData))

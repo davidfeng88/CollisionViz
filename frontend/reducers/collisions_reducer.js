@@ -6,7 +6,6 @@ import { RECEIVE_API_COLLISIONS } from '../actions/collision_actions.js';
 const defaultState = {};
 
 const CollisionsReducer = (state = defaultState, action) => {
-        debugger;
   switch(action.type) {
     case RECEIVE_ALL_COLLISIONS:
       return action.collisions;
