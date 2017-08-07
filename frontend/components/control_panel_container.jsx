@@ -22,6 +22,8 @@ class ControlPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      date: "2017-08-01",
+      time: "07:00",
       currentTime: this.props.filters.finish,
       intervalId: null,
 
@@ -217,34 +219,50 @@ class ControlPanel extends React.Component {
 
   render() {
     return(
-      <div className="main-panel flex-row">
-        <div>
-          <label htmlFor='initial-time'>
-            Start Time
-          </label>
-          <select
-            id='initial-time'
-            value={this.state.initialTime}
-            onChange={this.updateField('initialTime')} >
-            <option value='420' >07:00</option>
-            <option value='0' >00:00</option>
-            <option value='720' >12:00</option>
-            <option value='1080' >18:00</option>
-            <option value='1320' >22:00</option>
-          </select>
+      <div className="main-panel">
+        <div className="flex-row">
+          <div>
+            <label htmlFor='initial-time'>
+              Start Time
+            </label>
+            <select
+              id='initial-time'
+              value={this.state.initialTime}
+              onChange={this.updateField('initialTime')} >
+              <option value='420' >07:00</option>
+              <option value='0' >00:00</option>
+              <option value='720' >12:00</option>
+              <option value='1080' >18:00</option>
+              <option value='1320' >22:00</option>
+            </select>
+          </div>
+          {this.playPauseButton()}
+          <div className='clickable-div bordered' onClick={this.handleReset}>
+            Reset Time
+          </div>
+          <Toggle
+            label="More Settings"
+            checked={this.state.showExtra}
+            onChange={this.toggle('showExtra')} />
+          {this.extraPanel()}
         </div>
-        {this.playPauseButton()}
-        <div className='clickable-div bordered' onClick={this.handleReset}>
-          Reset Time
+
+        <div className="flex-row">
+          Select Date (between 2012-07-01 - 2017-08-01)
+          <input value={this.state.date} type="date" min="2012-07-01" max="2017-08-01" onChange={ (e) => this.setState({date: e.currentTarget.value})}/>
+          <div className='clickable-div bordered' onClick={fetchCollisions(this.state.date)}>
+            Fetch {this.state.date}
+          </div>
         </div>
-        <div className='clickable-div bordered' onClick={fetchCollisions}>
-          Fetch Collisions FROM API
+        <div className="flex-row">
+          Select Start Time
+          <input type="time" value={this.state.time} onChange={ (e) => this.setState({time: e.currentTarget.value})}/>
+
+            New start time is {this.state.time}
+
         </div>
-        <Toggle
-          label="More Settings"
-          checked={this.state.showExtra}
-          onChange={this.toggle('showExtra')} />
-        {this.extraPanel()}
+
+
       </div>
     );
   }

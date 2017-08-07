@@ -30,6 +30,12 @@ body {
   font-weight: normal;
 }
 
+input, select {
+  background-color: white;
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 3px;
+}
 .container {
   width: $outer-width;
   margin-left: 5%;
