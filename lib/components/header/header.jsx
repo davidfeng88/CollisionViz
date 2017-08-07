@@ -22,11 +22,11 @@ class Header extends React.Component {
   render() {
     return (
       <header>
-        <audio id='traffic' src={window.staticSounds.traffic}>
+        <audio id='traffic' src="./assets/sounds/traffic.mp3">
           Your browser does not support the <code>audio</code> element.
         </audio>
         <div className='logo'>
-          <img src={window.staticImages.logo} />
+          <img src="./assets/images/car-collision-favicon.svg" />
           <h1>CollisionViz</h1>
         </div>
         <div className='modal-buttons'>
