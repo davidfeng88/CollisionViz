@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateFilter, resetFilter } from '../actions/filter_actions';
 
-import { fetchCollisions } from '../util/collision_api_util';
+import { fetchApiCollisions } from '../actions/collision_actions';
 
 import Toggle from './toggle';
 
@@ -13,6 +13,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updateFilter: (filters) => dispatch(updateFilter(filters)),
   resetFilter: () => dispatch(resetFilter()),
+  fetchApiCollisions: (date) => dispatch(fetchApiCollisions(date)),
 });
 
 const START_TIME = 0;
@@ -250,7 +251,7 @@ class ControlPanel extends React.Component {
         <div className="flex-row">
           Select Date (between 2012-07-01 - 2017-08-01)
           <input value={this.state.date} type="date" min="2012-07-01" max="2017-08-01" onChange={ (e) => this.setState({date: e.currentTarget.value})}/>
-          <div className='clickable-div bordered' onClick={fetchCollisions(this.state.date)}>
+          <div className='clickable-div bordered' onClick={fetchApiCollisions(this.state.date)}>
             Fetch {this.state.date}
           </div>
         </div>

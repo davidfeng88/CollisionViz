@@ -1,6 +1,7 @@
 import * as APIUtil from '../util/collision_api_util';
 
 export const RECEIVE_ALL_COLLISIONS = "RECEIVE_ALL_COLLISIONS";
+export const RECEIVE_API_COLLISIONS = "RECEIVE_API_COLLISIONS";
 
 export const receiveAllCollisions = collisions => {
   return {
@@ -14,3 +15,20 @@ export const fetchAllCollisions = (filters) => dispatch => (
     (collisionsData) => dispatch(receiveAllCollisions(collisionsData))
   )
 );
+
+export const receiveApiCollisions = collisions => {
+  return {
+    type: RECEIVE_API_COLLISIONS,
+    collisions
+  };
+};
+
+export const fetchApiCollisions = date => dispatch => {
+  debugger;
+  return(
+  APIUtil.fetchApiCollisions(date).then(
+    (collisionsData) => dispatch(receiveApiCollisions(collisionsData))
+  ));
+};
+
+// dispatch is not a function?!!
