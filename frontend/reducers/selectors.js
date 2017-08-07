@@ -8,17 +8,19 @@ export const collisionsToArray = state => {
 };
 
 export const collisionsArrayToAdd = state => {
-  debugger
-  let collisionsArray = [];
-  let newCurrentTimeString = parseTime(state.filters.fiish);
-  if (state.index[newCurrentTimeString]) {
-    state.index[newCurrentTimeString].forEach( (uniqueKey) => {
-      collisionsArray.push(state.collisions.uniqueKey);
-    });
+  let TimeString = parseTime(state.filters.finish);
+  if (state.collisions && state.collisions[TimeString]) {
+    return state.collisions[TimeString];
+  } else {
+    return [];
   }
-  return collisionsArray;
 };
-//
-// export const collisionsArrayToAdd = state => {
-//
-// };
+
+export const collisionsArrayToDelete = state => {
+  let TimeString = parseTime(state.filters.start - 1);
+  if (state.collisions && state.collisions[TimeString]) {
+    return state.collisions[TimeString];
+  } else {
+    return [];
+  }
+};

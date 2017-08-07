@@ -10,9 +10,9 @@ const details = (collision) => {
   let detailsString = "<div>";
   for (let key in collision) {
     if (
-      key ==='id' ||
+      key ==='location' ||
       collision[key] === null ||
-      collision[key] === 0
+      collision[key] === "0"
     ) {
       continue;
     }
@@ -34,6 +34,11 @@ class MarkerManager {
         newCollision, taxi, bike, motorcycle, ped));
   }
 
+  removeMarkers(collisions, taxi, bike, motorcycle, ped) {
+    collisions
+      .forEach(collision => this.removeMarker(this.markers[collision.unique_key]));
+  }
+
   updateMarkers(collisions, taxi, bike, motorcycle, ped){
     const collisionsObj = {};
     collisions.forEach(collision => collisionsObj[collision.id] = collision);
@@ -50,8 +55,8 @@ class MarkerManager {
 
   iconStyle(collision, taxi, bike, motorcycle, ped) {
     if (taxi && (
-      collision.vehicle_type_code_1 === 'Taxi' ||
-      collision.vehicle_type_code_2 === 'Taxi' ||
+      collision.vehicle_type_code1 === 'Taxi' ||
+      collision.vehicle_type_code2 === 'Taxi' ||
       collision.vehicle_type_code_3 === 'Taxi' ||
       collision.vehicle_type_code_4 === 'Taxi' ||
       collision.vehicle_type_code_5 === 'Taxi'
@@ -61,8 +66,8 @@ class MarkerManager {
         scaledSize: new google.maps.Size(20, 20),
       };
     } else if (bike && (
-      collision.vehicle_type_code_1 === 'Bicycle' ||
-      collision.vehicle_type_code_2 === 'Bicycle' ||
+      collision.vehicle_type_code1 === 'Bicycle' ||
+      collision.vehicle_type_code2 === 'Bicycle' ||
       collision.vehicle_type_code_3 === 'Bicycle' ||
       collision.vehicle_type_code_4 === 'Bicycle' ||
       collision.vehicle_type_code_5 === 'Bicycle'
@@ -72,8 +77,8 @@ class MarkerManager {
         scaledSize: new google.maps.Size(30, 30),
       };
     } else if (motorcycle && (
-      collision.vehicle_type_code_1 === 'Motorcycle' ||
-      collision.vehicle_type_code_2 === 'Motorcycle' ||
+      collision.vehicle_type_code1 === 'Motorcycle' ||
+      collision.vehicle_type_code2 === 'Motorcycle' ||
       collision.vehicle_type_code_3 === 'Motorcycle' ||
       collision.vehicle_type_code_4 === 'Motorcycle' ||
       collision.vehicle_type_code_5 === 'Motorcycle'
@@ -99,13 +104,13 @@ class MarkerManager {
   }
 
   createMarkerFromCollision(collision, taxi, bike, motorcycle, ped) {
-    const position = new google.maps.LatLng(collision.lat, collision.lng);
+    const position = new google.maps.LatLng(collision.latitude, collision.longitude);
     const iconStyle = this.iconStyle(collision, taxi, bike, motorcycle, ped);
     const marker = new google.maps.Marker({
       position,
       map: this.map,
       icon: iconStyle,
-      collisionId: collision.id
+      collisionId: collision.unique_key
     });
 
     marker.addListener('click', () => {
