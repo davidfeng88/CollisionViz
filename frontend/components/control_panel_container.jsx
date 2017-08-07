@@ -33,7 +33,7 @@ class ControlPanel extends React.Component {
       stepTime: 200,
 
       mute: true,
-      showExtra: true,
+      showExtra: false,
     };
 
     this.updateField = this.updateField.bind(this);
@@ -52,7 +52,7 @@ class ControlPanel extends React.Component {
   }
 
   componentDidMount() {
-    this.props.updateFilter();
+    this.props.fetchApiCollisions(this.state.date);
   }
 
   updateField(field) {
@@ -126,14 +126,22 @@ class ControlPanel extends React.Component {
   }
 
   playPauseButton() {
-    let playPauseButtonText = this.state.intervalId ? "Pause" : "Play";
-    let handleClick = this.state.intervalId ? this.handleStop : this.handlePlay;
-    return (
-      <div id='play-button'
-        className="clickable-div bordered" onClick={handleClick}>
-        {playPauseButtonText}
-      </div>
-    );
+    if (this.props.filters.loaded) {
+      let playPauseButtonText = this.state.intervalId ? "Pause" : "Play";
+      let handleClick = this.state.intervalId ? this.handleStop : this.handlePlay;
+      return (
+        <div id='play-button'
+          className="clickable-div bordered" onClick={handleClick}>
+          {playPauseButtonText}
+        </div>
+      );
+    } else {
+      return(
+        <div className="bordered">
+          Loading...
+        </div>
+      );
+    }
   }
 
   oneStepForward() {

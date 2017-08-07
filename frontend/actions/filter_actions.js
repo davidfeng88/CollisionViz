@@ -1,4 +1,4 @@
-import { fetchAllCollisions } from './collision_actions';
+import { fetchApiCollisions } from './collision_actions';
 
 export const UPDATE_FILTER = 'UPDATE_FILTER';
 export const RESET_FILTER = 'RESET_FILTER';
@@ -14,5 +14,5 @@ export const changeFilter = (filters) => ({
 
 export const updateFilter = (filters) => (dispatch, getState) => {
   dispatch(changeFilter(filters));
-  return fetchAllCollisions(getState().filters)(dispatch);
+  return fetchApiCollisions(getState().filters)(dispatch);
 };

@@ -2,7 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import * as APIUtil from '../../util/collision_api_util';
-import { collisionsToArray } from '../../reducers/selectors';
+import {
+  collisionsArrayToAdd,
+  // collisionsArrayToDelete
+ } from '../../reducers/selectors';
 import { updateFilter } from '../../actions/filter_actions';
 
 import Toggle from '../toggle';
@@ -11,7 +14,8 @@ import MarkerManager from '../../util/marker_manager';
 import alternativeMapStyle from './styles';
 
 const mapStateToProps = state => ({
-  collisions: collisionsToArray(state),
+  collisionsArrayToAdd: collisionsArrayToAdd(state),
+  // collisionsArrayToDelete: collisionsArrayToDelete(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -27,7 +31,7 @@ const mapOptions = {
 };
 
 const defaultMapState = {
-  showExtra: true,
+  showExtra: false,
   alternativeMapStyle: false,
 
   // map layers
@@ -56,8 +60,15 @@ class Map extends React.Component {
     this.map = new google.maps.Map(map, mapOptions);
     this.MarkerManager = new MarkerManager(this.map);
 
-    this.MarkerManager.updateMarkers(
-      this.props.collisions,
+    // this.MarkerManager.updateMarkers(
+    //   this.props.collisions,
+    //   this.state.taxi,
+    //   this.state.bike,
+    //   this.state.motorcycle,
+    //   this.state.ped
+    // );
+    this.MarkerManager.addMarkers(
+      this.props.collisionsArrayToAdd,
       this.state.taxi,
       this.state.bike,
       this.state.motorcycle,
@@ -102,18 +113,25 @@ class Map extends React.Component {
   }
 
   componentDidUpdate() {
-    this.MarkerManager.updateMarkers(
-      this.props.collisions,
-      this.state.taxi,
-      this.state.bike,
-      this.state.motorcycle,
-      this.state.ped
-    );
+    // this.MarkerManager.updateMarkers(
+    //   this.props.collisions,
+    //   this.state.taxi,
+    //   this.state.bike,
+    //   this.state.motorcycle,
+    //   this.state.ped
+    // );
   }
 
   componentWillReceiveProps(newProps) {
-    this.MarkerManager.updateMarkers(
-      newProps.collisions,
+    // this.MarkerManager.updateMarkers(
+    //   newProps.collisions,
+    //   this.state.taxi,
+    //   this.state.bike,
+    //   this.state.motorcycle,
+    //   this.state.ped
+    // );
+    this.MarkerManager.addMarkers(
+      newProps.collisionsArrayToAdd,
       this.state.taxi,
       this.state.bike,
       this.state.motorcycle,

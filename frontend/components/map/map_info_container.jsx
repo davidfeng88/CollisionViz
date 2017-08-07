@@ -1,24 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { collisionsToArray } from '../../reducers/selectors';
+import { collisionsArrayToAdd } from '../../reducers/selectors';
+import parseTime from '../../util/time_util';
 
 const mapStateToProps = state => ({
   collisions: collisionsToArray(state),
+  collisionsToAdd: collisionsArrayToAdd(state),
   start: state.filters.start,
   finish: state.filters.finish,
 });
 
-const parseTime = (totalMinutes) => {
-  let hours = Math.floor(totalMinutes / 60).toString();
-  if (hours.length === 1) {
-    hours = `0${hours}`;
-  }
-  let minutes = (totalMinutes % 60).toString();
-  if (minutes.length === 1) {
-    minutes = `0${minutes}`;
-  }
-  return `${hours}:${minutes}`;
-};
+
 
 const timeLine = (start, finish) => {
   return(

@@ -28,6 +28,12 @@ class MarkerManager {
     this.markers = {};
   }
 
+  addMarkers(collisions, taxi, bike, motorcycle, ped) {
+    collisions
+      .forEach(newCollision => this.createMarkerFromCollision(
+        newCollision, taxi, bike, motorcycle, ped));
+  }
+
   updateMarkers(collisions, taxi, bike, motorcycle, ped){
     const collisionsObj = {};
     collisions.forEach(collision => collisionsObj[collision.id] = collision);
