@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateFilter, resetFilter } from '../actions/filter_actions';
+
+import { fetchCollisions } from '../util/collision_api_util';
+
 import Toggle from './toggle';
 
 const mapStateToProps = state => ({
@@ -233,6 +236,9 @@ class ControlPanel extends React.Component {
         {this.playPauseButton()}
         <div className='clickable-div bordered' onClick={this.handleReset}>
           Reset Time
+        </div>
+        <div className='clickable-div bordered' onClick={fetchCollisions}>
+          Fetch Collisions FROM API
         </div>
         <Toggle
           label="More Settings"
