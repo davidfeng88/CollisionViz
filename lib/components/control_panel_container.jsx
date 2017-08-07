@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateFilter, changeFilter, resetFilter } from '../actions/filter_actions';
+import { updateFilter, resetFilter } from '../actions/filter_actions';
 
-import { fetchApiCollisions } from '../actions/collision_actions';
+import { fetchCollisions } from '../actions/collision_actions';
 
 import Toggle from './toggle';
 
@@ -12,9 +12,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   updateFilter: (filters) => dispatch(updateFilter(filters)),
-  changeFilter: (filters) => dispatch(changeFilter(filters)),
   resetFilter: () => dispatch(resetFilter()),
-  fetchApiCollisions: (date) => dispatch(fetchApiCollisions(date)),
+  fetchCollisions: (date) => dispatch(fetchCollisions(date)),
 });
 
 const START_TIME = 0;
@@ -49,11 +48,11 @@ class ControlPanel extends React.Component {
 
   handleFetch(e) {
     e.preventDefault();
-    this.props.fetchApiCollisions(this.state.date);
+    this.props.fetchCollisions(this.state.date);
   }
 
   componentDidMount() {
-    this.props.fetchApiCollisions(this.state.date);
+    this.props.fetchCollisions(this.state.date);
   }
 
   updateField(field) {
@@ -80,7 +79,7 @@ class ControlPanel extends React.Component {
             initialTime: value,
             currentTime: value,
           });
-          this.props.changeFilter({
+          this.props.updateFilter({
             start: value,
             finish: value,
           });
@@ -156,7 +155,7 @@ class ControlPanel extends React.Component {
       start = start < this.state.initialTime ? this.state.initialTime : start;
       start = start < START_TIME ? START_TIME : start;
       finish = finish > END_TIME ? END_TIME : finish;
-      this.props.changeFilter({
+      this.props.updateFilter({
         start,
         finish,
       });

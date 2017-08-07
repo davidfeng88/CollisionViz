@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as APIUtil from '../../util/collision_api_util';
+import * as APIUtil from '../../util/collision_api_util'; // heatmap!
 import {
   collisionsArrayToAdd,
   collisionsArrayToDelete
  } from '../../reducers/selectors';
-import { changeFilter } from '../../actions/filter_actions';
+import { updateFilter } from '../../actions/filter_actions';
 
 import Toggle from '../toggle';
 import MapInfoContainer from './map_info_container';
@@ -14,13 +14,13 @@ import MarkerManager from '../../util/marker_manager';
 import alternativeMapStyle from './styles';
 
 const mapStateToProps = state => ({
-  allCollisions: state.collisions,
+  allCollisions: state.collisions, // heatmap!
   collisionsArrayToAdd: collisionsArrayToAdd(state),
   collisionsArrayToDelete: collisionsArrayToDelete(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  changeFilter: (filters) => dispatch(changeFilter(filters)),
+  updateFilter: (filters) => dispatch(updateFilter(filters)),
 });
 
 const NYC_CENTER = {lat: 40.732663, lng: -73.993479};
@@ -64,13 +64,6 @@ class Map extends React.Component {
     this.map = new google.maps.Map(map, mapOptions);
     this.MarkerManager = new MarkerManager(this.map);
 
-    // this.MarkerManager.updateMarkers(
-    //   this.props.collisions,
-    //   this.state.taxi,
-    //   this.state.bike,
-    //   this.state.motorcycle,
-    //   this.state.ped
-    // );
     this.MarkerManager.addMarkers(
       this.props.collisionsArrayToAdd,
       this.state.taxi,
@@ -119,29 +112,12 @@ class Map extends React.Component {
     //       data: heatmapData,
     //     });
         // this.heatmap.setMap(this.map);
-        this.props.changeFilter({ loaded: true });
+        this.props.updateFilter({ loaded: true });
       // }
     // );
   }
 
-  componentDidUpdate() {
-    // this.MarkerManager.updateMarkers(
-    //   this.props.collisions,
-    //   this.state.taxi,
-    //   this.state.bike,
-    //   this.state.motorcycle,
-    //   this.state.ped
-    // );
-  }
-
   componentWillReceiveProps(newProps) {
-    // this.MarkerManager.updateMarkers(
-    //   newProps.collisions,
-    //   this.state.taxi,
-    //   this.state.bike,
-    //   this.state.motorcycle,
-    //   this.state.ped
-    // );
     this.MarkerManager.addMarkers(
       newProps.collisionsArrayToAdd,
       this.state.taxi,
