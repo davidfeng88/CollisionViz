@@ -25,9 +25,9 @@ export const receiveApiCollisions = collisions => {
 
 export const fetchApiCollisions = date => dispatch => {
   return(
-  APIUtil.fetchApiCollisions(date).then(
+  APIUtil.fetchApiCollisions(date)
+  .then((response) => response.json())
+  .then(
     (collisionsData) => dispatch(receiveApiCollisions(collisionsData))
   ));
 };
-
-// dispatch is not a function?!!

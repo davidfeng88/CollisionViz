@@ -1,20 +1,17 @@
-import { merge } from 'lodash';
-
-import { RECEIVE_ALL_COLLISIONS } from '../actions/collision_actions.js';
 import { RECEIVE_API_COLLISIONS } from '../actions/collision_actions.js';
 
 const defaultState = {};
 
-const CollisionsReducer = (state = defaultState, action) => {
-  debugger;
+const IndexReducer = (state = defaultState, action) => {
   switch(action.type) {
-    case RECEIVE_ALL_COLLISIONS:
-      return action.collisions;
-
     case RECEIVE_API_COLLISIONS:
       let newState = {};
       action.collisions.forEach( collision => {
-        newState[collision.unique_key] = collision;
+        if (newState[collision.time]) {
+          newState[collision.time].push(collision.unique_key);
+        } else {
+          newState[collision.time]= [collision.unique_key];
+        }
       });
       return newState;
 
@@ -23,7 +20,7 @@ const CollisionsReducer = (state = defaultState, action) => {
   }
 };
 
-export default CollisionsReducer;
+export default IndexReducer;
 
 
 

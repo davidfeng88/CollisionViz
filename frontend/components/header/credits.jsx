@@ -23,6 +23,10 @@ const Credits = props => {
         W3schools</a>
       </p>
       <p className="extra-panel-row">
+        <a href='https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb' target="_blank">
+        NYPD Motor Vehicle Collisions API</a>
+      </p>
+      <p className="extra-panel-row">
         Google Maps JavaScript API<br/>
         <a href='https://developers.google.com/maps/documentation/javascript/custom-markers'
           target="_blank">Custom Markers</a><br />
