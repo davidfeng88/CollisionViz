@@ -48,11 +48,15 @@ class ControlPanel extends React.Component {
 
   handleFetch(e) {
     e.preventDefault();
-    this.props.fetchCollisions(this.state.date);
+    this.props.updateFilter({ loaded: false });
+    this.props.fetchCollisions(this.state.date)
+      .then(this.props.updateFilter({ loaded: true }));
   }
 
   componentDidMount() {
-    this.props.fetchCollisions(this.state.date);
+    this.props.updateFilter({ loaded: false });
+    this.props.fetchCollisions(this.state.date)
+    .then(this.props.updateFilter({ loaded: true }));
   }
 
   updateField(field) {

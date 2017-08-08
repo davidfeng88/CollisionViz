@@ -2,10 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import * as APIUtil from '../../util/collision_api_util'; // heatmap!
-import {
-  collisionsArrayToAdd,
-  collisionsArrayToDelete
- } from '../../reducers/selectors';
+import { collisionsToArray } from '../../reducers/selectors';
 import { updateFilter } from '../../actions/filter_actions';
 
 import Toggle from '../toggle';
@@ -14,9 +11,9 @@ import MarkerManager from '../../util/marker_manager';
 import alternativeMapStyle from './styles';
 
 const mapStateToProps = state => ({
-  allCollisions: state.collisions, // heatmap!
-  collisionsArrayToAdd: collisionsArrayToAdd(state),
-  collisionsArrayToDelete: collisionsArrayToDelete(state),
+  collisions: state.collisions, // heatmap!
+  collisionsArrayToAdd: collisionsToArray(state, state.filters.finish),
+  collisionsArrayToRemove: collisionsToArray(state, state.filters.start - 1),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -64,7 +61,7 @@ class Map extends React.Component {
     this.map = new google.maps.Map(map, mapOptions);
     this.MarkerManager = new MarkerManager(this.map);
 
-    this.MarkerManager.addMarkers(
+    this.MarkerManager.createMarkers(
       this.props.collisionsArrayToAdd,
       this.state.taxi,
       this.state.bike,
@@ -72,7 +69,7 @@ class Map extends React.Component {
       this.state.ped
     );
     this.MarkerManager.removeMarkers(
-      this.props.collisionsArrayToDelete,
+      this.props.collisionsArrayToRemove,
       this.state.taxi,
       this.state.bike,
       this.state.motorcycle,
@@ -85,40 +82,50 @@ class Map extends React.Component {
     this.bicycling = new google.maps.BicyclingLayer();
     this.bicycling.setMap(null);
 
-    // APIUtil.fetchAllCollisions().then(
-    //   (collisionsData) => {
-    //     const latLngWeights = Object.values(collisionsData)
-    //       .map(collision => {
-    //         let injuries = collision.number_of_persons_injured;
-    //         let deaths = collision.number_of_persons_killed;
-    //         if (injuries === 0 && deaths === 0) {
-    //           return [collision.lat, collision.lng];
-    //         } else {
-    //           let weight = injuries * INJURY_WEIGHT + deaths * DEATH_WEIGHT;
-    //           return [collision.lat, collision.lng, weight];
-    //         }
-    //       });
-    //     const heatmapData = latLngWeights.map( latLngWeight => {
-    //       if (latLngWeight.length === 2) {
-    //         return new google.maps.LatLng(latLngWeight[0], latLngWeight[1]);
-    //       } else {
-    //         return {
-    //           location: new google.maps.LatLng(latLngWeight[0], latLngWeight[1]),
-    //           weight: latLngWeight[2]
-    //         };
-    //       }
-    //     });
-    //     this.heatmap = new google.maps.visualization.HeatmapLayer({
-    //       data: heatmapData,
-    //     });
-        // this.heatmap.setMap(this.map);
-        this.props.updateFilter({ loaded: true });
-      // }
-    // );
+    // let heatmapData = this.props.collisions.map( collision => {
+    //   let injuries = collision.number_of_persons_injured;
+    //   let deaths = collision.number_of_persons_killed;
+    //   if (injuries === 0 && deaths === 0) {
+    //     return new google.maps.LatLng(collision.latitude, collision.longitude);
+    //   } else {
+    //     let weight = injuries * INJURY_WEIGHT + deaths * DEATH_WEIGHT;
+    //     return {
+    //       location: new google.maps.LatLng(collision.latitude, collision.longitude),
+    //       weight,
+    //     };
+    //   }
+    // });
+    // this.heatmap = new google.maps.visualization.HeatmapLayer({
+    //   data: heatmapData,
+    // });
+    // this.heatmap.setMap(this.map);
   }
 
   componentWillReceiveProps(newProps) {
-    this.MarkerManager.addMarkers(
+    // if (newProps.collisions.length > 0 && !this.heatmap && this.map) {
+    //   let heatmapData = newProps.collisions.map( collision => {
+    //           debugger;
+    //     let lat = parseFloat(collision.latitude);
+    //     let lng = parseFloat(collision.longitude);
+    //     let injuries = parseInt(collision.number_of_persons_injured);
+    //     let deaths = parseInt(collision.number_of_persons_killed);
+    //     if (injuries && deaths && injuries > 0 && deaths > 0 ) {
+    //       let weight = injuries * INJURY_WEIGHT + deaths * DEATH_WEIGHT;
+    //       return {
+    //         location: new google.maps.LatLng(lat, lng),
+    //         weight,
+    //       };
+    //     } else {
+    //       return new google.maps.LatLng(lat, lng);
+    //     }
+    //   });
+    //   debugger;
+    //   this.heatmap = new google.maps.visualization.HeatmapLayer({
+    //     data: heatmapData,
+    //   });
+    //   this.heatmap.setMap(this.map);
+    // }
+    this.MarkerManager.createMarkers(
       newProps.collisionsArrayToAdd,
       this.state.taxi,
       this.state.bike,
@@ -126,7 +133,7 @@ class Map extends React.Component {
       this.state.ped
     );
     this.MarkerManager.removeMarkers(
-      this.props.collisionsArrayToDelete,
+      this.props.collisionsArrayToRemove,
       this.state.taxi,
       this.state.bike,
       this.state.motorcycle,
