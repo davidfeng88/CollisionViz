@@ -36,13 +36,10 @@ class ControlPanel extends React.Component {
       showExtra: false,
     };
 
-    this.updateField = this.updateField.bind(this);
-    this.toggleMute = this.toggleMute.bind(this);
     this.handlePlay = this.handlePlay.bind(this);
     this.handleStop = this.handleStop.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.oneStepForward = this.oneStepForward.bind(this);
-    this.extraPanel = this.extraPanel.bind(this);
   }
 
   componentDidMount() {
@@ -174,17 +171,21 @@ class ControlPanel extends React.Component {
     }
   }
 
-  toggleMute() {
-    let newValue = !this.state.mute;
-    this.setState({ mute: newValue });
-    let traffic = document.getElementById("traffic");
-    if (this.state.intervalId && !newValue) {
-      traffic.play();
-      traffic.loop = true;
-      traffic.volume = 0.2;
-    } else {
-      traffic.pause();
-    }
+  toggle(field) {
+    return (e => {
+      let newValue = !this.state[field];
+      this.setState({ [field]: !this.state[field] });
+      if (field === 'mute') {
+        let traffic = document.getElementById("traffic");
+        if (this.state.intervalId && !newValue) {
+          traffic.play();
+          traffic.loop = true;
+          traffic.volume = 0.2;
+        } else {
+          traffic.pause();
+        }
+      }
+    });
   }
 
   extraPanel() {
@@ -229,19 +230,12 @@ class ControlPanel extends React.Component {
           <Toggle
             label="Sound"
             checked={!this.state.mute}
-            onChange={this.toggleMute} />
+            onChange={this.toggle('mute')} />
         </div>
       );
     } else {
       return null;
     }
-  }
-
-  toggle(field) {
-    return e => {
-      let newValue = !this.state[field];
-      this.setState({ [field]: !this.state[field] });
-    };
   }
 
   render() {
