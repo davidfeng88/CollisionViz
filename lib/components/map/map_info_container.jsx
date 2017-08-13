@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import parseTime from '../../util/time_util';
 
 const mapStateToProps = state => ({
+  date: state.filters.date,
   start: state.filters.start,
   finish: state.filters.finish,
 });
@@ -13,9 +14,9 @@ const timeLine = (start, finish) => {
   );
 };
 
-const MapInfo = ({ start, finish, collisions }) => (
+const MapInfo = ({ date, start, finish, collisions }) => (
   <div>
-    Current Map Time: <b>{parseTime(finish)}</b>
+    Map Time: <b>{date} {parseTime(finish)}</b>
     <br />
     Showing Collisions During&nbsp;
     <b>{timeLine(start, finish)}</b>

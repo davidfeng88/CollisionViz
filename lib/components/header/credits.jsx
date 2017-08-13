@@ -23,6 +23,10 @@ const Credits = props => {
         W3schools</a>
       </p>
       <p className="extra-panel-row">
+        Loading spinner: <a href='https://loading.io/' target="_blank">
+        loading.io</a>
+      </p>
+      <p className="extra-panel-row">
         <a href='https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb' target="_blank">
         NYPD Motor Vehicle Collisions API</a>
       </p>

@@ -208,9 +208,20 @@ a:hover {
 
 /* --- CONTROL PANEL --- */
 
-#play-button {
-  min-width: 80px;
+.play-button {
+  width: 80px;
+
 }
+
+.spinner img {
+  height: 35px;
+}
+
+.spinner {
+  width: 100px;
+  margin: 5px;
+}
+
 
 select {
   text-align: center;

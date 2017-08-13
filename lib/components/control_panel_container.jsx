@@ -23,7 +23,7 @@ class ControlPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: "2017-08-01",
+      date: this.props.filters.date,
       time: "07:00",
       currentTime: this.props.filters.finish,
       intervalId: null,
@@ -32,6 +32,7 @@ class ControlPanel extends React.Component {
       collisionMapTime: 29,
       stepTime: 200,
 
+      loaded: false,
       mute: true,
       showExtra: false,
     };
@@ -43,20 +44,12 @@ class ControlPanel extends React.Component {
     this.handleReset = this.handleReset.bind(this);
     this.oneStepForward = this.oneStepForward.bind(this);
     this.extraPanel = this.extraPanel.bind(this);
-    this.handleFetch = this.handleFetch.bind(this);
-  }
-
-  handleFetch(e) {
-    e.preventDefault();
-    this.props.updateFilter({ loaded: false });
-    this.props.fetchCollisions(this.state.date)
-      .then(this.props.updateFilter({ loaded: true }));
   }
 
   componentDidMount() {
-    this.props.updateFilter({ loaded: false });
+    this.setState({ loaded: false });
     this.props.fetchCollisions(this.state.date)
-    .then(this.props.updateFilter({ loaded: true }));
+    .then(this.setState({ loaded: true }));
   }
 
   updateField(field) {
@@ -65,11 +58,11 @@ class ControlPanel extends React.Component {
       let value = parseInt(e.currentTarget.value);
       switch (field) {
         case 'collisionMapTime':
-          this.setState({ [field]: value });
+          this.setState({ [field]: parseInt(e.currentTarget.value) });
           break;
 
         case 'stepTime':
-          this.setState({ [field]: value });
+          this.setState({ [field]: parseInt(e.currentTarget.value) });
           if (this.state.intervalId) {
             clearInterval(this.state.intervalId);
             let intervalId = setInterval(this.oneStepForward, value);
@@ -78,14 +71,26 @@ class ControlPanel extends React.Component {
           }
           break;
 
+        case 'date':
+          this.props.updateFilter({date: e.currentTarget.value});
+          this.setState({
+            date: e.currentTarget.value,
+            loaded: false,
+          });
+          this.props.fetchCollisions(e.currentTarget.value)
+            .then(
+              () => this.setState({loaded: true})
+            );
+          break;
+
         case 'initialTime':
           this.setState({
-            initialTime: value,
-            currentTime: value,
+            initialTime: parseInt(e.currentTarget.value),
+            currentTime: parseInt(e.currentTarget.value),
           });
           this.props.updateFilter({
-            start: value,
-            finish: value,
+            start: parseInt(e.currentTarget.value),
+            finish: parseInt(e.currentTarget.value),
           });
           break;
 
@@ -98,13 +103,11 @@ class ControlPanel extends React.Component {
   handleReset() {
     this.handleStop();
     this.props.resetFilter();
-    this.props.updateFilter()
-    .then(
-      () => this.setState({
-        initialTime: this.props.filters.start,
-        currentTime: this.props.filters.finish,
-      })
-    );
+    this.props.updateFilter();
+    this.setState({
+      initialTime: this.props.filters.start,
+      currentTime: this.props.filters.finish,
+    });
   }
 
   handlePlay() {
@@ -130,19 +133,19 @@ class ControlPanel extends React.Component {
   }
 
   playPauseButton() {
-    if (this.props.filters.loaded) {
+    if (this.state.loaded) {
       let playPauseButtonText = this.state.intervalId ? "Pause" : "Play";
       let handleClick = this.state.intervalId ? this.handleStop : this.handlePlay;
       return (
-        <div id='play-button'
-          className="clickable-div bordered" onClick={handleClick}>
+        <div className='play-button clickable-div bordered'
+          onClick={handleClick}>
           {playPauseButtonText}
         </div>
       );
     } else {
       return(
-        <div className="bordered">
-          Loading...
+        <div className="spinner bordered">
+          <img src='./assets/images/spinner.svg' />
         </div>
       );
     }
@@ -241,6 +244,14 @@ class ControlPanel extends React.Component {
       <div className="main-panel">
         <div className="flex-row">
           <div>
+            <label htmlFor='date'>
+              Select Date (2012-07-01 ~ 2017-08-01)
+            </label>
+            <input
+              value={this.state.date}
+              type="date" min="2012-07-01" max="2017-08-01"
+              onChange={this.updateField('date')}
+            />
             <label htmlFor='initial-time'>
               Start Time
             </label>
@@ -267,11 +278,7 @@ class ControlPanel extends React.Component {
         </div>
 
         <div className="flex-row">
-          Select Date (between 2012-07-01 - 2017-08-01)
-          <input value={this.state.date} type="date" min="2012-07-01" max="2017-08-01" onChange={ (e) => this.setState({date: e.currentTarget.value})}/>
-          <div className='clickable-div bordered' onClick={this.handleFetch}>
-            Fetch {this.state.date}
-          </div>
+          dev Tool: this.state.date is {this.state.date}
         </div>
         <div className="flex-row">
           Select Start Time
