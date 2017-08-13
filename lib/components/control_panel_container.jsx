@@ -83,15 +83,17 @@ class ControlPanel extends React.Component {
           break;
 
         case 'initialTime':
-          let value = timeStringToInt(e.currentTarget.value);
-          this.setState({
-            initialTime: value,
-            currentTime: value,
-          });
-          this.props.updateFilter({
-            start: value,
-            finish: value,
-          });
+          if (e.currentTarget.value !== "") {
+            let value = timeStringToInt(e.currentTarget.value);
+            this.setState({
+              initialTime: value,
+              currentTime: value,
+            });
+            this.props.updateFilter({
+              start: value,
+              finish: value,
+            });
+          }
           break;
 
         default:
