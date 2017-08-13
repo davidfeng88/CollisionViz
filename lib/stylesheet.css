@@ -31,6 +31,7 @@ input, select {
   padding: 5px;
   border-radius: 3px;
 }
+
 .container {
   width: 1000px;
   margin-left: 5%;
@@ -102,28 +103,6 @@ label {
 
 .extra-panel-row:last-child {
   margin-bottom: 0;
-}
-
-/* --- CONTROL PANEL --- */
-
-#play-button {
-  min-width: 80px;
-}
-
-select {
-  text-align: center;
-  font-size: 14px;
-  padding: 10px;
-  margin: 0 10px;
-}
-
-/* --- EXTRA CONTROL PANEL --- */
-
-.extra-control-panel {
-  top: 20px;
-  right: 20px;
-  padding: 10px;
-  min-width: 350px;
 }
 
 /* --- HEADER --- */
@@ -225,6 +204,28 @@ a:hover {
 
 .modal-link-div i:active {
   background-color: #aaa;
+}
+
+/* --- CONTROL PANEL --- */
+
+#play-button {
+  min-width: 80px;
+}
+
+select {
+  text-align: center;
+  font-size: 14px;
+  padding: 10px;
+  margin: 0 10px;
+}
+
+/* --- EXTRA CONTROL PANEL --- */
+
+.extra-control-panel {
+  top: 20px;
+  right: 20px;
+  padding: 10px;
+  min-width: 350px;
 }
 
 /* --- MAP --- */
