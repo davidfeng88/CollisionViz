@@ -44,25 +44,51 @@ const defaultMapState = {
   ped: true,
 };
 
-const INJURY_WEIGHT = 5;
-const DEATH_WEIGHT = 100;
-
 class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = defaultMapState;
 
     this.resetMapBorders = this.resetMapBorders.bind(this);
-    this.extraPanel = this.extraPanel.bind(this);
   }
 
   componentDidMount() {
     const map = this.refs.map;
     this.map = new google.maps.Map(map, mapOptions);
     this.MarkerManager = new MarkerManager(this.map);
-
     this.MarkerManager.createMarkers(
       this.props.collisionsArrayToAdd,
+      this.state.taxi,
+      this.state.bike,
+      this.state.motorcycle,
+      this.state.ped
+    );
+    this.traffic = new google.maps.TrafficLayer();
+    this.transit = new google.maps.TransitLayer();
+    this.bicycling = new google.maps.BicyclingLayer();
+    APIUtil.fetchCollisions("2017-08-01")
+      .then( response => response.json())
+      .then( collisionsData => {
+        let heatmapData = [];
+        collisionsData.forEach( collision => {
+          if (collision.latitude && collision.longitude) {
+            // some data does not have these information
+            let lat = collision.latitude;
+            let lng = collision.longitude;
+            heatmapData.push(new google.maps.LatLng(lat, lng));
+          }
+        });
+        this.heatmap = new google.maps.visualization.HeatmapLayer({
+          data: heatmapData,
+          map: this.map
+        });
+      }
+    );
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.MarkerManager.createMarkers(
+      newProps.collisionsArrayToAdd,
       this.state.taxi,
       this.state.bike,
       this.state.motorcycle,
@@ -75,109 +101,6 @@ class Map extends React.Component {
       this.state.motorcycle,
       this.state.ped
     );
-    this.traffic = new google.maps.TrafficLayer();
-    this.traffic.setMap(null);
-    this.transit = new google.maps.TransitLayer();
-    this.transit.setMap(null);
-    this.bicycling = new google.maps.BicyclingLayer();
-    this.bicycling.setMap(null);
-
-    APIUtil.fetchCollisions("2017-08-01")
-      .then(
-        (response) =>
-          response.json()
-      ).then(
-        (collisionsData) => {
-          // let heatmapData = collisionsData.map( collision => {
-          //   let lat = parseFloat(collision.latitude);
-          //   let lng = parseFloat(collision.longitude);
-          //   return new google.maps.LatLng(lat, lng);
-          // });
-
-          var heatmapData = [
-            new google.maps.LatLng(37.782, -122.447),
-            new google.maps.LatLng(37.782, -122.445),
-            new google.maps.LatLng(37.782, -122.443),
-            new google.maps.LatLng(37.782, -122.441),
-            new google.maps.LatLng(37.782, -122.439),
-            new google.maps.LatLng(37.782, -122.437),
-            new google.maps.LatLng(37.782, -122.435),
-            new google.maps.LatLng(37.785, -122.447),
-            new google.maps.LatLng(37.785, -122.445),
-            new google.maps.LatLng(37.785, -122.443),
-            new google.maps.LatLng(37.785, -122.441),
-            new google.maps.LatLng(37.785, -122.439),
-            new google.maps.LatLng(37.785, -122.437),
-            new google.maps.LatLng(37.785, -122.435)
-          ]; // this works for SF locations
-          this.heatmap = new google.maps.visualization.HeatmapLayer({
-            data: heatmapData,
-          });
-          this.heatmap.setMap(this.map);
-        });
-
-
-    // var layer = new google.maps.FusionTablesLayer({
-    //   query: {
-    //     select: 'location',
-    //     from: '1svURqxbhoRL1LJFVU0C51Ar3TrHpOGP-NB6EgaD1'
-        // All heatmap data will dissipate as you zoom in. So we cannot use Fushion Table for the heatmap
-        // from: '1svURqxbhoRL1LJFVU0C51Ar3TrHpOGP-NB6EgaD1'
-        // from: '1xWyeuAhIFK_aED1ikkQEGmR8mINSCJO9Vq-BPQ'
-        // google map earthquake example
-    //   },
-    //   heatmap: {
-    //     enabled: true
-    //   }
-    // });
-
-    // layer.setMap(this.map);
-
-    // let fusionTableHeatMapLayer = new google.maps.FusionTablesLayer({
-    //   query: {
-    //     select: 'location',
-    //     from: '1svURqxbhoRL1LJFVU0C51Ar3TrHpOGP-NB6EgaD1'
-    //   },
-    //   heatmap: {
-    //     enabled: true
-    //   }
-    // });
-    // debugger;
-    //
-    // fusionTableHeatMapLayer.setMap(this.map);
-
-    // let heatmapData = this.props.collisions.map( collision => {
-    //   let injuries = collision.number_of_persons_injured;
-    //   let deaths = collision.number_of_persons_killed;
-    //   if (injuries === 0 && deaths === 0) {
-    //     return new google.maps.LatLng(collision.latitude, collision.longitude);
-    //   } else {
-    //     let weight = injuries * INJURY_WEIGHT + deaths * DEATH_WEIGHT;
-    //     return {
-    //       location: new google.maps.LatLng(collision.latitude, collision.longitude),
-    //       weight,
-    //     };
-    //   }
-    // });
-  }
-
-  componentWillReceiveProps(newProps) {
-
-          // debugger;
-    // this.MarkerManager.createMarkers(
-    //   newProps.collisionsArrayToAdd,
-    //   this.state.taxi,
-    //   this.state.bike,
-    //   this.state.motorcycle,
-    //   this.state.ped
-    // );
-    // this.MarkerManager.removeMarkers(
-    //   this.props.collisionsArrayToRemove,
-    //   this.state.taxi,
-    //   this.state.bike,
-    //   this.state.motorcycle,
-    //   this.state.ped
-    // );
   }
 
   toggle(field) {
