@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import parseTime from '../../util/time_util';
+import { timeIntToString } from '../../util/time_util';
 
 const mapStateToProps = state => ({
   date: state.filters.date,
@@ -10,13 +10,13 @@ const mapStateToProps = state => ({
 
 const timeLine = (start, finish) => {
   return(
-    `${parseTime(start)} - ${parseTime(finish)}`
+    `${timeIntToString(start)} - ${timeIntToString(finish)}`
   );
 };
 
 const MapInfo = ({ date, start, finish, collisions }) => (
   <div>
-    Map Time: <b>{date} {parseTime(finish)}</b>
+    Map Time: <b>{date} {timeIntToString(finish)}</b>
     <br />
     Showing Collisions During&nbsp;
     <b>{timeLine(start, finish)}</b>

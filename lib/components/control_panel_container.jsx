@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateFilter, resetFilter } from '../actions/filter_actions';
+import { timeIntToString, timeStringToInt } from '../util/time_util';
 
 import { fetchCollisions } from '../actions/collision_actions';
 
@@ -24,7 +25,6 @@ class ControlPanel extends React.Component {
     super(props);
     this.state = {
       date: this.props.filters.date,
-      time: "07:00",
       currentTime: this.props.filters.finish,
       intervalId: null,
 
@@ -55,7 +55,6 @@ class ControlPanel extends React.Component {
   updateField(field) {
     return( (e) => {
       e.preventDefault();
-      let value = parseInt(e.currentTarget.value);
       switch (field) {
         case 'collisionMapTime':
           this.setState({ [field]: parseInt(e.currentTarget.value) });
@@ -72,7 +71,7 @@ class ControlPanel extends React.Component {
           break;
 
         case 'date':
-          this.props.updateFilter({date: e.currentTarget.value});
+          this.props.updateFilter({ date: e.currentTarget.value });
           this.setState({
             date: e.currentTarget.value,
             loaded: false,
@@ -84,13 +83,14 @@ class ControlPanel extends React.Component {
           break;
 
         case 'initialTime':
+          let value = timeStringToInt(e.currentTarget.value);
           this.setState({
-            initialTime: parseInt(e.currentTarget.value),
-            currentTime: parseInt(e.currentTarget.value),
+            initialTime: value,
+            currentTime: value,
           });
           this.props.updateFilter({
-            start: parseInt(e.currentTarget.value),
-            finish: parseInt(e.currentTarget.value),
+            start: value,
+            finish: value,
           });
           break;
 
@@ -248,23 +248,21 @@ class ControlPanel extends React.Component {
               Select Date (2012-07-01 ~ 2017-08-01)
             </label>
             <input
-              value={this.state.date}
+              value={this.state.date} id='date'
               type="date" min="2012-07-01" max="2017-08-01"
               onChange={this.updateField('date')}
             />
+          </div>
+          <div>
             <label htmlFor='initial-time'>
-              Start Time
+              Select Start Time
             </label>
-            <select
+            <input
               id='initial-time'
-              value={this.state.initialTime}
-              onChange={this.updateField('initialTime')} >
-              <option value='420' >07:00</option>
-              <option value='0' >00:00</option>
-              <option value='720' >12:00</option>
-              <option value='1080' >18:00</option>
-              <option value='1320' >22:00</option>
-            </select>
+              type="time"
+              value={timeIntToString(this.state.initialTime)}
+              onChange={this.updateField('initialTime')}
+            />
           </div>
           {this.playPauseButton()}
           <div className='clickable-div bordered' onClick={this.handleReset}>
@@ -279,16 +277,8 @@ class ControlPanel extends React.Component {
 
         <div className="flex-row">
           dev Tool: this.state.date is {this.state.date}
+          New start time is {this.state.initialTime}
         </div>
-        <div className="flex-row">
-          Select Start Time
-          <input type="time" value={this.state.time} onChange={ (e) => this.setState({time: e.currentTarget.value})}/>
-
-            New start time is {this.state.time}
-
-        </div>
-
-
       </div>
     );
   }

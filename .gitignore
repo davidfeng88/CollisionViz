@@ -22,7 +22,7 @@
 
 node_modules/
 .byebug_history
-/lib/bundle.js.map
+bundle.js.map
 .DS_Store
 npm-debug.log
 
