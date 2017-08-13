@@ -11,7 +11,6 @@ import MarkerManager from '../../util/marker_manager';
 import alternativeMapStyle from './styles';
 
 const mapStateToProps = state => ({
-  collisions: state.collisions, // heatmap!
   collisionsArrayToAdd: collisionsToArray(state, state.filters.finish),
   collisionsArrayToRemove: collisionsToArray(state, state.filters.start - 1),
 });
@@ -80,6 +79,7 @@ class Map extends React.Component {
         });
         this.heatmap = new google.maps.visualization.HeatmapLayer({
           data: heatmapData,
+          radius: 10,
           map: this.map
         });
       }
