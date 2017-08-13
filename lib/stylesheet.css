@@ -214,14 +214,14 @@ a:hover {
 }
 
 .spinner img {
-  height: 35px;
+  height: 38px;
 }
 
 .spinner {
   width: 100px;
   margin: 5px;
+  vertical-align: middle;
 }
-
 
 select {
   text-align: center;
