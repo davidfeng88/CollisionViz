@@ -13,6 +13,7 @@ import alternativeMapStyle from './styles';
 const mapStateToProps = state => ({
   collisionsArrayToAdd: collisionsToArray(state, state.filters.finish),
   collisionsArrayToRemove: collisionsToArray(state, state.filters.start - 1),
+  date: state.filters.date
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -65,7 +66,11 @@ class Map extends React.Component {
     this.traffic = new google.maps.TrafficLayer();
     this.transit = new google.maps.TransitLayer();
     this.bicycling = new google.maps.BicyclingLayer();
-    APIUtil.fetchCollisions("2017-08-01")
+    this.createHeatmap(this.props.date);
+  }
+
+  createHeatmap(date) {
+    APIUtil.fetchCollisions(date)
       .then( response => response.json())
       .then( collisionsData => {
         let heatmapData = [];
@@ -77,30 +82,38 @@ class Map extends React.Component {
             heatmapData.push(new google.maps.LatLng(lat, lng));
           }
         });
-        this.heatmap = new google.maps.visualization.HeatmapLayer({
+        let newHeatmap = new google.maps.visualization.HeatmapLayer({
           data: heatmapData,
           radius: 10,
           map: this.map
         });
+        this.heatmap = newHeatmap;
       }
     );
   }
 
   componentWillReceiveProps(newProps) {
-    this.MarkerManager.createMarkers(
-      newProps.collisionsArrayToAdd,
-      this.state.taxi,
-      this.state.bike,
-      this.state.motorcycle,
-      this.state.ped
-    );
-    this.MarkerManager.removeMarkers(
-      this.props.collisionsArrayToRemove,
-      this.state.taxi,
-      this.state.bike,
-      this.state.motorcycle,
-      this.state.ped
-    );
+    if (newProps.date !== this.props.date) {
+      // date changed
+      this.createHeatmap(newProps.date);
+      // clear all markers, draw a new heatmap
+      this.MarkerManager.removeAllMarkers();
+    } else { // only the time is updated, add & remove markers
+      this.MarkerManager.createMarkers(
+        newProps.collisionsArrayToAdd,
+        this.state.taxi,
+        this.state.bike,
+        this.state.motorcycle,
+        this.state.ped
+      );
+      this.MarkerManager.removeMarkers(
+        this.props.collisionsArrayToRemove,
+        this.state.taxi,
+        this.state.bike,
+        this.state.motorcycle,
+        this.state.ped
+      );
+    }
   }
 
   toggle(field) {
