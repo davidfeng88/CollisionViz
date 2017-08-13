@@ -64,7 +64,7 @@ class ControlPanel extends React.Component {
           this.setState({ [field]: parseInt(e.currentTarget.value) });
           if (this.state.intervalId) {
             clearInterval(this.state.intervalId);
-            let intervalId = setInterval(this.oneStepForward, value);
+            let intervalId = setInterval(this.oneStepForward, parseInt(e.currentTarget.value));
             // do not use this.state.stepTime since the setState can be async
             this.setState({ intervalId });
           }
@@ -76,10 +76,12 @@ class ControlPanel extends React.Component {
             date: e.currentTarget.value,
             loaded: false,
           });
-          this.props.fetchCollisions(e.currentTarget.value)
-            .then(
-              () => this.setState({loaded: true})
-            );
+          if (e.currentTarget.value !== "") {
+            this.props.fetchCollisions(e.currentTarget.value)
+              .then(
+                () => this.setState({loaded: true})
+              );
+          }
           break;
 
         case 'initialTime':
@@ -262,7 +264,7 @@ class ControlPanel extends React.Component {
             <input
               id='initial-time'
               type="time"
-              value={timeIntToString(this.state.initialTime)}
+              value={timeIntToString(this.state.initialTime, true)}
               onChange={this.updateField('initialTime')}
             />
           </div>
@@ -275,11 +277,6 @@ class ControlPanel extends React.Component {
             checked={this.state.showExtra}
             onChange={this.toggle('showExtra')} />
           {this.extraPanel()}
-        </div>
-
-        <div className="flex-row">
-          dev Tool: this.state.date is {this.state.date}
-          New start time is {this.state.initialTime}
         </div>
       </div>
     );
