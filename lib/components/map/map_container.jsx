@@ -86,10 +86,12 @@ class Map extends React.Component {
           this.heatmap = new google.maps.visualization.HeatmapLayer({
             data: heatmapData,
             radius: 10,
+            maxIntensity: 3,
             map: this.map
           });
         } else {
           this.heatmap.setData(heatmapData);
+          this.heatmap.setMap(this.map);
         }
       }
     );
@@ -98,8 +100,11 @@ class Map extends React.Component {
   componentWillReceiveProps(newProps) {
     if (newProps.date !== this.props.date) {
       // if the date is changed, clear all markers, draw a new heatmap
-      this.updateHeatmap(newProps.date);
+      this.heatmap.setMap(null);
       this.MarkerManager.removeAllMarkers();
+      if (newProps.date !== "") {
+        this.updateHeatmap(newProps.date);
+      }
     } else {
       // only the time is updated, add & remove markers
       this.MarkerManager.createMarkers(
