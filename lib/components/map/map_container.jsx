@@ -66,14 +66,14 @@ class Map extends React.Component {
     this.traffic = new google.maps.TrafficLayer();
     this.transit = new google.maps.TransitLayer();
     this.bicycling = new google.maps.BicyclingLayer();
-    this.createHeatmap(this.props.date);
+    this.updateHeatmap(this.props.date, true);
   }
 
-  createHeatmap(date) {
+  updateHeatmap(date, createHeatmap = false) {
+    let heatmapData = [];
     APIUtil.fetchCollisions(date)
       .then( response => response.json())
       .then( collisionsData => {
-        let heatmapData = [];
         collisionsData.forEach( collision => {
           if (collision.latitude && collision.longitude) {
             // some data does not have these information
@@ -82,12 +82,15 @@ class Map extends React.Component {
             heatmapData.push(new google.maps.LatLng(lat, lng));
           }
         });
-        let newHeatmap = new google.maps.visualization.HeatmapLayer({
-          data: heatmapData,
-          radius: 10,
-          map: this.map
-        });
-        this.heatmap = newHeatmap;
+        if (createHeatmap) {
+          this.heatmap = new google.maps.visualization.HeatmapLayer({
+            data: heatmapData,
+            radius: 10,
+            map: this.map
+          });
+        } else {
+          this.heatmap.setData(heatmapData);
+        }
       }
     );
   }
@@ -95,7 +98,7 @@ class Map extends React.Component {
   componentWillReceiveProps(newProps) {
     if (newProps.date !== this.props.date) {
       // date changed
-      this.createHeatmap(newProps.date);
+      this.updateHeatmap(newProps.date);
       // clear all markers, draw a new heatmap
       this.MarkerManager.removeAllMarkers();
     } else { // only the time is updated, add & remove markers
