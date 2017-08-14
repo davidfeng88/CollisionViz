@@ -1,0 +1,64 @@
+/* --- MODAL TEMPLATE --- */
+
+.modal-backdrop {
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 50px;
+}
+
+.modal {
+  position: relative;
+  z-index: 4;
+  background-color: #fff;
+  border-radius: 5px;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px 30px;
+};
+
+/* --- MODALS --- */
+
+h3 {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+p {
+  margin: 5px auto;
+}
+
+a {
+  color: $blue;
+}
+
+a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.modal-link-div {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.modal-link-div i {
+  margin: 5px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.modal-link-div i:hover {
+  cursor: pointer;
+  background-color: #bbb;
+}
+
+.modal-link-div i:active {
+  background-color: #aaa;
+}

@@ -97,11 +97,11 @@ class Map extends React.Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.date !== this.props.date) {
-      // date changed
+      // if the date is changed, clear all markers, draw a new heatmap
       this.updateHeatmap(newProps.date);
-      // clear all markers, draw a new heatmap
       this.MarkerManager.removeAllMarkers();
-    } else { // only the time is updated, add & remove markers
+    } else {
+      // only the time is updated, add & remove markers
       this.MarkerManager.createMarkers(
         newProps.collisionsArrayToAdd,
         this.state.taxi,
@@ -129,10 +129,8 @@ class Map extends React.Component {
       }
     };
   }
-  // fat arrow functions automatic bind this
 
   toggleMapLayer(field) {
-    // fat arrow takes care of binding
     if (this.state[field]) {
       this[field].setMap(null);
       this.setState({[field]: false});

@@ -25,6 +25,7 @@ node_modules/
 bundle.js.map
 .DS_Store
 npm-debug.log
+.sass-cache
 
 # below is from github/gitignore/Rails.gitignore
 

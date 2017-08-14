@@ -1,0 +1,35 @@
+/* --- HEADER --- */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0 10px 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.logo img {
+  width: 60px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.logo h1 {
+  font-family: $logo-font-family;
+  font-size: 40px;
+}
+
+.modal-buttons {
+  text-align: right;
+  line-height: 1.5em;
+}
+
+.modal-buttons button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
