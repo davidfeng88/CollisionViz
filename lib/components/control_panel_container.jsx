@@ -208,7 +208,9 @@ class ControlPanel extends React.Component {
             <select
               id='collision-map-time'
               value={this.state.collisionMapTime}
-              onChange={this.updateField('collisionMapTime')} >
+              onChange={this.updateField('collisionMapTime')}
+              disabled={this.state.intervalId ? "disabled" : ""}
+            >
               <option value='4' >5 minutes</option>
               <option value='9' >10 minutes</option>
               <option value='29' >30 minutes</option>
@@ -222,7 +224,9 @@ class ControlPanel extends React.Component {
             <select
               id="step-time"
               value={this.state.stepTime}
-              onChange={this.updateField('stepTime')} >
+              onChange={this.updateField('stepTime')}
+              disabled={this.state.intervalId ? "disabled" : ""}
+            >
               <option value='100' >Fast</option>
               <option value='200' >Default</option>
               <option value='400' >Slow</option>
@@ -251,6 +255,7 @@ class ControlPanel extends React.Component {
               value={this.state.date} id='date'
               type="date" min="2012-07-01" max="2017-08-01"
               onChange={this.updateField('date')}
+              disabled={this.state.intervalId ? "disabled" : ""}
             />
           </div>
           <div>
@@ -262,6 +267,7 @@ class ControlPanel extends React.Component {
               type="time"
               value={timeIntToString(this.state.initialTime, true)}
               onChange={this.updateField('initialTime')}
+              disabled={this.state.intervalId ? "disabled" : ""}
             />
           </div>
           {this.playPauseButton()}

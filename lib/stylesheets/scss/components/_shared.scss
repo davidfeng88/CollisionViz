@@ -1,16 +1,24 @@
 /* --- ELEMENTS --- */
 
 body {
-  background-color: $background-color;
+  background-color: $grey;
   font-family: $sans-serif;
   font-weight: normal;
 }
 
 input, select {
+  font-size: 16px;
   background-color: white;
   border: 1px solid black;
   padding: 5px;
   border-radius: 3px;
+}
+
+input[type="date"]:disabled,
+input[type="time"]:disabled,
+select:disabled {
+  color: $dark-grey;
+  background-color: $grey;
 }
 
 .container {
@@ -73,7 +81,7 @@ label {
 
 .extra-panel {
   position: absolute;
-  background-color: $background-color;
+  background-color: $grey;
   z-index: 1;
 }
 
