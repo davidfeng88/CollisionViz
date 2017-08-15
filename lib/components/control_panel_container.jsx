@@ -67,6 +67,7 @@ class ControlPanel extends React.Component {
           break;
 
         case 'date':
+          this.handleReset();
           this.props.updateFilter({ date: e.currentTarget.value });
           this.setState({
             date: e.currentTarget.value,
@@ -107,8 +108,8 @@ class ControlPanel extends React.Component {
       finish: DEFAULT_TIME
     });
     this.setState({
-      initialTime: this.props.filters.start,
-      currentTime: this.props.filters.finish,
+      initialTime: DEFAULT_TIME,
+      currentTime: DEFAULT_TIME,
     });
   }
 
