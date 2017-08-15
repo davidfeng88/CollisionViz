@@ -8,7 +8,7 @@ CollisionViz shows the location and time of motor vehicle collisions in New York
 ## Features
 The user can select the date and the start time of the visualization.
 
-The current map time and collisions' time range are shown.
+The current map time and time range of the collisions are shown.
 
 The user can click on map icons to see the collision details (shown in [Info Windows](https://developers.google.com/maps/documentation/javascript/infowindows)). Only columns with non-zero values are shown.
 
@@ -20,8 +20,8 @@ The user can choose to show custom icons for collisions involving taxis, bicycle
 **Note**: this does not change the icons that are already on the map. Also, the icons have priorities as taxi > bicycle > motorcycle > pedestrian (e.g. if a taxi hit a bicycle, the icon would be a taxi).
 
 ### Map Layers
-The user can toggle four layers on and off the map. By default, the heat map layer is turned on while the other three are turned off.
-* The heat map layer shows a heat map based on all the collisions on the date selected.
+The user can toggle four layers on and off the map. By default, the heatmap layer is turned on while the other three are turned off.
+* The heatmap layer shows a heatmap based on all the collisions on the date selected.
 * The traffic layer shows the real-time (user time) traffic information.
 * The transit layer displays the public transit network.
 * The bicycling Layer renders bike paths, suggested bike routes and other overlays specific to bicycling usage.
@@ -47,12 +47,9 @@ The user can toggle four layers on and off the map. By default, the heat map lay
         contributing_factor_vehicle_1: "Outside Car Distraction",
         contributing_factor_vehicle_2: "Unspecified",
         ...
-      }
+      },
+      ...
     ],
-      borough: "Brooklyn",
-      contributing_factor_vehicle_1: "Unspecified",
-      contributing_factor_vehicle_2: "Unspecified",
-    },
     "0:05": [
       ...
     ],
@@ -62,7 +59,7 @@ The user can toggle four layers on and off the map. By default, the heat map lay
 ```
 The state contains two slices:
 - `collisions` contains all the collisions of the selected day. The reducer organizes the collisions into arrays based on their time.
-- `filters` contains filters for the collisions. The start time and finish time are integers representing the minutes from midnight. So 7:00AM would be 420 ( = 60 minutes * 7).
+- `filters` contains filters for the collisions. The start time and finish time are integers representing the minutes after the midnight. So 7:00 AM would be 420 ( = 60 minutes * 7).
 
 ### The Control Panel
 ```javascript
@@ -87,16 +84,16 @@ To start the visualization, the `handlePlay` function uses the `setInterval` fun
 The `handleStop` function calls the `clearInterval` function to stop the visualization.
 
 ### The Map
-If it receives a new date from the Redux state, it would remove the heatmap layer, remove all the markers on the map, and finally it would Fetch the collision data from the data source to build the heatmap.
+If it receives a new date from the Redux state, it would remove the heatmap layer, remove all the markers on the map, and fetch the collision data to build a new heatmap.
 
-During the visualization, the map container calculates the arrays of collisions to add/remove based on the updated start  and finish time in the `filters` and the `collisions` slice of the Redux state. These arrays are then sent to the `marker_manager`, which updates the markers on the map.
+During the visualization, the map container calculates the arrays of collisions to be added/removed based on the updated start and finish time in the `filters` and `collisions` of the Redux state. These arrays are then sent to the `marker_manager`, which updates the markers on the map.
 
 [Custom markers](https://developers.google.com/maps/documentation/javascript/custom-markers), [heatmap](https://developers.google.com/maps/documentation/javascript/heatmaplayer), and [traffic, transit and bicycling layer](https://developers.google.com/maps/documentation/javascript/trafficlayer) are created using the Google Maps JavaScript API.
 
 ## Future Directions
 ### Better layout
-Reorganize the "more setting" and "more map options" panels (and maybe use CSS grid) so that they stick right to the main part of the app. Implement dynamic map size so it is more friendly for smaller screens.
+Reorganize the "more settings" and "more map options" panels (maybe use CSS grid) so that they stick right to the main part of the app. Implement dynamic map size so that the app would be more friendly to smaller screens.
 
 ### Incorporate other tools
 * [MarkerClusterers](https://developers.google.com/maps/documentation/javascript/marker-clustering)
-* [Google Charts](https://developers.google.com/chart/) for data analysis (for example, compare time/location distributions of collisions between weekday vs. weekend, winter vs. summer, rainy vs. sunny, etc.) [w3school tutorial](https://www.w3schools.com/howto/howto_google_charts.asp)
+* [Google Charts](https://developers.google.com/chart/) ([w3school tutorial](https://www.w3schools.com/howto/howto_google_charts.asp)) for data analysis (for example, compare time/location distributions of collisions between weekday vs. weekend, winter vs. summer, rainy vs. sunny, etc.)

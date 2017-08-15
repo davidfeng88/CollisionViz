@@ -7,7 +7,7 @@ const AboutCollisionViz = props => {
     <ModalTemplate {...props}>
       <h3>About CollisionViz</h3>
       <p className="extra-panel-row">
-        A visualization of motor vehicle collisions in NYC on 6/22/2017.
+        A visualization of motor vehicle collisions in NYC.
       </p>
       <p className="extra-panel-row">
         Click on map icons for collision details.
