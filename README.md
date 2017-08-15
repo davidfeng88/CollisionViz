@@ -96,4 +96,4 @@ Reorganize the "more settings" and "more map options" panels (maybe using CSS gr
 
 ### Incorporate other tools
 * [MarkerClusterers](https://developers.google.com/maps/documentation/javascript/marker-clustering)
-* [Google Charts](https://developers.google.com/chart/) ([w3school tutorial](https://www.w3schools.com/howto/howto_google_charts.asp)) for data analysis (for example, compare time/location distributions of collisions between weekday vs. weekend, winter vs. summer, rainy vs. sunny, etc.)
+* [Google Charts](https://developers.google.com/chart/) ([w3school tutorial](https://www.w3schools.com/howto/howto_google_charts.asp)) for data analysis. For example, compare time/location distributions of collisions between weekday vs. weekend, winter vs. summer, rainy vs. sunny, etc.
