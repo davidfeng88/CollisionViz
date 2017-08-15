@@ -10,7 +10,7 @@ The user can select the date and the start time of the visualization.
 
 The current map time and time range of the collisions are shown.
 
-The user can click on map icons to see the collision details (shown in [Info Windows](https://developers.google.com/maps/documentation/javascript/infowindows)). Only columns with non-zero values are shown.
+The user can click on map icons to see the collision details (shown in [Info Windows](https://developers.google.com/maps/documentation/javascript/infowindows)). Only entries with non-zero values are shown.
 
 More settings and more map options are also available.
 
@@ -84,7 +84,7 @@ To start the visualization, the `handlePlay` function uses the `setInterval` fun
 The `handleStop` function calls the `clearInterval` function to stop the visualization.
 
 ### The Map
-If it receives a new date from the Redux state, it would remove the heatmap layer, remove all the markers on the map, and fetch the collision data to build a new heatmap.
+If it receives a new date from the Redux state, it removes the heatmap layer, removes all the markers on the map, and fetches the collision data to build a new heatmap.
 
 During the visualization, the map container calculates the arrays of collisions to be added/removed based on the updated start and finish time in the `filters` and `collisions` of the Redux state. These arrays are then sent to the `marker_manager`, which updates the markers on the map.
 
@@ -92,7 +92,7 @@ During the visualization, the map container calculates the arrays of collisions 
 
 ## Future Directions
 ### Better layout
-Reorganize the "more settings" and "more map options" panels (maybe use CSS grid) so that they stick right to the main part of the app. Implement dynamic map size so that the app would be more friendly to smaller screens.
+Reorganize the "more settings" and "more map options" panels (maybe using CSS grid) so that they stick right to the main part of the app. Implement dynamic map size so that the app would be more friendly to smaller screens.
 
 ### Incorporate other tools
 * [MarkerClusterers](https://developers.google.com/maps/documentation/javascript/marker-clustering)
