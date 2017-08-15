@@ -77,7 +77,7 @@ case 'date':
       );
   }
 ```
-After the user selects a new date, first, it would stop any current visualization and reset the time to 7:00AM. Then it would update the `date` in the `filters` of the Redux state and in the local state. Also it would set `loaded` to be false (which disables the play button and shows the loading spinner). Then [the Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) will fetch data from the source and populate the `collisions` slice of Redux state. Using a promise, after all these work is done, it sets `loaded` to be true.
+After the user selects a new date, first, it stops any current visualization and reset the time to 7:00 AM. Then it updates the `date` in the `filters` of the Redux state and in the local state. Also, it sets `loaded` to be false (which disables the play button and shows the loading spinner). Then [the Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) will fetch data from the source and populate the `collisions` slice of Redux state. Using a promise, after all these work is done, it sets `loaded` to be true.
 
 To start the visualization, the `handlePlay` function uses the `setInterval` function to call `oneStepForward` repeatedly, which updates the start and finish time in the `filters` of the Redux state.
 
