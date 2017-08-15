@@ -95,9 +95,8 @@ During the visualization, the map container calculates the arrays of collisions 
 
 ## Future Directions
 ### Better layout
-Reorganize the "more setting" and "more map options" panels (and maybe use CSS grid) so that they stick right to the main part of the app.
+Reorganize the "more setting" and "more map options" panels (and maybe use CSS grid) so that they stick right to the main part of the app. Implement dynamic map size so it is more friendly for smaller screens.
 
 ### Incorporate other tools
 * [MarkerClusterers](https://developers.google.com/maps/documentation/javascript/marker-clustering)
-*
-[Google Charts](https://developers.google.com/chart/) for data analysis (for example, compare time/location distributions of collisions between weekday vs. weekend, winter vs. summer, rainy vs. sunny, etc.)
+* [Google Charts](https://developers.google.com/chart/) for data analysis (for example, compare time/location distributions of collisions between weekday vs. weekend, winter vs. summer, rainy vs. sunny, etc.) [w3school tutorial](https://www.w3schools.com/howto/howto_google_charts.asp)
