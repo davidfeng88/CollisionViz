@@ -23,38 +23,34 @@ const mapDispatchToProps = dispatch => ({
 const NYC_CENTER = {lat: 40.732663, lng: -73.993479};
 const DEFAULT_ZOOM_LEVEL = 10;
 
-const mapOptions = {
-  center: NYC_CENTER,
-  zoom: DEFAULT_ZOOM_LEVEL,
-};
-
-const defaultMapState = {
-  showExtra: false,
-  alternativeMapStyle: false,
-
-  // map layers
-  heatmap: true,
-  traffic: false,
-  transit: false,
-  bicycling: false,
-  // special icons
-  taxi: true,
-  bike: true,
-  motorcycle: true,
-  ped: true,
-};
-
 class Map extends React.Component {
   constructor(props) {
     super(props);
-    this.state = defaultMapState;
+    this.state = {
+      showExtra: false,
+      alternativeMapStyle: false,
+
+      // map layers
+      heatmap: true,
+      traffic: false,
+      transit: false,
+      bicycling: false,
+      // special icons
+      taxi: true,
+      bike: true,
+      motorcycle: true,
+      ped: true,
+    };
 
     this.resetMapBorders = this.resetMapBorders.bind(this);
   }
 
   componentDidMount() {
     const map = this.refs.map;
-    this.map = new google.maps.Map(map, mapOptions);
+    this.map = new google.maps.Map(map, {
+      center: NYC_CENTER,
+      zoom: DEFAULT_ZOOM_LEVEL,
+    });
     this.MarkerManager = new MarkerManager(this.map);
     this.MarkerManager.createMarkers(
       this.props.collisionsArrayToAdd,
@@ -72,7 +68,6 @@ class Map extends React.Component {
   updateHeatmap(date, createHeatmap = false) {
     let heatmapData = [];
     APIUtil.fetchCollisions(date)
-      .then( response => response.json())
       .then( collisionsData => {
         collisionsData.forEach( collision => {
           if (collision.latitude && collision.longitude) {
@@ -83,6 +78,7 @@ class Map extends React.Component {
           }
         });
         if (createHeatmap) {
+          // don't use "let"
           this.heatmap = new google.maps.visualization.HeatmapLayer({
             data: heatmapData,
             radius: 10,

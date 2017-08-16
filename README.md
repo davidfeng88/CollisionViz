@@ -12,7 +12,7 @@ The current map time and time range of the collisions are shown.
 
 The user can click on map icons to see the collision details (shown in [Info Windows](https://developers.google.com/maps/documentation/javascript/infowindows)). Only entries with non-zero values are shown.
 
-More settings and more map options are also available.
+More settings and more map options are also available. Some settings are disabled during the visualization. Date change resets the start time to the default value (7:00 AM).
 
 ### Icon Settings
 The user can choose to show custom icons for collisions involving taxis, bicycles, motorcycles, and collisions that caused pedestrian injuries or deaths.

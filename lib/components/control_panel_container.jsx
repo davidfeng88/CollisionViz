@@ -53,17 +53,8 @@ class ControlPanel extends React.Component {
       e.preventDefault();
       switch (field) {
         case 'collisionMapTime':
-          this.setState({ [field]: parseInt(e.currentTarget.value) });
-          break;
-
         case 'stepTime':
           this.setState({ [field]: parseInt(e.currentTarget.value) });
-          if (this.state.intervalId) {
-            clearInterval(this.state.intervalId);
-            let intervalId = setInterval(this.oneStepForward, parseInt(e.currentTarget.value));
-            // do not use this.state.stepTime since the setState can be async
-            this.setState({ intervalId });
-          }
           break;
 
         case 'date':
