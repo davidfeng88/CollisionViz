@@ -12,9 +12,9 @@ import MarkerManager from '../../util/marker_manager';
 import alternativeMapStyle from './styles';
 
 const mapStateToProps = state => ({
-  start: state.filters.start,
-  finish: state.filters.finish,
-  date: state.filters.date
+  start: state.start,
+  finish: state.finish,
+  date: state.date,
 });
 
 const NYC_CENTER = {lat: 40.732663, lng: -73.993479};

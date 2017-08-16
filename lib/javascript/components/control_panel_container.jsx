@@ -2,14 +2,14 @@ import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 
-import { updateFilter } from '../actions/filter_actions';
+import { updateFilter } from '../actions';
 import { timeIntToString, timeStringToInt } from '../util/time_util';
-import { DEFAULT_TIME } from '../reducers/filters_reducer';
+import { DEFAULT_TIME } from '../reducer';
 
 import Toggle from './toggle';
 
-const mapStateToProps = state => ({
-  filters: state.filters,
+const mapStateToProps = ({start, finish, date, loaded}) => ({
+    start, finish, date, loaded,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -23,11 +23,11 @@ class ControlPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: this.props.filters.date,
-      currentTime: this.props.filters.finish,
+      date: this.props.date,
+      currentTime: this.props.finish,
       intervalId: null,
 
-      initialTime: this.props.filters.start,
+      initialTime: this.props.start,
       collisionMapTime: 29,
       stepTime: 200,
 

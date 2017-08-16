@@ -24,9 +24,9 @@ plugins = plugins.concat(
 
 module.exports = {
   context: __dirname,
-  entry: "./lib/collision_viz.jsx",
+  entry: "./lib/javascript/collision_viz.jsx",
   output: {
-    path: path.join(__dirname, 'lib'),
+    path: path.join(__dirname, 'lib', 'javascript'),
     filename: "bundle.js"
   },
   plugins: plugins,

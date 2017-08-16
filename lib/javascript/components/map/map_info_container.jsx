@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { timeIntToString } from '../../util/time_util';
 
 const mapStateToProps = state => ({
-  date: state.filters.date,
-  start: state.filters.start,
-  finish: state.filters.finish,
+  date: state.date,
+  start: state.start,
+  finish: state.finish,
 });
 
 const timeLine = (start, finish) => {
