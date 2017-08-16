@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { timeIntToString } from '../../util/time_util';
+import { timeIntToString } from '../../util';
 
 const mapStateToProps = state => ({
   date: state.date,

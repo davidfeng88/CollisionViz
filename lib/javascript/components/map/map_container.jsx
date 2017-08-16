@@ -3,13 +3,12 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import { connect } from 'react-redux';
 
-import * as APIUtil from '../../util/collision_api_util'; // heatmap!
-import { timeStringToInt } from '../../util/time_util';
+import * as Util from '../../util';
 
 import { updateFilter } from '../../actions';
 import Toggle from '../toggle';
 import MapInfoContainer from './map_info_container';
-import MarkerManager from '../../util/marker_manager';
+import MarkerManager from './marker_manager';
 import alternativeMapStyle from './styles';
 import { DEFAULT_TIME } from '../../reducer';
 
@@ -64,13 +63,13 @@ class Map extends React.Component {
   }
 
   fetchCollisions(date, createHeatmap = false) {
-    APIUtil.fetchCollisions(date)
+    Util.fetchCollisions(date)
       .then( collisionsData => {
         this.collisions = {}; // don't use "let this.collisions"
         let validCollisions = collisionsData
           .filter(collision => collision.latitude && collision.longitude && collision.time);
         validCollisions.forEach(collision => {
-          let index = timeStringToInt(collision.time);
+          let index = Util.timeStringToInt(collision.time);
           if (this.collisions[index]) {
             this.collisions[index].push(collision);
           } else {

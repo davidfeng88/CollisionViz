@@ -3,7 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 
 import { updateFilter } from '../actions';
-import { timeIntToString, timeStringToInt } from '../util/time_util';
+import * as Util from '../util';
 import { DEFAULT_TIME } from '../reducer';
 import Toggle from './toggle';
 
@@ -63,7 +63,7 @@ class ControlPanel extends React.Component {
 
         case 'time':
           if (e.currentTarget.value !== "") {
-            let newTime = timeStringToInt(e.currentTarget.value);
+            let newTime = Util.timeStringToInt(e.currentTarget.value);
             this.setNewTime(newTime);
           }
           break;
@@ -241,7 +241,7 @@ class ControlPanel extends React.Component {
             <input
               id='time'
               type="time"
-              value={timeIntToString(this.initialTime, true)}
+              value={Util.timeIntToString(this.initialTime, true)}
               onChange={this.updateField('time')}
               disabled={this.state.intervalId ? "disabled" : ""}
             />
