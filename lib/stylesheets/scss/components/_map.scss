@@ -1,16 +1,24 @@
 /* --- MAP --- */
 
 .index-map {
-  width: 950px;
-  height: 600px;
-  margin: 20px auto;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: $map-width;
 }
 
-/* --- EXTRA MAP PANEL --- */
-
-.extra-map-panel {
-  right: 20px;
-  bottom: 20px;
+/* --- MAP PANEL --- */
+.map-panel {
+  position: absolute;
+  z-index: 2;
   padding: 10px;
-  min-width: 350px;
+  top: 5px;
+  right: 10px;
+  background-color: white;
+}
+
+.map-info {
+  margin-right: 10px;
 }

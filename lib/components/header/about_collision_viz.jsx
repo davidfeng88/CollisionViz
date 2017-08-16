@@ -6,10 +6,10 @@ const AboutCollisionViz = props => {
   return (
     <ModalTemplate {...props}>
       <h3>About CollisionViz</h3>
-      <p className="extra-panel-row">
+      <p className="modal-row">
         A visualization of motor vehicle collisions in NYC.
       </p>
-      <p className="extra-panel-row">
+      <p className="modal-row">
         Click on map icons for collision details.
       </p>
       <div className='modal-link-div'>

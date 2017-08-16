@@ -28,19 +28,6 @@ button, article, footer, small {
   margin: 5px;
   vertical-align: middle; }
 
-select {
-  text-align: center;
-  font-size: 14px;
-  padding: 10px;
-  margin: 0 10px; }
-
-/* --- EXTRA CONTROL PANEL --- */
-.extra-control-panel {
-  top: 20px;
-  right: 20px;
-  padding: 10px;
-  min-width: 350px; }
-
 /* --- HEADER --- */
 header {
   display: flex;
@@ -73,16 +60,24 @@ header {
 
 /* --- MAP --- */
 .index-map {
-  width: 950px;
-  height: 600px;
-  margin: 20px auto; }
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 50vw; }
 
-/* --- EXTRA MAP PANEL --- */
-.extra-map-panel {
-  right: 20px;
-  bottom: 20px;
+/* --- MAP PANEL --- */
+.map-panel {
+  position: absolute;
+  z-index: 2;
   padding: 10px;
-  min-width: 350px; }
+  top: 5px;
+  right: 10px;
+  background-color: white; }
+
+.map-info {
+  margin-right: 10px; }
 
 /* --- MODAL TEMPLATE --- */
 .modal-backdrop {
@@ -137,6 +132,20 @@ a:hover {
 .modal-link-div i:active {
   background-color: #aaa; }
 
+.close {
+  position: absolute;
+  top: 2px;
+  right: 10px;
+  font-size: 30px;
+  opacity: 0.5; }
+
+.close:hover {
+  cursor: pointer;
+  opacity: 0.7; }
+
+.modal-row {
+  margin: 10px auto; }
+
 /* --- ELEMENTS --- */
 body {
   background-color: #aaa;
@@ -148,17 +157,17 @@ input, select {
   background-color: white;
   border: 1px solid black;
   padding: 5px;
-  border-radius: 3px; }
+  border-radius: 5px; }
+
+select {
+  text-align: center;
+  margin: 0 10px; }
 
 input[type="date"]:disabled,
 input[type="time"]:disabled,
 select:disabled {
   color: #333;
   background-color: #aaa; }
-
-.container {
-  width: 1000px;
-  margin-left: 5%; }
 
 .bordered {
   border: 1px black solid;
@@ -168,22 +177,15 @@ select:disabled {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  text-align: center; }
+  text-align: center;
+  margin: 10px auto; }
 
 label {
   display: block;
   margin-bottom: 5px; }
 
-.close {
-  position: absolute;
-  top: 2px;
-  right: 10px;
-  font-size: 30px;
-  opacity: 0.5; }
-
-.close:hover {
-  cursor: pointer;
-  opacity: 0.7; }
+label.switch {
+  margin-bottom: 0; }
 
 .clickable-div {
   margin: 5px;
@@ -198,23 +200,9 @@ label {
 .clickable-div:active {
   background-color: #555; }
 
-.main-panel {
-  padding: 10px 0;
-  border-bottom: 1px solid black;
-  width: 950px;
-  margin: 0 auto; }
-
-.extra-panel {
-  position: absolute;
-  background-color: #aaa;
-  z-index: 1; }
-
-.extra-panel-row {
-  margin-top: 5px;
-  margin-bottom: 15px; }
-
-.extra-panel-row:last-child {
-  margin-bottom: 0; }
+.main {
+  width: 40vw;
+  margin-left: 5vw; }
 
 /* On/off toggle */
 .switch {

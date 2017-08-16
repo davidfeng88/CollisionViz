@@ -11,7 +11,12 @@ input, select {
   background-color: white;
   border: 1px solid black;
   padding: 5px;
-  border-radius: 3px;
+  border-radius: 5px;
+}
+
+select {
+  text-align: center;
+  margin: 0 10px;
 }
 
 input[type="date"]:disabled,
@@ -19,11 +24,6 @@ input[type="time"]:disabled,
 select:disabled {
   color: $dark-grey;
   background-color: $grey;
-}
-
-.container {
-  width: 1000px;
-  margin-left: 5%;
 }
 
 .bordered {
@@ -36,6 +36,7 @@ select:disabled {
   justify-content: space-around;
   align-items: center;
   text-align: center;
+  margin: 10px auto;
 }
 
 label {
@@ -43,17 +44,8 @@ label {
   margin-bottom: 5px;
 }
 
-.close {
-  position: absolute;
-  top: 2px;
-  right: 10px;
-  font-size: 30px;
-  opacity: 0.5;
-}
-
-.close:hover {
-  cursor: pointer;
-  opacity: 0.7;
+label.switch {
+  margin-bottom: 0;
 }
 
 .clickable-div {
@@ -72,24 +64,7 @@ label {
   background-color: #555;
 }
 
-.main-panel {
-  padding: 10px 0;
-  border-bottom: 1px solid black;
-  width: 950px;
-  margin: 0 auto;
-}
-
-.extra-panel {
-  position: absolute;
-  background-color: $grey;
-  z-index: 1;
-}
-
-.extra-panel-row {
-  margin-top: 5px;
-  margin-bottom: 15px;
-}
-
-.extra-panel-row:last-child {
-  margin-bottom: 0;
+.main {
+  width: $main-width;
+  margin-left: 5vw;
 }

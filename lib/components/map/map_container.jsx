@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import * as APIUtil from '../../util/collision_api_util'; // heatmap!
 import { collisionsToArray } from '../../reducers/selectors';
-import { updateFilter } from '../../actions/filter_actions';
 
 import Toggle from '../toggle';
 import MapInfoContainer from './map_info_container';
@@ -14,10 +13,6 @@ const mapStateToProps = state => ({
   collisionsArrayToAdd: collisionsToArray(state, state.filters.finish),
   collisionsArrayToRemove: collisionsToArray(state, state.filters.start - 1),
   date: state.filters.date
-});
-
-const mapDispatchToProps = dispatch => ({
-  updateFilter: (filters) => dispatch(updateFilter(filters)),
 });
 
 const NYC_CENTER = {lat: 40.732663, lng: -73.993479};
@@ -50,6 +45,7 @@ class Map extends React.Component {
     this.map = new google.maps.Map(map, {
       center: NYC_CENTER,
       zoom: DEFAULT_ZOOM_LEVEL,
+      fullscreenControl: false,
     });
     this.MarkerManager = new MarkerManager(this.map);
     this.MarkerManager.createMarkers(
@@ -149,19 +145,11 @@ class Map extends React.Component {
   extraPanel() {
     if (this.state.showExtra) {
       return(
-        <div className='extra-map-panel extra-panel bordered'>
-          <div
-            onClick={(e) => this.setState({showExtra: false})}
-            className='close'>
-            ×
-          </div>
-          <div className='flex-row extra-panel-row'>
-            <b>More Map Options</b>
-          </div>
+        <div>
           <div className='flex-row'>
             <b>Toggle Special Icons</b>
           </div>
-          <div className='flex-row extra-panel-row'>
+          <div className='flex-row'>
             <Toggle
               label="Taxi"
               checked={this.state.taxi}
@@ -183,7 +171,7 @@ class Map extends React.Component {
           <div className='flex-row'>
             <b>Toggle Map Layers</b>
           </div>
-          <div className='flex-row extra-panel-row'>
+          <div className='flex-row'>
             <Toggle
               label="Heatmap"
               checked={this.state.heatmap}
@@ -202,7 +190,7 @@ class Map extends React.Component {
               onChange={() => this.toggleMapLayer('bicycling')} />
           </div>
 
-          <div className='flex-row extra-panel-row'>
+          <div className='flex-row'>
             <Toggle
               label="Alternative Map Style"
               checked={this.state.alternativeMapStyle}
@@ -218,13 +206,15 @@ class Map extends React.Component {
   render() {
     return (
       <div>
-        <div className='main-panel flex-row'>
+        <div className='map-panel bordered flex-row'>
           <MapInfoContainer />
           <div className='clickable-div bordered' onClick={this.resetMapBorders}>
             Reset Map Borders
           </div>
+        </div>
+        <div className='flex-row'>
           <Toggle
-            label="More Map Options"
+            label="Map Options"
             checked={this.state.showExtra}
             onChange={this.toggle('showExtra')} />
         </div>
@@ -239,5 +229,5 @@ class Map extends React.Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(Map);

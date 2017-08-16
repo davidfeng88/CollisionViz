@@ -62,3 +62,20 @@ a:hover {
 .modal-link-div i:active {
   background-color: #aaa;
 }
+
+.close {
+  position: absolute;
+  top: 2px;
+  right: 10px;
+  font-size: 30px;
+  opacity: 0.5;
+}
+
+.close:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.modal-row {
+  margin: 10px auto;
+}

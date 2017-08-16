@@ -183,16 +183,8 @@ class ControlPanel extends React.Component {
   extraPanel() {
     if (this.state.showExtra) {
       return(
-        <div className='extra-panel extra-control-panel bordered'>
-          <div
-            onClick={(e) => this.setState({showExtra: false})}
-            className='close'>
-            ×
-          </div>
-          <div className='flex-row extra-panel-row'>
-            <b>More Settings</b>
-          </div>
-          <div className="extra-panel-row">
+        <div className='flex-row'>
+          <div>
             <label htmlFor='collision-map-time'>
               Collisions Map Time
             </label>
@@ -208,7 +200,7 @@ class ControlPanel extends React.Component {
               <option value='59' >60 minutes</option>
             </select>
           </div>
-          <div className="extra-panel-row">
+          <div>
             <label htmlFor='step-time'>
               Time Lapse Rate
             </label>
@@ -236,7 +228,7 @@ class ControlPanel extends React.Component {
 
   render() {
     return(
-      <div className="main-panel">
+      <div>
         <div className="flex-row">
           <div>
             <label htmlFor='date'>
@@ -261,6 +253,8 @@ class ControlPanel extends React.Component {
               disabled={this.state.intervalId ? "disabled" : ""}
             />
           </div>
+        </div>
+        <div className="flex-row">
           {this.playPauseButton()}
           <div className='clickable-div bordered' onClick={this.handleReset}>
             Reset Time
@@ -269,8 +263,8 @@ class ControlPanel extends React.Component {
             label="More Settings"
             checked={this.state.showExtra}
             onChange={this.toggle('showExtra')} />
-          {this.extraPanel()}
         </div>
+        {this.extraPanel()}
       </div>
     );
   }
