@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { updateFilter } from '../actions/filter_actions';
 import { timeIntToString, timeStringToInt } from '../util/time_util';
 import { DEFAULT_TIME } from '../reducers/filters_reducer';
-import { fetchCollisions } from '../actions/collision_actions';
 
 import Toggle from './toggle';
 
@@ -15,7 +14,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   updateFilter: (filters) => dispatch(updateFilter(filters)),
-  fetchCollisions: (date) => dispatch(fetchCollisions(date)),
 });
 
 const START_TIME = 0;
@@ -45,9 +43,7 @@ class ControlPanel extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ loaded: false });
-    this.props.fetchCollisions(this.state.date)
-    .then(this.setState({ loaded: true }));
+    // this.setState({ loaded: false });
   }
 
   updateField(field) {

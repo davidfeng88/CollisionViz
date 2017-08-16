@@ -108,7 +108,6 @@ class Map extends React.Component {
   }
 
   updateMarkers(start, finish, collisions) {
-    debugger
     let currentCollisionsArray = [];
     for (let time = start; time <= finish; time++) {
       if (collisions[time]) {
