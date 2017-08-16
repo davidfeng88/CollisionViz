@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 import { connect } from 'react-redux';
 
 import * as APIUtil from '../../util/collision_api_util'; // heatmap!
@@ -143,8 +145,9 @@ class Map extends React.Component {
   }
 
   extraPanel() {
+    let extraPanel = null;
     if (this.state.showExtra) {
-      return(
+      extraPanel = (
         <div>
           <div className='flex-row'>
             <b>Toggle Special Icons</b>
@@ -198,9 +201,16 @@ class Map extends React.Component {
           </div>
         </div>
       );
-    } else {
-      return null;
     }
+    return(
+      <ReactCSSTransitionGroup
+        transitionName="extra"
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={200}
+        >
+      {extraPanel}
+      </ReactCSSTransitionGroup>
+    );
   }
 
   render() {

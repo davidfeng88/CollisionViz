@@ -6,9 +6,9 @@ import MapContainer from './map/map_container';
 
 const App = () => {
   return (
-    <div className='main'>
+    <div className='container'>
       <Header />
-      <div className='bordered'>
+      <div className='main bordered'>
         <ControlPanelContainer />
         <MapContainer />
       </div>

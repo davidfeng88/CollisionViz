@@ -64,7 +64,20 @@ label.switch {
   background-color: #555;
 }
 
-.main {
-  width: $main-width;
-  margin-left: 5vw;
+.extra-enter {
+  opacity: 0.01;
+}
+
+.extra-enter.extra-enter-active {
+  opacity: 1;
+  transition: opacity 300ms linear;
+}
+
+.extra-leave {
+  opacity: 1;
+}
+
+.extra-leave.extra-leave-active {
+  opacity: 0.01;
+  transition: opacity 200ms linear;
 }

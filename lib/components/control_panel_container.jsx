@@ -1,5 +1,7 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
+
 import { updateFilter } from '../actions/filter_actions';
 import { timeIntToString, timeStringToInt } from '../util/time_util';
 import { DEFAULT_TIME } from '../reducers/filters_reducer';
@@ -181,8 +183,9 @@ class ControlPanel extends React.Component {
   }
 
   extraPanel() {
+    let extraPanel = null;
     if (this.state.showExtra) {
-      return(
+      extraPanel = (
         <div className='flex-row'>
           <div>
             <label htmlFor='collision-map-time'>
@@ -221,9 +224,16 @@ class ControlPanel extends React.Component {
             onChange={this.toggle('mute')} />
         </div>
       );
-    } else {
-      return null;
     }
+    return(
+      <ReactCSSTransitionGroup
+        transitionName="extra"
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={200}
+        >
+      {extraPanel}
+      </ReactCSSTransitionGroup>
+    );
   }
 
   render() {
@@ -253,18 +263,19 @@ class ControlPanel extends React.Component {
               disabled={this.state.intervalId ? "disabled" : ""}
             />
           </div>
-        </div>
-        <div className="flex-row">
-          {this.playPauseButton()}
-          <div className='clickable-div bordered' onClick={this.handleReset}>
-            Reset Time
-          </div>
           <Toggle
             label="More Settings"
             checked={this.state.showExtra}
             onChange={this.toggle('showExtra')} />
         </div>
         {this.extraPanel()}
+        <div className="flex-row play-row">
+          {this.playPauseButton()}
+          <div className='clickable-div bordered' onClick={this.handleReset}>
+            Reset Time
+          </div>
+        </div>
+
       </div>
     );
   }

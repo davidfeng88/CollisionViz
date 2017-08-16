@@ -16,6 +16,14 @@ button, article, footer, small {
   color: inherit;
   background: transparent; }
 
+/* --- MAIN --- */
+.container {
+  width: 40vw;
+  margin-left: 5vw; }
+
+.main {
+  padding: 0 20px; }
+
 /* --- CONTROL PANEL --- */
 .play-button {
   width: 80px; }
@@ -27,6 +35,11 @@ button, article, footer, small {
   width: 100px;
   margin: 5px;
   vertical-align: middle; }
+
+.play-row {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 10px 0; }
 
 /* --- HEADER --- */
 header {
@@ -200,9 +213,19 @@ label.switch {
 .clickable-div:active {
   background-color: #555; }
 
-.main {
-  width: 40vw;
-  margin-left: 5vw; }
+.extra-enter {
+  opacity: 0.01; }
+
+.extra-enter.extra-enter-active {
+  opacity: 1;
+  transition: opacity 300ms linear; }
+
+.extra-leave {
+  opacity: 1; }
+
+.extra-leave.extra-leave-active {
+  opacity: 0.01;
+  transition: opacity 200ms linear; }
 
 /* On/off toggle */
 .switch {
