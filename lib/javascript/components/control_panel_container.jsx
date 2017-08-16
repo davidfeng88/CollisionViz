@@ -214,7 +214,7 @@ class ControlPanel extends React.Component {
         transitionEnterTimeout={300}
         transitionLeaveTimeout={200}
         >
-      {extraPanel}
+        {extraPanel}
       </ReactCSSTransitionGroup>
     );
   }
