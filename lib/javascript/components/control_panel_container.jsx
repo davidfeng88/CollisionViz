@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { updateFilter } from '../actions';
 import { timeIntToString, timeStringToInt } from '../util/time_util';
 import { DEFAULT_TIME } from '../reducer';
-
 import Toggle from './toggle';
 
 const mapStateToProps = ({start, finish, date, loaded}) => ({
@@ -22,28 +21,26 @@ const END_TIME = 1439;
 class ControlPanel extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      date: this.props.date,
-      currentTime: this.props.finish,
-      intervalId: null,
 
-      initialTime: this.props.start,
+    this.state = {
+      // changes need to trigger re-render
+      intervalId: null, // grey out the inputs
+
       collisionMapTime: 29,
       stepTime: 200,
-
-      loaded: false,
+      //toggle
       mute: true,
       showExtra: false,
     };
+
+    // changes does not need to re-render
+    this.currentTime = this.props.finish;
+    this.initialTime = this.props.start;
 
     this.handlePlay = this.handlePlay.bind(this);
     this.handleStop = this.handleStop.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.oneStepForward = this.oneStepForward.bind(this);
-  }
-
-  componentDidMount() {
-    // this.setState({ loaded: false });
   }
 
   updateField(field) {
@@ -58,25 +55,14 @@ class ControlPanel extends React.Component {
         case 'date':
           this.handleReset();
           this.props.updateFilter({ date: e.currentTarget.value });
-          this.setState({
-            date: e.currentTarget.value,
-            loaded: false,
-          });
-          if (e.currentTarget.value !== "") {
-            this.props.fetchCollisions(e.currentTarget.value)
-              .then(
-                () => this.setState({loaded: true})
-              );
-          }
           break;
 
-        case 'initialTime':
+        case 'time':
           if (e.currentTarget.value !== "") {
             let value = timeStringToInt(e.currentTarget.value);
-            this.setState({
-              initialTime: value,
-              currentTime: value,
-            });
+            this.initialTime = value;
+            this.currentTime = value;
+
             this.props.updateFilter({
               start: value,
               finish: value,
@@ -96,10 +82,8 @@ class ControlPanel extends React.Component {
       start: DEFAULT_TIME,
       finish: DEFAULT_TIME
     });
-    this.setState({
-      initialTime: DEFAULT_TIME,
-      currentTime: DEFAULT_TIME,
-    });
+    this.initialTime = DEFAULT_TIME;
+    this.currentTime = DEFAULT_TIME;
   }
 
   handlePlay() {
@@ -120,12 +104,14 @@ class ControlPanel extends React.Component {
       let traffic = document.getElementById("traffic");
       traffic.pause();
       clearInterval(this.state.intervalId);
-      this.setState({ intervalId: null });
+      this.setState({ intervalId:null });
     }
   }
 
+// this.state.loaded
+
   playPauseButton() {
-    if (this.state.loaded) {
+    if (true) {
       let playPauseButtonText = this.state.intervalId ? "Pause" : "Play";
       let handleClick = this.state.intervalId ? this.handleStop : this.handlePlay;
       return (
@@ -144,14 +130,14 @@ class ControlPanel extends React.Component {
   }
 
   oneStepForward() {
-    let newTime = this.state.currentTime + 1;
+    let newTime = this.currentTime + 1;
     if (newTime > END_TIME) {
       this.handleStop();
     } else {
-      this.setState({ currentTime: newTime });
+      this.currentTime = newTime;
       let start = newTime - this.state.collisionMapTime;
       let finish = newTime;
-      start = start < this.state.initialTime ? this.state.initialTime : start;
+      start = start < this.initialTime ? this.initialTime : start;
       start = start < START_TIME ? START_TIME : start;
       finish = finish > END_TIME ? END_TIME : finish;
       this.props.updateFilter({
@@ -164,7 +150,7 @@ class ControlPanel extends React.Component {
   toggle(field) {
     return (e => {
       let newValue = !this.state[field];
-      this.setState({ [field]: !this.state[field] });
+      this.setState({[field]: newValue});
       if (field === 'mute') {
         let traffic = document.getElementById("traffic");
         if (this.state.intervalId && !newValue) {
@@ -242,21 +228,21 @@ class ControlPanel extends React.Component {
               Select Date (2012-07-01 ~ 2017-08-01)
             </label>
             <input
-              value={this.state.date} id='date'
+              value={this.props.date} id='date'
               type="date" min="2012-07-01" max="2017-08-01"
               onChange={this.updateField('date')}
               disabled={this.state.intervalId ? "disabled" : ""}
             />
           </div>
           <div>
-            <label htmlFor='initial-time'>
+            <label htmlFor='time'>
               Select Start Time
             </label>
             <input
-              id='initial-time'
+              id='time'
               type="time"
-              value={timeIntToString(this.state.initialTime, true)}
-              onChange={this.updateField('initialTime')}
+              value={timeIntToString(this.initialTime, true)}
+              onChange={this.updateField('time')}
               disabled={this.state.intervalId ? "disabled" : ""}
             />
           </div>
@@ -273,7 +259,6 @@ class ControlPanel extends React.Component {
             Reset Time
           </div>
         </div>
-
       </div>
     );
   }
