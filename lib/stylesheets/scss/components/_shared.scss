@@ -6,6 +6,21 @@ body {
   font-weight: normal;
 }
 
+.bordered {
+  border: 1px black solid;
+  border-radius: 5px;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  margin: 10px auto;
+}
+
+/* --- INPUT --- */
+
 input, select {
   font-size: 16px;
   background-color: white;
@@ -26,19 +41,6 @@ select:disabled {
   background-color: $grey;
 }
 
-.bordered {
-  border: 1px black solid;
-  border-radius: 5px;
-}
-
-.flex-row {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  text-align: center;
-  margin: 10px auto;
-}
-
 label {
   display: block;
   margin-bottom: 5px;
@@ -47,6 +49,8 @@ label {
 label.switch {
   margin-bottom: 0;
 }
+
+/* --- CLICKABLE DIV --- */
 
 .clickable-div {
   margin: 5px;
@@ -63,6 +67,8 @@ label.switch {
 .clickable-div:active {
   background-color: #555;
 }
+
+/* --- ANIMATION --- */
 
 .extra-enter {
   opacity: 0.01;

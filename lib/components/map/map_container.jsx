@@ -216,12 +216,6 @@ class Map extends React.Component {
   render() {
     return (
       <div>
-        <div className='map-panel bordered flex-row'>
-          <MapInfoContainer />
-          <div className='clickable-div bordered' onClick={this.resetMapBorders}>
-            Reset Map Borders
-          </div>
-        </div>
         <div className='flex-row'>
           <Toggle
             label="Map Options"
@@ -231,6 +225,12 @@ class Map extends React.Component {
         {this.extraPanel()}
         <div className="index-map" ref="map">
           Map
+        </div>
+        <div className='map-panel bordered flex-row'>
+          <MapInfoContainer />
+          <div className='clickable-div bordered' onClick={this.resetMapBorders}>
+            Reset Map Borders
+          </div>
         </div>
     </div>
     );

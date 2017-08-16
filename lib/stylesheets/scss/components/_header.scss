@@ -1,4 +1,5 @@
 /* --- HEADER --- */
+
 header {
   display: flex;
   justify-content: space-between;
@@ -11,17 +12,17 @@ header {
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-}
 
-.logo img {
-  width: 60px;
-  height: auto;
-  margin-right: 20px;
-}
+    img {
+      width: 60px;
+      height: auto;
+      margin-right: 20px;
+    }
 
-.logo h1 {
-  font-family: $logo-font-family;
-  font-size: 40px;
+    h1 {
+      font-family: $logo-font-family;
+      font-size: 40px;
+    }
 }
 
 .modal-buttons {

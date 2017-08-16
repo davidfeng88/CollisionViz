@@ -4,7 +4,7 @@ const ModalTemplate = ({ closeModal, children }) => {
   return (
     <div onClick={closeModal} className="modal-backdrop">
       <div onClick={ e => e.stopPropagation() } className="modal">
-        <div onClick={closeModal} className='close'>
+        <div onClick={closeModal} className='modal-close-x'>
           ×
         </div>
         {children}

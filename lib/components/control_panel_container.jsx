@@ -221,7 +221,8 @@ class ControlPanel extends React.Component {
           <Toggle
             label="Sound"
             checked={!this.state.mute}
-            onChange={this.toggle('mute')} />
+            onChange={this.toggle('mute')}
+          />
         </div>
       );
     }
@@ -266,7 +267,8 @@ class ControlPanel extends React.Component {
           <Toggle
             label="More Settings"
             checked={this.state.showExtra}
-            onChange={this.toggle('showExtra')} />
+            onChange={this.toggle('showExtra')}
+          />
         </div>
         {this.extraPanel()}
         <div className="flex-row play-row">

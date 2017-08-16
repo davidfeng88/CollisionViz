@@ -1,4 +1,4 @@
-/* On/off toggle */
+/* --- TOGGLE --- */
 
 .switch {
   position: relative;
@@ -47,7 +47,8 @@ input:checked + .slider:before {
   transform: translateX(28px);
 }
 
-/* Rounded sliders */
+/* --- ROUNDED SLIDERS --- */
+
 .slider.round {
   border-radius: 34px;
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import ModalTemplate from './modal_template';
-
 import ModalSwitcher from './modal_switcher';
 
 class Header extends React.Component {

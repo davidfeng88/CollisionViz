@@ -53,15 +53,13 @@ header {
   align-items: center;
   justify-content: center;
   margin: 0 auto; }
-
-.logo img {
-  width: 60px;
-  height: auto;
-  margin-right: 20px; }
-
-.logo h1 {
-  font-family: "Pacifico", cursive;
-  font-size: 40px; }
+  .logo img {
+    width: 60px;
+    height: auto;
+    margin-right: 20px; }
+  .logo h1 {
+    font-family: "Pacifico", cursive;
+    font-size: 40px; }
 
 .modal-buttons {
   text-align: right;
@@ -74,7 +72,6 @@ header {
 /* --- MAP --- */
 .index-map {
   position: absolute;
-  z-index: 1;
   top: 0;
   right: 0;
   height: 100vh;
@@ -83,10 +80,10 @@ header {
 /* --- MAP PANEL --- */
 .map-panel {
   position: absolute;
-  z-index: 2;
+  z-index: 1;
   padding: 10px;
-  top: 5px;
-  right: 10px;
+  bottom: 10px;
+  right: 40px;
   background-color: white; }
 
 .map-info {
@@ -95,7 +92,7 @@ header {
 /* --- MODAL TEMPLATE --- */
 .modal-backdrop {
   position: fixed;
-  z-index: 3;
+  z-index: 2;
   top: 0;
   bottom: 0;
   left: 0;
@@ -105,7 +102,7 @@ header {
 
 .modal {
   position: relative;
-  z-index: 4;
+  z-index: 3;
   background-color: #fff;
   border-radius: 5px;
   max-width: 300px;
@@ -145,14 +142,14 @@ a:hover {
 .modal-link-div i:active {
   background-color: #aaa; }
 
-.close {
+.modal-close-x {
   position: absolute;
   top: 2px;
   right: 10px;
   font-size: 30px;
   opacity: 0.5; }
 
-.close:hover {
+.modal-close-x:hover {
   cursor: pointer;
   opacity: 0.7; }
 
@@ -165,6 +162,18 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal; }
 
+.bordered {
+  border: 1px black solid;
+  border-radius: 5px; }
+
+.flex-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  margin: 10px auto; }
+
+/* --- INPUT --- */
 input, select {
   font-size: 16px;
   background-color: white;
@@ -182,17 +191,6 @@ select:disabled {
   color: #333;
   background-color: #aaa; }
 
-.bordered {
-  border: 1px black solid;
-  border-radius: 5px; }
-
-.flex-row {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  text-align: center;
-  margin: 10px auto; }
-
 label {
   display: block;
   margin-bottom: 5px; }
@@ -200,6 +198,7 @@ label {
 label.switch {
   margin-bottom: 0; }
 
+/* --- CLICKABLE DIV --- */
 .clickable-div {
   margin: 5px;
   border-radius: 5px;
@@ -213,6 +212,7 @@ label.switch {
 .clickable-div:active {
   background-color: #555; }
 
+/* --- ANIMATION --- */
 .extra-enter {
   opacity: 0.01; }
 
@@ -227,7 +227,7 @@ label.switch {
   opacity: 0.01;
   transition: opacity 200ms linear; }
 
-/* On/off toggle */
+/* --- TOGGLE --- */
 .switch {
   position: relative;
   display: inline-block;
@@ -270,7 +270,7 @@ input:checked + .slider:before {
   -ms-transform: translateX(28px);
   transform: translateX(28px); }
 
-/* Rounded sliders */
+/* --- ROUNDED SLIDERS --- */
 .slider.round {
   border-radius: 34px; }
 

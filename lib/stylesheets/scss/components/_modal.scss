@@ -2,7 +2,7 @@
 
 .modal-backdrop {
   position: fixed;
-  z-index: 3;
+  z-index: 2;
   top: 0;
   bottom: 0;
   left: 0;
@@ -13,7 +13,7 @@
 
 .modal {
   position: relative;
-  z-index: 4;
+  z-index: 3;
   background-color: #fff;
   border-radius: 5px;
   max-width: 300px;
@@ -63,7 +63,7 @@ a:hover {
   background-color: #aaa;
 }
 
-.close {
+.modal-close-x {
   position: absolute;
   top: 2px;
   right: 10px;
@@ -71,7 +71,7 @@ a:hover {
   opacity: 0.5;
 }
 
-.close:hover {
+.modal-close-x:hover {
   cursor: pointer;
   opacity: 0.7;
 }
