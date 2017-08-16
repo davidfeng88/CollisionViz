@@ -66,19 +66,19 @@ class Map extends React.Component {
   }
 
   updateHeatmap(date, createHeatmap = false) {
-    let heatmapData = [];
     APIUtil.fetchCollisions(date)
       .then( collisionsData => {
-        collisionsData.forEach( collision => {
-          if (collision.latitude && collision.longitude) {
-            // some data does not have these information
-            let lat = collision.latitude;
-            let lng = collision.longitude;
-            heatmapData.push(new google.maps.LatLng(lat, lng));
-          }
+        // don't use "let"
+        this.collisions = collisionsData.filter( collision => {
+          return collision.latitude && collision.longitude;
         });
+        let heatmapData = this.collisions.map (collision => {
+          let lat = collision.latitude;
+          let lng = collision.longitude;
+          return new google.maps.LatLng(lat, lng);
+        });
+
         if (createHeatmap) {
-          // don't use "let"
           this.heatmap = new google.maps.visualization.HeatmapLayer({
             data: heatmapData,
             radius: 10,
