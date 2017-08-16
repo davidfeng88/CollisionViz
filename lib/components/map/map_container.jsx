@@ -4,7 +4,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 
 import * as APIUtil from '../../util/collision_api_util'; // heatmap!
-import { collisionsToArray } from '../../reducers/selectors';
+import { timeStringToInt } from '../../util/time_util';
 
 import Toggle from '../toggle';
 import MapInfoContainer from './map_info_container';
@@ -12,8 +12,8 @@ import MarkerManager from '../../util/marker_manager';
 import alternativeMapStyle from './styles';
 
 const mapStateToProps = state => ({
-  collisionsArrayToAdd: collisionsToArray(state, state.filters.finish),
-  collisionsArrayToRemove: collisionsToArray(state, state.filters.start - 1),
+  start: state.filters.start,
+  finish: state.filters.finish,
   date: state.filters.date
 });
 
@@ -38,7 +38,7 @@ class Map extends React.Component {
       motorcycle: true,
       ped: true,
     };
-
+    this.collisions = {};
     this.resetMapBorders = this.resetMapBorders.bind(this);
   }
 
@@ -50,32 +50,33 @@ class Map extends React.Component {
       fullscreenControl: false,
     });
     this.MarkerManager = new MarkerManager(this.map);
-    this.MarkerManager.createMarkers(
-      this.props.collisionsArrayToAdd,
-      this.state.taxi,
-      this.state.bike,
-      this.state.motorcycle,
-      this.state.ped
-    );
+
     this.traffic = new google.maps.TrafficLayer();
     this.transit = new google.maps.TransitLayer();
     this.bicycling = new google.maps.BicyclingLayer();
-    this.updateHeatmap(this.props.date, true);
+    this.fetchCollisions(this.props.date, true);
   }
 
-  updateHeatmap(date, createHeatmap = false) {
+  fetchCollisions(date, createHeatmap = false) {
     APIUtil.fetchCollisions(date)
       .then( collisionsData => {
-        // don't use "let"
-        this.collisions = collisionsData.filter( collision => {
-          return collision.latitude && collision.longitude;
-        });
-        let heatmapData = this.collisions.map (collision => {
-          let lat = collision.latitude;
-          let lng = collision.longitude;
-          return new google.maps.LatLng(lat, lng);
-        });
 
+        // don't use "let"
+        let validCollisions = collisionsData
+          .filter(collision => collision.latitude && collision.longitude && collision.time);
+        validCollisions.forEach(collision => {
+          let index = timeStringToInt(collision.time);
+          if (this.collisions[index]) {
+            this.collisions[index].push(collision);
+          } else {
+            this.collisions[index] = [collision];
+          }
+        });
+        this.updateMarkers(
+          420, 420, this.collisions);
+          // use CONST later!
+        let heatmapData = validCollisions
+          .map(collision => new google.maps.LatLng(collision.latitude, collision.longitude));
         if (createHeatmap) {
           this.heatmap = new google.maps.visualization.HeatmapLayer({
             data: heatmapData,
@@ -91,31 +92,37 @@ class Map extends React.Component {
     );
   }
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.date !== this.props.date) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.date !== this.props.date) {
       // if the date is changed, clear all markers, draw a new heatmap
       this.heatmap.setMap(null);
       this.MarkerManager.removeAllMarkers();
-      if (newProps.date !== "") {
-        this.updateHeatmap(newProps.date);
+      if (nextProps.date !== "") {
+        this.fetchCollisions(nextProps.date);
       }
     } else {
       // only the time is updated, add & remove markers
-      this.MarkerManager.createMarkers(
-        newProps.collisionsArrayToAdd,
-        this.state.taxi,
-        this.state.bike,
-        this.state.motorcycle,
-        this.state.ped
-      );
-      this.MarkerManager.removeMarkers(
-        this.props.collisionsArrayToRemove,
-        this.state.taxi,
-        this.state.bike,
-        this.state.motorcycle,
-        this.state.ped
-      );
+      this.updateMarkers(
+        nextProps.start, nextProps.finish, this.collisions);
     }
+  }
+
+  updateMarkers(start, finish, collisions) {
+    debugger
+    let currentCollisionsArray = [];
+    for (let time = start; time <= finish; time++) {
+      if (collisions[time]) {
+        currentCollisionsArray = currentCollisionsArray.concat(collisions[time]);
+      }
+    }
+    // filter the collisions based on start/finish/this.collisions
+    this.MarkerManager.updateMarkers(
+      currentCollisionsArray,
+      this.state.taxi,
+      this.state.bike,
+      this.state.motorcycle,
+      this.state.ped
+    );
   }
 
   toggle(field) {
