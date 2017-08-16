@@ -24,8 +24,9 @@ class ControlPanel extends React.Component {
 
     this.state = {
       // changes need to trigger re-render
-      intervalId: null, // grey out the inputs
-
+      // grey out the inputs
+      intervalId: null,
+      // change of select
       collisionMapTime: 29,
       stepTime: 200,
       //toggle
@@ -40,7 +41,7 @@ class ControlPanel extends React.Component {
     this.handlePlay = this.handlePlay.bind(this);
     this.handleStop = this.handleStop.bind(this);
     this.handleReset = this.handleReset.bind(this);
-    this.oneStepForward = this.oneStepForward.bind(this);
+    this.oneStep = this.oneStep.bind(this);
   }
 
   updateField(field) {
@@ -54,19 +55,16 @@ class ControlPanel extends React.Component {
 
         case 'date':
           this.handleReset();
-          this.props.updateFilter({ date: e.currentTarget.value });
+          this.props.updateFilter({
+            date: e.currentTarget.value,
+            loaded: false
+          });
           break;
 
         case 'time':
           if (e.currentTarget.value !== "") {
-            let value = timeStringToInt(e.currentTarget.value);
-            this.initialTime = value;
-            this.currentTime = value;
-
-            this.props.updateFilter({
-              start: value,
-              finish: value,
-            });
+            let newTime = timeStringToInt(e.currentTarget.value);
+            this.setNewTime(newTime);
           }
           break;
 
@@ -78,17 +76,21 @@ class ControlPanel extends React.Component {
 
   handleReset() {
     this.handleStop();
+    this.setNewTime(DEFAULT_TIME);
+  }
+
+  setNewTime(time) {
     this.props.updateFilter({
-      start: DEFAULT_TIME,
-      finish: DEFAULT_TIME
+      start: time,
+      finish: time
     });
-    this.initialTime = DEFAULT_TIME;
-    this.currentTime = DEFAULT_TIME;
+    this.initialTime = time;
+    this.currentTime = time;
   }
 
   handlePlay() {
     if (!this.state.intervalId) {
-      let intervalId = setInterval(this.oneStepForward, this.state.stepTime);
+      let intervalId = setInterval(this.oneStep, this.state.stepTime);
       this.setState({ intervalId });
     }
     if (!this.state.mute) {
@@ -108,10 +110,8 @@ class ControlPanel extends React.Component {
     }
   }
 
-// this.state.loaded
-
   playPauseButton() {
-    if (true) {
+    if (this.props.loaded) {
       let playPauseButtonText = this.state.intervalId ? "Pause" : "Play";
       let handleClick = this.state.intervalId ? this.handleStop : this.handlePlay;
       return (
@@ -129,7 +129,7 @@ class ControlPanel extends React.Component {
     }
   }
 
-  oneStepForward() {
+  oneStep() {
     let newTime = this.currentTime + 1;
     if (newTime > END_TIME) {
       this.handleStop();
@@ -255,7 +255,8 @@ class ControlPanel extends React.Component {
         {this.extraPanel()}
         <div className="flex-row play-row">
           {this.playPauseButton()}
-          <div className='clickable-div bordered' onClick={this.handleReset}>
+          <div className='clickable-div bordered'
+            onClick={this.handleReset}>
             Reset Time
           </div>
         </div>

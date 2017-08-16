@@ -6,15 +6,21 @@ import { connect } from 'react-redux';
 import * as APIUtil from '../../util/collision_api_util'; // heatmap!
 import { timeStringToInt } from '../../util/time_util';
 
+import { updateFilter } from '../../actions';
 import Toggle from '../toggle';
 import MapInfoContainer from './map_info_container';
 import MarkerManager from '../../util/marker_manager';
 import alternativeMapStyle from './styles';
+import { DEFAULT_TIME } from '../../reducer';
 
 const mapStateToProps = state => ({
   start: state.start,
   finish: state.finish,
   date: state.date,
+});
+
+const mapDispatchToProps = dispatch => ({
+  updateFilter: (filters) => dispatch(updateFilter(filters)),
 });
 
 const NYC_CENTER = {lat: 40.732663, lng: -73.993479};
@@ -72,9 +78,12 @@ class Map extends React.Component {
             this.collisions[index] = [collision];
           }
         });
+        this.props.updateFilter({
+          loaded: true
+        });
         this.updateMarkers(
-          420, 420, this.collisions);
-          // use CONST later!
+          DEFAULT_TIME, DEFAULT_TIME, this.collisions);
+
         let heatmapData = validCollisions
           .map(collision => new google.maps.LatLng(collision.latitude, collision.longitude));
         if (createHeatmap) {
@@ -245,5 +254,5 @@ class Map extends React.Component {
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(Map);
