@@ -64,8 +64,8 @@ class Map extends React.Component {
     fetchCollisions(date)
       .then( collisionsData => {
         this.collisions = {}; // don't use "let this.collisions = {}"
-        let validCollisions = collisionsData.filter(
-          collision => collision.latitude && collision.longitude && collision.time);
+        let validCollisions = collisionsData.filter(collision =>
+          collision.latitude && collision.longitude && collision.time);
         validCollisions.forEach(collision => {
           let index = timeStringToInt(collision.time);
           if (this.collisions[index]) {
@@ -77,8 +77,8 @@ class Map extends React.Component {
         this.props.updateFilter({ loaded: true });
         this.updateMarkers(DEFAULT_TIME, DEFAULT_TIME, this.collisions);
 
-        let heatmapData = validCollisions.map(
-          collision => new google.maps.LatLng(collision.latitude, collision.longitude));
+        let heatmapData = validCollisions.map(collision =>
+          new google.maps.LatLng(collision.latitude, collision.longitude));
         if (createHeatmap) {
           this.heatmap = new google.maps.visualization.HeatmapLayer({
             data: heatmapData,

@@ -1,7 +1,7 @@
 # CollisionViz
 Interact with CollisionViz [here](https://davidfeng.us/CollisionViz) or [here](https://davidfeng88.github.io/CollisionViz).
 
-CollisionViz shows the location and time of motor vehicle collisions in New York City. It is built with React.js, Redux, and SCSS. It uses [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/) and [NYPD Motor Vehicle Collisions API](https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb).
+CollisionViz shows the location and time of motor vehicle collisions in New York City. It is built with React.js and Redux. It uses [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/) and [NYPD Motor Vehicle Collisions API](https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb).
 
 ![demo](assets/images/demo.gif)
 

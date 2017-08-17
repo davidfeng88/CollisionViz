@@ -82,8 +82,8 @@ header {
   position: absolute;
   z-index: 1;
   padding: 10px;
-  bottom: 10px;
-  right: 40px;
+  bottom: 13px;
+  right: 45px;
   background-color: white; }
 
 .map-info {
