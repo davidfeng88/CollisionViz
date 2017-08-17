@@ -28,20 +28,19 @@ class ControlPanel extends React.Component {
       intervalId: null,
       // change of select
       collisionMapTime: 29,
-      stepTime: 200,
+      delay: 200,
       //toggle
       mute: true,
       showExtra: false,
     };
 
     // changes does not need to re-render
-    this.currentTime = this.props.finish;
     this.initialTime = this.props.start;
 
     this.handlePlay = this.handlePlay.bind(this);
     this.handleStop = this.handleStop.bind(this);
     this.handleReset = this.handleReset.bind(this);
-    this.oneStep = this.oneStep.bind(this);
+    this.step = this.step.bind(this);
   }
 
   updateField(field) {
@@ -49,7 +48,7 @@ class ControlPanel extends React.Component {
       e.preventDefault();
       switch (field) {
         case 'collisionMapTime':
-        case 'stepTime':
+        case 'delay':
           this.setState({ [field]: parseInt(e.currentTarget.value) });
           break;
 
@@ -85,16 +84,15 @@ class ControlPanel extends React.Component {
       finish: time
     });
     this.initialTime = time;
-    this.currentTime = time;
   }
 
   handlePlay() {
     if (!this.state.intervalId) {
-      let intervalId = setInterval(this.oneStep, this.state.stepTime);
+      let intervalId = setInterval(this.step, this.state.delay);
       this.setState({ intervalId });
     }
     if (!this.state.mute) {
-      let traffic = document.getElementById("traffic");
+      let traffic = document.getElementById('traffic');
       traffic.play();
       traffic.loop = true;
       traffic.volume = 0.2;
@@ -103,7 +101,7 @@ class ControlPanel extends React.Component {
 
   handleStop() {
     if (this.state.intervalId) {
-      let traffic = document.getElementById("traffic");
+      let traffic = document.getElementById('traffic');
       traffic.pause();
       clearInterval(this.state.intervalId);
       this.setState({ intervalId:null });
@@ -112,7 +110,7 @@ class ControlPanel extends React.Component {
 
   playPauseButton() {
     if (this.props.loaded) {
-      let playPauseButtonText = this.state.intervalId ? "Pause" : "Play";
+      let playPauseButtonText = this.state.intervalId ? 'Pause' : 'Play';
       let handleClick =
         this.state.intervalId ? this.handleStop : this.handlePlay;
       return (
@@ -123,19 +121,18 @@ class ControlPanel extends React.Component {
       );
     } else {
       return(
-        <div className="spinner bordered">
+        <div className='spinner bordered'>
           <img src='./assets/images/spinner.svg' />
         </div>
       );
     }
   }
 
-  oneStep() {
-    let newTime = this.currentTime + 1;
+  step() {
+    let newTime = this.props.finish + 1;
     if (newTime > END_TIME) {
       this.handleStop();
     } else {
-      this.currentTime = newTime;
       let start = newTime - this.state.collisionMapTime;
       let finish = newTime;
       start = start < this.initialTime ? this.initialTime : start;
@@ -186,24 +183,24 @@ class ControlPanel extends React.Component {
             </select>
           </div>
           <div>
-            <label htmlFor='step-time'>
+            <label htmlFor="delay">
               Time Lapse Rate
             </label>
             <select
-              id="step-time"
-              value={this.state.stepTime}
-              onChange={this.updateField('stepTime')}
+              id="delay"
+              value={this.state.delay}
+              onChange={this.updateField("delay")}
               disabled={this.state.intervalId ? "disabled" : ""}
             >
-              <option value='100' >Fast</option>
-              <option value='200' >Default</option>
-              <option value='400' >Slow</option>
+              <option value="100" >Fast</option>
+              <option value="200" >Default</option>
+              <option value="400" >Slow</option>
             </select>
           </div>
           <Toggle
             label="Sound"
             checked={!this.state.mute}
-            onChange={this.toggle('mute')}
+            onChange={this.toggle("mute")}
           />
         </div>
       );
@@ -224,25 +221,25 @@ class ControlPanel extends React.Component {
       <div>
         <div className="flex-row">
           <div>
-            <label htmlFor='date'>
+            <label htmlFor="date">
               Select Date (2012-07-01 ~ 2017-08-01)
             </label>
             <input
-              value={this.props.date} id='date'
+              value={this.props.date} id="date"
               type="date" min="2012-07-01" max="2017-08-01"
-              onChange={this.updateField('date')}
+              onChange={this.updateField("date")}
               disabled={this.state.intervalId ? "disabled" : ""}
             />
           </div>
           <div>
-            <label htmlFor='time'>
+            <label htmlFor="time">
               Select Start Time
             </label>
             <input
-              id='time'
+              id="time"
               type="time"
-              value={timeIntToString(this.currentTime)}
-              onChange={this.updateField('time')}
+              value={timeIntToString(this.props.finish)}
+              onChange={this.updateField("time")}
               disabled={this.state.intervalId ? "disabled" : ""}
             />
           </div>
