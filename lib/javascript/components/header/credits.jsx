@@ -14,14 +14,14 @@ const Credits = props => (
       Ge "David" Feng</a>
     </p>
     <p className="modal-row">
-      Traffic sound effect:
-        <a href='https://www.youtube.com/watch?v=cX-1TfLP_y0'
+      Traffic sound effect: <a
+        href='https://www.youtube.com/watch?v=cX-1TfLP_y0'
         target="_blank">
         Partners In Rhyme</a>
     </p>
     <p className="modal-row">
-      Toggle switch:
-        <a href='https://www.w3schools.com/howto/howto_css_switch.asp'
+      Toggle switch: <a
+        href='https://www.w3schools.com/howto/howto_css_switch.asp'
         target="_blank">
         W3schools</a>
     </p>
@@ -30,13 +30,14 @@ const Credits = props => (
       loading.io</a>
     </p>
     <p className="modal-row">
+      NYPD Motor Vehicle Collisions Data<br/>
       <a href='https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95'
         target="_blank">
-        NYPD Motor Vehicle Collisions</a><br />
+        Source: NYC Open Data</a><br />
 
       <a href='https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb'
         target="_blank">
-      API</a>
+        Socrata Open Data API</a>
     </p>
     <p className="modal-row">
       Google Maps JavaScript API<br/>
