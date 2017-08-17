@@ -30,9 +30,13 @@ const Credits = props => (
       loading.io</a>
     </p>
     <p className="modal-row">
+      <a href='https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95'
+        target="_blank">
+        NYPD Motor Vehicle Collisions</a><br />
+
       <a href='https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb'
         target="_blank">
-      NYPD Motor Vehicle Collisions API</a>
+      API</a>
     </p>
     <p className="modal-row">
       Google Maps JavaScript API<br/>
