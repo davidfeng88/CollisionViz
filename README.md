@@ -26,7 +26,112 @@ The user can toggle four layers on and off the map. By default, the heatmap laye
 * The transit layer displays the public transit network.
 * The bicycling Layer renders bike paths, suggested bike routes and other overlays specific to bicycling usage.
 
+ToDo:
+Production React
+create a Release?
+Optimize google speed test?
+
+
+commit history:
+
+dev log:
+Rookie mistakes:
+use <strong> instead of <span className="bold">
+
+How to organize a redux store:
+do I need it across components? collisions in the store?
+
+forget webpack
+`npm start`
+forget SCSS watch
+`sass --watch scss/main.scss:css/main.css`
+Chrome default refresh does not refresh the stylesheet (need validation)
+* setState may be asynchronous, so do not rely on the new this.props and this.state value for calculating the next state.
+```
+// Correct
+this.setState((prevState, props) => ({
+  counter: prevState.counter + props.increment
+}));
+```
+Ref: [State and Lifecycle - React](https://facebook.github.io/react/docs/state-and-lifecycle.html)
+
+heroku only supports postgresql, not sqlite3. So choose it correctly at the beginning.
+*Switch to postgresql!!*
+1. Database yml change postgresql. Gem file change. Bundle install
+Rake db:drop db:create db migrate
+Cannot change time to date time because the database cannot convert the data. It does not know the date and timezone.
+Solution: delete and add the column.
+If `FATAL:  permission denied for database "postgres"
+DETAIL:  User does not have CONNECT privilege.`
+Heroic restart works
+```
+heroku restart // restart the dyno
+heroku rake db:migrate
+```
+If that doesn't work, then try.
+```
+heroku pg:reset DATABASE_URL   #Literally type in heroku pg:reset DATABASE_URL, which destroys the database
+
+heroku rake db:migrate
+```
+2. Heroku cannot create a database permission denied for database "postgres"
+User does not have CONNECT privilege.
+Delete production part in `database.yml`
+
+
+* move horizontally: because of the scroll bar
+
+* JSX mixed array:
+```
+      detailsArray.push(`${this.capitalize(key)}: ${collision[key]}`);
+      detailsArray.push(<span key={key}><br /></span>);
+```
+
+### Import the csv information to a database
+References:
+[How To Import CSV Files In Rails — Matt Morgante](http://www.mattmorgante.com/technology/csv)
+[Seeding a Rails database with a CSV file · GitHub](https://gist.github.com/arjunvenkat/1115bc41bf395a162084)
+
+
+visual hint:
+disable inputs when it's playing;
+toggle;
+animations of extra panels;
+spinner
+
+what to put in instance variable, what to put in state
+how to animation (and what can go wrong)
+* Handle initialTime state when resetting filter and
+[javascript - setInterval in a React app - Stack Overflow](https://stackoverflow.com/questions/36299174/setinterval-in-a-react-app)
+and Modals
+
+
+
+
+Google map features used:
+* Google Map style guide
+https://developers.google.com/maps/documentation/javascript/styling
+https://mapstyle.withgoogle.com/
+[Custom markers](https://developers.google.com/maps/documentation/javascript/custom-markers), [heatmap](https://developers.google.com/maps/documentation/javascript/heatmaplayer), and [traffic, transit and bicycling layer](https://developers.google.com/maps/documentation/javascript/trafficlayer) are created using the Google Maps JavaScript API.
+
+fusion table does not work: deppasate when zoom in.
+
 ## Implementation
+
+show code:
+Incorporate API and fetch
+vanilla JS: setInterval/clearInterval
+
+control panel: oneStep edge cases
+map: a lot of them
+fetch collisions => component will receive props
+
+marker marker_manager
+
+Alternative Data source:
+https://cloud.google.com/bigquery/public-data/nypd-mv-collisions
+
+
 ### Sample Redux State
 ```javascript
 {
@@ -88,12 +193,11 @@ If it receives a new date from the Redux state, it removes the heatmap layer, re
 
 During the visualization, the map container calculates the arrays of collisions to be added/removed based on the updated start and finish time in the `filters` and `collisions` of the Redux state. These arrays are then sent to the `marker_manager`, which updates the markers on the map.
 
-[Custom markers](https://developers.google.com/maps/documentation/javascript/custom-markers), [heatmap](https://developers.google.com/maps/documentation/javascript/heatmaplayer), and [traffic, transit and bicycling layer](https://developers.google.com/maps/documentation/javascript/trafficlayer) are created using the Google Maps JavaScript API.
+
 
 ## Future Directions
-### Better layout
-Reorganize the "more settings" and "more map options" panels (maybe using CSS grid) so that they stick right to the main part of the app. Implement dynamic map size so that the app would be more friendly to smaller screens.
 
 ### Incorporate other tools
 * [MarkerClusterers](https://developers.google.com/maps/documentation/javascript/marker-clustering)
+An array of markers
 * [Google Charts](https://developers.google.com/chart/) ([w3school tutorial](https://www.w3schools.com/howto/howto_google_charts.asp)) for data analysis. For example, compare time/location distributions of collisions between weekday vs. weekend, winter vs. summer, rainy vs. sunny, etc.

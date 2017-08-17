@@ -159,7 +159,7 @@ class Map extends React.Component {
       extraPanel = (
         <div>
           <div className='flex-row'>
-            <b>Toggle Special Icons</b>
+            <strong>Toggle Special Icons</strong>
           </div>
           <div className='flex-row'>
             <Toggle
@@ -180,7 +180,7 @@ class Map extends React.Component {
               onChange={this.toggle('ped')} />
           </div>
           <div className='flex-row'>
-            <b>Toggle Map Layers</b>
+            <strong>Toggle Map Layers</strong>
           </div>
           <div className='flex-row'>
             <Toggle

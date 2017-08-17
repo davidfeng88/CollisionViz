@@ -16,6 +16,9 @@ button, article, footer, small {
   color: inherit;
   background: transparent; }
 
+strong {
+  font-weight: bold; }
+
 /* --- MAIN --- */
 .container {
   width: 40vw;
