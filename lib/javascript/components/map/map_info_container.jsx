@@ -8,11 +8,9 @@ const mapStateToProps = state => ({
   finish: state.finish,
 });
 
-const timeLine = (start, finish) => {
-  return(
-    `${timeIntToString(start)} - ${timeIntToString(finish)}`
-  );
-};
+const timeLine = (start, finish) => (
+  `${timeIntToString(start)} - ${timeIntToString(finish)}`
+);
 
 const MapInfo = ({ date, start, finish, collisions }) => (
   <div className='map-info'>

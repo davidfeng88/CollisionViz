@@ -3,7 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 
 import { updateFilter } from '../actions';
-import * as Util from '../util';
+import { timeStringToInt, timeIntToString } from '../util';
 import { DEFAULT_TIME } from '../reducer';
 import Toggle from './toggle';
 
@@ -45,7 +45,7 @@ class ControlPanel extends React.Component {
   }
 
   updateField(field) {
-    return( (e) => {
+    return( e => {
       e.preventDefault();
       switch (field) {
         case 'collisionMapTime':
@@ -63,7 +63,7 @@ class ControlPanel extends React.Component {
 
         case 'time':
           if (e.currentTarget.value !== "") {
-            let newTime = Util.timeStringToInt(e.currentTarget.value);
+            let newTime = timeStringToInt(e.currentTarget.value);
             this.setNewTime(newTime);
           }
           break;
@@ -113,7 +113,8 @@ class ControlPanel extends React.Component {
   playPauseButton() {
     if (this.props.loaded) {
       let playPauseButtonText = this.state.intervalId ? "Pause" : "Play";
-      let handleClick = this.state.intervalId ? this.handleStop : this.handlePlay;
+      let handleClick =
+        this.state.intervalId ? this.handleStop : this.handlePlay;
       return (
         <div className='play-button clickable-div bordered'
           onClick={handleClick}>
@@ -139,7 +140,6 @@ class ControlPanel extends React.Component {
       let finish = newTime;
       start = start < this.initialTime ? this.initialTime : start;
       start = start < START_TIME ? START_TIME : start;
-      finish = finish > END_TIME ? END_TIME : finish;
       this.props.updateFilter({
         start,
         finish,
@@ -241,7 +241,7 @@ class ControlPanel extends React.Component {
             <input
               id='time'
               type="time"
-              value={Util.timeIntToString(this.initialTime, true)}
+              value={timeIntToString(this.currentTime)}
               onChange={this.updateField('time')}
               disabled={this.state.intervalId ? "disabled" : ""}
             />

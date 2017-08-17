@@ -14,19 +14,24 @@ const Credits = props => (
       Ge "David" Feng</a>
     </p>
     <p className="modal-row">
-      Traffic sound effect: <a href='https://www.youtube.com/watch?v=cX-1TfLP_y0' target="_blank">
-      Partners In Rhyme</a>
+      Traffic sound effect:
+        <a href='https://www.youtube.com/watch?v=cX-1TfLP_y0'
+        target="_blank">
+        Partners In Rhyme</a>
     </p>
     <p className="modal-row">
-      Toggle switch: <a href='https://www.w3schools.com/howto/howto_css_switch.asp' target="_blank">
-      W3schools</a>
+      Toggle switch:
+        <a href='https://www.w3schools.com/howto/howto_css_switch.asp'
+        target="_blank">
+        W3schools</a>
     </p>
     <p className="modal-row">
       Loading spinner: <a href='https://loading.io/' target="_blank">
       loading.io</a>
     </p>
     <p className="modal-row">
-      <a href='https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb' target="_blank">
+      <a href='https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb'
+        target="_blank">
       NYPD Motor Vehicle Collisions API</a>
     </p>
     <p className="modal-row">

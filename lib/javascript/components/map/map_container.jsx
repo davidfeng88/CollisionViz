@@ -1,22 +1,20 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-
 import { connect } from 'react-redux';
 
-import * as Util from '../../util';
-
 import { updateFilter } from '../../actions';
+// Components
 import Toggle from '../toggle';
 import MapInfoContainer from './map_info_container';
-import MarkerManager from './marker_manager';
+// Constants
 import alternativeMapStyle from './styles';
 import { DEFAULT_TIME } from '../../reducer';
+// Utilities
+import MarkerManager from './marker_manager';
+import { fetchCollisions, timeStringToInt } from '../../util';
 
-const mapStateToProps = state => ({
-  start: state.start,
-  finish: state.finish,
-  date: state.date,
-});
+const mapStateToProps = ({start, finish, date}) => ({
+  start, finish, date,});
 
 const mapDispatchToProps = dispatch => ({
   updateFilter: (filters) => dispatch(updateFilter(filters)),
@@ -63,26 +61,24 @@ class Map extends React.Component {
   }
 
   fetchCollisions(date, createHeatmap = false) {
-    Util.fetchCollisions(date)
+    fetchCollisions(date)
       .then( collisionsData => {
-        this.collisions = {}; // don't use "let this.collisions"
-        let validCollisions = collisionsData
-          .filter(collision => collision.latitude && collision.longitude && collision.time);
+        this.collisions = {}; // don't use "let this.collisions = {}"
+        let validCollisions = collisionsData.filter(
+          collision => collision.latitude && collision.longitude && collision.time);
         validCollisions.forEach(collision => {
-          let index = Util.timeStringToInt(collision.time);
+          let index = timeStringToInt(collision.time);
           if (this.collisions[index]) {
             this.collisions[index].push(collision);
           } else {
             this.collisions[index] = [collision];
           }
         });
-        this.props.updateFilter({
-          loaded: true
-        });
+        this.props.updateFilter({ loaded: true });
         this.updateMarkers(DEFAULT_TIME, DEFAULT_TIME, this.collisions);
 
-        let heatmapData = validCollisions
-          .map(collision => new google.maps.LatLng(collision.latitude, collision.longitude));
+        let heatmapData = validCollisions.map(
+          collision => new google.maps.LatLng(collision.latitude, collision.longitude));
         if (createHeatmap) {
           this.heatmap = new google.maps.visualization.HeatmapLayer({
             data: heatmapData,
@@ -113,15 +109,15 @@ class Map extends React.Component {
   }
 
   updateMarkers(start, finish, collisions) {
-    let currentCollisionsArray = [];
+    let collisionsArray = [];
     for (let time = start; time <= finish; time++) {
       if (collisions[time]) {
-        currentCollisionsArray = currentCollisionsArray.concat(collisions[time]);
+        collisionsArray = collisionsArray.concat(collisions[time]);
       }
     }
     // filter the collisions based on start/finish/this.collisions
     this.MarkerManager.updateMarkers(
-      currentCollisionsArray,
+      collisionsArray,
       this.state.taxi,
       this.state.bike,
       this.state.motorcycle,
@@ -178,7 +174,6 @@ class Map extends React.Component {
               label="Motorcycle"
               checked={this.state.motorcycle}
               onChange={this.toggle('motorcycle')} />
-
             <Toggle
               label="Pedestrian"
               checked={this.state.ped}
@@ -205,7 +200,6 @@ class Map extends React.Component {
               checked={this.state.bicycling}
               onChange={this.toggleMapLayer('bicycling')} />
           </div>
-
           <div className='flex-row'>
             <Toggle
               label="Alternative Map Style"
@@ -241,7 +235,8 @@ class Map extends React.Component {
         </div>
         <div className='map-panel bordered flex-row'>
           <MapInfoContainer />
-          <div className='clickable-div bordered' onClick={this.resetMapBorders}>
+          <div className='clickable-div bordered'
+            onClick={this.resetMapBorders}>
             Reset Map Borders
           </div>
         </div>
