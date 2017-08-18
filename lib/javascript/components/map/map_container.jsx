@@ -159,7 +159,7 @@ class Map extends React.Component {
       extraPanel = (
         <div>
           <div className='flex-row'>
-            <strong>Toggle Special Icons</strong>
+            <strong>Toggle Custom Markers</strong>
           </div>
           <div className='flex-row'>
             <Toggle

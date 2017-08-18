@@ -1,48 +1,54 @@
 # CollisionViz
-Interact with CollisionViz [here](https://davidfeng.us/CollisionViz) or [here](https://davidfeng88.github.io/CollisionViz).
+[Live](https://davidfeng.us/CollisionViz)
 
-CollisionViz shows the location and time of motor vehicle collisions in New York City. It is built with React.js, Redux, and SASS. It uses [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/) and [NYPD Motor Vehicle Collisions API](https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb).
+CollisionViz shows the location and time of motor vehicle collisions in New York City. It is built with React.js, Redux, SASS, [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/) and [NYPD Motor Vehicle Collisions API](https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb).
 
 ![demo](assets/images/demo.gif)
 
 ## Instructions
-1. Select the date. A heatmap of all the collisions on that day will be displayed. Select the start time of the visualization.
+1. Select the date. A heatmap of all the collisions on that day will be displayed. Select the start time of the visualization. More settings and more map options are also available.
 2. Play/pause the visualization. Map markers representing collisions will appear and disappear on the map. Click on markers for collision details.
-3. More settings and more map options are also available.
 
 ## Features
 ### For A More Intuitive User Experience
-* Use HTML5 inputs types: `date` and `time`.
-* Disable (grey out) some settings during visualization.
-* Use the same place to show the [loading spinner](https://loading.io/), the play button, and the pause button.
-* Replace default checkboxes with [toggle switches](https://www.w3schools.com/howto/howto_css_switch.asp).
-* Animate the `enter` and `leave` of `more settings` and `map options`.
+* HTML5 inputs types (`date` and `time`)
+* Disabled settings during visualization
+* Same place for [the loading spinner](https://loading.io/), the play button, and the pause button
+* [Toggle switches](https://www.w3schools.com/howto/howto_css_switch.asp) instead of default checkboxes
+* Animations of the `enter`/`leave` of `more settings` and `map options`
 
-### Map Options
-* [Custom markers](https://developers.google.com/maps/documentation/javascript/custom-markers) show collisions involving taxis, bicycles, motorcycles, and collisions that caused pedestrian injuries or deaths.
+### From Google Maps JavaScript API
 * [Info window](https://developers.google.com/maps/documentation/javascript/infowindows) shows the details of a collision. Entries with "0" values are hidden.
-* [heatmap](https://developers.google.com/maps/documentation/javascript/heatmaplayer) shows a heatmap based on all the collisions on the selected date. **Note**: at this zoom level, all heatmap data will dissipate with Fusion Table Layer, thus a Heatmap Layer is used.
-* [traffic, transit and bicycling Layers](https://developers.google.com/maps/documentation/javascript/trafficlayer) show the real-time (user time) traffic, the public transit network, and bike paths, respectively.
-* Alternative Map Style is the Silver theme in [Google Maps APIs Styling Wizard](https://mapstyle.withgoogle.com/)
-Style.
+* [Custom markers](https://developers.google.com/maps/documentation/javascript/custom-markers) show collisions involving taxis, bicycles, motorcycles, and collisions that caused pedestrian injuries or deaths.
+* [Heatmap layer](https://developers.google.com/maps/documentation/javascript/heatmaplayer) shows a heatmap based on all the collisions on the selected date. **Note**: at this zoom level, all heatmap data will dissipate with fusion table layer, thus a heatmap layer is used.
+* [Traffic, transit and bicycling Layers](https://developers.google.com/maps/documentation/javascript/trafficlayer) show the real-time (user time) traffic, the public transit network, and bike paths, respectively.
+* Alternative Map Style is the Silver theme in [Google Maps APIs Styling Wizard](https://mapstyle.withgoogle.com/).
 
 ## Implementation
 ### Sample Redux State
 ```javascript
-{   start: 420,
-    finish: 420,
-    date: "2017-07-15",
-  }
-  ```
+{
+  // Need to show collisions happened between the start time and the finish time on the map. Start time and finish time are in minutes, counting from the midnight.
+  start: 480, // 8:00
+  finish: 490, // 8:10
 
+  date: "2017-04-15",
+  loaded: false,
+}
+```
+The `start`, `finish`, and `date` fields are updated by the control panel component and used by the map component. The `loaded` field is updated by both the control panel and the map components, and used by the control panel components.
 
-  ```javascript
-  ,
-  collisions: {
-    "0:00": [
+### When a new date is selected
+1. The control panel updates the `date` field and sets the `loaded` to be false, which makes the control panel render the loading spinner.
+2. The map component removes the current heatmap and all the markers on the map. Then it fetches collision information from data source using the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
+3. Using a promise, after the fetch finishes, the returned data, an array of collisions, is first filtered. Collisions without time and location values are discarded. Then the filtered data are stored in an object, with times of the collisions as the keys, and arrays of collisions as the values. Note that the keys are converted to number of minutes from midnight. The map also builds a new heatmap based on the collision data.
+```javascript
+this.collisions = {
+    0: [
       {
         contributing_factor_vehicle_1: "Driver Inattention/Distraction",
         contributing_factor_vehicle_2: "Unspecified",
+        time: "0:00",
         ...
       },
       {
@@ -53,42 +59,77 @@ Style.
       },
       ...
     ],
-    "0:05": [
+    5: [
       ...
     ],
     ...
   }
 }
 ```
+4. The map component update the `loaded` to be true, and then the control panel replaces the loading spinner with the play button.
 
-- `filters` contains filters for the collisions. The start time and finish time are integers representing the minutes after the midnight. So 7:00 AM would be 420 ( = 60 minutes * 7).
+### When a new time is selected
+The control panel component has an `initialTime` instance variable. It will update this `initialTime` variable and the `start` and `finish` fields in the Redux state.
 
-### The Control Panel
+### When the play button is pressed
+1. The control panel component uses `step` function to update the `start` and `finish` time in the Redux state: move them forward by one minute. It also handles several edge cases.
 ```javascript
-case 'date':
-  this.handleReset();
-  this.props.updateFilter({ date: e.currentTarget.value });
-  this.setState({
-    date: e.currentTarget.value,
-    loaded: false,
-  });
-  if (e.currentTarget.value !== "") {
-    this.props.fetchCollisions(e.currentTarget.value)
-      .then(
-        () => this.setState({loaded: true})
-      );
+step() {
+  let newTime = this.props.finish + 1;
+  // Edge case 1: Stop the visualization if newTime is 0:00 the next day
+  if (newTime > END_TIME) {
+    this.handleStop();
+  } else {
+    let start = newTime - this.state.collisionMapTime;
+    let finish = newTime;
+    // Edge case 2: the start time should not be earlier than the initialTime
+    start = start < this.initialTime ? this.initialTime : start;
+    // Edge case 3: the start time should not be earlier than 0:00
+    start = start < START_TIME ? START_TIME : start;
+    this.props.updateFilter({
+      start,
+      finish,
+    });
   }
+}
 ```
-After the user selects a new date, first, it stops any current visualization and reset the time to 7:00 AM. Then it updates the `date` in the `filters` of the Redux state and in the local state. Also, it sets `loaded` to be false (which disables the play button and shows the loading spinner). Then [the Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) will fetch data from the source and populate the `collisions` slice of Redux state. Using a promise, after all these work is done, it sets `loaded` to be true.
-
-To start the visualization, the `handlePlay` function uses the `setInterval` function to call `oneStepForward` repeatedly, which updates the start and finish time in the `filters` of the Redux state.
-
-The `handleStop` function calls the `clearInterval` function to stop the visualization.
-
-### The Map
-If it receives a new date from the Redux state, it removes the heatmap layer, removes all the markers on the map, and fetches the collision data to build a new heatmap.
-
-During the visualization, the map container calculates the arrays of collisions to be added/removed based on the updated start and finish time in the `filters` and `collisions` of the Redux state. These arrays are then sent to the `marker_manager`, which updates the markers on the map.
+2. To start the visualization, the control panel use `setInterval` to call `step` repeatedly. Correspondingly, it calls `clearInterval` to stop the visualization. If the user click on the play button again, the visualization will resume from the `finish` time, i.e. when the visualization was stopped/paused.
+3. The map component receives the new `start` time and `finish` time, and it selected collisions happened in the time range.
+```javascript
+let collisionsArray = [];
+for (let time = start; time <= finish; time++) {
+  if (collisions[time]) {
+    collisionsArray = collisionsArray.concat(collisions[time]);
+  }
+}
+```
+4. The `collisionsArray` is sent to the `MarkerManager`, which updates the markers on the map. To facilitate this process, objects are created, and arrays `filter` and `forEach` functions are used. See the details below.
+```javascript
+updateMarkers(collisionsArray, taxi, bike, motorcycle, ped) {
+  // create an object for current collisions
+  const collisionsObj = {};
+  collisionsArray.forEach(
+    collision => {collisionsObj[collision.unique_key] = collision;});
+  /*
+    new markers are created for new collisions
+    this.markersObj is an object with markers as values
+    Pattern:
+    array.filter( element => !object[key])
+    .forEach( collision => create/delete marker);
+  */
+  collisionsArray
+    .filter(collision => !this.markersObj[collision.unique_key])
+    .forEach(newCollision => {
+      this.createMarker(newCollision, taxi, bike, motorcycle, ped);
+    });
+  // Old markers for collisions that are not in the `collisionsArray` are removed.
+  Object.keys(this.markersObj)
+    .filter(collisionUniqueKey => !collisionsObj[collisionUniqueKey])
+    .forEach(collisionUniqueKey => {
+      this.removeMarker(this.markersObj[collisionUniqueKey]);
+    });
+}
+```
 
 ## Future Directions
 * Incorporate [MarkerClusterers](https://developers.google.com/maps/documentation/javascript/marker-clustering)
