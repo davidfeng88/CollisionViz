@@ -28,7 +28,7 @@ strong {
   padding: 0 20px; }
 
 /* --- CONTROL PANEL --- */
-.play-button {
+.start-button {
   width: 80px; }
 
 .spinner img {
@@ -39,7 +39,7 @@ strong {
   margin: 5px;
   vertical-align: middle; }
 
-.play-row {
+.start-row {
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   padding: 10px 0; }
