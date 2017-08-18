@@ -135,8 +135,8 @@ class ControlPanel extends React.Component {
     } else {
       let start = newTime - this.state.collisionMapTime;
       let finish = newTime;
-      start = start < this.initialTime ? this.initialTime : start;
-      start = start < START_TIME ? START_TIME : start;
+      start = start > this.initialTime ? start : this.initialTime;
+      start = start > START_TIME ? start : START_TIME;
       this.props.updateFilter({
         start,
         finish,

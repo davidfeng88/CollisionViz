@@ -1,7 +1,7 @@
 # CollisionViz
 [Live](https://davidfeng.us/CollisionViz)
 
-CollisionViz shows the location and time of motor vehicle collisions in New York City. It is built with React.js, Redux, SASS, [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/) and [NYPD Motor Vehicle Collisions API](https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb).
+CollisionViz is a data visualization web app for motor vehicle collisions in New York City. It is built with React.js, Redux, SASS, [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/) and [NYPD Motor Vehicle Collisions API](https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb).
 
 ![demo](assets/images/demo.gif)
 
@@ -20,7 +20,7 @@ CollisionViz shows the location and time of motor vehicle collisions in New York
 ### From Google Maps JavaScript API
 * [Info window](https://developers.google.com/maps/documentation/javascript/infowindows) shows the details of a collision. Entries with "0" values are hidden.
 * [Custom markers](https://developers.google.com/maps/documentation/javascript/custom-markers) show collisions involving taxis, bicycles, motorcycles, and collisions that caused pedestrian injuries or deaths.
-* [Heatmap layer](https://developers.google.com/maps/documentation/javascript/heatmaplayer) shows a heatmap based on all the collisions on the selected date. **Note**: at this zoom level, all heatmap data will dissipate with fusion table layer, thus a heatmap layer is used.
+* [Heatmap layer](https://developers.google.com/maps/documentation/javascript/heatmaplayer) shows a heatmap based on all the collisions on the selected date. **Note**: fusion table layer does not work because all heatmap data will dissipate at this zoom level.
 * [Traffic, transit and bicycling Layers](https://developers.google.com/maps/documentation/javascript/trafficlayer) show the real-time (user time, not map time) traffic, the public transit network, and bike paths, respectively.
 * Alternative map style is the Silver theme in [Google Maps APIs Styling Wizard](https://mapstyle.withgoogle.com/).
 
@@ -29,11 +29,11 @@ CollisionViz shows the location and time of motor vehicle collisions in New York
 ```javascript
 {
   /*
-  Need to show collisions happened between the start time and the finish time on the map.
-  Start time and finish time are in minutes, counting from the midnight.
+    Need to show collisions happened between the start time and the finish time
+    Start time and finish time are in minutes, counting from the midnight
   */
-  start: 480, // 8:00
-  finish: 490, // 8:10
+  start: 480,   // 08:00
+  finish: 490,  // 08:10
   date: "2017-04-15",
   loaded: false,
 }
@@ -80,18 +80,21 @@ this.collisions = {
 ### When the start button is pressed
 1. `Control panel` uses the `step` function to increase `start` and `finish` in the Redux state by 1. It also handles several edge cases.
 ```javascript
+const START_TIME = 0;   // 00:00
+const END_TIME = 1439;  // 23:59
+
 step() {
   let newTime = this.props.finish + 1;
-  // Edge case 1: Stop the visualization if newTime is 0:00 the next day
+  // Edge case 1: Stop the visualization if newTime is later than 23:59
   if (newTime > END_TIME) {
     this.handleStop();
   } else {
     let start = newTime - this.state.collisionMapTime;
     let finish = newTime;
     // Edge case 2: the start time should not be earlier than the initialTime
-    start = start < this.initialTime ? this.initialTime : start;
-    // Edge case 3: the start time should not be earlier than 0:00
-    start = start < START_TIME ? START_TIME : start;
+    start = start > this.initialTime ? start : this.initialTime;
+    // Edge case 3: the start time should not be earlier than 00:00
+    start = start > START_TIME ? start : START_TIME;
     this.props.updateFilter({
       start,
       finish,
@@ -106,8 +109,8 @@ let collisionsArray = [];
 for (let time = start; time <= finish; time++) {
   /*
     collisions:
-    key: collision's time, in the form of number of minutes from the midnight
-    value: array of collisions
+      key: collision's time, in the form of number of minutes from the midnight
+      value: array of collisions
     if collisions[time] is undefined, then no collisions happened on that time
   */
   if (collisions[time]) {
@@ -123,18 +126,19 @@ updateMarkers(collisionsArray, taxi, bike, motorcycle, ped) {
   collisionsArray.forEach(
     collision => {collisionsObj[collision.unique_key] = collision;});
   /*
-    new markers are created for new collisions
-    this.markersObj is an object with markers as values
     Pattern:
-    array.filter(element => !object[key])
-    .forEach(collision => create/delete marker);
+      array.filter(element => !object[key])
+      .forEach(collision => create/delete marker);
+
+    1. New markers are created for new collisions
+    this.markersObj is an object with markers as values
   */
   collisionsArray
     .filter(collision => !this.markersObj[collision.unique_key])
     .forEach(newCollision => {
       this.createMarker(newCollision, taxi, bike, motorcycle, ped);
     });
-  // Old markers for collisions that are not in the `collisionsArray` are removed
+  // 2. Old markers for collisions that are not in the `collisionsArray` are removed
   Object.keys(this.markersObj)
     .filter(collisionUniqueKey => !collisionsObj[collisionUniqueKey])
     .forEach(collisionUniqueKey => {
