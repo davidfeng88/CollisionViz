@@ -22,6 +22,7 @@
 
 node_modules/
 .byebug_history
+bundle.js.map
 .DS_Store
 npm-debug.log
 .sass-cache
