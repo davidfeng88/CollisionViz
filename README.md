@@ -7,13 +7,13 @@ CollisionViz shows the location and time of motor vehicle collisions in New York
 
 ## Instructions
 1. Select the date. A heatmap of all the collisions on that day will be displayed. Select the start time of the visualization. More settings and more map options are also available.
-2. Play/pause the visualization. Map markers representing collisions will appear and disappear on the map. Click on markers for collision details.
+2. Start/pause the visualization. Map markers representing collisions will appear and disappear on the map. Click on markers for collision details.
 
 ## Features
 ### For A More Intuitive User Experience
 * HTML5 inputs types (`date` and `time`)
 * Disabled settings during visualization
-* Same place for [the loading spinner](https://loading.io/), the play button, and the pause button
+* Same place for [the loading spinner](https://loading.io/), the start button, and the pause button
 * [Toggle switches](https://www.w3schools.com/howto/howto_css_switch.asp) instead of default checkbox type inputs
 * Animations of the `enter`/`leave` of `more settings` and `map options`
 
@@ -66,12 +66,12 @@ this.collisions = {
   }
 }
 ```
-4. `Map` updates the `loaded` to be true, and then the control panel replaces the loading spinner with the play button.
+4. `Map` updates the `loaded` to be true, and then the control panel replaces the loading spinner with the start button.
 
 ### When a new time is selected
 `Control panel` updates its `initialTime` instance variable and the `start` and `finish` fields in the Redux state.
 
-### When the play button is pressed
+### When the start button is pressed
 1. `Control panel` uses the `step` function to update the `start` and `finish` time in the Redux state: move them forward by one minute. It also handles several edge cases.
 ```javascript
 step() {
@@ -93,7 +93,7 @@ step() {
   }
 }
 ```
-2. To start the visualization, `control panel` uses `setInterval` to call `step` repeatedly. Correspondingly, it calls `clearInterval` to stop the visualization. If the user clicks on the play button again, the visualization will resume from the `finish` time, i.e. when the visualization was stopped/paused.
+2. To start the visualization, `control panel` uses `setInterval` to call `step` repeatedly. Correspondingly, it calls `clearInterval` to stop the visualization. If the user clicks on the start button again, the visualization will resume from the `finish` time, i.e. when the visualization was stopped/paused.
 3. `Map` receives the new `start` time and `finish` time, and it selected collisions happened in the time range.
 ```javascript
 let collisionsArray = [];

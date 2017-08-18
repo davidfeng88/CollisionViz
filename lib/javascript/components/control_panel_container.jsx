@@ -37,8 +37,8 @@ class ControlPanel extends React.Component {
     // changes does not need to re-render
     this.initialTime = this.props.start;
 
-    this.handlePlay = this.handlePlay.bind(this);
-    this.handleStop = this.handleStop.bind(this);
+    this.handleStart = this.handleStart.bind(this);
+    this.handlePause = this.handlePause.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.step = this.step.bind(this);
   }
@@ -74,7 +74,7 @@ class ControlPanel extends React.Component {
   }
 
   handleReset() {
-    this.handleStop();
+    this.handlePause();
     this.setNewTime(DEFAULT_TIME);
   }
 
@@ -86,7 +86,7 @@ class ControlPanel extends React.Component {
     this.initialTime = time;
   }
 
-  handlePlay() {
+  handleStart() {
     if (!this.state.intervalId) {
       let intervalId = setInterval(this.step, this.state.delay);
       this.setState({ intervalId });
@@ -99,7 +99,7 @@ class ControlPanel extends React.Component {
     }
   }
 
-  handleStop() {
+  handlePause() {
     if (this.state.intervalId) {
       let traffic = document.getElementById('traffic');
       traffic.pause();
@@ -108,15 +108,15 @@ class ControlPanel extends React.Component {
     }
   }
 
-  playPauseButton() {
+  startPauseButton() {
     if (this.props.loaded) {
-      let playPauseButtonText = this.state.intervalId ? 'Pause' : 'Play';
+      let startPauseButtonText = this.state.intervalId ? 'Pause' : 'Start';
       let handleClick =
-        this.state.intervalId ? this.handleStop : this.handlePlay;
+        this.state.intervalId ? this.handlePause : this.handleStart;
       return (
-        <div className='play-button clickable-div bordered'
+        <div className='start-button clickable-div bordered'
           onClick={handleClick}>
-          {playPauseButtonText}
+          {startPauseButtonText}
         </div>
       );
     } else {
@@ -131,7 +131,7 @@ class ControlPanel extends React.Component {
   step() {
     let newTime = this.props.finish + 1;
     if (newTime > END_TIME) {
-      this.handleStop();
+      this.handlePause();
     } else {
       let start = newTime - this.state.collisionMapTime;
       let finish = newTime;
@@ -250,8 +250,8 @@ class ControlPanel extends React.Component {
           />
         </div>
         {this.extraPanel()}
-        <div className="flex-row play-row">
-          {this.playPauseButton()}
+        <div className="flex-row start-row">
+          {this.startPauseButton()}
           <div className='clickable-div bordered'
             onClick={this.handleReset}>
             Reset Time
