@@ -14,7 +14,7 @@ CollisionViz shows the location and time of motor vehicle collisions in New York
 * HTML5 inputs types (`date` and `time`)
 * Disabled settings during visualization
 * Same place for [the loading spinner](https://loading.io/), the play button, and the pause button
-* [Toggle switches](https://www.w3schools.com/howto/howto_css_switch.asp) instead of default checkboxes
+* [Toggle switches](https://www.w3schools.com/howto/howto_css_switch.asp) instead of default checkbox type inputs
 * Animations of the `enter`/`leave` of `more settings` and `map options`
 
 ### From Google Maps JavaScript API
@@ -22,7 +22,7 @@ CollisionViz shows the location and time of motor vehicle collisions in New York
 * [Custom markers](https://developers.google.com/maps/documentation/javascript/custom-markers) show collisions involving taxis, bicycles, motorcycles, and collisions that caused pedestrian injuries or deaths.
 * [Heatmap layer](https://developers.google.com/maps/documentation/javascript/heatmaplayer) shows a heatmap based on all the collisions on the selected date. **Note**: at this zoom level, all heatmap data will dissipate with fusion table layer, thus a heatmap layer is used.
 * [Traffic, transit and bicycling Layers](https://developers.google.com/maps/documentation/javascript/trafficlayer) show the real-time (user time) traffic, the public transit network, and bike paths, respectively.
-* Alternative Map Style is the Silver theme in [Google Maps APIs Styling Wizard](https://mapstyle.withgoogle.com/).
+* Alternative map style is the Silver theme in [Google Maps APIs Styling Wizard](https://mapstyle.withgoogle.com/).
 
 ## Implementation
 ### Sample Redux State
@@ -36,12 +36,12 @@ CollisionViz shows the location and time of motor vehicle collisions in New York
   loaded: false,
 }
 ```
-The `start`, `finish`, and `date` fields are updated by the control panel component and used by the map component. The `loaded` field is updated by both the control panel and the map components, and used by the control panel components.
+The `start`, `finish`, and `date` fields are updated by the `control panel` component and used by the `map` component. The `loaded` field is updated by both components, and used by the `control panel`.
 
 ### When a new date is selected
-1. The control panel updates the `date` field and sets the `loaded` to be false, which makes the control panel render the loading spinner.
-2. The map component removes the current heatmap and all the markers on the map. Then it fetches collision information from data source using the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
-3. Using a promise, after the fetch finishes, the returned data, an array of collisions, is first filtered. Collisions without time and location values are discarded. Then the filtered data are stored in an object, with times of the collisions as the keys, and arrays of collisions as the values. Note that the keys are converted to number of minutes from midnight. The map also builds a new heatmap based on the collision data.
+1. `Control panel` updates the `date` field and sets the `loaded` to be false, which makes `control panel` render the loading spinner.
+2. `Map` removes the current heatmap and all the markers on the map. Then it fetches collision information from the data source using the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
+3. Using a promise, after the fetch finishes, the returned data, an array of collisions, is first filtered. Collisions without time and location values are discarded. Then the filtered data are stored in an object, with times of the collisions as the keys, and arrays of collisions as the values. Note that the keys (time) are converted to numbers of minutes from midnight. `Map` also builds a new heatmap based on the collision data.
 ```javascript
 this.collisions = {
     0: [
@@ -66,13 +66,13 @@ this.collisions = {
   }
 }
 ```
-4. The map component update the `loaded` to be true, and then the control panel replaces the loading spinner with the play button.
+4. `Map` updates the `loaded` to be true, and then the control panel replaces the loading spinner with the play button.
 
 ### When a new time is selected
-The control panel component has an `initialTime` instance variable. It will update this `initialTime` variable and the `start` and `finish` fields in the Redux state.
+`Control panel` updates its `initialTime` instance variable and the `start` and `finish` fields in the Redux state.
 
 ### When the play button is pressed
-1. The control panel component uses `step` function to update the `start` and `finish` time in the Redux state: move them forward by one minute. It also handles several edge cases.
+1. `Control panel` uses the `step` function to update the `start` and `finish` time in the Redux state: move them forward by one minute. It also handles several edge cases.
 ```javascript
 step() {
   let newTime = this.props.finish + 1;
@@ -93,8 +93,8 @@ step() {
   }
 }
 ```
-2. To start the visualization, the control panel use `setInterval` to call `step` repeatedly. Correspondingly, it calls `clearInterval` to stop the visualization. If the user click on the play button again, the visualization will resume from the `finish` time, i.e. when the visualization was stopped/paused.
-3. The map component receives the new `start` time and `finish` time, and it selected collisions happened in the time range.
+2. To start the visualization, `control panel` uses `setInterval` to call `step` repeatedly. Correspondingly, it calls `clearInterval` to stop the visualization. If the user clicks on the play button again, the visualization will resume from the `finish` time, i.e. when the visualization was stopped/paused.
+3. `Map` receives the new `start` time and `finish` time, and it selected collisions happened in the time range.
 ```javascript
 let collisionsArray = [];
 for (let time = start; time <= finish; time++) {
