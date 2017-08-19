@@ -14,7 +14,8 @@ const timeLine = (start, finish) => (
 
 const MapInfo = ({ date, start, finish, collisions }) => (
   <div className='map-info'>
-    Date: <strong>{date}</strong> Map Time: <strong>{timeIntToString(finish)}</strong>
+    Date: <strong>{date}</strong> Map Time:&nbsp;
+    <strong>{timeIntToString(finish)}</strong>
     <br />
     Showing Collisions During&nbsp;
     <strong>{timeLine(start, finish)}</strong>

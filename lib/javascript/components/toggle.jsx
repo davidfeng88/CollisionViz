@@ -5,9 +5,9 @@ const Toggle = props => (
     <label htmlFor={props.label}>
       {props.label}
     </label>
-    <label className="switch">
-      <input id={props.label} type="checkbox" {...props} />
-      <span className="slider round"></span>
+    <label className='switch'>
+      <input id={props.label} type='checkbox' {...props} />
+      <span className='slider round'></span>
     </label>
   </div>
 );

@@ -34,8 +34,8 @@ select {
   margin: 0 10px;
 }
 
-input[type="date"]:disabled,
-input[type="time"]:disabled,
+input[type='date']:disabled,
+input[type='time']:disabled,
 select:disabled {
   color: $dark-grey;
   background-color: $grey;

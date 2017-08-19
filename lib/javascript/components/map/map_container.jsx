@@ -63,7 +63,7 @@ class Map extends React.Component {
   fetchCollisions(date, createHeatmap = false) {
     fetchCollisions(date)
       .then( collisionsData => {
-        this.collisions = {}; // don't use "let this.collisions = {}"
+        this.collisions = {}; // don't use 'let this.collisions = {}'
         let validCollisions = collisionsData.filter(collision =>
           collision.latitude && collision.longitude && collision.time);
         validCollisions.forEach(collision => {
@@ -99,7 +99,7 @@ class Map extends React.Component {
       // if the date is changed, clear all markers, draw a new heatmap
       this.heatmap.setMap(null);
       this.MarkerManager.removeAllMarkers();
-      if (nextProps.date !== "") {
+      if (nextProps.date !== '') {
         this.fetchCollisions(nextProps.date);
       }
     } else {
@@ -163,19 +163,19 @@ class Map extends React.Component {
           </div>
           <div className='flex-row'>
             <Toggle
-              label="Taxi"
+              label='Taxi'
               checked={this.state.taxi}
               onChange={this.toggle('taxi')} />
             <Toggle
-              label="Bike"
+              label='Bike'
               checked={this.state.bike}
               onChange={this.toggle('bike')} />
             <Toggle
-              label="Motorcycle"
+              label='Motorcycle'
               checked={this.state.motorcycle}
               onChange={this.toggle('motorcycle')} />
             <Toggle
-              label="Pedestrian"
+              label='Pedestrian'
               checked={this.state.ped}
               onChange={this.toggle('ped')} />
           </div>
@@ -184,25 +184,25 @@ class Map extends React.Component {
           </div>
           <div className='flex-row'>
             <Toggle
-              label="Heatmap"
+              label='Heatmap'
               checked={this.state.heatmap}
               onChange={this.toggleMapLayer('heatmap')} />
             <Toggle
-              label="Traffic"
+              label='Traffic'
                 checked={this.state.traffic}
               onChange={this.toggleMapLayer('traffic')} />
             <Toggle
-              label="Transit"
+              label='Transit'
               checked={this.state.transit}
               onChange={this.toggleMapLayer('transit')} />
             <Toggle
-              label="Bicycling"
+              label='Bicycling'
               checked={this.state.bicycling}
               onChange={this.toggleMapLayer('bicycling')} />
           </div>
           <div className='flex-row'>
             <Toggle
-              label="Alternative Map Style"
+              label='Alternative Map Style'
               checked={this.state.alternativeMapStyle}
               onChange={this.toggle('alternativeMapStyle')} />
           </div>
@@ -211,7 +211,7 @@ class Map extends React.Component {
     }
     return(
       <ReactCSSTransitionGroup
-        transitionName="extra"
+        transitionName='extra'
         transitionEnterTimeout={300}
         transitionLeaveTimeout={200}
         >
@@ -225,12 +225,12 @@ class Map extends React.Component {
       <div>
         <div className='flex-row'>
           <Toggle
-            label="Map Options"
+            label='Map Options'
             checked={this.state.showExtra}
             onChange={this.toggle('showExtra')} />
         </div>
         {this.extraPanel()}
-        <div className="index-map" ref="map">
+        <div className='index-map' ref='map'>
           Map
         </div>
         <div className='map-panel bordered flex-row'>

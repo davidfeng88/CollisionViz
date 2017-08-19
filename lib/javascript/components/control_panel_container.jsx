@@ -61,7 +61,7 @@ class ControlPanel extends React.Component {
           break;
 
         case 'time':
-          if (e.currentTarget.value !== "") {
+          if (e.currentTarget.value !== '') {
             let newTime = timeStringToInt(e.currentTarget.value);
             this.setNewTime(newTime);
           }
@@ -149,7 +149,7 @@ class ControlPanel extends React.Component {
       let newValue = !this.state[field];
       this.setState({[field]: newValue});
       if (field === 'mute') {
-        let traffic = document.getElementById("traffic");
+        let traffic = document.getElementById('traffic');
         if (this.state.intervalId && !newValue) {
           traffic.play();
           traffic.loop = true;
@@ -174,7 +174,7 @@ class ControlPanel extends React.Component {
               id='collision-map-time'
               value={this.state.collisionMapTime}
               onChange={this.updateField('collisionMapTime')}
-              disabled={this.state.intervalId ? "disabled" : ""}
+              disabled={this.state.intervalId ? 'disabled' : ''}
             >
               <option value='4' >5 minutes</option>
               <option value='9' >10 minutes</option>
@@ -183,31 +183,31 @@ class ControlPanel extends React.Component {
             </select>
           </div>
           <div>
-            <label htmlFor="delay">
+            <label htmlFor='delay'>
               Time Lapse Rate
             </label>
             <select
-              id="delay"
+              id='delay'
               value={this.state.delay}
-              onChange={this.updateField("delay")}
-              disabled={this.state.intervalId ? "disabled" : ""}
+              onChange={this.updateField('delay')}
+              disabled={this.state.intervalId ? 'disabled' : ''}
             >
-              <option value="100" >Fast</option>
-              <option value="200" >Default</option>
-              <option value="400" >Slow</option>
+              <option value='100' >Fast</option>
+              <option value='200' >Default</option>
+              <option value='400' >Slow</option>
             </select>
           </div>
           <Toggle
-            label="Sound"
+            label='Sound'
             checked={!this.state.mute}
-            onChange={this.toggle("mute")}
+            onChange={this.toggle('mute')}
           />
         </div>
       );
     }
     return(
       <ReactCSSTransitionGroup
-        transitionName="extra"
+        transitionName='extra'
         transitionEnterTimeout={300}
         transitionLeaveTimeout={200}
         >
@@ -219,38 +219,38 @@ class ControlPanel extends React.Component {
   render() {
     return(
       <div>
-        <div className="flex-row">
+        <div className='flex-row'>
           <div>
-            <label htmlFor="date">
+            <label htmlFor='date'>
               Select Date (2012-07-01 ~ 2017-08-01)
             </label>
             <input
-              value={this.props.date} id="date"
-              type="date" min="2012-07-01" max="2017-08-01"
-              onChange={this.updateField("date")}
-              disabled={this.state.intervalId ? "disabled" : ""}
+              value={this.props.date} id='date'
+              type='date' min='2012-07-01' max='2017-08-01'
+              onChange={this.updateField('date')}
+              disabled={this.state.intervalId ? 'disabled' : ''}
             />
           </div>
           <div>
-            <label htmlFor="time">
+            <label htmlFor='time'>
               Select Start Time
             </label>
             <input
-              id="time"
-              type="time"
+              id='time'
+              type='time'
               value={timeIntToString(this.props.finish)}
-              onChange={this.updateField("time")}
-              disabled={this.state.intervalId ? "disabled" : ""}
+              onChange={this.updateField('time')}
+              disabled={this.state.intervalId ? 'disabled' : ''}
             />
           </div>
           <Toggle
-            label="More Settings"
+            label='More Settings'
             checked={this.state.showExtra}
             onChange={this.toggle('showExtra')}
           />
         </div>
         {this.extraPanel()}
-        <div className="flex-row start-row">
+        <div className='flex-row start-row'>
           {this.startPauseButton()}
           <div className='clickable-div bordered'
             onClick={this.handleReset}>
