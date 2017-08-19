@@ -18,7 +18,7 @@ CollisionViz is a data visualization web app for motor vehicle collisions in New
 * Animations of the `enter`/`leave` of `more settings` and `map options`
 
 ### From Google Maps JavaScript API
-* [Info window](https://developers.google.com/maps/documentation/javascript/infowindows) shows the details of a collision. Entries with "0" values are hidden.
+* [Info window](https://developers.google.com/maps/documentation/javascript/infowindows) shows the details of a collision. Entries with '0' values are hidden.
 * [Custom markers](https://developers.google.com/maps/documentation/javascript/custom-markers) show collisions involving taxis, bicycles, motorcycles, and collisions that caused pedestrian injuries or deaths.
 * [Heatmap layer](https://developers.google.com/maps/documentation/javascript/heatmaplayer) shows a heatmap based on all the collisions on the selected date. **Note**: fusion table layer does not work because all heatmap data will dissipate at this zoom level.
 * [Traffic, transit and bicycling Layers](https://developers.google.com/maps/documentation/javascript/trafficlayer) show the real-time (user time, not map time) traffic, the public transit network, and bike paths, respectively.
@@ -34,7 +34,7 @@ CollisionViz is a data visualization web app for motor vehicle collisions in New
   */
   start: 480,   // 08:00
   finish: 490,  // 08:10
-  date: "2017-04-15",
+  date: '2017-04-15',
   loaded: false,
 }
 ```
@@ -52,15 +52,15 @@ this.collisions = {
     */
     0: [
       {
-        contributing_factor_vehicle_1: "Driver Inattention/Distraction",
-        contributing_factor_vehicle_2: "Unspecified",
-        time: "0:00",
+        contributing_factor_vehicle_1: 'Driver Inattention/Distraction',
+        contributing_factor_vehicle_2: 'Unspecified',
+        time: '0:00',
         ...
       },
       {
-        borough: "BROOKLYN",
-        contributing_factor_vehicle_1: "Outside Car Distraction",
-        contributing_factor_vehicle_2: "Unspecified",
+        borough: 'BROOKLYN',
+        contributing_factor_vehicle_1: 'Outside Car Distraction',
+        contributing_factor_vehicle_2: 'Unspecified',
         ...
       },
       ...
