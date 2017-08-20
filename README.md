@@ -28,10 +28,10 @@ CollisionViz is a data visualization web app for motor vehicle collisions in New
 ### Sample Redux State
 ```javascript
 {
-  /*
-    Need to show collisions happened between the start time and the finish time
-    Start time and finish time are in minutes, counting from the midnight
-  */
+  /**
+   * Need to show collisions happened between the start time and the finish time.
+   * Start time and finish time are in minutes, counting from the midnight.
+   */
   start: 480,   // 08:00
   finish: 490,  // 08:10
   date: '2017-04-15',
@@ -46,10 +46,10 @@ The `start`, `finish`, and `date` fields are updated by the `control panel` comp
 3. Using [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), after the fetch finishes, the returned data (an array of collisions) is filtered. Collisions without time and location entries are discarded. `Map` builds a new heatmap based on the filtered data. The filtered data are also reorganized and stored in an object.
 ```javascript
 this.collisions = {
-    /*
-      key: collision's time, in the form of number of minutes from the midnight
-      value: array of collisions
-    */
+    /**
+     * Key: collision's time, in the form of number of minutes from the midnight.
+     * Value: array of collisions.
+     */
     0: [
       {
         contributing_factor_vehicle_1: 'Driver Inattention/Distraction',
@@ -107,12 +107,12 @@ step() {
 ```javascript
 let collisionsArray = [];
 for (let time = start; time <= finish; time++) {
-  /*
-    collisions:
-      key: collision's time, in the form of number of minutes from the midnight
-      value: array of collisions
-    if collisions[time] is undefined, then no collisions happened on that time
-  */
+  /**
+   * Collisions:
+   * Key: collision's time, in the form of number of minutes from the midnight.
+   * Value: array of collisions.
+   * If collisions[time] is undefined, then no collisions happened on that time.
+   */
   if (collisions[time]) {
     collisionsArray = collisionsArray.concat(collisions[time]);
   }
@@ -125,14 +125,14 @@ updateMarkers(collisionsArray, taxi, bike, motorcycle, ped) {
   const collisionsObj = {};
   collisionsArray.forEach(
     collision => {collisionsObj[collision.unique_key] = collision;});
-  /*
-    Pattern:
-      array.filter(element => !object[key])
-      .forEach(collision => create/delete marker);
-
-    1. New markers are created for new collisions
-    this.markersObj is an object with markers as values
-  */
+  /**
+   * Pattern:
+   * array.filter(element => !object[key])
+   *  .forEach(collision => create/delete marker);
+   *
+   * 1. New markers are created for new collisions.
+   *   this.markersObj is an object with markers as values
+   */
   collisionsArray
     .filter(collision => !this.markersObj[collision.unique_key])
     .forEach(newCollision => {
