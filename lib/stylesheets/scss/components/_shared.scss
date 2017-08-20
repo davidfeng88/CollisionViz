@@ -7,7 +7,7 @@ body {
 }
 
 .bordered {
-  border: 1px black solid;
+  border: 1px $black solid;
   border-radius: 5px;
 }
 
@@ -23,8 +23,8 @@ body {
 
 input, select {
   font-size: 16px;
-  background-color: white;
-  border: 1px solid black;
+  background-color: $white;
+  border: 1px solid $black;
   padding: 5px;
   border-radius: 5px;
 }
@@ -37,7 +37,7 @@ select {
 input[type='date']:disabled,
 input[type='time']:disabled,
 select:disabled {
-  color: $dark-grey;
+  color: $darkest-grey;
   background-color: $grey;
 }
 
@@ -61,11 +61,11 @@ label.switch {
 
 .clickable-div:hover {
   cursor: pointer;
-  background-color: #bbb;
+  background-color: $light-grey;
 }
 
 .clickable-div:active {
-  background-color: #555;
+  background-color: $dark-grey;
 }
 
 /* --- ANIMATION --- */

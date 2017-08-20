@@ -14,7 +14,7 @@
 .modal {
   position: relative;
   z-index: 3;
-  background-color: #fff;
+  background-color: $white;
   border-radius: 5px;
   max-width: 300px;
   margin: 0 auto;
@@ -48,18 +48,18 @@ a:hover {
   margin-top: 10px;
 }
 
-.modal-link-div i {
+.modal-link-div a {
   margin: 5px;
   border-radius: 5px;
   padding: 10px;
 }
 
-.modal-link-div i:hover {
+.modal-link-div a:hover {
   cursor: pointer;
   background-color: #bbb;
 }
 
-.modal-link-div i:active {
+.modal-link-div a:active {
   background-color: #aaa;
 }
 

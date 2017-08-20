@@ -6,18 +6,21 @@ const AboutMe = props => (
   <ModalTemplate {...props}>
     <h3>About Me</h3>
     <p>Hello, I'm David Feng. Let's stay in touch!</p>
-    <div className='modal-link-div'>
-      <a href='https://davidfeng.us/' target='_blank'>
-      <i className='fa fa-user fa-lg' aria-hidden='true'></i>
+    <div className='flex-row'>
+      <a className='clickable-div' href='https://davidfeng.us/' target='_blank'>
+      <img src='./assets/images/font-awesome/user.png' />
       </a>
-      <a href='https://github.com/davidfeng88' target='_blank'>
-      <i className='fa fa-github fa-lg' aria-hidden='true'></i>
+      <a className='clickable-div'
+        href='https://github.com/davidfeng88' target='_blank'>
+      <img src='./assets/images/font-awesome/github.png' />
       </a>
-      <a href='https://www.linkedin.com/in/gfeng/' target='_blank'>
-      <i className='fa fa-linkedin-square fa-lg' aria-hidden='true'></i>
+      <a className='clickable-div'
+        href='https://www.linkedin.com/in/gfeng/' target='_blank'>
+      <img src='./assets/images/font-awesome/linkedin-square.png' />
       </a>
-      <a href='https://angel.co/ge-david-feng' target='_blank'>
-      <i className='fa fa-angellist fa-lg' aria-hidden='true'></i>
+      <a className='clickable-div'
+        href='https://angel.co/ge-david-feng' target='_blank'>
+      <img src='./assets/images/font-awesome/angellist.png' />
       </a>
     </div>
   </ModalTemplate>
