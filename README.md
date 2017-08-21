@@ -85,15 +85,15 @@ const END_TIME = 1439;  // 23:59
 
 step() {
   let newTime = this.props.finish + 1;
-  // Edge case 1: Stop the visualization if newTime is later than 23:59
+  // Edge case 1: Stop the visualization if newTime is later than 23:59.
   if (newTime > END_TIME) {
     this.handleStop();
   } else {
     let start = newTime - this.state.collisionMapTime;
     let finish = newTime;
-    // Edge case 2: the start time should not be earlier than the initialTime
+    // Edge case 2: the start time should not be earlier than the initialTime.
     start = start > this.initialTime ? start : this.initialTime;
-    // Edge case 3: the start time should not be earlier than 00:00
+    // Edge case 3: the start time should not be earlier than 00:00.
     start = start > START_TIME ? start : START_TIME;
     this.props.updateFilter({
       start,
@@ -121,7 +121,7 @@ for (let time = start; time <= finish; time++) {
 4. The `collisionsArray` is sent to the `MarkerManager`, which updates the markers on the map. To facilitate this process, objects are created, and array's `filter` and `forEach` functions are used.
 ```javascript
 updateMarkers(collisionsArray, taxi, bike, motorcycle, ped) {
-  // create an object for current collisions
+  // create an object for current collisions.
   const collisionsObj = {};
   collisionsArray.forEach(
     collision => {collisionsObj[collision.unique_key] = collision;});
@@ -131,14 +131,14 @@ updateMarkers(collisionsArray, taxi, bike, motorcycle, ped) {
    *  .forEach(collision => create/delete marker);
    *
    * 1. New markers are created for new collisions.
-   *   this.markersObj is an object with markers as values
+   *   this.markersObj is an object with markers as values.
    */
   collisionsArray
     .filter(collision => !this.markersObj[collision.unique_key])
     .forEach(newCollision => {
       this.createMarker(newCollision, taxi, bike, motorcycle, ped);
     });
-  // 2. Old markers for collisions that are not in the `collisionsArray` are removed
+  // 2. Old markers for collisions that are not in the `collisionsArray` are removed.
   Object.keys(this.markersObj)
     .filter(collisionUniqueKey => !collisionsObj[collisionUniqueKey])
     .forEach(collisionUniqueKey => {
