@@ -43,7 +43,7 @@ The `start`, `finish`, and `date` fields are updated by the `control panel` comp
 ### When a new date is selected
 1. `Control panel` updates `date` and sets `loaded` to be false, which makes `control panel` render the loading spinner.
 2. `Map` removes all the markers and the heatmap from the map. Then it fetches collision information from the data source using the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
-3. Using [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), after the fetch finishes, the returned data (an array of collisions) is filtered. Collisions without time and location entries are discarded. `Map` builds a new heatmap based on the filtered data. The filtered data are also reorganized and stored in an object.
+3. Using [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), after the fetch finishes, the returned data (an array of collisions) is filtered. Collisions without time and location entries are discarded. `Map` builds a new heatmap based on the filtered data. The filtered data are also reorganized and stored in an object.
 ```javascript
 this.collisions = {
     /**

@@ -63,7 +63,7 @@ class Map extends React.Component {
   fetchCollisions(date, createHeatmap = false) {
     fetchCollisions(date)
       .then( collisionsData => {
-        this.collisions = {}; // don't use 'let this.collisions = {}'
+        this.collisions = {};
         let validCollisions = collisionsData.filter(collision =>
           collision.latitude && collision.longitude && collision.time);
         validCollisions.forEach(collision => {
