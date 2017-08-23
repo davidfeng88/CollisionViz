@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { updateFilter } from '../actions';
 import { timeStringToInt, timeIntToString } from '../util';
-import { DEFAULT_TIME } from '../reducer';
+import { DEFAULT_TIME, START_TIME, END_TIME } from '../reducer';
 import Toggle from './toggle';
 
 const mapStateToProps = ({start, finish, date, loaded}) => ({
@@ -14,9 +14,6 @@ const mapStateToProps = ({start, finish, date, loaded}) => ({
 const mapDispatchToProps = dispatch => ({
   updateFilter: (filters) => dispatch(updateFilter(filters)),
 });
-
-const START_TIME = 0;
-const END_TIME = 1439;
 
 class ControlPanel extends React.Component {
   constructor(props) {

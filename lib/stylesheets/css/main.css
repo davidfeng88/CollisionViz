@@ -91,6 +91,11 @@ header {
 .map-info {
   margin-right: 10px; }
 
+/* --- CHART --- */
+#chart-div {
+  width: 400px;
+  height: 300px; }
+
 /* --- MODAL TEMPLATE --- */
 .modal-backdrop {
   position: fixed;

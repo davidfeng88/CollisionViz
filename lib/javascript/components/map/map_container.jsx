@@ -8,7 +8,7 @@ import Toggle from '../toggle';
 import MapInfoContainer from './map_info_container';
 // Constants
 import alternativeMapStyle from './styles';
-import { DEFAULT_TIME } from '../../reducer';
+import { DEFAULT_TIME, START_TIME, END_TIME } from '../../reducer';
 // Utilities
 import MarkerManager from './marker_manager';
 import { fetchCollisions, timeStringToInt } from '../../util';
@@ -28,6 +28,7 @@ class Map extends React.Component {
     super(props);
     this.state = {
       showExtra: false,
+      showChart: true,
       alternativeMapStyle: false,
 
       // map layers
@@ -43,6 +44,7 @@ class Map extends React.Component {
     };
 
     this.resetMapBorders = this.resetMapBorders.bind(this);
+    this.drawChart = this.drawChart.bind(this);
   }
 
   componentDidMount() {
@@ -60,7 +62,7 @@ class Map extends React.Component {
     this.fetchCollisions(this.props.date, true);
   }
 
-  fetchCollisions(date, createHeatmap = false) {
+  fetchCollisions(date, firstFetch = false) {
     fetchCollisions(date)
       .then( collisionsData => {
         this.collisions = {};
@@ -76,20 +78,8 @@ class Map extends React.Component {
         });
         this.props.updateFilter({ loaded: true });
         this.updateMarkers(DEFAULT_TIME, DEFAULT_TIME, this.collisions);
-
-        let heatmapData = validCollisions.map(collision =>
-          new google.maps.LatLng(collision.latitude, collision.longitude));
-        if (createHeatmap) {
-          this.heatmap = new google.maps.visualization.HeatmapLayer({
-            data: heatmapData,
-            radius: 10,
-            maxIntensity: 3,
-            map: this.map
-          });
-        } else {
-          this.heatmap.setData(heatmapData);
-          this.heatmap.setMap(this.map);
-        }
+        this.updateHeatmap(validCollisions, firstFetch);
+        this.updateChart(firstFetch);
       }
     );
   }
@@ -123,6 +113,82 @@ class Map extends React.Component {
       this.state.motorcycle,
       this.state.ped
     );
+  }
+
+  updateHeatmap(validCollisions, firstFetch) {
+    let heatmapData = validCollisions.map(collision =>
+      new google.maps.LatLng(collision.latitude, collision.longitude));
+    if (firstFetch) {
+      this.heatmap = new google.maps.visualization.HeatmapLayer({
+        data: heatmapData,
+        radius: 10,
+        maxIntensity: 3,
+        map: this.map
+      });
+    } else {
+      this.heatmap.setData(heatmapData);
+      this.heatmap.setMap(this.map);
+    }
+  }
+
+  updateChart(firstFetch) {
+    google.charts.load('current', {packages: ['corechart']});
+    google.charts.setOnLoadCallback(this.drawChart);
+  }
+
+  drawChart(){
+    let data = new google.visualization.DataTable();
+    debugger
+    data.addColumn({type: 'timeofday', label: 'Time'});
+    data.addColumn({type: 'number', label: 'Number of Collisions'});
+    let count = 0;
+    for (let time = START_TIME; time <= END_TIME; time++) {
+      if (this.collisions[time]) {
+        count += this.collisions[time].length;
+      }
+      if (time % 60 === 59) {
+        let hour = Math.floor(time / 60);
+        data.addRow([
+          {
+            v: [hour, 30, 0],
+            // f: hour.toString() + ':00 - ' + (hour+1).toString()+ ':00'
+          },
+          count
+        ]);
+        count = 0;
+      }
+    }
+
+    let options = {
+      width: 400,
+      height: 300,
+      hAxis: {
+
+        format: 'HH:MM',
+        viewWindow: {
+          min: [0, 0, 0],
+          max: [24, 0, 0],
+        },
+        ticks: [
+          {v:[0,0,0], f:'00:00'},
+          {v:[6,0,0], f:'06:00'},
+          {v:[12,0,0], f:'12:00'},
+          {v:[18,0,0], f:'18:00'},
+          {v:[24,0,0], f:'24:00'},
+        ]
+      },
+      title: 'Time Distribution of Collisions',
+      titleTextStyle: {
+        color: 'black',
+        bold: true,
+      },
+      legend: { position: 'top', maxLines: 3 },
+      bar: { groupWidth: '75%' },
+
+    };
+
+    let chart = new google.visualization.ColumnChart(document.getElementById('chart-div'));
+    chart.draw(data, options);
   }
 
   toggle(field) {
@@ -220,6 +286,23 @@ class Map extends React.Component {
     );
   }
 
+  chart() {
+    let chart = null;
+    if (this.state.showChart) {
+      this.updateChart();
+      chart = <div id='chart-div'>Loading chart...</div>;
+    }
+    return(
+      <ReactCSSTransitionGroup
+        transitionName='extra'
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={200}
+        >
+        {chart}
+      </ReactCSSTransitionGroup>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -228,8 +311,15 @@ class Map extends React.Component {
             label='Map Options'
             checked={this.state.showExtra}
             onChange={this.toggle('showExtra')} />
+          <Toggle
+            label='Chart'
+            checked={this.state.showChart}
+            onChange={this.toggle('showChart')} />
         </div>
         {this.extraPanel()}
+        <div className='flex-row'>
+          {this.chart()}
+        </div>
         <div className='index-map' ref='map'>
           Map
         </div>
