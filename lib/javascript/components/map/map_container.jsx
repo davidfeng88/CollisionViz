@@ -175,10 +175,12 @@ class Map extends React.Component {
           keepInBounds: true,
         },
         hAxis: {
+          baselineColor: 'white',
           gridlines: {
             color: 'white',
           },
         },
+        vAxis: { ticks: [0, 25, 50, 75] },
         fontSize: 14,
         title: title,
 
@@ -301,9 +303,7 @@ class Map extends React.Component {
       chart =
         <div id='chart-div'>
           Loading chart...
-
             <img className='spinner' src='./assets/images/spinner.svg' />
-          
         </div>;
     }
     return(
