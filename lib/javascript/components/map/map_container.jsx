@@ -30,7 +30,6 @@ class Map extends React.Component {
       showExtra: false,
       showChart: true,
       alternativeMapStyle: false,
-
       // map layers
       heatmap: true,
       traffic: false,
@@ -44,9 +43,6 @@ class Map extends React.Component {
     };
 
     this.resetMapBorders = this.resetMapBorders.bind(this);
-    this.drawChart = this.drawChart.bind(this);
-    google.charts.load('current', {packages: ['corechart']});
-    google.charts.setOnLoadCallback(this.drawChart);
   }
 
   componentDidMount() {
@@ -81,9 +77,10 @@ class Map extends React.Component {
         this.props.updateFilter({ loaded: true });
         this.updateMarkers(DEFAULT_TIME, DEFAULT_TIME, this.collisions);
         this.updateHeatmap(validCollisions, firstFetch);
-        this.updateChart();
-      }
-    );
+        if (this.state.showChart) {
+          this.updateChart();
+        }
+      });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -135,14 +132,12 @@ class Map extends React.Component {
 
   updateChart() {
     google.charts.load('current', {packages: ['corechart']});
-    google.charts.setOnLoadCallback(this.drawChart);
-  }
-
-  drawChart() {
+    google.charts.setOnLoadCallback(() => {
       let data = new google.visualization.DataTable();
       data.addColumn({type: 'timeofday', label: 'Time'});
       data.addColumn({type: 'number', label: 'Number of Collisions'});
       let count = 0;
+      let totalCount = 0;
       for (let time = START_TIME; time <= END_TIME; time++) {
         if (this.collisions[time]) {
           count += this.collisions[time].length;
@@ -150,24 +145,20 @@ class Map extends React.Component {
         if (time % 60 === 59) {
           let hour = Math.floor(time / 60);
           let label = hour.toString() + ':00 - ' + (hour).toString()+ ':59';
-          data.addRow([
-            {
-              v: [hour, 30, 0],
-              f: label,
-            },
-            count
-          ]);
+          data.addRow([{v: [hour, 30, 0], f: label}, count]);
+          totalCount += count;
           count = 0;
         }
       }
-      let title = 'Time Distribution of Collisions on ' + this.props.date +
-      '\n (drag on chart to zoom in, right click to reset)';
+      let title = 'Time Distribution of ' + totalCount.toString() +
+        ' Collisions on ' + this.props.date +
+        '\n (drag on chart to zoom in, right click to reset)';
       let options = {
         animation: {
           startup: true,
           duration: 300,
         },
-        // chartArea:{left: '10%', top: '10%', width:'80%',height:'70%'},
+        colors: ['#db4437'],
         width: 500,
         height: 200,
         explorer: {
@@ -176,23 +167,19 @@ class Map extends React.Component {
         },
         hAxis: {
           baselineColor: 'white',
-          gridlines: {
-            color: 'white',
-          },
+          gridlines: { color: 'white',},
         },
-        vAxis: { ticks: [0, 25, 50, 75] },
+        vAxis: { ticks: [0, 20, 40, 60] },
         fontSize: 14,
         title: title,
-
         legend: { position: 'none' },
         bar: { groupWidth: '100%' },
       };
-      this.chart = new google.visualization
+      let chart = new google.visualization
         .ColumnChart(document.getElementById('chart-div'));
-      this.chart.draw(data, options);
-
+      chart.draw(data, options);
+    });
   }
-
 
   toggle(field) {
     return e => {
@@ -236,9 +223,7 @@ class Map extends React.Component {
       extraPanel = (
         <div>
           <div className='flex-row'>
-            <strong>Toggle Custom Markers</strong>
-          </div>
-          <div className='flex-row'>
+            Custom Markers
             <Toggle
               label='Taxi'
               checked={this.state.taxi}
@@ -257,9 +242,7 @@ class Map extends React.Component {
               onChange={this.toggle('ped')} />
           </div>
           <div className='flex-row'>
-            <strong>Toggle Map Layers</strong>
-          </div>
-          <div className='flex-row'>
+            Map Layers
             <Toggle
               label='Heatmap'
               checked={this.state.heatmap}
@@ -277,12 +260,6 @@ class Map extends React.Component {
               checked={this.state.bicycling}
               onChange={this.toggleMapLayer('bicycling')} />
           </div>
-          <div className='flex-row'>
-            <Toggle
-              label='Alternative Map Style'
-              checked={this.state.alternativeMapStyle}
-              onChange={this.toggle('alternativeMapStyle')} />
-          </div>
         </div>
       );
     }
@@ -297,7 +274,7 @@ class Map extends React.Component {
     );
   }
 
-  chartDiv() {
+  chart() {
     let chart = null;
     if (this.state.showChart) {
       chart =
@@ -329,10 +306,14 @@ class Map extends React.Component {
             label='Chart'
             checked={this.state.showChart}
             onChange={this.toggle('showChart')} />
+          <Toggle
+            label='Alternative Map Style'
+            checked={this.state.alternativeMapStyle}
+            onChange={this.toggle('alternativeMapStyle')} />
         </div>
         {this.extraPanel()}
         <div className='flex-row'>
-          {this.chartDiv()}
+          {this.chart()}
         </div>
         <div className='index-map' ref='map'>
           Map

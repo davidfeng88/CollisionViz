@@ -127,7 +127,7 @@ p {
   margin: 5px auto; }
 
 a {
-  color: #3b99fc; }
+  color: #4182ef; }
 
 a:hover {
   text-decoration: underline;
@@ -267,10 +267,10 @@ label.switch {
   transition: .4s; }
 
 input:checked + .slider {
-  background-color: #3b99fc; }
+  background-color: #4182ef; }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #3b99fc; }
+  box-shadow: 0 0 1px #4182ef; }
 
 input:checked + .slider:before {
   -webkit-transform: translateX(28px);
