@@ -44,7 +44,8 @@ class Map extends React.Component {
     };
 
     this.resetMapBorders = this.resetMapBorders.bind(this);
-    this.drawChart = this.drawChart.bind(this);
+    this.updateChart = this.updateChart.bind(this);
+    this.chart = this.chart.bind(this);
   }
 
   componentDidMount() {
@@ -133,63 +134,48 @@ class Map extends React.Component {
 
   updateChart(firstFetch) {
     google.charts.load('current', {packages: ['corechart']});
-    google.charts.setOnLoadCallback(this.drawChart);
-  }
-
-  drawChart(){
-    let data = new google.visualization.DataTable();
-    debugger
-    data.addColumn({type: 'timeofday', label: 'Time'});
-    data.addColumn({type: 'number', label: 'Number of Collisions'});
-    let count = 0;
-    for (let time = START_TIME; time <= END_TIME; time++) {
-      if (this.collisions[time]) {
-        count += this.collisions[time].length;
+    google.charts.setOnLoadCallback(() => {
+      debugger
+      let data = new google.visualization.DataTable();
+      data.addColumn({type: 'timeofday', label: 'Time'});
+      data.addColumn({type: 'number', label: 'Number of Collisions'});
+      let count = 0;
+      for (let time = START_TIME; time <= END_TIME; time++) {
+        if (this.collisions[time]) {
+          count += this.collisions[time].length;
+        }
+        if (time % 60 === 59) {
+          let hour = Math.floor(time / 60);
+          let label = hour.toString() + ':00 - ' + (hour).toString()+ ':59';
+          data.addRow([
+            {
+              v: [hour, 30, 0],
+              f: label,
+            },
+            count
+          ]);
+          count = 0;
+        }
       }
-      if (time % 60 === 59) {
-        let hour = Math.floor(time / 60);
-        data.addRow([
-          {
-            v: [hour, 30, 0],
-            // f: hour.toString() + ':00 - ' + (hour+1).toString()+ ':00'
-          },
-          count
-        ]);
-        count = 0;
-      }
-    }
-
-    let options = {
-      width: 400,
-      height: 300,
-      hAxis: {
-
-        format: 'HH:MM',
-        viewWindow: {
-          min: [0, 0, 0],
-          max: [24, 0, 0],
+      let title = 'Time Distribution of Collisions on ' + this.props.date;
+      let options = {
+        width: 400,
+        height: 300,
+        title: title,
+        titleTextStyle: {
+          color: 'black',
+          bold: true,
         },
-        ticks: [
-          {v:[0,0,0], f:'00:00'},
-          {v:[6,0,0], f:'06:00'},
-          {v:[12,0,0], f:'12:00'},
-          {v:[18,0,0], f:'18:00'},
-          {v:[24,0,0], f:'24:00'},
-        ]
-      },
-      title: 'Time Distribution of Collisions',
-      titleTextStyle: {
-        color: 'black',
-        bold: true,
-      },
-      legend: { position: 'top', maxLines: 3 },
-      bar: { groupWidth: '75%' },
-
-    };
-
-    let chart = new google.visualization.ColumnChart(document.getElementById('chart-div'));
-    chart.draw(data, options);
+        legend: { position: 'none' },
+        bar: { groupWidth: '100%' },
+      };
+      if (firstFetch) {
+        this.chart = new google.visualization.ColumnChart(document.getElementById('chart-div'));
+      }
+      this.chart.draw(data, options);
+    });
   }
+
 
   toggle(field) {
     return e => {
