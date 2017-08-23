@@ -160,23 +160,28 @@ class Map extends React.Component {
           count = 0;
         }
       }
-      let title = 'Time Distribution of Collisions on ' + this.props.date;
+      let title = 'Time Distribution of Collisions on ' + this.props.date +
+      '\n (drag on chart to zoom in, right click to reset)';
       let options = {
         animation: {
           startup: true,
-          duration: 500,
+          duration: 300,
         },
-        chartArea:{left: '10%', top: '10%', width:'80%',height:'70%'},
+        // chartArea:{left: '10%', top: '10%', width:'80%',height:'70%'},
         width: 500,
         height: 200,
+        explorer: {
+          actions: ['dragToZoom', 'rightClickToReset'],
+          keepInBounds: true,
+        },
         hAxis: {
-          title: 'Time',
+          gridlines: {
+            color: 'white',
+          },
         },
+        fontSize: 14,
         title: title,
-        titleTextStyle: {
-          color: 'black',
-          bold: true,
-        },
+
         legend: { position: 'none' },
         bar: { groupWidth: '100%' },
       };
@@ -293,7 +298,13 @@ class Map extends React.Component {
   chartDiv() {
     let chart = null;
     if (this.state.showChart) {
-      chart = <div id='chart-div'>Loading chart...</div>;
+      chart =
+        <div id='chart-div'>
+          Loading chart...
+
+            <img className='spinner' src='./assets/images/spinner.svg' />
+          
+        </div>;
     }
     return(
       <ReactCSSTransitionGroup
