@@ -44,8 +44,9 @@ class Map extends React.Component {
     };
 
     this.resetMapBorders = this.resetMapBorders.bind(this);
-    this.updateChart = this.updateChart.bind(this);
-    this.chart = this.chart.bind(this);
+    this.drawChart = this.drawChart.bind(this);
+    google.charts.load('current', {packages: ['corechart']});
+    google.charts.setOnLoadCallback(this.drawChart);
   }
 
   componentDidMount() {
@@ -80,7 +81,7 @@ class Map extends React.Component {
         this.props.updateFilter({ loaded: true });
         this.updateMarkers(DEFAULT_TIME, DEFAULT_TIME, this.collisions);
         this.updateHeatmap(validCollisions, firstFetch);
-        this.updateChart(firstFetch);
+        this.updateChart();
       }
     );
   }
@@ -132,10 +133,12 @@ class Map extends React.Component {
     }
   }
 
-  updateChart(firstFetch) {
+  updateChart() {
     google.charts.load('current', {packages: ['corechart']});
-    google.charts.setOnLoadCallback(() => {
-      debugger
+    google.charts.setOnLoadCallback(this.drawChart);
+  }
+
+  drawChart() {
       let data = new google.visualization.DataTable();
       data.addColumn({type: 'timeofday', label: 'Time'});
       data.addColumn({type: 'number', label: 'Number of Collisions'});
@@ -159,8 +162,16 @@ class Map extends React.Component {
       }
       let title = 'Time Distribution of Collisions on ' + this.props.date;
       let options = {
-        width: 400,
-        height: 300,
+        animation: {
+          startup: true,
+          duration: 500,
+        },
+        chartArea:{left: '10%', top: '10%', width:'80%',height:'70%'},
+        width: 500,
+        height: 200,
+        hAxis: {
+          title: 'Time',
+        },
         title: title,
         titleTextStyle: {
           color: 'black',
@@ -169,11 +180,10 @@ class Map extends React.Component {
         legend: { position: 'none' },
         bar: { groupWidth: '100%' },
       };
-      if (firstFetch) {
-        this.chart = new google.visualization.ColumnChart(document.getElementById('chart-div'));
-      }
+      this.chart = new google.visualization
+        .ColumnChart(document.getElementById('chart-div'));
       this.chart.draw(data, options);
-    });
+
   }
 
 
@@ -181,9 +191,17 @@ class Map extends React.Component {
     return e => {
       let newValue = !this.state[field];
       this.setState({ [field]: !this.state[field] });
-      if (field === 'alternativeMapStyle') {
-        let newStyle = newValue ? alternativeMapStyle : [];
-        this.map.setOptions({styles: newStyle});
+      switch (field) {
+        case 'alternativeMapStyle':
+          let newStyle = newValue ? alternativeMapStyle : [];
+          this.map.setOptions({styles: newStyle});
+          break;
+        case 'showChart':
+          if (newValue) {
+            this.updateChart();
+          }
+          break;
+        default:
       }
     };
   }
@@ -272,10 +290,9 @@ class Map extends React.Component {
     );
   }
 
-  chart() {
+  chartDiv() {
     let chart = null;
     if (this.state.showChart) {
-      this.updateChart();
       chart = <div id='chart-div'>Loading chart...</div>;
     }
     return(
@@ -304,7 +321,7 @@ class Map extends React.Component {
         </div>
         {this.extraPanel()}
         <div className='flex-row'>
-          {this.chart()}
+          {this.chartDiv()}
         </div>
         <div className='index-map' ref='map'>
           Map
