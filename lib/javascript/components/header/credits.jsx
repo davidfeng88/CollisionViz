@@ -46,13 +46,20 @@ const Credits = props => (
         Socrata Open Data API</a>
     </p>
     <p className='modal-row'>
+      Chart:&nbsp;
+      <a href='https://developers.google.com/chart/'
+        target='_blank'>Google Charts</a> -&nbsp;
+      <a href='https://developers.google.com/chart/interactive/docs/gallery/columnchart'
+        target='_blank'>Column Chart</a>
+    </p>
+    <p className='modal-row'>
       Google Maps JavaScript API<br/>
       <a href='https://developers.google.com/maps/documentation/javascript/custom-markers'
-        target='_blank'>Custom Markers</a><br />
+      target='_blank'>Custom Markers</a><br />
       <a href='https://developers.google.com/maps/documentation/javascript/heatmaplayer'
-        target='_blank'>Heatmap Layer</a><br />
+      target='_blank'>Heatmap Layer</a><br />
       <a href='https://developers.google.com/maps/documentation/javascript/trafficlayer'
-        target='_blank'>Traffic, Transit and Bicycling Layer</a><br />
+      target='_blank'>Traffic, Transit and Bicycling Layer</a><br />
       <a href='https://mapstyle.withgoogle.com/' target='_blank'>
       Google Maps APIs Styling Wizard</a>
     </p>
