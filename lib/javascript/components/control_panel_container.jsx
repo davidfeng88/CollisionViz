@@ -7,8 +7,8 @@ import { timeStringToInt, timeIntToString } from '../util';
 import { DEFAULT_TIME, START_TIME, END_TIME } from '../reducer';
 import Toggle from './toggle';
 
-const mapStateToProps = ({start, finish, date, loaded}) => ({
-    start, finish, date, loaded,
+const mapStateToProps = ({start, finish, initialTime, date, loaded}) => ({
+    start, finish, initialTime, date, loaded,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -30,9 +30,6 @@ class ControlPanel extends React.Component {
       mute: true,
       showExtra: false,
     };
-
-    // changes does not need to re-render
-    this.initialTime = this.props.start;
 
     this.handleStart = this.handleStart.bind(this);
     this.handlePause = this.handlePause.bind(this);
@@ -78,9 +75,9 @@ class ControlPanel extends React.Component {
   setNewTime(time) {
     this.props.updateFilter({
       start: time,
-      finish: time
+      finish: time,
+      initialTime: time,
     });
-    this.initialTime = time;
   }
 
   handleStart() {
@@ -132,7 +129,7 @@ class ControlPanel extends React.Component {
     } else {
       let start = newTime - this.state.collisionMapTime;
       let finish = newTime;
-      start = start > this.initialTime ? start : this.initialTime;
+      start = start > this.props.initialTime ? start : this.props.initialTime;
       start = start > START_TIME ? start : START_TIME;
       this.props.updateFilter({
         start,

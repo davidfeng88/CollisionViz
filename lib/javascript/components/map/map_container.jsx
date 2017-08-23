@@ -30,6 +30,7 @@ class Map extends React.Component {
       showExtra: false,
       showChart: true,
       alternativeMapStyle: false,
+      collisionCount: 0,
       // map layers
       heatmap: true,
       traffic: false,
@@ -104,6 +105,7 @@ class Map extends React.Component {
         collisionsArray = collisionsArray.concat(collisions[time]);
       }
     }
+    this.setState({collisionCount: collisionsArray.length});
     // filter the collisions based on start/finish/this.collisions
     this.MarkerManager.updateMarkers(
       collisionsArray,
@@ -152,7 +154,7 @@ class Map extends React.Component {
       }
       let title = 'Time Distribution of ' + totalCount.toString() +
         ' Collisions on ' + this.props.date +
-        '\n (drag on chart to zoom in, right click to reset)';
+        '\n (click on bar to update time)';
       let options = {
         animation: {
           startup: true,
@@ -161,10 +163,6 @@ class Map extends React.Component {
         colors: ['#db4437'],
         width: 500,
         height: 200,
-        explorer: {
-          actions: ['dragToZoom', 'rightClickToReset'],
-          keepInBounds: true,
-        },
         hAxis: {
           baselineColor: 'white',
           gridlines: { color: 'white',},
@@ -177,6 +175,22 @@ class Map extends React.Component {
       };
       let chart = new google.visualization
         .ColumnChart(document.getElementById('chart-div'));
+
+      function selectHandler() {
+        let selectedItem = chart.getSelection()[0];
+        if (selectedItem) {
+          let newTime = selectedItem.row * 60;
+          this.props.updateFilter({
+            start: newTime,
+            finish: newTime,
+            initialTime: newTime,
+          });
+        }
+      }
+
+      google.visualization.events
+        .addListener(chart, 'select', selectHandler.bind(this));
+
       chart.draw(data, options);
     });
   }
@@ -319,7 +333,7 @@ class Map extends React.Component {
           Map
         </div>
         <div className='map-panel bordered flex-row'>
-          <MapInfoContainer />
+          <MapInfoContainer count={this.state.collisionCount} />
           <div className='clickable-div bordered'
             onClick={this.resetMapBorders}>
             Reset Map Borders
