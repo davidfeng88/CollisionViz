@@ -161,22 +161,15 @@ body {
   margin: 10px auto; }
 
 /* --- INPUT --- */
-input, select {
+input {
   font-size: 16px;
   background-color: #fff;
   border: 1px solid #000;
   padding: 5px;
   border-radius: 5px; }
-
-select {
-  text-align: center;
-  margin: 0 10px; }
-
-input[type='date']:disabled,
-input[type='time']:disabled,
-select:disabled {
-  color: #555;
-  background-color: #bbb; }
+  input:disabled {
+    color: #555;
+    background-color: #bbb; }
 
 label {
   display: block;

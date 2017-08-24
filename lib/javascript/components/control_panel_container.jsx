@@ -43,7 +43,7 @@ class ControlPanel extends React.Component {
       switch (field) {
         case 'collisionMapTime':
         case 'delay':
-          this.setState({ [field]: e.currentTarget.value });
+          this.setState({ [field]: parseInt(e.currentTarget.value) });
           break;
 
         case 'date':

@@ -21,24 +21,17 @@ body {
 
 /* --- INPUT --- */
 
-input, select {
+input {
   font-size: 16px;
   background-color: $white;
   border: 1px solid $black;
   padding: 5px;
   border-radius: 5px;
-}
 
-select {
-  text-align: center;
-  margin: 0 10px;
-}
-
-input[type='date']:disabled,
-input[type='time']:disabled,
-select:disabled {
-  color: $darkest-grey;
-  background-color: $grey;
+  &:disabled {
+    color: $darkest-grey;
+    background-color: $grey;
+  }
 }
 
 label {
