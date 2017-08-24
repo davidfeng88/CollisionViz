@@ -30,7 +30,7 @@ class Map extends React.Component {
       showExtra: false,
       showChart: true,
       alternativeMapStyle: false,
-      collisionCount: 0,
+      markerClusterer: false,
       // map layers
       heatmap: true,
       traffic: false,
@@ -43,6 +43,7 @@ class Map extends React.Component {
       ped: true,
     };
 
+    this.collisionCount = 0;
     this.resetMapBorders = this.resetMapBorders.bind(this);
   }
 
@@ -105,7 +106,7 @@ class Map extends React.Component {
         collisionsArray = collisionsArray.concat(collisions[time]);
       }
     }
-    this.setState({collisionCount: collisionsArray.length});
+    this.collisionCount = collisionsArray.length;
     // filter the collisions based on start/finish/this.collisions
     this.MarkerManager.updateMarkers(
       collisionsArray,
@@ -338,6 +339,10 @@ class Map extends React.Component {
             checked={this.state.showChart}
             onChange={this.toggle('showChart')} />
           <Toggle
+            label='Marker Clusterer'
+            checked={this.state.markerClusterer}
+            onChange={this.toggle('markerClusterer')} />
+          <Toggle
             label='Alternative Map Style'
             checked={this.state.alternativeMapStyle}
             onChange={this.toggle('alternativeMapStyle')} />
@@ -350,7 +355,7 @@ class Map extends React.Component {
           Map
         </div>
         <div className='map-panel bordered flex-row'>
-          <MapInfoContainer count={this.state.collisionCount} />
+          <MapInfoContainer count={this.collisionCount} />
           <div className='clickable-div bordered'
             onClick={this.resetMapBorders}>
             Reset Map Borders
