@@ -44,10 +44,10 @@ select:disabled {
 label {
   display: block;
   margin-bottom: 5px;
-}
 
-label.switch {
-  margin-bottom: 0;
+  &.switch {
+    margin-bottom: 0;
+  }
 }
 
 /* --- CLICKABLE DIV --- */
@@ -57,33 +57,33 @@ label.switch {
   border-radius: 5px;
   padding: 10px;
   vertical-align: middle;
-}
 
-.clickable-div:hover {
-  cursor: pointer;
-  background-color: $light-grey;
-}
+  &:hover {
+    cursor: pointer;
+    background-color: $light-grey;
+  }
 
-.clickable-div:active {
-  background-color: $dark-grey;
+  &:active {
+    background-color: $dark-grey;
+  }
 }
 
 /* --- ANIMATION --- */
 
 .extra-enter {
   opacity: 0.01;
-}
 
-.extra-enter.extra-enter-active {
-  opacity: 1;
-  transition: opacity 300ms linear;
+  &.extra-enter-active {
+    opacity: 1;
+    transition: opacity 300ms linear;
+  }
 }
 
 .extra-leave {
   opacity: 1;
-}
 
-.extra-leave.extra-leave-active {
-  opacity: 0.01;
-  transition: opacity 200ms linear;
+  &.extra-leave-active {
+    opacity: 0.01;
+    transition: opacity 200ms linear;
+  }
 }

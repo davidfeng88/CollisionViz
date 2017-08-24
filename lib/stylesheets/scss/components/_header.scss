@@ -28,9 +28,9 @@ header {
 .modal-buttons {
   text-align: right;
   line-height: 1.5em;
-}
 
-.modal-buttons button:hover {
-  cursor: pointer;
-  text-decoration: underline;
+  button:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }

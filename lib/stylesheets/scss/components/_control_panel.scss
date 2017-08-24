@@ -4,14 +4,14 @@
   width: 80px;
 }
 
-.spinner img {
-  height: 38px;
-}
-
 .spinner {
   width: 100px;
   margin: 5px;
   vertical-align: middle;
+
+  img {
+    height: 38px;
+  }
 }
 
 .start-row {
