@@ -176,7 +176,7 @@ class Map extends React.Component {
       let chart = new google.visualization
         .ColumnChart(document.getElementById('chart-div'));
 
-      function selectHandler() {
+      const selectHandler = () => {
         let selectedItem = chart.getSelection()[0];
         if (selectedItem) {
           let newTime = selectedItem.row * 60;
@@ -186,10 +186,10 @@ class Map extends React.Component {
             initialTime: newTime,
           });
         }
-      }
+      };
 
       google.visualization.events
-        .addListener(chart, 'select', selectHandler.bind(this));
+        .addListener(chart, 'select', selectHandler);
 
       chart.draw(data, options);
     });
