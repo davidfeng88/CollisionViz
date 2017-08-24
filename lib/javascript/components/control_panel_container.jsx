@@ -162,7 +162,8 @@ class ControlPanel extends React.Component {
         <div className='flex-row'>
           <div>
             <label htmlFor='collision-map-time'>
-              Collisions Map Time (in minutes)
+              Collisions Map Time<br/>
+              1 ~ 60 minute(s)
             </label>
             <input
               id='collision-map-time'
@@ -174,7 +175,8 @@ class ControlPanel extends React.Component {
           </div>
           <div>
             <label htmlFor='delay'>
-              Animation Delay Time (in milliseconds)
+              Animation Delay Time<br/>
+              50 ~ 1000 milliseconds
             </label>
             <input
               id='delay'
@@ -204,16 +206,20 @@ class ControlPanel extends React.Component {
   }
 
   render() {
+    let oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    let oneWeekAgoString = oneWeekAgo.toJSON().slice(0,10);
     return(
       <div>
         <div className='flex-row'>
           <div>
             <label htmlFor='date'>
-              Select Date (2012-07-01 ~ 2017-08-01)
+              Select Date<br/>
+              2012-07-01 ~ {oneWeekAgoString}
             </label>
             <input
               value={this.props.date} id='date'
-              type='date' min='2012-07-01' max='2017-08-01'
+              type='date' min='2012-07-01' max={oneWeekAgoString}
               onChange={this.updateField('date')}
               disabled={this.state.intervalId ? 'disabled' : ''}
             />
