@@ -137,19 +137,34 @@ class Map extends React.Component {
     google.charts.setOnLoadCallback(() => {
       let data = new google.visualization.DataTable();
       data.addColumn({type: 'timeofday', label: 'Time'});
-      data.addColumn({type: 'number', label: 'Number of Collisions'});
-      let count = 0;
+      data.addColumn({type: 'number', label: 'Without Injuries/Deaths'});
+      data.addColumn({type: 'number', label: 'With Injuries'});
+      data.addColumn({type: 'number', label: 'With Deaths'});
+      let noInjuries = 0;
+      let injuries = 0;
+      let deaths = 0;
       let totalCount = 0;
       for (let time = START_TIME; time <= END_TIME; time++) {
         if (this.collisions[time]) {
-          count += this.collisions[time].length;
+          this.collisions[time].forEach ( collision => {
+            if (collision.number_of_persons_killed > 0) {
+              deaths += 1;
+            } else if (collision.number_of_persons_injured >0) {
+              injuries += 1;
+            } else {
+              noInjuries += 1;
+            }
+          });
         }
         if (time % 60 === 59) {
           let hour = Math.floor(time / 60);
           let label = hour.toString() + ':00 - ' + (hour).toString()+ ':59';
-          data.addRow([{v: [hour, 30, 0], f: label}, count]);
-          totalCount += count;
-          count = 0;
+          data.addRow([{v:[hour, 30, 0], f:label},
+            noInjuries, injuries, deaths]);
+          totalCount += noInjuries + injuries + deaths;
+          noInjuries = 0;
+          injuries = 0;
+          deaths = 0;
         }
       }
       let title = 'Time Distribution of ' + totalCount.toString() +
@@ -160,17 +175,19 @@ class Map extends React.Component {
           startup: true,
           duration: 300,
         },
-        colors: ['#db4437'],
+        chartArea: {width: '90%'},
+        colors: ['#4285f4', '#f4b400', '#db4437'],
         width: 500,
-        height: 200,
+        height: 300,
         hAxis: {
           baselineColor: 'white',
-          gridlines: { color: 'white',},
+          gridlines: { color: 'white'},
         },
         vAxis: { ticks: [0, 20, 40, 60] },
         fontSize: 14,
         title: title,
-        legend: { position: 'none' },
+        legend: { position: 'top', maxLines: 5 },
+        isStacked: true,
         bar: { groupWidth: '100%' },
       };
       let chart = new google.visualization
