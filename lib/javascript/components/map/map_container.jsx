@@ -30,7 +30,8 @@ class Map extends React.Component {
       showExtra: false,
       showChart: true,
       alternativeMapStyle: false,
-      markerClusterer: false,
+      useMC: false,
+      collisionCount: 0, // for map info panel refresh
       // map layers
       heatmap: true,
       traffic: false,
@@ -43,7 +44,6 @@ class Map extends React.Component {
       ped: true,
     };
 
-    this.collisionCount = 0;
     this.resetMapBorders = this.resetMapBorders.bind(this);
   }
 
@@ -89,7 +89,7 @@ class Map extends React.Component {
     if (nextProps.date !== this.props.date) {
       // if the date is changed, clear all markers, draw a new heatmap
       this.heatmap.setMap(null);
-      this.MarkerManager.removeAllMarkers();
+      this.MarkerManager.removeAllMarkers(this.state.useMC);
       if (nextProps.date !== '') {
         this.fetchCollisions(nextProps.date);
       }
@@ -106,14 +106,15 @@ class Map extends React.Component {
         collisionsArray = collisionsArray.concat(collisions[time]);
       }
     }
-    this.collisionCount = collisionsArray.length;
+    this.setState({collisionCount: collisionsArray.length});
     // filter the collisions based on start/finish/this.collisions
     this.MarkerManager.updateMarkers(
       collisionsArray,
       this.state.taxi,
       this.state.bike,
       this.state.motorcycle,
-      this.state.ped
+      this.state.ped,
+      this.state.useMC
     );
   }
 
@@ -226,6 +227,9 @@ class Map extends React.Component {
           if (newValue) {
             this.updateChart();
           }
+          break;
+        case 'useMC':
+          this.MarkerManager.updateMC(newValue);
           break;
         default:
       }
@@ -340,8 +344,8 @@ class Map extends React.Component {
             onChange={this.toggle('showChart')} />
           <Toggle
             label='Marker Clusterer'
-            checked={this.state.markerClusterer}
-            onChange={this.toggle('markerClusterer')} />
+            checked={this.state.useMC}
+            onChange={this.toggle('useMC')} />
           <Toggle
             label='Alternative Map Style'
             checked={this.state.alternativeMapStyle}
@@ -355,7 +359,7 @@ class Map extends React.Component {
           Map
         </div>
         <div className='map-panel bordered flex-row'>
-          <MapInfoContainer count={this.collisionCount} />
+          <MapInfoContainer count={this.state.collisionCount} />
           <div className='clickable-div bordered'
             onClick={this.resetMapBorders}>
             Reset Map Borders
