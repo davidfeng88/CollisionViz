@@ -24,7 +24,7 @@ class ControlPanel extends React.Component {
       // grey out the inputs
       intervalId: null,
       // change of select
-      collisionMapTime: 29,
+      collisionMapTime: 15,
       delay: 200,
       //toggle
       mute: true,
@@ -43,7 +43,7 @@ class ControlPanel extends React.Component {
       switch (field) {
         case 'collisionMapTime':
         case 'delay':
-          this.setState({ [field]: parseInt(e.currentTarget.value) });
+          this.setState({ [field]: e.currentTarget.value });
           break;
 
         case 'date':
@@ -127,7 +127,7 @@ class ControlPanel extends React.Component {
     if (newTime > END_TIME) {
       this.handlePause();
     } else {
-      let start = newTime - this.state.collisionMapTime;
+      let start = newTime - this.state.collisionMapTime + 1;
       let finish = newTime;
       start = start > this.props.initialTime ? start : this.props.initialTime;
       start = start > START_TIME ? start : START_TIME;
@@ -162,34 +162,27 @@ class ControlPanel extends React.Component {
         <div className='flex-row'>
           <div>
             <label htmlFor='collision-map-time'>
-              Collisions Map Time
+              Collisions Map Time (in minutes)
             </label>
-            <select
+            <input
               id='collision-map-time'
               value={this.state.collisionMapTime}
+              type='number' min='1' max='60'
               onChange={this.updateField('collisionMapTime')}
               disabled={this.state.intervalId ? 'disabled' : ''}
-            >
-              <option value='4' >5 minutes</option>
-              <option value='9' >10 minutes</option>
-              <option value='29' >30 minutes</option>
-              <option value='59' >60 minutes</option>
-            </select>
+            />
           </div>
           <div>
             <label htmlFor='delay'>
-              Time Lapse Rate
+              Animation Delay Time (in milliseconds)
             </label>
-            <select
+            <input
               id='delay'
               value={this.state.delay}
+              type='number' min='50' max='1000'
               onChange={this.updateField('delay')}
               disabled={this.state.intervalId ? 'disabled' : ''}
-            >
-              <option value='100' >Fast</option>
-              <option value='200' >Default</option>
-              <option value='400' >Slow</option>
-            </select>
+            />
           </div>
           <Toggle
             label='Sound'
