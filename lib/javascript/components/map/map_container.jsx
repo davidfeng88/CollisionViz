@@ -30,7 +30,7 @@ class Map extends React.Component {
       showExtra: false,
       showChart: true,
       alternativeMapStyle: false,
-      useMC: false,
+      useMC: true,
       collisionCount: 0, // for map info panel refresh
       // map layers
       heatmap: true,

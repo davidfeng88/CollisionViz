@@ -56,6 +56,8 @@ const Credits = props => (
       Google Maps JavaScript API<br/>
       <a href='https://developers.google.com/maps/documentation/javascript/custom-markers'
       target='_blank'>Custom Markers</a><br />
+      <a href='https://developers.google.com/maps/documentation/javascript/marker-clustering' target='_blank'>
+      Marker Clusterer</a><br />
       <a href='https://developers.google.com/maps/documentation/javascript/heatmaplayer'
       target='_blank'>Heatmap Layer</a><br />
       <a href='https://developers.google.com/maps/documentation/javascript/trafficlayer'
