@@ -162,26 +162,26 @@ class ControlPanel extends React.Component {
         <div className='flex-row'>
           <div>
             <label htmlFor='collision-map-time'>
-              Collisions Map Time<br/>
-              1 ~ 60 minute(s)
+              Collisions Stay on Map for<br/>
+              {this.state.collisionMapTime} Minute(s)
             </label>
             <input
               id='collision-map-time'
               value={this.state.collisionMapTime}
-              type='number' min='1' max='60'
+              type='range' min='1' max='60'
               onChange={this.updateField('collisionMapTime')}
               disabled={this.state.intervalId ? 'disabled' : ''}
             />
           </div>
           <div>
             <label htmlFor='delay'>
-              Animation Delay Time<br/>
-              50 ~ 1000 milliseconds
+              1 Minute Map Time = <br/>
+              {this.state.delay} Milliseconds Wall Time
             </label>
             <input
               id='delay'
               value={this.state.delay}
-              type='number' min='50' max='1000'
+              type='range' min='50' max='1000'
               onChange={this.updateField('delay')}
               disabled={this.state.intervalId ? 'disabled' : ''}
             />

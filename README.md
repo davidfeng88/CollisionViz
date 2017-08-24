@@ -149,4 +149,3 @@ updateMarkers(collisionsArray, taxi, bike, motorcycle, ped) {
 
 ## Future Directions
 * Incorporate [MarkerClusterers](https://developers.google.com/maps/documentation/javascript/marker-clustering)
-* Incorporate [Google Charts](https://developers.google.com/chart/) ([w3school tutorial](https://www.w3schools.com/howto/howto_google_charts.asp)) for data analysis. For example, compare time/location distributions of collisions between weekday vs. weekend, winter vs. summer, rainy vs. sunny, etc.
