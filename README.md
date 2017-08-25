@@ -50,8 +50,8 @@ CollisionViz is a data visualization web app for motor vehicle collisions in New
 // In the map component, fetchCollisions method.
 this.collisions = {
     /**
-     * Key: collision's time, in the form of number of minutes from the midnight.
-     * Value: array of collisions.
+     * Key: collision's time, in the form of the number of minutes from the midnight.
+     * Value: an array of collisions.
      */
     0: [
       {
@@ -114,8 +114,8 @@ let collisionsArray = [];
 for (let time = start; time <= finish; time++) {
   /**
    * Collisions:
-   * Key: collision's time, in the form of number of minutes from the midnight.
-   * Value: array of collisions.
+   *   Key: collision's time, in the form of the number of minutes from the midnight.
+   *   Value: an array of collisions.
    * If collisions[time] is undefined, then no collisions happened on that time.
    */
   if (collisions[time]) {
