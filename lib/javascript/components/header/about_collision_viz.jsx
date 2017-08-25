@@ -10,10 +10,13 @@ const AboutCollisionViz = props => (
       for motor vehicle collisions in New York City.
     </p>
     <p className='modal-row'>
-      1. Select the date and the start time of the visualization.
+      1. Select the date.
     </p>
     <p className='modal-row'>
-      2. Start/pause the visualization. Click on markers for collision details.
+      2. Select the start time by using the input box or clicking on the chart bars.
+    </p>
+    <p className='modal-row'>
+      3. Start/pause the visualization. Click on markers for collision details.
     </p>
     <div className='flex-row'>
       <a href='https://github.com/davidfeng88/CollisionViz' target='_blank'>
