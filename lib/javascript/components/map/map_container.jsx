@@ -70,7 +70,8 @@ class Map extends React.Component {
           collision.latitude && collision.longitude && collision.time);
         validCollisions.forEach(collision => {
           let index = timeStringToInt(collision.time);
-          if (this.collisions[index]) {
+          // if (this.collisions[index]) {
+          if (index in this.collisions) {
             this.collisions[index].push(collision);
           } else {
             this.collisions[index] = [collision];
@@ -102,7 +103,9 @@ class Map extends React.Component {
   updateMarkers(start, finish, collisions) {
     let collisionsArray = [];
     for (let time = start; time <= finish; time++) {
-      if (collisions[time]) {
+      if (time in collisions) {
+      // if (collisions[time]) will treat undefined the same as other
+      // falsey values: false, 0, -0, "", '', null, NaN
         collisionsArray = collisionsArray.concat(collisions[time]);
       }
     }
@@ -147,11 +150,13 @@ class Map extends React.Component {
       let deaths = 0;
       let totalCount = 0;
       for (let time = START_TIME; time <= END_TIME; time++) {
-        if (this.collisions[time]) {
+        if (time in this.collisions) {
+        // if (this.collisions[time]) will treat undefined the same as other
+        // falsey values: false, 0, -0, "", '', null, NaN
           this.collisions[time].forEach ( collision => {
             if (collision.number_of_persons_killed > 0) {
               deaths += 1;
-            } else if (collision.number_of_persons_injured >0) {
+            } else if (collision.number_of_persons_injured > 0) {
               injuries += 1;
             } else {
               noInjuries += 1;
