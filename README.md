@@ -118,8 +118,8 @@ for (let time = start; time <= finish; time++) {
    *   Value: an array of collisions.
    * If collisions[time] is undefined, then no collisions happened on that time.
    */
-  if (collisions[time]) {
-    collisionsArray = collisionsArray.concat(collisions[time]);
+  if (time in this.collisions) {
+    collisionsArray = collisionsArray.concat(this.collisions[time]);
   }
 }
 ```
