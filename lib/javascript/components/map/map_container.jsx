@@ -69,12 +69,12 @@ class Map extends React.Component {
         let validCollisions = collisionsData.filter(collision =>
           collision.latitude && collision.longitude && collision.time);
         validCollisions.forEach(collision => {
-          let index = timeStringToInt(collision.time);
-          // if (this.collisions[index]) {
-          if (index in this.collisions) {
-            this.collisions[index].push(collision);
+          let time = timeStringToInt(collision.time);
+          // if (this.collisions[time]) {
+          if (time in this.collisions) {
+            this.collisions[time].push(collision);
           } else {
-            this.collisions[index] = [collision];
+            this.collisions[time] = [collision];
           }
         });
         this.props.updateFilter({ loaded: true });

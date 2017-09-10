@@ -123,7 +123,7 @@ for (let time = start; time <= finish; time++) {
   }
 }
 ```
-4. The `collisionsArray` is sent to the `MarkerManager`, which updates the markers on the map. To facilitate this process, objects are created, and array's `filter` and `forEach` functions are used.
+4. The `collisionsArray` is sent to the `MarkerManager`, which updates the markers on the map. To facilitate this process, objects are created, which enables O(1) lookup time, and array's `filter` and `forEach` functions are used.
 ```javascript
 // In marker_manager.js
 updateMarkers(collisionsArray, taxi, bike, motorcycle, ped, useMC) {
@@ -137,28 +137,28 @@ updateMarkers(collisionsArray, taxi, bike, motorcycle, ped, useMC) {
     collision => {collisionsObj[collision.unique_key] = collision;});
   /**
    * Pattern:
-   * array.filter(element => !object[key])
-   *  .forEach(collision => create/remove marker);
+   * array.filter(element => !(key in object))
+   *  .forEach(element => create/remove marker);
    *
    * 1. New markers are created for new collisions.
    * this.markersObj is an object with
    *   Key: collision.unique_key
    *   Value: the marker of the collision
-   * Thus if this.markersObj[collision.unique_key] is undefined,
-   * then this collision does not have a marker, so we need to create one.
+   * Thus if collision.unique_key is not a key in this.markersObj,
+   * then this collision does not have a marker, and we need to create one.
    */
   collisionsArray
-    .filter(collision => !this.markersObj[collision.unique_key])
+    .filter(collision => !(collision.unique_key in this.markersObj))
     .forEach(newCollision => {
       this.createMarker(newCollision, taxi, bike, motorcycle, ped, useMC);
     });
   /**
    * 2. Old markers for collisions that are not in the `collisionsArray` are removed.
-   * If collisionsObj[collisionUniqueKey] is undefined,
-   * then this collision has a marker, but it needs to be removed.
+   * If collisionUniqueKey is not a key in collisionsObj,
+   * then this collision has a marker, and it needs to be removed.
    */
   Object.keys(this.markersObj)
-    .filter(collisionUniqueKey => !collisionsObj[collisionUniqueKey])
+    .filter(collisionUniqueKey => !(collisionUniqueKey in collisionsObj))
     .forEach(collisionUniqueKey => {
       this.removeMarker(this.markersObj[collisionUniqueKey], useMC);
     });
