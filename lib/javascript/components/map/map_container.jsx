@@ -78,7 +78,7 @@ class Map extends React.Component {
           }
         });
         this.props.updateFilter({ loaded: true });
-        this.updateMarkers(DEFAULT_TIME, DEFAULT_TIME, this.collisions);
+        this.updateMarkers(DEFAULT_TIME, DEFAULT_TIME);
         this.updateHeatmap(validCollisions, firstFetch);
         if (this.state.showChart) {
           this.updateChart();
@@ -96,17 +96,17 @@ class Map extends React.Component {
       }
     } else {
       // only the time is updated, add & remove markers
-      this.updateMarkers(nextProps.start, nextProps.finish, this.collisions);
+      this.updateMarkers(nextProps.start, nextProps.finish);
     }
   }
 
-  updateMarkers(start, finish, collisions) {
+  updateMarkers(start, finish) {
     let collisionsArray = [];
     for (let time = start; time <= finish; time++) {
-      if (time in collisions) {
+      if (time in this.collisions) {
       // if (collisions[time]) will treat undefined the same as other
       // falsey values: false, 0, -0, "", '', null, NaN
-        collisionsArray = collisionsArray.concat(collisions[time]);
+        collisionsArray = collisionsArray.concat(this.collisions[time]);
       }
     }
     this.setState({collisionCount: collisionsArray.length});
