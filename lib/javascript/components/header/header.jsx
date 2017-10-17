@@ -4,18 +4,22 @@ import ModalTemplate from './modal_template';
 import ModalSwitcher from './modal_switcher';
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor( props ) {
+    super( props );
 
-    this.state = { currentModal: '' };
-    this.switchModal = this.switchModal.bind(this);
+    this.state = {
+      currentModal: ''
+    };
+    this.switchModal = this.switchModal.bind( this );
   }
 
-  switchModal(modalName) {
+  switchModal( modalName ) {
     return ( e => {
       e.preventDefault();
-      this.setState({currentModal: modalName});
-    });
+      this.setState( {
+        currentModal: modalName
+      } );
+    } );
   }
 
   render() {

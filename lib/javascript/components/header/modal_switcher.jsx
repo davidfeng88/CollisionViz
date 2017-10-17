@@ -5,7 +5,7 @@ import AboutMe from './about_me';
 import Credits from './credits';
 
 const ModalSwitcher = props => {
-  switch (props.currentModal) {
+  switch ( props.currentModal ) {
     case 'AboutCollisionViz':
       return <AboutCollisionViz {...props}/>;
     case 'AboutMe':
