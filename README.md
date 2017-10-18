@@ -192,22 +192,22 @@ Also, `createMarker` and `removeMarker` have some extra work if `usingMarkerClus
 ```javascript
 // In marker_manager.js
 createMarker(collision, taxi, bike, motorcycle, ped, usingMarkerClusterer) {
-  ...
   /**
    * Create a new marker for the collision.
    * Add a `click` listener to the marker.
    * Add the marker to this.markersObj.
    */
+  ...
   if (usingMarkerClusterer) {
     this.MarkerClusterer.addMarker(marker);
   }
 }
 
 removeMarker(marker, usingMarkerClusterer) {
-  ...
   /**
    * Delete the marker from the map and this.markersObj.
    */
+  ...
   if (usingMarkerClusterer) {
     this.MarkerClusterer.removeMarker(marker);
   }
