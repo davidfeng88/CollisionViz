@@ -39,11 +39,11 @@ CollisionViz is a data visualization web app for motor vehicle collisions in New
   finish: 490,        // 08:10
   initialTime: 480,   // 08:00
   date: '2017-03-13',
-  loaded: false,
+  loading: false,
 }
 ```
 ### When a new date is selected
-1. `Control panel` updates `date` and sets `loaded` to be false, which makes `control panel` render the loading spinner.
+1. `Control panel` updates `date` and sets `loading` to be true, which makes `control panel` render the loading spinner.
 2. `Map` removes all the markers and the heatmap from the map. Then it fetches collision information from the data source using the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
 3. Using [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), after the fetch finishes, the returned data (an array of collisions) is filtered. Collisions without time and location entries are discarded. `Map` builds a new heatmap and a new chart based on the filtered data. The filtered data are also reorganized and stored in an object.
 ```javascript
@@ -75,7 +75,7 @@ this.collisions = {
   }
 }
 ```
-4. `Map` sets `loaded` to be true, then `control panel` replaces the loading spinner with the start button.
+4. `Map` sets `loading` to be false, then `control panel` replaces the loading spinner with the start button.
 
 ### When a new time is selected
 `Control panel` (the input box) or `map` (clicking on chart bars) updates `start`, `finish`, `initialTime` in the Redux state. `Map Info` and markers are updated.
@@ -126,7 +126,7 @@ for (let time = start; time <= finish; time++) {
 4. The `collisionsArray` is sent to the `MarkerManager`, which updates the markers on the map. To facilitate this process, objects are created, which enables O(1) lookup time, and array's `filter` and `forEach` functions are used.
 ```javascript
 // In marker_manager.js
-updateMarkers(collisionsArray, taxi, bike, motorcycle, ped, useMC) {
+updateMarkers(collisionsArray, taxi, bike, motorcycle, ped, usingMarkerClusterer) {
  /**
   * Create an object for current collisions.
   *   Key: collision.unique_key
@@ -150,7 +150,7 @@ updateMarkers(collisionsArray, taxi, bike, motorcycle, ped, useMC) {
   collisionsArray
     .filter(collision => !(collision.unique_key in this.markersObj))
     .forEach(newCollision => {
-      this.createMarker(newCollision, taxi, bike, motorcycle, ped, useMC);
+      this.createMarker(newCollision, taxi, bike, motorcycle, ped, usingMarkerClusterer);
     });
   /**
    * 2. Old markers for collisions that are not in the `collisionsArray` are removed.
@@ -160,15 +160,15 @@ updateMarkers(collisionsArray, taxi, bike, motorcycle, ped, useMC) {
   Object.keys(this.markersObj)
     .filter(collisionUniqueKey => !(collisionUniqueKey in collisionsObj))
     .forEach(collisionUniqueKey => {
-      this.removeMarker(this.markersObj[collisionUniqueKey], useMC);
+      this.removeMarker(this.markersObj[collisionUniqueKey], usingMarkerClusterer);
     });
 }
 ```
-5. About marker clusterer: A `MarkerClusterer` instance is created in the `MarkerManager` constructor, which takes an empty array of markers as an argument. `MarkerManager` has a `updateMC` method, which is called when user toggle the "Marker Clusterer" switch.
+5. About marker clusterer: A `MarkerClusterer` instance is created in the `MarkerManager` constructor, which takes an empty array of markers as an argument. `MarkerManager` has a `toggleMarkerClusterer` method, which is called when user toggle the "Marker Clusterer" switch.
 ```javascript
 // In marker_manager.js
-updateMC(useMC) {
-  if (useMC) {
+toggleMarkerClusterer(usingMarkerClusterer) {
+  if (usingMarkerClusterer) {
     /**
      * Convert current markers to marker clusterers:
      *   Put all the current markers into an array and add the array to
@@ -188,27 +188,27 @@ updateMC(useMC) {
   }
 }
 ```
-Also, `createMarker` and `removeMarker` have some extra work if `useMC` is true.
+Also, `createMarker` and `removeMarker` have some extra work if `usingMarkerClusterer` is true.
 ```javascript
 // In marker_manager.js
-createMarker(collision, taxi, bike, motorcycle, ped, useMC) {
+createMarker(collision, taxi, bike, motorcycle, ped, usingMarkerClusterer) {
   ...
   /**
    * Create a new marker for the collision.
    * Add a `click` listener to the marker.
    * Add the marker to this.markersObj.
    */
-  if (useMC) {
+  if (usingMarkerClusterer) {
     this.MarkerClusterer.addMarker(marker);
   }
 }
 
-removeMarker(marker, useMC) {
+removeMarker(marker, usingMarkerClusterer) {
   ...
   /**
    * Delete the marker from the map and this.markersObj.
    */
-  if (useMC) {
+  if (usingMarkerClusterer) {
     this.MarkerClusterer.removeMarker(marker);
   }
 }

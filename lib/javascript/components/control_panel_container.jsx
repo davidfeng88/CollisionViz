@@ -1,23 +1,44 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { connect } from 'react-redux';
+import {
+  connect
+} from 'react-redux';
 
-import { updateFilter } from '../actions';
-import { timeStringToInt, timeIntToString } from '../util';
-import { DEFAULT_TIME, START_TIME, END_TIME } from '../reducer';
+import {
+  updateFilter
+} from '../actions';
+import {
+  timeStringToInt,
+  timeIntToString
+} from '../util';
+import {
+  DEFAULT_TIME,
+  START_TIME,
+  END_TIME
+} from '../reducer';
 import Toggle from './toggle';
 
-const mapStateToProps = ({start, finish, initialTime, date, loaded}) => ({
-    start, finish, initialTime, date, loaded,
-});
+const mapStateToProps = ( {
+  start,
+  finish,
+  initialTime,
+  date,
+  loading
+} ) => ( {
+  start,
+  finish,
+  initialTime,
+  date,
+  loading,
+} );
 
-const mapDispatchToProps = dispatch => ({
-  updateFilter: (filters) => dispatch(updateFilter(filters)),
-});
+const mapDispatchToProps = dispatch => ( {
+  updateFilter: ( filters ) => dispatch( updateFilter( filters ) ),
+} );
 
 class ControlPanel extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor( props ) {
+    super( props );
 
     this.state = {
       // changes need to trigger re-render
@@ -31,62 +52,66 @@ class ControlPanel extends React.Component {
       showExtra: false,
     };
 
-    this.handleStart = this.handleStart.bind(this);
-    this.handlePause = this.handlePause.bind(this);
-    this.handleReset = this.handleReset.bind(this);
-    this.step = this.step.bind(this);
+    this.handleStart = this.handleStart.bind( this );
+    this.handlePause = this.handlePause.bind( this );
+    this.handleReset = this.handleReset.bind( this );
+    this.step = this.step.bind( this );
   }
 
-  updateField(field) {
-    return( e => {
+  updateField( field ) {
+    return ( e => {
       e.preventDefault();
-      switch (field) {
+      switch ( field ) {
         case 'collisionMapTime':
         case 'delay':
-          this.setState({ [field]: parseInt(e.currentTarget.value) });
+          this.setState( {
+            [ field ]: parseInt( e.currentTarget.value )
+          } );
           break;
 
         case 'date':
           this.handleReset();
-          this.props.updateFilter({
+          this.props.updateFilter( {
             date: e.currentTarget.value,
-            loaded: false
-          });
+            loading: true
+          } );
           break;
 
         case 'time':
-          if (e.currentTarget.value !== '') {
-            let newTime = timeStringToInt(e.currentTarget.value);
-            this.setNewTime(newTime);
+          if ( e.currentTarget.value !== '' ) {
+            let newTime = timeStringToInt( e.currentTarget.value );
+            this.setNewTime( newTime );
           }
           break;
 
         default:
 
       }
-    });
+    } );
   }
 
   handleReset() {
     this.handlePause();
-    this.setNewTime(DEFAULT_TIME);
+    this.setNewTime( DEFAULT_TIME );
   }
 
-  setNewTime(time) {
-    this.props.updateFilter({
+  setNewTime( time ) {
+    this.props.updateFilter( {
       start: time,
       finish: time,
       initialTime: time,
-    });
+    } );
   }
 
   handleStart() {
-    if (!this.state.intervalId) {
-      let intervalId = setInterval(this.step, this.state.delay);
-      this.setState({ intervalId });
+    if ( !this.state.intervalId ) {
+      let intervalId = setInterval( this.step, this.state.delay );
+      this.setState( {
+        intervalId
+      } );
     }
-    if (!this.state.mute) {
-      let traffic = document.getElementById('traffic');
+    if ( !this.state.mute ) {
+      let traffic = document.getElementById( 'traffic' );
       traffic.play();
       traffic.loop = true;
       traffic.volume = 0.2;
@@ -94,16 +119,24 @@ class ControlPanel extends React.Component {
   }
 
   handlePause() {
-    if (this.state.intervalId) {
-      let traffic = document.getElementById('traffic');
+    if ( this.state.intervalId ) {
+      let traffic = document.getElementById( 'traffic' );
       traffic.pause();
-      clearInterval(this.state.intervalId);
-      this.setState({ intervalId:null });
+      clearInterval( this.state.intervalId );
+      this.setState( {
+        intervalId: null
+      } );
     }
   }
 
   startPauseButton() {
-    if (this.props.loaded) {
+    if ( this.props.loading ) {
+      return (
+        <div className='spinner bordered'>
+          <img src='./assets/images/spinner.svg' />
+        </div>
+      );
+    } else {
       let startPauseButtonText = this.state.intervalId ? 'Pause' : 'Start';
       let handleClick =
         this.state.intervalId ? this.handlePause : this.handleStart;
@@ -113,38 +146,34 @@ class ControlPanel extends React.Component {
           {startPauseButtonText}
         </div>
       );
-    } else {
-      return(
-        <div className='spinner bordered'>
-          <img src='./assets/images/spinner.svg' />
-        </div>
-      );
     }
   }
 
   step() {
     let newTime = this.props.finish + 1;
-    if (newTime > END_TIME) {
+    if ( newTime > END_TIME ) {
       this.handlePause();
     } else {
       let start = newTime - this.state.collisionMapTime + 1;
       let finish = newTime;
       start = start > this.props.initialTime ? start : this.props.initialTime;
       start = start > START_TIME ? start : START_TIME;
-      this.props.updateFilter({
+      this.props.updateFilter( {
         start,
         finish,
-      });
+      } );
     }
   }
 
-  toggle(field) {
-    return (e => {
-      let newValue = !this.state[field];
-      this.setState({[field]: newValue});
-      if (field === 'mute') {
-        let traffic = document.getElementById('traffic');
-        if (this.state.intervalId && !newValue) {
+  toggle( field ) {
+    return ( e => {
+      let newValue = !this.state[ field ];
+      this.setState( {
+        [ field ]: newValue
+      } );
+      if ( field === 'mute' ) {
+        let traffic = document.getElementById( 'traffic' );
+        if ( this.state.intervalId && !newValue ) {
           traffic.play();
           traffic.loop = true;
           traffic.volume = 0.2;
@@ -152,12 +181,12 @@ class ControlPanel extends React.Component {
           traffic.pause();
         }
       }
-    });
+    } );
   }
 
   extraPanel() {
     let extraPanel = null;
-    if (this.state.showExtra) {
+    if ( this.state.showExtra ) {
       extraPanel = (
         <div className='flex-row'>
           <div>
@@ -194,7 +223,7 @@ class ControlPanel extends React.Component {
         </div>
       );
     }
-    return(
+    return (
       <ReactCSSTransitionGroup
         transitionName='extra'
         transitionEnterTimeout={300}
@@ -207,9 +236,10 @@ class ControlPanel extends React.Component {
 
   render() {
     let oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-    let oneWeekAgoString = oneWeekAgo.toJSON().slice(0,10);
-    return(
+    oneWeekAgo.setDate( oneWeekAgo.getDate() - 7 );
+    let oneWeekAgoString = oneWeekAgo.toJSON()
+      .slice( 0, 10 );
+    return (
       <div>
         <div className='flex-row'>
           <div>
@@ -258,4 +288,4 @@ class ControlPanel extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ControlPanel);
+)( ControlPanel );
