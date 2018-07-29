@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { RepoLink } from './HeaderLinks';
 import ModalSwitcher from './modal_switcher';
 
 class Header extends React.Component {
@@ -24,7 +24,7 @@ class Header extends React.Component {
   render() {
     return (
       <header>
-        <audio id="traffic" src="./assets/sounds/traffic.mp3" track="background">
+        <audio id="traffic" src="./assets/sounds/traffic.mp3">
           Your browser does not support the
           {' '}
           <code>
@@ -40,13 +40,7 @@ CollisionViz
           </h1>
         </div>
         <div className="modal-buttons">
-          <button onClick={this.switchModal('AboutCollisionViz')}>
-            About CollisionViz
-          </button>
-          <br />
-          <button onClick={this.switchModal('AboutMe')}>
-            About Me
-          </button>
+          <RepoLink />
           <br />
           <button onClick={this.switchModal('Credits')}>
             Credits

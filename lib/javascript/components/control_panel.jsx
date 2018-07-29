@@ -276,7 +276,9 @@ Milliseconds Wall Time
           </div>
         </div>
         <div className="flex-row start-row">
-
+          <b>
+4. Click on markers for details
+          </b>
 
           <div
             className="clickable-div bordered"
