@@ -1,7 +1,5 @@
 import React from 'react';
 
-import ModalTemplate from './modal_template';
-
 import {
   WebsiteIcon,
   GitHubIcon,
@@ -89,8 +87,8 @@ const MiscCredit = () => (
   </div>
 );
 
-const Credits = props => (
-  <ModalTemplate {...props}>
+const Credits = () => (
+  <div>
     <h3>
       Credits
     </h3>
@@ -99,7 +97,7 @@ const Credits = props => (
     <GoogleMapsCredit />
     <IconsCredit />
     <MiscCredit />
-  </ModalTemplate>
+  </div>
 );
 
 export default Credits;

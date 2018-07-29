@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Credits from './Credits';
+import ModalTemplate from './modal_template';
 
 const ModalSwitcher = (props) => {
   switch (props.currentModal) {
     case 'Credits':
-      return <Credits {...props} />;
+      return <ModalTemplate {...props} />;
     default:
       return null;
   }

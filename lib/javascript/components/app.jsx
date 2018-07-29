@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Header from './Header/Header';
+import HeaderContainer from './Header/HeaderContainer';
 import ControlPanelContainer from './control_panel_container';
 import MapContainer from './map/map_container';
 
 const App = () => (
   <div className="container">
-    <Header />
+    <HeaderContainer />
     <div className="main bordered">
       <ControlPanelContainer />
       <MapContainer />

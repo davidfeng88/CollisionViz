@@ -1,15 +1,15 @@
 import React from 'react';
+import Credits from './Credits';
 
 const ModalTemplate = ({
   closeModal,
-  children,
 }) => (
   <div onClick={closeModal} className="modal-backdrop">
     <div onClick={e => e.stopPropagation()} className="modal">
       <div onClick={closeModal} className="modal-close-x">
         ×
       </div>
-      {children}
+      <Credits />
     </div>
   </div>
 );
