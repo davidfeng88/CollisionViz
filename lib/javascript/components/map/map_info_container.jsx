@@ -12,17 +12,33 @@ const timeLine = (start, finish) => (
   `${timeIntToString(start)} - ${timeIntToString(finish)}`
 );
 
-const MapInfo = ({ date, start, finish, count }) => (
-  <div className='map-info'>
-    Date: <strong>{date}</strong> Map Time:&nbsp;
-    <strong>{timeIntToString(finish)}</strong>
+const MapInfo = ({
+  date, start, finish, count,
+}) => (
+  <div className="map-info">
+    Date:
+    {' '}
+    <strong>
+      {date}
+    </strong>
+    {' '}
+Map Time:&nbsp;
+    <strong>
+      {timeIntToString(finish)}
+    </strong>
     <br />
-    Showing {count} Collision(s) During&nbsp;
-    <strong>{timeLine(start, finish)}</strong>
+    Showing
+    {' '}
+    {count}
+    {' '}
+Collision(s) During&nbsp;
+    <strong>
+      {timeLine(start, finish)}
+    </strong>
   </div>
 );
 
 export default connect(
   mapStateToProps,
-  null
+  null,
 )(MapInfo);

@@ -1,26 +1,26 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {
-  connect
+  connect,
 } from 'react-redux';
 
 import {
-  updateFilter
+  updateFilter,
 } from '../actions';
 import {
   timeStringToInt,
-  timeIntToString
+  timeIntToString,
 } from '../util';
 import {
   DEFAULT_TIME,
   START_TIME,
-  END_TIME
+  END_TIME,
 } from '../reducer';
 import Toggle from './toggle';
 
 class ControlPanel extends React.Component {
-  constructor( props ) {
-    super( props );
+  constructor(props) {
+    super(props);
 
     this.state = {
       // changes need to trigger re-render
@@ -29,71 +29,70 @@ class ControlPanel extends React.Component {
       // change of select
       collisionMapTime: 15,
       delay: 200,
-      //toggle
+      // toggle
       mute: true,
       showExtra: false,
     };
 
-    this.handleStart = this.handleStart.bind( this );
-    this.handlePause = this.handlePause.bind( this );
-    this.handleReset = this.handleReset.bind( this );
-    this.step = this.step.bind( this );
+    this.handleStart = this.handleStart.bind(this);
+    this.handlePause = this.handlePause.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+    this.step = this.step.bind(this);
   }
 
-  updateField( field ) {
-    return ( e => {
+  updateField(field) {
+    return ((e) => {
       e.preventDefault();
-      switch ( field ) {
+      switch (field) {
         case 'collisionMapTime':
         case 'delay':
-          this.setState( {
-            [ field ]: parseInt( e.currentTarget.value )
-          } );
+          this.setState({
+            [field]: parseInt(e.currentTarget.value),
+          });
           break;
 
         case 'date':
           this.handleReset();
-          this.props.updateFilter( {
+          this.props.updateFilter({
             date: e.currentTarget.value,
-            loading: true
-          } );
+            loading: true,
+          });
           break;
 
         case 'time':
-          if ( e.currentTarget.value !== '' ) {
-            let newTime = timeStringToInt( e.currentTarget.value );
-            this.setNewTime( newTime );
+          if (e.currentTarget.value !== '') {
+            const newTime = timeStringToInt(e.currentTarget.value);
+            this.setNewTime(newTime);
           }
           break;
 
         default:
-
       }
-    } );
+    });
   }
 
   handleReset() {
     this.handlePause();
-    this.setNewTime( DEFAULT_TIME );
+    this.setNewTime(DEFAULT_TIME);
   }
 
-  setNewTime( time ) {
-    this.props.updateFilter( {
+  setNewTime(time) {
+    this.props.updateFilter({
       start: time,
       finish: time,
       initialTime: time,
-    } );
+    });
   }
 
   handleStart() {
-    if ( !this.state.intervalId ) {
-      let intervalId = setInterval( this.step, this.state.delay );
-      this.setState( {
-        intervalId
-      } );
+    if (!this.state.intervalId) {
+      const intervalId = setInterval(this.step, this.state.delay);
+      this.setState({
+        intervalId,
+      });
     }
-    if ( !this.state.mute ) {
-      let traffic = document.getElementById( 'traffic' );
+    if (!this.state.mute) {
+      const traffic = document.getElementById('traffic');
       traffic.play();
       traffic.loop = true;
       traffic.volume = 0.2;
@@ -101,61 +100,61 @@ class ControlPanel extends React.Component {
   }
 
   handlePause() {
-    if ( this.state.intervalId ) {
-      let traffic = document.getElementById( 'traffic' );
+    if (this.state.intervalId) {
+      const traffic = document.getElementById('traffic');
       traffic.pause();
-      clearInterval( this.state.intervalId );
-      this.setState( {
-        intervalId: null
-      } );
+      clearInterval(this.state.intervalId);
+      this.setState({
+        intervalId: null,
+      });
     }
   }
 
   startPauseButton() {
-    if ( this.props.loading ) {
+    if (this.props.loading) {
       return (
-        <div className='spinner bordered'>
-          <img src='./assets/images/spinner.svg' />
-        </div>
-      );
-    } else {
-      let startPauseButtonText = this.state.intervalId ? 'Pause' : 'Start';
-      let handleClick =
-        this.state.intervalId ? this.handlePause : this.handleStart;
-      return (
-        <div className='start-button clickable-div bordered'
-          onClick={handleClick}>
-          {startPauseButtonText}
+        <div className="spinner bordered">
+          <img src="./assets/images/spinner.svg" />
         </div>
       );
     }
+    const startPauseButtonText = this.state.intervalId ? 'Pause' : 'Start';
+    const handleClick = this.state.intervalId ? this.handlePause : this.handleStart;
+    return (
+      <div
+        className="start-button clickable-div bordered"
+        onClick={handleClick}
+      >
+        {startPauseButtonText}
+      </div>
+    );
   }
 
   step() {
-    let newTime = this.props.finish + 1;
-    if ( newTime > END_TIME ) {
+    const newTime = this.props.finish + 1;
+    if (newTime > END_TIME) {
       this.handlePause();
     } else {
       let start = newTime - this.state.collisionMapTime + 1;
-      let finish = newTime;
+      const finish = newTime;
       start = start > this.props.initialTime ? start : this.props.initialTime;
       start = start > START_TIME ? start : START_TIME;
-      this.props.updateFilter( {
+      this.props.updateFilter({
         start,
         finish,
-      } );
+      });
     }
   }
 
-  toggle( field ) {
-    return ( e => {
-      let newValue = !this.state[ field ];
-      this.setState( {
-        [ field ]: newValue
-      } );
-      if ( field === 'mute' ) {
-        let traffic = document.getElementById( 'traffic' );
-        if ( this.state.intervalId && !newValue ) {
+  toggle(field) {
+    return ((e) => {
+      const newValue = !this.state[field];
+      this.setState({
+        [field]: newValue,
+      });
+      if (field === 'mute') {
+        const traffic = document.getElementById('traffic');
+        if (this.state.intervalId && !newValue) {
           traffic.play();
           traffic.loop = true;
           traffic.volume = 0.2;
@@ -163,42 +162,53 @@ class ControlPanel extends React.Component {
           traffic.pause();
         }
       }
-    } );
+    });
   }
 
   extraPanel() {
     let extraPanel = null;
-    if ( this.state.showExtra ) {
+    if (this.state.showExtra) {
       extraPanel = (
-        <div className='flex-row'>
+        <div className="flex-row">
           <div>
-            <label htmlFor='collision-map-time'>
-              Collisions Stay on Map for<br/>
-              {this.state.collisionMapTime} Minute(s)
+            <label htmlFor="collision-map-time">
+              Collisions Stay on Map for
+              <br />
+              {this.state.collisionMapTime}
+              {' '}
+Minute(s)
             </label>
             <input
-              id='collision-map-time'
+              id="collision-map-time"
               value={this.state.collisionMapTime}
-              type='range' min='1' max='60'
+              type="range"
+              min="1"
+              max="60"
               onChange={this.updateField('collisionMapTime')}
               disabled={this.state.intervalId ? 'disabled' : ''}
             />
           </div>
           <div>
-            <label htmlFor='delay'>
-              1 Minute Map Time = <br/>
-              {this.state.delay} Milliseconds Wall Time
+            <label htmlFor="delay">
+              1 Minute Map Time =
+              {' '}
+              <br />
+              {this.state.delay}
+              {' '}
+Milliseconds Wall Time
             </label>
             <input
-              id='delay'
+              id="delay"
               value={this.state.delay}
-              type='range' min='50' max='1000'
+              type="range"
+              min="50"
+              max="1000"
               onChange={this.updateField('delay')}
               disabled={this.state.intervalId ? 'disabled' : ''}
             />
           </div>
           <Toggle
-            label='Sound'
+            label="Sound"
             checked={!this.state.mute}
             onChange={this.toggle('mute')}
           />
@@ -207,58 +217,75 @@ class ControlPanel extends React.Component {
     }
     return (
       <ReactCSSTransitionGroup
-        transitionName='extra'
+        transitionName="extra"
         transitionEnterTimeout={300}
         transitionLeaveTimeout={200}
-        >
+      >
         {extraPanel}
       </ReactCSSTransitionGroup>
     );
   }
 
   render() {
-    let oneWeekAgo = new Date();
-    oneWeekAgo.setDate( oneWeekAgo.getDate() - 7 );
-    let oneWeekAgoString = oneWeekAgo.toJSON()
-      .slice( 0, 10 );
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    const oneWeekAgoString = oneWeekAgo.toJSON()
+      .slice(0, 10);
     return (
       <div>
-        <div className='flex-row'>
+        <div className="flex-row">
           <div>
-            <label htmlFor='date'>
-              <b>1. Select Date</b><br/>
-              2012-07-01 ~ {oneWeekAgoString}
+            <label htmlFor="date">
+              <b>
+1. Select Date
+              </b>
+              <br />
+              2012-07-01 ~
+              {' '}
+              {oneWeekAgoString}
             </label>
             <input
-              value={this.props.date} id='date'
-              type='date' min='2012-07-01' max={oneWeekAgoString}
+              value={this.props.date}
+              id="date"
+              type="date"
+              min="2012-07-01"
+              max={oneWeekAgoString}
               onChange={this.updateField('date')}
               disabled={this.state.intervalId ? 'disabled' : ''}
             />
           </div>
           <div>
-            <label htmlFor='time'>
-              <b>2. Select Start Time</b>
+            <label htmlFor="time">
+              <b>
+2. Select Start Time
+              </b>
             </label>
             <input
-              id='time'
-              type='time'
+              id="time"
+              type="time"
               value={timeIntToString(this.props.finish)}
               onChange={this.updateField('time')}
               disabled={this.state.intervalId ? 'disabled' : ''}
             />
           </div>
-          <div><b>3. Click Here!</b>{this.startPauseButton()}</div>
+          <div>
+            <b>
+3. Click Here!
+            </b>
+            {this.startPauseButton()}
+          </div>
         </div>
-        <div className='flex-row start-row'>
+        <div className="flex-row start-row">
 
 
-          <div className='clickable-div bordered'
-            onClick={this.handleReset}>
+          <div
+            className="clickable-div bordered"
+            onClick={this.handleReset}
+          >
             Reset Time
           </div>
           <Toggle
-            label='More Settings'
+            label="More Settings"
             checked={this.state.showExtra}
             onChange={this.toggle('showExtra')}
           />

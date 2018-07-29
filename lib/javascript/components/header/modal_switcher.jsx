@@ -4,14 +4,14 @@ import AboutCollisionViz from './about_collision_viz';
 import AboutMe from './about_me';
 import Credits from './credits';
 
-const ModalSwitcher = props => {
-  switch ( props.currentModal ) {
+const ModalSwitcher = (props) => {
+  switch (props.currentModal) {
     case 'AboutCollisionViz':
-      return <AboutCollisionViz {...props}/>;
+      return <AboutCollisionViz {...props} />;
     case 'AboutMe':
-      return <AboutMe {...props}/>;
+      return <AboutMe {...props} />;
     case 'Credits':
-      return <Credits {...props}/>;
+      return <Credits {...props} />;
 
     default:
       return null;

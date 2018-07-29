@@ -13,6 +13,7 @@
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
+    "lodash": "^4.17.10",
     "react": "^15.6.2",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^15.6.2",
