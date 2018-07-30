@@ -3,22 +3,21 @@ import Header from './Header';
 
 export default class HeaderContainer extends React.Component {
   state = {
-    currentModal: '',
+    isModalOn: false,
   };
 
-  switchModal = modalName => ((e) => {
-    e.preventDefault();
-    this.setState({
-      currentModal: modalName,
-    });
-  });
+  flipModal = () => {
+    this.setState(prevState => ({
+      isModalOn: !prevState.isModalOn,
+    }));
+  };
 
   render = () => {
-    const { currentModal } = this.state;
+    const { isModalOn } = this.state;
     return (
       <Header
-        currentModal={currentModal}
-        switchModal={this.switchModal}
+        isModalOn={isModalOn}
+        flipModal={this.flipModal}
       />
     );
   };

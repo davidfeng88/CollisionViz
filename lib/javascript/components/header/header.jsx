@@ -1,30 +1,54 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { RepoLink } from './HeaderLinks';
-import ModalSwitcher from './modal_switcher';
+import ModalSwitcher from './ModalSwitcher';
 
-const Header = ({ currentModal, switchModal }) => (
+const BackgroundSound = () => (
+  <audio id="traffic" src="./assets/sounds/traffic.mp3">
+    <track kind="captions" />
+  </audio>
+);
+
+const Logo = () => (
+  <div className="logo">
+    <img src="./assets/images/car-collision-favicon.svg" alt="" />
+    <h1>
+      CollisionViz
+    </h1>
+  </div>
+);
+
+const Links = ({ flipModal }) => (
+  <div className="modal-buttons">
+    <RepoLink />
+    <br />
+    <button type="button" onClick={flipModal}>
+      Credits
+    </button>
+  </div>
+);
+
+const Header = ({ isModalOn, flipModal }) => (
   <header>
-    <audio id="traffic" src="./assets/sounds/traffic.mp3">
-      <track kind="captions" />
-    </audio>
-    <div className="logo">
-      <img src="./assets/images/car-collision-favicon.svg" alt="" />
-      <h1>
-        CollisionViz
-      </h1>
-    </div>
-    <div className="modal-buttons">
-      <RepoLink />
-      <br />
-      <button type="button" onClick={switchModal('Credits')}>
-          Credits
-      </button>
-    </div>
+    <BackgroundSound />
+    <Logo />
+    <Links
+      flipModal={flipModal}
+    />
     <ModalSwitcher
-      currentModal={currentModal}
-      closeModal={switchModal('')}
+      isModalOn={isModalOn}
+      flipModal={flipModal}
     />
   </header>
 );
 
 export default Header;
+
+Header.propTypes = {
+  isModalOn: PropTypes.bool.isRequired,
+  flipModal: PropTypes.func.isRequired,
+};
+
+Links.propTypes = {
+  flipModal: PropTypes.func.isRequired,
+};
