@@ -1,83 +1,69 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {
-  timeStringToInt,
-  timeIntToString,
-} from '../../util';
-import {
   DEFAULT_TIME,
   START_TIME,
   END_TIME,
-} from '../../reducer';
+  timeStringToInt,
+  timeIntToString,
+} from '../../util';
 import Toggle from '../toggle';
 
 class ControlPanel extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    // changes need to trigger re-render
+    // grey out the inputs
+    intervalId: null,
+    // change of select
+    collisionMapTime: 15,
+    delay: 200,
+    // toggle
+    mute: true,
+  };
 
-    this.state = {
-      // changes need to trigger re-render
-      // grey out the inputs
-      intervalId: null,
-      // change of select
-      collisionMapTime: 15,
-      delay: 200,
-      // toggle
-      mute: true,
-      showExtra: false,
-    };
+  updateField = field => ((e) => {
+    e.preventDefault();
+    switch (field) {
+      case 'collisionMapTime':
+      case 'delay':
+        this.setState({
+          [field]: parseInt(e.currentTarget.value),
+        });
+        break;
 
-    this.handleStart = this.handleStart.bind(this);
-    this.handlePause = this.handlePause.bind(this);
-    this.handleReset = this.handleReset.bind(this);
-    this.step = this.step.bind(this);
-  }
+      case 'date':
+        this.handleReset();
+        this.props.updateFilter({
+          date: e.currentTarget.value,
+          loading: true,
+        });
+        break;
 
-  updateField(field) {
-    return ((e) => {
-      e.preventDefault();
-      switch (field) {
-        case 'collisionMapTime':
-        case 'delay':
-          this.setState({
-            [field]: parseInt(e.currentTarget.value),
-          });
-          break;
+      case 'time':
+        if (e.currentTarget.value !== '') {
+          const newTime = timeStringToInt(e.currentTarget.value);
+          this.setNewTime(newTime);
+        }
+        break;
 
-        case 'date':
-          this.handleReset();
-          this.props.updateFilter({
-            date: e.currentTarget.value,
-            loading: true,
-          });
-          break;
+      default:
+    }
+  });
 
-        case 'time':
-          if (e.currentTarget.value !== '') {
-            const newTime = timeStringToInt(e.currentTarget.value);
-            this.setNewTime(newTime);
-          }
-          break;
-
-        default:
-      }
-    });
-  }
-
-  handleReset() {
+  handleReset = () => {
     this.handlePause();
     this.setNewTime(DEFAULT_TIME);
-  }
+  };
 
-  setNewTime(time) {
+  setNewTime = (time) => {
     this.props.updateFilter({
       start: time,
       finish: time,
       initialTime: time,
     });
-  }
+  };
 
-  handleStart() {
+  handleStart = () => {
     if (!this.state.intervalId) {
       const intervalId = setInterval(this.step, this.state.delay);
       this.setState({
@@ -90,9 +76,9 @@ class ControlPanel extends React.Component {
       traffic.loop = true;
       traffic.volume = 0.2;
     }
-  }
+  };
 
-  handlePause() {
+  handlePause = () => {
     if (this.state.intervalId) {
       const traffic = document.getElementById('traffic');
       traffic.pause();
@@ -101,9 +87,9 @@ class ControlPanel extends React.Component {
         intervalId: null,
       });
     }
-  }
+  };
 
-  startPauseButton() {
+  startPauseButton = () => {
     if (this.props.loading) {
       return (
         <div className="spinner bordered">
@@ -121,9 +107,9 @@ class ControlPanel extends React.Component {
         {startPauseButtonText}
       </div>
     );
-  }
+  };
 
-  step() {
+  step = () => {
     const newTime = this.props.finish + 1;
     if (newTime > END_TIME) {
       this.handlePause();
@@ -137,30 +123,28 @@ class ControlPanel extends React.Component {
         finish,
       });
     }
-  }
+  };
 
-  toggle(field) {
-    return ((e) => {
-      const newValue = !this.state[field];
-      this.setState({
-        [field]: newValue,
-      });
-      if (field === 'mute') {
-        const traffic = document.getElementById('traffic');
-        if (this.state.intervalId && !newValue) {
-          traffic.play();
-          traffic.loop = true;
-          traffic.volume = 0.2;
-        } else {
-          traffic.pause();
-        }
-      }
+  toggle = field => ((e) => {
+    const newValue = !this.state[field];
+    this.setState({
+      [field]: newValue,
     });
-  }
+    if (field === 'mute') {
+      const traffic = document.getElementById('traffic');
+      if (this.state.intervalId && !newValue) {
+        traffic.play();
+        traffic.loop = true;
+        traffic.volume = 0.2;
+      } else {
+        traffic.pause();
+      }
+    }
+  });
 
-  extraPanel() {
+  extraPanel = () => {
     let extraPanel = null;
-    if (this.state.showExtra) {
+    if (this.props.extraShown) {
       extraPanel = (
         <div className="flex-row">
           <div>
@@ -217,9 +201,9 @@ Milliseconds Wall Time
         {extraPanel}
       </ReactCSSTransitionGroup>
     );
-  }
+  };
 
-  render() {
+  render = () => {
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
     const oneWeekAgoString = oneWeekAgo.toJSON()
@@ -281,15 +265,15 @@ Milliseconds Wall Time
           </div>
           <Toggle
             label="More Settings"
-            checked={this.state.showExtra}
-            onChange={this.toggle('showExtra')}
+            checked={this.props.extraShown}
+            onChange={this.props.toggleExtra}
           />
         </div>
         {this.extraPanel()}
 
       </div>
     );
-  }
+  };
 }
 
 export default ControlPanel;

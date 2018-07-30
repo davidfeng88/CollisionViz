@@ -2,7 +2,7 @@ import React from 'react';
 
 import HeaderContainer from './Header/HeaderContainer';
 import ControlPanelContainer from './ControlPanel/ControlPanelContainer';
-import MapContainer from './map/map_container';
+import MapContainer from './Map/MapContainer';
 
 const App = () => (
   <div className="container">

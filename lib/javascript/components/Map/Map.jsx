@@ -1,42 +1,20 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {
-  connect,
-} from 'react-redux';
 
-import {
-  updateFilter,
-} from '../../actions';
 // Components
 import Toggle from '../toggle';
 import MapInfoContainer from './map_info_container';
 // Constants
 import alternativeMapStyle from './styles';
+// Utilities
+import MarkerManager from './marker_manager';
 import {
   DEFAULT_TIME,
   START_TIME,
   END_TIME,
-} from '../../reducer';
-// Utilities
-import MarkerManager from './marker_manager';
-import {
   fetchCollisions,
   timeStringToInt,
 } from '../../util';
-
-const mapStateToProps = ({
-  start,
-  finish,
-  date,
-}) => ({
-  start,
-  finish,
-  date,
-});
-
-const mapDispatchToProps = dispatch => ({
-  updateFilter: filters => dispatch(updateFilter(filters)),
-});
 
 const NYC_CENTER = {
   lat: 40.732663,
@@ -44,11 +22,10 @@ const NYC_CENTER = {
 };
 const DEFAULT_ZOOM_LEVEL = 10;
 
-class Map extends React.Component {
+export default class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showExtra: false,
       showChart: true,
       alternativeMapStyle: false,
       usingMarkerClusterer: true,
@@ -321,9 +298,26 @@ class Map extends React.Component {
 
   extraPanel() {
     let extraPanel = null;
-    if (this.state.showExtra) {
+    if (this.props.extraShown) {
       extraPanel = (
         <div>
+          <div className="flex-row">
+            <Toggle
+              label="Chart"
+              checked={this.state.showChart}
+              onChange={this.toggle('showChart')}
+            />
+            <Toggle
+              label="Marker Clusterer"
+              checked={this.state.usingMarkerClusterer}
+              onChange={this.toggle('usingMarkerClusterer')}
+            />
+            <Toggle
+              label="Alternative Map Style"
+              checked={this.state.alternativeMapStyle}
+              onChange={this.toggle('alternativeMapStyle')}
+            />
+          </div>
           <div className="flex-row">
             Custom Markers
             <Toggle
@@ -408,28 +402,7 @@ class Map extends React.Component {
   render() {
     return (
       <div>
-        <div className="flex-row">
-          <Toggle
-            label="Map Options"
-            checked={this.state.showExtra}
-            onChange={this.toggle('showExtra')}
-          />
-          <Toggle
-            label="Chart"
-            checked={this.state.showChart}
-            onChange={this.toggle('showChart')}
-          />
-          <Toggle
-            label="Marker Clusterer"
-            checked={this.state.usingMarkerClusterer}
-            onChange={this.toggle('usingMarkerClusterer')}
-          />
-          <Toggle
-            label="Alternative Map Style"
-            checked={this.state.alternativeMapStyle}
-            onChange={this.toggle('alternativeMapStyle')}
-          />
-        </div>
+
         {this.extraPanel()}
         <div className="flex-row">
           {this.chart()}
@@ -450,8 +423,3 @@ class Map extends React.Component {
     );
   }
 }
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Map);
