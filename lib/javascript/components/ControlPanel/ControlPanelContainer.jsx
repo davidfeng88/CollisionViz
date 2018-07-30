@@ -1,10 +1,10 @@
 import {
   connect,
 } from 'react-redux';
-import ControlPanel from './control_panel';
+import ControlPanel from './ControlPanel';
 import {
   updateFilter,
-} from '../actions';
+} from '../../actions';
 
 const mapStateToProps = ({
   start,

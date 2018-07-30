@@ -1,22 +1,15 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {
-  connect,
-} from 'react-redux';
-
-import {
-  updateFilter,
-} from '../actions';
-import {
   timeStringToInt,
   timeIntToString,
-} from '../util';
+} from '../../util';
 import {
   DEFAULT_TIME,
   START_TIME,
   END_TIME,
-} from '../reducer';
-import Toggle from './toggle';
+} from '../../reducer';
+import Toggle from '../toggle';
 
 class ControlPanel extends React.Component {
   constructor(props) {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import HeaderContainer from './Header/HeaderContainer';
-import ControlPanelContainer from './control_panel_container';
+import ControlPanelContainer from './ControlPanel/ControlPanelContainer';
 import MapContainer from './map/map_container';
 
 const App = () => (
