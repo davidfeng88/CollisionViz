@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import DateSelector from './DateSelector';
+import TimeSelector from './TimeSelector';
+import StartPauseButton from './StartPauseButton';
 import {
   DEFAULT_TIME,
   START_TIME,
   END_TIME,
   timeStringToInt,
-  timeIntToString,
 } from '../../util';
 import Toggle from '../toggle';
 
@@ -56,7 +58,8 @@ class ControlPanel extends React.Component {
   };
 
   setNewTime = (time) => {
-    this.props.updateFilter({
+    const { updateFilter } = this.props;
+    updateFilter({
       start: time,
       finish: time,
       initialTime: time,
@@ -64,13 +67,14 @@ class ControlPanel extends React.Component {
   };
 
   handleStart = () => {
-    if (!this.state.intervalId) {
-      const intervalId = setInterval(this.step, this.state.delay);
+    const { intervalId, delay, mute } = this.state;
+    if (!intervalId) {
+      const newIntervalId = setInterval(this.step, delay);
       this.setState({
-        intervalId,
+        intervalId: newIntervalId,
       });
     }
-    if (!this.state.mute) {
+    if (!mute) {
       const traffic = document.getElementById('traffic');
       traffic.play();
       traffic.loop = true;
@@ -79,34 +83,15 @@ class ControlPanel extends React.Component {
   };
 
   handlePause = () => {
-    if (this.state.intervalId) {
+    const { intervalId } = this.state;
+    if (intervalId) {
       const traffic = document.getElementById('traffic');
       traffic.pause();
-      clearInterval(this.state.intervalId);
+      clearInterval(intervalId);
       this.setState({
         intervalId: null,
       });
     }
-  };
-
-  startPauseButton = () => {
-    if (this.props.loading) {
-      return (
-        <div className="spinner bordered">
-          <img src="./assets/images/spinner.svg" />
-        </div>
-      );
-    }
-    const startPauseButtonText = this.state.intervalId ? 'Pause' : 'Start';
-    const handleClick = this.state.intervalId ? this.handlePause : this.handleStart;
-    return (
-      <div
-        className="start-button clickable-div bordered"
-        onClick={handleClick}
-      >
-        {startPauseButtonText}
-      </div>
-    );
   };
 
   step = () => {
@@ -204,53 +189,27 @@ Milliseconds Wall Time
   };
 
   render = () => {
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-    const oneWeekAgoString = oneWeekAgo.toJSON()
-      .slice(0, 10);
+    const { intervalId } = this.state;
+    const { loading, date, finish } = this.props;
     return (
       <div>
         <div className="flex-row">
-          <div>
-            <label htmlFor="date">
-              <b>
-1. Select Date
-              </b>
-              <br />
-              2012-07-01 ~
-              {' '}
-              {oneWeekAgoString}
-            </label>
-            <input
-              value={this.props.date}
-              id="date"
-              type="date"
-              min="2012-07-01"
-              max={oneWeekAgoString}
-              onChange={this.updateField('date')}
-              disabled={this.state.intervalId ? 'disabled' : ''}
-            />
-          </div>
-          <div>
-            <label htmlFor="time">
-              <b>
-2. Select Start Time
-              </b>
-            </label>
-            <input
-              id="time"
-              type="time"
-              value={timeIntToString(this.props.finish)}
-              onChange={this.updateField('time')}
-              disabled={this.state.intervalId ? 'disabled' : ''}
-            />
-          </div>
-          <div>
-            <b>
-3. Click Here!
-            </b>
-            {this.startPauseButton()}
-          </div>
+          <DateSelector
+            date={date}
+            onChange={this.updateField('date')}
+            intervalId={intervalId}
+          />
+          <TimeSelector
+            finish={finish}
+            onChange={this.updateField('time')}
+            intervalId={intervalId}
+          />
+          <StartPauseButton
+            loading={loading}
+            intervalId={intervalId}
+            handleStart={this.handleStart}
+            handlePause={this.handlePause}
+          />
         </div>
         <div className="flex-row start-row">
           <b>
@@ -270,7 +229,6 @@ Milliseconds Wall Time
           />
         </div>
         {this.extraPanel()}
-
       </div>
     );
   };
