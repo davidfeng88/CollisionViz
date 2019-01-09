@@ -5,6 +5,10 @@ CollisionViz is a data visualization web app for motor vehicle collisions in New
 
 ![demo](assets/images/demo.gif)
 
+## Build
+
+`NODE_ENV=production npm install`
+
 ## Instructions
 1. Select the date. A collision heatmap and a time distribution chart of all the collisions on that day will show up.
 2. Select the start time of the visualization by using the input box or clicking on the chart bars.
