@@ -19,12 +19,16 @@ dist/public/build
 assets
 lib/vendor (external dependencies)
 
-ToDo:
 move lib to src Done
 move dist to public Done
 move google to lib Done
 move scss to public and into build process Done
 
+ToDo:
+clean up package json: separate devdependencies and dependencies, and get eslint working.
+GitHub action: `NODE_ENV=production npm install`
+
+Move API key to secrets
 
 
 [Live](https://davidfeng.us/CollisionViz)
