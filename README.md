@@ -23,7 +23,9 @@ ToDo:
 move lib to src Done
 move dist to public Done
 move google to lib Done
-move scss to public and into build process
+move scss to public and into build process Done
+
+
 
 [Live](https://davidfeng.us/CollisionViz)
 
@@ -37,11 +39,10 @@ CollisionViz is a data visualization web app for motor vehicle collisions in New
 
 ## Development
 
-1. `npm install`
-2. Build production / minified version: `NODE_ENV=production npx webpack`
-3. Build development version: `npx webpack`
-4. Webpack to watch jsx file changes: `npm start`
-5. Open `index.html` in browser.
+1. `npm install`: this builds development version of JS and css, which can be generated with `npx webpack` and `npx sass src/scss/main.scss public/main.css`.
+2. Build production / minified version JS: `NODE_ENV=production npx webpack`
+3. Webpack to watch jsx file changes: `npm start`
+4. Open `index.html` in browser.
 
 ## Instructions
 1. Select the date. A collision heatmap and a time distribution chart of all the collisions on that day will show up.
