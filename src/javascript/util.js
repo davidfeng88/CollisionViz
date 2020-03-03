@@ -26,7 +26,7 @@ export const timeStringToInt = (string) => {
 };
 
 export const fetchCollisions = (date) => {
-  const url = `https://data.cityofnewyork.us/resource/qiz3-axqb.json?date=${date}T00:00:00.000`;
+  const url = `https://data.cityofnewyork.us/resource/h9gi-nx95.json?crash_date=${date}T00:00:00.000`;
   const headers = new Headers({
     'X-App-Token': 'Vz2nbemWZ3Ttmz998p1ZUu0A3',
   });

@@ -1,13 +1,47 @@
 # CollisionViz
+
+`npm start` to webpack watch (dev)
+`npm audit fix` to fix 
+json end point changed. field name (crash date, crash_time) changed.
+
+write an adator layer.
+
+from code complete, but you gotta work on it.
+
+Separate third party code and my code.
+
+Reorg code
+
+Ref https://stackoverflow.com/questions/22842691/what-is-the-meaning-of-the-dist-directory-in-open-source-projects
+
+src: source files
+dist/public/build
+assets
+lib/vendor (external dependencies)
+
+ToDo:
+move lib to src Done
+move dist to public Done
+move google to lib Done
+move scss to public and into build process
+
 [Live](https://davidfeng.us/CollisionViz)
 
 CollisionViz is a data visualization web app for motor vehicle collisions in New York City. It is built with React.js, Redux, SASS, [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/), [Google Charts](https://developers.google.com/chart/), and [NYPD Motor Vehicle Collisions API](https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb).
 
-![demo](assets/images/demo.gif)
+![demo](assets/doc/demo.gif)
 
-## Build
+## Deploy
 
 `NODE_ENV=production npm install`
+
+## Development
+
+1. `npm install`
+2. Build production / minified version: `NODE_ENV=production npx webpack`
+3. Build development version: `npx webpack`
+4. Webpack to watch jsx file changes: `npm start`
+5. Open `index.html` in browser.
 
 ## Instructions
 1. Select the date. A collision heatmap and a time distribution chart of all the collisions on that day will show up.

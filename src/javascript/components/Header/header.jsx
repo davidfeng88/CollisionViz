@@ -4,7 +4,7 @@ import { RepoLink } from './HeaderLinks';
 import ModalSwitcher from './ModalSwitcher';
 
 const BackgroundSound = () => (
-  <audio id="traffic" src="./assets/sounds/traffic.mp3">
+  <audio id="traffic" src="./assets/audio/traffic.mp3">
     <track kind="captions" />
   </audio>
 );
