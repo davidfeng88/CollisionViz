@@ -1,0 +1,305 @@
+/* --- RESET --- */
+html, body, header, nav, h1, a, ul, li,
+strong, main, section, img, div, h2, h3, p,
+form, fieldset, label, input, textarea,
+button, article, footer, small {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  box-sizing: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  vertical-align: inherit;
+  color: inherit;
+  background: transparent;
+}
+
+strong {
+  font-weight: bold;
+}
+
+/* --- MAIN --- */
+.container {
+  width: 45vw;
+  margin-left: 3vw;
+}
+
+.main {
+  padding: 0 20px;
+}
+
+/* --- CONTROL PANEL --- */
+.start-button {
+  width: 80px;
+}
+
+.spinner {
+  width: 100px;
+  margin: 5px;
+  vertical-align: middle;
+}
+.spinner img {
+  height: 38px;
+}
+
+.start-row {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  padding: 10px 0;
+}
+
+/* --- HEADER --- */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0 10px 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.logo img {
+  width: 60px;
+  height: auto;
+  margin-right: 20px;
+}
+.logo h1 {
+  font-family: "Pacifico", cursive;
+  font-size: 40px;
+}
+
+.modal-buttons {
+  text-align: right;
+  line-height: 1.5em;
+}
+.modal-buttons button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* --- MAP --- */
+.index-map {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 50vw;
+}
+
+/* --- MAP PANEL --- */
+.map-panel {
+  position: absolute;
+  z-index: 1;
+  padding: 10px;
+  bottom: 13px;
+  right: 45px;
+  background-color: #fff;
+}
+
+.map-info {
+  margin-right: 10px;
+}
+
+/* --- CHART --- */
+#chart-div {
+  width: 500px;
+  height: 300px;
+}
+
+/* --- MODAL TEMPLATE --- */
+.modal-backdrop {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 50px;
+}
+
+.modal {
+  position: relative;
+  z-index: 3;
+  background-color: #fff;
+  border-radius: 5px;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 5px 30px;
+}
+
+/* --- MODALS --- */
+h3 {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  margin: 10px auto;
+}
+
+p {
+  margin: 5px auto;
+}
+
+a {
+  color: #4182ef;
+}
+a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.modal-close-x {
+  position: absolute;
+  top: 2px;
+  right: 10px;
+  font-size: 30px;
+  opacity: 0.5;
+}
+.modal-close-x:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.modal-row {
+  margin: 10px auto;
+}
+
+/* --- ELEMENTS --- */
+body {
+  background-color: #bbb;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+}
+
+.bordered {
+  border: 1px #000 solid;
+  border-radius: 5px;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  margin: 10px auto;
+}
+
+/* --- INPUT --- */
+input {
+  font-size: 16px;
+  background-color: #fff;
+  border: 1px solid #000;
+  padding: 5px;
+  border-radius: 5px;
+}
+input:disabled {
+  color: #555;
+  background-color: #bbb;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+label.switch {
+  margin-bottom: 0;
+}
+
+/* --- CLICKABLE DIV --- */
+.clickable-div {
+  margin: 5px;
+  border-radius: 5px;
+  padding: 10px;
+  vertical-align: middle;
+}
+.clickable-div:hover {
+  cursor: pointer;
+  background-color: #ccc;
+}
+.clickable-div:active {
+  background-color: #aaa;
+}
+
+/* --- ANIMATION --- */
+.extra-enter {
+  opacity: 0.01;
+}
+.extra-enter.extra-enter-active {
+  opacity: 1;
+  transition: opacity 300ms linear;
+}
+
+.extra-leave {
+  opacity: 1;
+}
+.extra-leave.extra-leave-active {
+  opacity: 0.01;
+  transition: opacity 200ms linear;
+}
+
+/* --- TOGGLE --- */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 24px;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #999;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 2px;
+  background-color: #fff;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #4182ef;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #4182ef;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(28px);
+  -ms-transform: translateX(28px);
+  transform: translateX(28px);
+}
+
+/* --- ROUNDED SLIDERS --- */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/*# sourceMappingURL=main.css.map */

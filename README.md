@@ -1,37 +1,6 @@
 # CollisionViz
 
-`npm start` to webpack watch (dev)
-`npm audit fix` to fix 
-json end point changed. field name (crash date, crash_time) changed.
-
-write an adator layer.
-
-from code complete, but you gotta work on it.
-
-Separate third party code and my code.
-
-Reorg code
-
-Ref https://stackoverflow.com/questions/22842691/what-is-the-meaning-of-the-dist-directory-in-open-source-projects
-
-src: source files
-dist/public/build
-assets
-lib/vendor (external dependencies)
-
-move lib to src Done
-move dist to public Done
-move google to lib Done
-move scss to public and into build process Done
-
-ToDo:
-clean up package json: separate devdependencies and dependencies, and get eslint working.
-GitHub action: `NODE_ENV=production npm install`
-
-Move API key to secrets
-
-
-[Live](https://davidfeng.us/CollisionViz)
+[Live](http://collisionviz.davidfeng.us/)
 
 CollisionViz is a data visualization web app for motor vehicle collisions in New York City. It is built with React.js, Redux, SASS, [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/), [Google Charts](https://developers.google.com/chart/), and [NYPD Motor Vehicle Collisions API](https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb).
 
