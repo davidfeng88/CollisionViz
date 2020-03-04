@@ -1,13 +1,21 @@
 # CollisionViz
-[Live](https://davidfeng.us/CollisionViz)
+
+[Live](http://collisionviz.davidfeng.us/)
 
 CollisionViz is a data visualization web app for motor vehicle collisions in New York City. It is built with React.js, Redux, SASS, [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/), [Google Charts](https://developers.google.com/chart/), and [NYPD Motor Vehicle Collisions API](https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb).
 
-![demo](assets/images/demo.gif)
+![demo](assets/doc/demo.gif)
 
-## Build
+## Deploy
 
 `NODE_ENV=production npm install`
+
+## Development
+
+1. `npm install`: this builds development version of JS and css, which can be generated with `npx webpack` and `npx sass src/scss/main.scss public/main.css`.
+2. Build production / minified version JS: `NODE_ENV=production npx webpack`
+3. Webpack to watch jsx file changes: `npm start`
+4. Open `index.html` in browser.
 
 ## Instructions
 1. Select the date. A collision heatmap and a time distribution chart of all the collisions on that day will show up.

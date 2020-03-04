@@ -64,9 +64,9 @@ export default class Map extends React.Component {
     fetchCollisions(date)
       .then((collisionsData) => {
         this.collisions = {};
-        const validCollisions = collisionsData.filter(collision => collision.latitude && collision.longitude && collision.time);
+        const validCollisions = collisionsData.filter(collision => collision.latitude && collision.longitude && collision.crash_time);
         validCollisions.forEach((collision) => {
-          const time = timeStringToInt(collision.time);
+          const time = timeStringToInt(collision.crash_time);
           // if (this.collisions[time]) {
           if (time in this.collisions) {
             this.collisions[time].push(collision);

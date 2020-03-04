@@ -28,7 +28,7 @@ class MarkerManager {
     this.map = map;
     this.markersObj = {};
     const markerClustererOptions = {
-      imagePath: './assets/images/marker-clusterer/m',
+      imagePath: './lib/marker-clusterer/m',
       // gridSize: 40,
     };
     this.MarkerClusterer = new MarkerClusterer(map, [], markerClustererOptions);

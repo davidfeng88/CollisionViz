@@ -15,6 +15,7 @@ const prodPlugins = [
     compress: {
       warnings: true,
     },
+    // sourceMap: true, // include if source map is needed in production
   }),
 ];
 
@@ -24,9 +25,9 @@ plugins = plugins.concat(
 
 module.exports = {
   context: __dirname,
-  entry: './lib/javascript/CollisionViz.jsx',
+  entry: './src/javascript/CollisionViz.jsx',
   output: {
-    path: path.join(__dirname, 'lib', 'javascript'),
+    path: path.join(__dirname, 'public'),
     filename: 'bundle.js',
   },
   plugins,
