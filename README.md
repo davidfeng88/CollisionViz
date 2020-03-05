@@ -1,10 +1,10 @@
 # CollisionViz
 
-[Live](http://collisionviz.davidfeng.us/)
+[Live](https://collisionviz.davidfeng.us/)
 
 CollisionViz is a data visualization web app for motor vehicle collisions in New York City. It is built with React.js, Redux, SASS, [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/), [Google Charts](https://developers.google.com/chart/), and [NYPD Motor Vehicle Collisions API](https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb).
 
-![demo](assets/doc/demo.gif)
+![demo](doc/demo.gif)
 
 ## Deploy
 
