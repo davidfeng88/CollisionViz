@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import {
+  fetchCollisionsFromApi,
+  API_TIME_FIELD_NAME,
+} from '../../api';
 
 // Components
 import Toggle from '../toggle';
@@ -12,7 +16,6 @@ import {
   DEFAULT_TIME,
   START_TIME,
   END_TIME,
-  fetchCollisions,
   timeStringToInt,
 } from '../../util';
 
@@ -61,12 +64,12 @@ export default class Map extends React.Component {
   }
 
   fetchCollisions(date, firstFetch = false) {
-    fetchCollisions(date)
+    this.collision = fetchCollisionsFromApi(date)
       .then((collisionsData) => {
         this.collisions = {};
-        const validCollisions = collisionsData.filter(collision => collision.latitude && collision.longitude && collision.crash_time);
+        const validCollisions = collisionsData.filter(collision => collision.latitude && collision.longitude && collision[API_TIME_FIELD_NAME]);
         validCollisions.forEach((collision) => {
-          const time = timeStringToInt(collision.crash_time);
+          const time = timeStringToInt(collision[API_TIME_FIELD_NAME]);
           // if (this.collisions[time]) {
           if (time in this.collisions) {
             this.collisions[time].push(collision);
