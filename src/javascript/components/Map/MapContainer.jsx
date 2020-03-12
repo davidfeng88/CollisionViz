@@ -9,13 +9,8 @@ import {
 import Map from './Map';
 
 const mapStateToProps = ({
-  start,
-  finish,
   date,
-
 }) => ({
-  start,
-  finish,
   date,
 });
 

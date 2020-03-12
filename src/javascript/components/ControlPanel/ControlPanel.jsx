@@ -30,16 +30,10 @@ class ControlPanel extends React.Component {
         </div>
         <div className="flex-row">
           <b>
-            2. Click on bar to update hour
+            2. Select Hour (click on bar)
           </b>
         </div>
 
-        <div className="flex-row start-row">
-          <b>
-            4. Click on markers for details
-          </b>
-
-        </div>
       </div>
     );
   };

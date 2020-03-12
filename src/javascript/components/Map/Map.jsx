@@ -15,7 +15,7 @@ import {
 
 // Components
 import Toggle from '../toggle';
-import MapInfoContainer from './map_info_container';
+import MapInfoContainer from './MapInfoContainer';
 import ChartPlaceholder from './ChartPlaceholder';
 
 // Utilities
@@ -140,6 +140,11 @@ class Map extends React.Component {
         <ChartPlaceholder />
       </div>
       <div className="flex-row">
+        <b>
+          3. Click on a marker for details
+        </b>
+      </div>
+      <div className="flex-row">
         <Toggle
           label="Marker Clusterer"
           checked={this.state.usingMarkerClusterer}
@@ -150,18 +155,18 @@ class Map extends React.Component {
           checked={this.state.heatmap}
           onChange={this.toggleMapLayer('heatmap')}
         />
-      </div>
-      <div className="index-map" ref="map">
-        Map Placeholder
-      </div>
-      <div className="map-panel bordered flex-row">
-        <MapInfoContainer count={this.state.collisionCount} />
         <div
           className="clickable-div bordered"
           onClick={this.resetMapBorders}
         >
           Reset Map Borders
         </div>
+      </div>
+      <div className="index-map" ref="map">
+        Map Placeholder
+      </div>
+      <div className="map-panel bordered flex-row">
+        <MapInfoContainer count={this.state.collisionCount} />
       </div>
     </div>
   );
