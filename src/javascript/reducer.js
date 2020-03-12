@@ -5,16 +5,13 @@ import {
 } from './actions';
 
 import {
-  DEFAULT_TIME,
+  DEFAULT_HOUR,
 } from './util';
 
 export const defaultState = Object.freeze({
-  start: DEFAULT_TIME, // in minutes, later from midnight.
-  finish: DEFAULT_TIME + 60, // in minutes
-  initialTime: DEFAULT_TIME,
+  hour: DEFAULT_HOUR,
   date: '2017-03-13',
   loading: true,
-  extraShown: false,
 });
 
 export const Reducer = (state = defaultState, action) => {

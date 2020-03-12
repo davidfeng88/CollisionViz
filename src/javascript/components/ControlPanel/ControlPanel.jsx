@@ -28,6 +28,12 @@ class ControlPanel extends React.Component {
             onChange={this.updateField('date')}
           />
         </div>
+        <div className="flex-row">
+          <b>
+            2. Click on bar to update hour
+          </b>
+        </div>
+
         <div className="flex-row start-row">
           <b>
             4. Click on markers for details

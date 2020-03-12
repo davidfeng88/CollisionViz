@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {
+  API_LINK,
+} from '../../api';
+
 const HeaderLinks = ({ href, text }) => (
   <a href={href} target="_blank" rel="noopener noreferrer">
     {text}
@@ -33,13 +37,6 @@ export const IcoMoonLink = () => (
   />
 );
 
-export const TrafficSoundLink = () => (
-  <HeaderLinks
-    href="https://www.youtube.com/watch?v=cX-1TfLP_y0"
-    text="Partners In Rhyme"
-  />
-);
-
 export const ToggleSwitchLink = () => (
   <HeaderLinks
     href="https://www.w3schools.com/howto/howto_css_switch.asp"
@@ -56,15 +53,8 @@ export const LoadingSpinnerLink = () => (
 
 export const CollisionDataLink = () => (
   <HeaderLinks
-    href="https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95"
+    href={API_LINK}
     text="Source: NYC Open Data"
-  />
-);
-
-export const SocrataAPILink = () => (
-  <HeaderLinks
-    href="https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb"
-    text="API: Socrata Open Data"
   />
 );
 
@@ -72,13 +62,6 @@ export const GoogleChartLink = () => (
   <HeaderLinks
     href="https://developers.google.com/chart/interactive/docs/gallery/columnchart"
     text="Google Chart - Column Chart"
-  />
-);
-
-export const CustomMarkersLink = () => (
-  <HeaderLinks
-    href="https://developers.google.com/maps/documentation/javascript/custom-markers"
-    text="Custom Markers"
   />
 );
 
@@ -93,19 +76,5 @@ export const HeatmapLink = () => (
   <HeaderLinks
     href="https://developers.google.com/maps/documentation/javascript/heatmaplayer"
     text="Heatmap Layer"
-  />
-);
-
-export const TrafficLayerLink = () => (
-  <HeaderLinks
-    href="https://developers.google.com/maps/documentation/javascript/trafficlayer"
-    text="Traffic, Transit and Bicycling Layer"
-  />
-);
-
-export const StylingWizardLink = () => (
-  <HeaderLinks
-    href="https://mapstyle.withgoogle.com/"
-    text="Google Maps APIs Styling Wizard"
   />
 );

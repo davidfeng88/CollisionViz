@@ -1,6 +1,4 @@
-export const DEFAULT_TIME = 480; // 08:00
-export const START_TIME = 0; //  00:00
-export const END_TIME = 1439; //  23:59
+export const DEFAULT_HOUR = 8; // 8AM
 
 // 420 -> '07:00'
 export const timeIntToString = (totalMinutes) => {
@@ -17,10 +15,9 @@ export const timeIntToString = (totalMinutes) => {
   return `${hours}:${minutes}`;
 };
 
-// '7:00' -> 420
-export const timeStringToInt = (string) => {
+// '7:00' -> 7
+export const timeStringToHour = (string) => {
   const array = string.split(':');
   const hour = parseInt(array[0], 10);
-  const minute = parseInt(array[1], 10);
-  return hour * 60 + minute;
+  return hour;
 };

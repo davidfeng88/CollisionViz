@@ -1,27 +1,16 @@
 /* global google:false */
 
-const detailEntry = (key, value) => (
-  `<section><p><strong>${key}</strong><br />${value}</p></section>`);
+const isPairValid = ([key, value]) => (key !== 'location' && value !== null && value !== '0');
 
-const capitalize = string => (
-  string.charAt(0)
-    .toUpperCase() + string.slice(1));
+const capitalize = s => (s[0].toUpperCase() + s.slice(1));
 
-const details = (collision) => {
-  let detailsString = '<div>';
-  for (const key in collision) {
-    if (
-      key === 'location'
-      || collision[key] === null
-      || collision[key] === '0'
-    ) {
-      continue;
-    }
-    detailsString += detailEntry(capitalize(key), collision[key]);
-  }
-  detailsString += '</div>';
-  return detailsString;
-};
+const toDetailEntry = ([key, value]) => (
+  `<section><p><strong>${capitalize(key)}</strong><br />${value}</p></section>`
+);
+
+const toDetailEntries = collision => (
+  `<div>${Object.entries(collision).filter(isPairValid).map(toDetailEntry).join('')}</div>`
+);
 
 class MarkerManager {
   constructor(map) {
@@ -79,11 +68,11 @@ class MarkerManager {
       collisionUniqueKey: collision.unique_key,
     });
     marker.addListener('click', () => {
-      const contentString = details(collision);
-      const infowindow = new google.maps.InfoWindow({
-        content: contentString,
+      const content = toDetailEntries(collision);
+      const infoWindow = new google.maps.InfoWindow({
+        content,
       });
-      infowindow.open(this.map, marker);
+      infoWindow.open(this.map, marker);
     });
     this.markersObj[marker.collisionUniqueKey] = marker;
     if (usingMarkerClusterer) {

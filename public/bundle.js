@@ -4824,11 +4824,11 @@ module.exports = function(module) {
 /* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var listCacheClear = __webpack_require__(290),
-    listCacheDelete = __webpack_require__(291),
-    listCacheGet = __webpack_require__(292),
-    listCacheHas = __webpack_require__(293),
-    listCacheSet = __webpack_require__(294);
+var listCacheClear = __webpack_require__(291),
+    listCacheDelete = __webpack_require__(292),
+    listCacheGet = __webpack_require__(293),
+    listCacheHas = __webpack_require__(294),
+    listCacheSet = __webpack_require__(295);
 
 /**
  * Creates an list cache object.
@@ -4933,8 +4933,8 @@ module.exports = eq;
 /***/ (function(module, exports, __webpack_require__) {
 
 var Symbol = __webpack_require__(119),
-    getRawTag = __webpack_require__(301),
-    objectToString = __webpack_require__(302);
+    getRawTag = __webpack_require__(302),
+    objectToString = __webpack_require__(303);
 
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
@@ -4978,7 +4978,7 @@ module.exports = nativeCreate;
 /* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isKeyable = __webpack_require__(316);
+var isKeyable = __webpack_require__(317);
 
 /**
  * Gets the data for `map`.
@@ -6972,9 +6972,7 @@ var updateFilter = exports.updateFilter = function updateFilter(filters) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var DEFAULT_TIME = exports.DEFAULT_TIME = 480; // 08:00
-var START_TIME = exports.START_TIME = 0; //  00:00
-var END_TIME = exports.END_TIME = 1439; //  23:59
+var DEFAULT_HOUR = exports.DEFAULT_HOUR = 8; // 8AM
 
 // 420 -> '07:00'
 var timeIntToString = exports.timeIntToString = function timeIntToString(totalMinutes) {
@@ -6989,20 +6987,19 @@ var timeIntToString = exports.timeIntToString = function timeIntToString(totalMi
   return hours + ':' + minutes;
 };
 
-// '7:00' -> 420
-var timeStringToInt = exports.timeStringToInt = function timeStringToInt(string) {
+// '7:00' -> 7
+var timeStringToHour = exports.timeStringToHour = function timeStringToHour(string) {
   var array = string.split(':');
   var hour = parseInt(array[0], 10);
-  var minute = parseInt(array[1], 10);
-  return hour * 60 + minute;
+  return hour;
 };
 
 /***/ }),
 /* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsNative = __webpack_require__(300),
-    getValue = __webpack_require__(306);
+var baseIsNative = __webpack_require__(301),
+    getValue = __webpack_require__(307);
 
 /**
  * Gets the native function at `key` of `object`.
@@ -11709,7 +11706,7 @@ function verifyPlainObject(value, displayName, methodName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.StylingWizardLink = exports.TrafficLayerLink = exports.HeatmapLink = exports.MarkerClustererLink = exports.CustomMarkersLink = exports.GoogleChartLink = exports.SocrataAPILink = exports.CollisionDataLink = exports.LoadingSpinnerLink = exports.ToggleSwitchLink = exports.TrafficSoundLink = exports.IcoMoonLink = exports.FontAwesomeLink = exports.RepoLink = undefined;
+exports.HeatmapLink = exports.MarkerClustererLink = exports.GoogleChartLink = exports.CollisionDataLink = exports.LoadingSpinnerLink = exports.ToggleSwitchLink = exports.IcoMoonLink = exports.FontAwesomeLink = exports.RepoLink = undefined;
 
 var _react = __webpack_require__(6);
 
@@ -11718,6 +11715,8 @@ var _react2 = _interopRequireDefault(_react);
 var _propTypes = __webpack_require__(17);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _api = __webpack_require__(278);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11757,13 +11756,6 @@ var IcoMoonLink = exports.IcoMoonLink = function IcoMoonLink() {
   });
 };
 
-var TrafficSoundLink = exports.TrafficSoundLink = function TrafficSoundLink() {
-  return _react2.default.createElement(HeaderLinks, {
-    href: 'https://www.youtube.com/watch?v=cX-1TfLP_y0',
-    text: 'Partners In Rhyme'
-  });
-};
-
 var ToggleSwitchLink = exports.ToggleSwitchLink = function ToggleSwitchLink() {
   return _react2.default.createElement(HeaderLinks, {
     href: 'https://www.w3schools.com/howto/howto_css_switch.asp',
@@ -11780,15 +11772,8 @@ var LoadingSpinnerLink = exports.LoadingSpinnerLink = function LoadingSpinnerLin
 
 var CollisionDataLink = exports.CollisionDataLink = function CollisionDataLink() {
   return _react2.default.createElement(HeaderLinks, {
-    href: 'https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95',
+    href: _api.API_LINK,
     text: 'Source: NYC Open Data'
-  });
-};
-
-var SocrataAPILink = exports.SocrataAPILink = function SocrataAPILink() {
-  return _react2.default.createElement(HeaderLinks, {
-    href: 'https://dev.socrata.com/foundry/data.cityofnewyork.us/qiz3-axqb',
-    text: 'API: Socrata Open Data'
   });
 };
 
@@ -11796,13 +11781,6 @@ var GoogleChartLink = exports.GoogleChartLink = function GoogleChartLink() {
   return _react2.default.createElement(HeaderLinks, {
     href: 'https://developers.google.com/chart/interactive/docs/gallery/columnchart',
     text: 'Google Chart - Column Chart'
-  });
-};
-
-var CustomMarkersLink = exports.CustomMarkersLink = function CustomMarkersLink() {
-  return _react2.default.createElement(HeaderLinks, {
-    href: 'https://developers.google.com/maps/documentation/javascript/custom-markers',
-    text: 'Custom Markers'
   });
 };
 
@@ -11817,20 +11795,6 @@ var HeatmapLink = exports.HeatmapLink = function HeatmapLink() {
   return _react2.default.createElement(HeaderLinks, {
     href: 'https://developers.google.com/maps/documentation/javascript/heatmaplayer',
     text: 'Heatmap Layer'
-  });
-};
-
-var TrafficLayerLink = exports.TrafficLayerLink = function TrafficLayerLink() {
-  return _react2.default.createElement(HeaderLinks, {
-    href: 'https://developers.google.com/maps/documentation/javascript/trafficlayer',
-    text: 'Traffic, Transit and Bicycling Layer'
-  });
-};
-
-var StylingWizardLink = exports.StylingWizardLink = function StylingWizardLink() {
-  return _react2.default.createElement(HeaderLinks, {
-    href: 'https://mapstyle.withgoogle.com/',
-    text: 'Google Maps APIs Styling Wizard'
   });
 };
 
@@ -11917,7 +11881,7 @@ module.exports = defineProperty;
 /* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var overArg = __webpack_require__(330);
+var overArg = __webpack_require__(331);
 
 /** Built-in value references. */
 var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -11953,7 +11917,7 @@ module.exports = isPrototype;
 /* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsArguments = __webpack_require__(331),
+var baseIsArguments = __webpack_require__(332),
     isObjectLike = __webpack_require__(28);
 
 /** Used for built-in method references. */
@@ -12069,7 +12033,7 @@ module.exports = isLength;
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(23),
-    stubFalse = __webpack_require__(333);
+    stubFalse = __webpack_require__(334);
 
 /** Detect free variable `exports`. */
 var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
@@ -12113,9 +12077,9 @@ module.exports = isBuffer;
 /* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsTypedArray = __webpack_require__(335),
-    baseUnary = __webpack_require__(336),
-    nodeUtil = __webpack_require__(337);
+var baseIsTypedArray = __webpack_require__(336),
+    baseUnary = __webpack_require__(337),
+    nodeUtil = __webpack_require__(338);
 
 /* Node.js helper references. */
 var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
@@ -12173,8 +12137,8 @@ module.exports = safeGet;
 /* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeKeys = __webpack_require__(341),
-    baseKeysIn = __webpack_require__(343),
+var arrayLikeKeys = __webpack_require__(342),
+    baseKeysIn = __webpack_require__(344),
     isArrayLike = __webpack_require__(72);
 
 /**
@@ -12284,7 +12248,7 @@ var _Root = __webpack_require__(235);
 
 var _Root2 = _interopRequireDefault(_Root);
 
-var _store = __webpack_require__(283);
+var _store = __webpack_require__(284);
 
 var _store2 = _interopRequireDefault(_store);
 
@@ -26249,15 +26213,9 @@ var GoogleMapsCredit = function GoogleMapsCredit() {
     { className: 'modal-row' },
     'Google Maps JavaScript API',
     _react2.default.createElement('br', null),
-    _react2.default.createElement(_HeaderLinks.CustomMarkersLink, null),
-    _react2.default.createElement('br', null),
     _react2.default.createElement(_HeaderLinks.MarkerClustererLink, null),
     _react2.default.createElement('br', null),
-    _react2.default.createElement(_HeaderLinks.HeatmapLink, null),
-    _react2.default.createElement('br', null),
-    _react2.default.createElement(_HeaderLinks.TrafficLayerLink, null),
-    _react2.default.createElement('br', null),
-    _react2.default.createElement(_HeaderLinks.StylingWizardLink, null)
+    _react2.default.createElement(_HeaderLinks.HeatmapLink, null)
   );
 };
 
@@ -26298,9 +26256,7 @@ var NYPDCredit = function NYPDCredit() {
     { className: 'modal-row' },
     'NYPD Motor Vehicle Collisions Data',
     _react2.default.createElement('br', null),
-    _react2.default.createElement(_HeaderLinks.CollisionDataLink, null),
-    _react2.default.createElement('br', null),
-    _react2.default.createElement(_HeaderLinks.SocrataAPILink, null)
+    _react2.default.createElement(_HeaderLinks.CollisionDataLink, null)
   );
 };
 
@@ -26308,9 +26264,6 @@ var MiscCredit = function MiscCredit() {
   return _react2.default.createElement(
     'div',
     { className: 'modal-row' },
-    'Traffic sound effect:\xA0',
-    _react2.default.createElement(_HeaderLinks.TrafficSoundLink, null),
-    _react2.default.createElement('br', null),
     'Toggle switch:\xA0',
     _react2.default.createElement(_HeaderLinks.ToggleSwitchLink, null),
     _react2.default.createElement('br', null),
@@ -26514,6 +26467,15 @@ var ControlPanel = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
+          { className: 'flex-row' },
+          _react2.default.createElement(
+            'b',
+            null,
+            '2. Click on bar to update hour'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
           { className: 'flex-row start-row' },
           _react2.default.createElement(
             'b',
@@ -26642,23 +26604,27 @@ var _react2 = _interopRequireDefault(_react);
 
 var _api = __webpack_require__(278);
 
-var _Heatmap = __webpack_require__(354);
+var _initChart = __webpack_require__(356);
 
-var _toggle = __webpack_require__(279);
+var _initChart2 = _interopRequireDefault(_initChart);
+
+var _Heatmap = __webpack_require__(279);
+
+var _toggle = __webpack_require__(280);
 
 var _toggle2 = _interopRequireDefault(_toggle);
 
-var _map_info_container = __webpack_require__(280);
+var _map_info_container = __webpack_require__(281);
 
 var _map_info_container2 = _interopRequireDefault(_map_info_container);
 
-var _Chart = __webpack_require__(281);
+var _ChartPlaceholder = __webpack_require__(355);
 
-var _Chart2 = _interopRequireDefault(_Chart);
+var _ChartPlaceholder2 = _interopRequireDefault(_ChartPlaceholder);
 
-var _marker_manager = __webpack_require__(282);
+var _MarkerManager = __webpack_require__(357);
 
-var _marker_manager2 = _interopRequireDefault(_marker_manager);
+var _MarkerManager2 = _interopRequireDefault(_MarkerManager);
 
 var _util = __webpack_require__(68);
 
@@ -26670,7 +26636,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global google:false */
 
 // Components
 
@@ -26710,7 +26676,7 @@ var Map = function (_React$Component) {
         zoom: DEFAULT_ZOOM_LEVEL,
         fullscreenControl: false
       });
-      _this.MarkerManager = new _marker_manager2.default(_this.map);
+      _this.MarkerManager = new _MarkerManager2.default(_this.map);
 
       _this.fetchCollisions(_this.props.date, true);
     }, _this.fetchCollisions = function (date) {
@@ -26722,24 +26688,23 @@ var Map = function (_React$Component) {
           return collision.latitude && collision.longitude && collision[_api.API_TIME_FIELD_NAME];
         });
         validCollisions.forEach(function (collision) {
-          var time = (0, _util.timeStringToInt)(collision[_api.API_TIME_FIELD_NAME]);
-          // if (this.collisions[time]) {
-          if (time in _this.collisions) {
-            _this.collisions[time].push(collision);
+          var hour = (0, _util.timeStringToHour)(collision[_api.API_TIME_FIELD_NAME]);
+          if (hour in _this.collisions) {
+            _this.collisions[hour].push(collision);
           } else {
-            _this.collisions[time] = [collision];
+            _this.collisions[hour] = [collision];
           }
         });
         _this.props.updateFilter({
           loading: false
         });
-        _this.updateMarkers(_util.DEFAULT_TIME, _util.DEFAULT_TIME);
+        _this.updateMarkers(_util.DEFAULT_HOUR);
         if (firstFetch) {
           _this.heatmap = (0, _Heatmap.initHeatmap)(_this.map, validCollisions);
         } else {
           (0, _Heatmap.updateHeatmap)(_this.heatmap, _this.map, validCollisions);
         }
-        _this.initChart();
+        (0, _initChart2.default)(_this.collisions, _this.props.updateFilter);
       });
     }, _this.componentWillReceiveProps = function (nextProps) {
       if (nextProps.date !== _this.props.date) {
@@ -26753,123 +26718,12 @@ var Map = function (_React$Component) {
         // only the time is updated, add & remove markers
         _this.updateMarkers(nextProps.start, nextProps.finish);
       }
-    }, _this.updateMarkers = function (start, finish) {
-      var collisionsArray = [];
-      for (var time = start; time <= finish; time++) {
-        if (time in _this.collisions) {
-          // if (collisions[time]) will treat undefined the same as other
-          // falsey values: false, 0, -0, "", '', null, NaN
-          collisionsArray = collisionsArray.concat(_this.collisions[time]);
-        }
-      }
+    }, _this.updateMarkers = function (hour) {
       _this.setState({
-        collisionCount: collisionsArray.length
+        collisionCount: _this.collisions[hour].length
       });
       // filter the collisions based on start/finish/this.collisions
-      _this.MarkerManager.updateMarkers(collisionsArray, _this.state.usingMarkerClusterer);
-    }, _this.initChart = function () {
-      google.charts.load('current', {
-        packages: ['corechart']
-      });
-      google.charts.setOnLoadCallback(function () {
-        var data = new google.visualization.DataTable();
-        data.addColumn({
-          type: 'timeofday',
-          label: 'Time'
-        });
-        data.addColumn({
-          type: 'number',
-          label: 'Without Injuries/Deaths'
-        });
-        data.addColumn({
-          type: 'number',
-          label: 'With Injuries'
-        });
-        data.addColumn({
-          type: 'number',
-          label: 'With Deaths'
-        });
-        var noInjuries = 0;
-        var injuries = 0;
-        var deaths = 0;
-        var totalCount = 0;
-        for (var time = _util.START_TIME; time <= _util.END_TIME; time++) {
-          if (time in _this.collisions) {
-            // if (this.collisions[time]) will treat undefined the same as other
-            // falsey values: false, 0, -0, "", '', null, NaN
-            _this.collisions[time].forEach(function (collision) {
-              if (collision.number_of_persons_killed > 0) {
-                deaths += 1;
-              } else if (collision.number_of_persons_injured > 0) {
-                injuries += 1;
-              } else {
-                noInjuries += 1;
-              }
-            });
-          }
-          if (time % 60 === 59) {
-            var hour = Math.floor(time / 60);
-            var label = hour.toString() + ':00 - ' + hour.toString() + ':59';
-            data.addRow([{
-              v: [hour, 30, 0],
-              f: label
-            }, noInjuries, injuries, deaths]);
-            totalCount += noInjuries + injuries + deaths;
-            noInjuries = 0;
-            injuries = 0;
-            deaths = 0;
-          }
-        }
-        var title = 'Time Distribution of ' + totalCount.toString() + ' Collisions on ' + _this.props.date + '\n (click on bar to update time)';
-        var options = {
-          animation: {
-            startup: true,
-            duration: 300
-          },
-          chartArea: {
-            width: '90%'
-          },
-          colors: ['#4285f4', '#f4b400', '#db4437'],
-          width: 500,
-          height: 300,
-          hAxis: {
-            baselineColor: 'white',
-            gridlines: {
-              color: 'white'
-            }
-          },
-          vAxis: {
-            ticks: [0, 20, 40, 60]
-          },
-          fontSize: 14,
-          title: title,
-          legend: {
-            position: 'top',
-            maxLines: 5
-          },
-          isStacked: true,
-          bar: {
-            groupWidth: '100%'
-          }
-        };
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart-div'));
-
-        var selectHandler = function selectHandler() {
-          var selectedItem = chart.getSelection()[0];
-          if (selectedItem) {
-            var newTime = selectedItem.row * 60;
-            _this.props.updateFilter({
-              start: newTime,
-              finish: newTime,
-              initialTime: newTime
-            });
-          }
-        };
-
-        google.visualization.events.addListener(chart, 'select', selectHandler);
-
-        chart.draw(data, options);
-      });
+      _this.MarkerManager.updateMarkers(_this.collisions[hour], _this.state.usingMarkerClusterer);
     }, _this.toggle = function (field) {
       return function (e) {
         var newValue = !_this.state[field];
@@ -26894,10 +26748,15 @@ var Map = function (_React$Component) {
     }, _this.resetMapBorders = function () {
       _this.map.setCenter(NYC_CENTER);
       _this.map.setZoom(DEFAULT_ZOOM_LEVEL);
-    }, _this.extraPanel = function () {
+    }, _this.render = function () {
       return _react2.default.createElement(
         'div',
         null,
+        _react2.default.createElement(
+          'div',
+          { className: 'flex-row' },
+          _react2.default.createElement(_ChartPlaceholder2.default, null)
+        ),
         _react2.default.createElement(
           'div',
           { className: 'flex-row' },
@@ -26911,17 +26770,6 @@ var Map = function (_React$Component) {
             checked: _this.state.heatmap,
             onChange: _this.toggleMapLayer('heatmap')
           })
-        )
-      );
-    }, _this.render = function () {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _this.extraPanel(),
-        _react2.default.createElement(
-          'div',
-          { className: 'flex-row' },
-          _react2.default.createElement(_Chart2.default, null)
         ),
         _react2.default.createElement(
           'div',
@@ -26961,6 +26809,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var API_ENDPOINT = 'https://data.cityofnewyork.us/resource/h9gi-nx95.json';
+var API_LINK = exports.API_LINK = 'https://dev.socrata.com/foundry/data.cityofnewyork.us/h9gi-nx95';
 var API_DATE_FIELD_NAME = 'crash_date';
 var API_TOKEN = 'Vz2nbemWZ3Ttmz998p1ZUu0A3';
 
@@ -26982,6 +26831,36 @@ var fetchCollisionsFromApi = exports.fetchCollisionsFromApi = function fetchColl
 
 /***/ }),
 /* 279 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var initHeatmap = exports.initHeatmap = function initHeatmap(map, collisions) {
+  var heatmapData = collisions.map(function (collision) {
+    return new google.maps.LatLng(collision.latitude, collision.longitude);
+  });
+  return new google.maps.visualization.HeatmapLayer({
+    data: heatmapData,
+    radius: 10,
+    maxIntensity: 3,
+    map: map
+  });
+};
+
+var updateHeatmap = exports.updateHeatmap = function updateHeatmap(heatmap, map, collisions) {
+  var heatmapData = collisions.map(function (collision) {
+    return new google.maps.LatLng(collision.latitude, collision.longitude);
+  });
+  heatmap.setData(heatmapData);
+  heatmap.setMap(map);
+};
+
+/***/ }),
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27020,7 +26899,7 @@ var Toggle = function Toggle(props) {
 exports.default = Toggle;
 
 /***/ }),
-/* 280 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27091,178 +26970,9 @@ var MapInfo = function MapInfo(_ref) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(MapInfo);
 
 /***/ }),
-/* 281 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(6);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Chart = function Chart() {
-  return _react2.default.createElement(
-    "div",
-    { id: "chart-div" },
-    "Loading chart...",
-    _react2.default.createElement("img", { className: "spinner", src: "./assets/images/spinner.svg" })
-  );
-};
-
-exports.default = Chart;
-
-/***/ }),
-/* 282 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/* global google:false */
-
-var detailEntry = function detailEntry(key, value) {
-  return '<section><p><strong>' + key + '</strong><br />' + value + '</p></section>';
-};
-
-var capitalize = function capitalize(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
-var details = function details(collision) {
-  var detailsString = '<div>';
-  for (var key in collision) {
-    if (key === 'location' || collision[key] === null || collision[key] === '0') {
-      continue;
-    }
-    detailsString += detailEntry(capitalize(key), collision[key]);
-  }
-  detailsString += '</div>';
-  return detailsString;
-};
-
-var MarkerManager = function () {
-  function MarkerManager(map) {
-    _classCallCheck(this, MarkerManager);
-
-    this.map = map;
-    this.markersObj = {};
-    var markerClustererOptions = {
-      imagePath: './lib/marker-clusterer/m'
-      // gridSize: 40,
-    };
-    this.MarkerClusterer = new MarkerClusterer(map, [], markerClustererOptions);
-  }
-
-  _createClass(MarkerManager, [{
-    key: 'toggleMarkerClusterer',
-    value: function toggleMarkerClusterer(usingMarkerClusterer) {
-      var _this = this;
-
-      if (usingMarkerClusterer) {
-        var markersArray = Object.values(this.markersObj);
-        this.MarkerClusterer.addMarkers(markersArray);
-      } else {
-        this.MarkerClusterer.clearMarkers();
-        Object.values(this.markersObj).forEach(function (marker) {
-          return marker.setMap(_this.map);
-        });
-      }
-    }
-  }, {
-    key: 'updateMarkers',
-    value: function updateMarkers(collisionsArray, usingMarkerClusterer) {
-      var _this2 = this;
-
-      var collisionsObj = {};
-      collisionsArray.forEach(function (collision) {
-        collisionsObj[collision.unique_key] = collision;
-      });
-      collisionsArray.filter(function (collision) {
-        return !(collision.unique_key in _this2.markersObj);
-      }).forEach(function (newCollision) {
-        _this2.createMarker(newCollision, usingMarkerClusterer);
-      });
-      Object.keys(this.markersObj).filter(function (collisionUniqueKey) {
-        return !(collisionUniqueKey in collisionsObj);
-      }).forEach(function (collisionUniqueKey) {
-        _this2.removeMarker(_this2.markersObj[collisionUniqueKey], usingMarkerClusterer);
-      });
-    }
-  }, {
-    key: 'createMarker',
-    value: function createMarker(collision, usingMarkerClusterer) {
-      var _this3 = this;
-
-      var lat = collision.latitude;
-      var lng = collision.longitude;
-      var position = new google.maps.LatLng(lat, lng);
-      var icon = {
-        url: './assets/images/car-collision-favicon.svg',
-        scaledSize: new google.maps.Size(30, 30)
-      };
-      var marker = new google.maps.Marker({
-        position: position,
-        icon: icon,
-        map: this.map,
-        collisionUniqueKey: collision.unique_key
-      });
-      marker.addListener('click', function () {
-        var contentString = details(collision);
-        var infowindow = new google.maps.InfoWindow({
-          content: contentString
-        });
-        infowindow.open(_this3.map, marker);
-      });
-      this.markersObj[marker.collisionUniqueKey] = marker;
-      if (usingMarkerClusterer) {
-        this.MarkerClusterer.addMarker(marker);
-      }
-    }
-  }, {
-    key: 'removeAllMarkers',
-    value: function removeAllMarkers(usingMarkerClusterer) {
-      var _this4 = this;
-
-      if (usingMarkerClusterer) {
-        this.MarkerClusterer.clearMarkers();
-      }
-      Object.values(this.markersObj).forEach(function (marker) {
-        return _this4.removeMarker(marker);
-      });
-    }
-  }, {
-    key: 'removeMarker',
-    value: function removeMarker(marker, usingMarkerClusterer) {
-      this.markersObj[marker.collisionUniqueKey].setMap(null);
-      delete this.markersObj[marker.collisionUniqueKey];
-      if (usingMarkerClusterer) {
-        this.MarkerClusterer.removeMarker(marker);
-      }
-    }
-  }]);
-
-  return MarkerManager;
-}();
-
-exports.default = MarkerManager;
-
-/***/ }),
-/* 283 */
+/* 282 */,
+/* 283 */,
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27274,13 +26984,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(109);
 
-var _reduxThunk = __webpack_require__(284);
+var _reduxThunk = __webpack_require__(285);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reduxLogger = __webpack_require__(285);
+var _reduxLogger = __webpack_require__(286);
 
-var _reducer = __webpack_require__(286);
+var _reducer = __webpack_require__(287);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27299,7 +27009,7 @@ exports.default = configureStore;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 284 */
+/* 285 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27326,7 +27036,7 @@ thunk.withExtraArgument = createThunkMiddleware;
 /* harmony default export */ __webpack_exports__["default"] = (thunk);
 
 /***/ }),
-/* 285 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {!function(e,t){ true?t(exports):"function"==typeof define&&define.amd?define(["exports"],t):t(e.reduxLogger=e.reduxLogger||{})}(this,function(e){"use strict";function t(e,t){e.super_=t,e.prototype=Object.create(t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}})}function r(e,t){Object.defineProperty(this,"kind",{value:e,enumerable:!0}),t&&t.length&&Object.defineProperty(this,"path",{value:t,enumerable:!0})}function n(e,t,r){n.super_.call(this,"E",e),Object.defineProperty(this,"lhs",{value:t,enumerable:!0}),Object.defineProperty(this,"rhs",{value:r,enumerable:!0})}function o(e,t){o.super_.call(this,"N",e),Object.defineProperty(this,"rhs",{value:t,enumerable:!0})}function i(e,t){i.super_.call(this,"D",e),Object.defineProperty(this,"lhs",{value:t,enumerable:!0})}function a(e,t,r){a.super_.call(this,"A",e),Object.defineProperty(this,"index",{value:t,enumerable:!0}),Object.defineProperty(this,"item",{value:r,enumerable:!0})}function f(e,t,r){var n=e.slice((r||t)+1||e.length);return e.length=t<0?e.length+t:t,e.push.apply(e,n),e}function u(e){var t="undefined"==typeof e?"undefined":N(e);return"object"!==t?t:e===Math?"math":null===e?"null":Array.isArray(e)?"array":"[object Date]"===Object.prototype.toString.call(e)?"date":"function"==typeof e.toString&&/^\/.*\//.test(e.toString())?"regexp":"object"}function l(e,t,r,c,s,d,p){s=s||[],p=p||[];var g=s.slice(0);if("undefined"!=typeof d){if(c){if("function"==typeof c&&c(g,d))return;if("object"===("undefined"==typeof c?"undefined":N(c))){if(c.prefilter&&c.prefilter(g,d))return;if(c.normalize){var h=c.normalize(g,d,e,t);h&&(e=h[0],t=h[1])}}}g.push(d)}"regexp"===u(e)&&"regexp"===u(t)&&(e=e.toString(),t=t.toString());var y="undefined"==typeof e?"undefined":N(e),v="undefined"==typeof t?"undefined":N(t),b="undefined"!==y||p&&p[p.length-1].lhs&&p[p.length-1].lhs.hasOwnProperty(d),m="undefined"!==v||p&&p[p.length-1].rhs&&p[p.length-1].rhs.hasOwnProperty(d);if(!b&&m)r(new o(g,t));else if(!m&&b)r(new i(g,e));else if(u(e)!==u(t))r(new n(g,e,t));else if("date"===u(e)&&e-t!==0)r(new n(g,e,t));else if("object"===y&&null!==e&&null!==t)if(p.filter(function(t){return t.lhs===e}).length)e!==t&&r(new n(g,e,t));else{if(p.push({lhs:e,rhs:t}),Array.isArray(e)){var w;e.length;for(w=0;w<e.length;w++)w>=t.length?r(new a(g,w,new i(void 0,e[w]))):l(e[w],t[w],r,c,g,w,p);for(;w<t.length;)r(new a(g,w,new o(void 0,t[w++])))}else{var x=Object.keys(e),S=Object.keys(t);x.forEach(function(n,o){var i=S.indexOf(n);i>=0?(l(e[n],t[n],r,c,g,n,p),S=f(S,i)):l(e[n],void 0,r,c,g,n,p)}),S.forEach(function(e){l(void 0,t[e],r,c,g,e,p)})}p.length=p.length-1}else e!==t&&("number"===y&&isNaN(e)&&isNaN(t)||r(new n(g,e,t)))}function c(e,t,r,n){return n=n||[],l(e,t,function(e){e&&n.push(e)},r),n.length?n:void 0}function s(e,t,r){if(r.path&&r.path.length){var n,o=e[t],i=r.path.length-1;for(n=0;n<i;n++)o=o[r.path[n]];switch(r.kind){case"A":s(o[r.path[n]],r.index,r.item);break;case"D":delete o[r.path[n]];break;case"E":case"N":o[r.path[n]]=r.rhs}}else switch(r.kind){case"A":s(e[t],r.index,r.item);break;case"D":e=f(e,t);break;case"E":case"N":e[t]=r.rhs}return e}function d(e,t,r){if(e&&t&&r&&r.kind){for(var n=e,o=-1,i=r.path?r.path.length-1:0;++o<i;)"undefined"==typeof n[r.path[o]]&&(n[r.path[o]]="number"==typeof r.path[o]?[]:{}),n=n[r.path[o]];switch(r.kind){case"A":s(r.path?n[r.path[o]]:n,r.index,r.item);break;case"D":delete n[r.path[o]];break;case"E":case"N":n[r.path[o]]=r.rhs}}}function p(e,t,r){if(r.path&&r.path.length){var n,o=e[t],i=r.path.length-1;for(n=0;n<i;n++)o=o[r.path[n]];switch(r.kind){case"A":p(o[r.path[n]],r.index,r.item);break;case"D":o[r.path[n]]=r.lhs;break;case"E":o[r.path[n]]=r.lhs;break;case"N":delete o[r.path[n]]}}else switch(r.kind){case"A":p(e[t],r.index,r.item);break;case"D":e[t]=r.lhs;break;case"E":e[t]=r.lhs;break;case"N":e=f(e,t)}return e}function g(e,t,r){if(e&&t&&r&&r.kind){var n,o,i=e;for(o=r.path.length-1,n=0;n<o;n++)"undefined"==typeof i[r.path[n]]&&(i[r.path[n]]={}),i=i[r.path[n]];switch(r.kind){case"A":p(i[r.path[n]],r.index,r.item);break;case"D":i[r.path[n]]=r.lhs;break;case"E":i[r.path[n]]=r.lhs;break;case"N":delete i[r.path[n]]}}}function h(e,t,r){if(e&&t){var n=function(n){r&&!r(e,t,n)||d(e,t,n)};l(e,t,n)}}function y(e){return"color: "+F[e].color+"; font-weight: bold"}function v(e){var t=e.kind,r=e.path,n=e.lhs,o=e.rhs,i=e.index,a=e.item;switch(t){case"E":return[r.join("."),n,"→",o];case"N":return[r.join("."),o];case"D":return[r.join(".")];case"A":return[r.join(".")+"["+i+"]",a];default:return[]}}function b(e,t,r,n){var o=c(e,t);try{n?r.groupCollapsed("diff"):r.group("diff")}catch(e){r.log("diff")}o?o.forEach(function(e){var t=e.kind,n=v(e);r.log.apply(r,["%c "+F[t].text,y(t)].concat(P(n)))}):r.log("—— no diff ——");try{r.groupEnd()}catch(e){r.log("—— diff end —— ")}}function m(e,t,r,n){switch("undefined"==typeof e?"undefined":N(e)){case"object":return"function"==typeof e[n]?e[n].apply(e,P(r)):e[n];case"function":return e(t);default:return e}}function w(e){var t=e.timestamp,r=e.duration;return function(e,n,o){var i=["action"];return i.push("%c"+String(e.type)),t&&i.push("%c@ "+n),r&&i.push("%c(in "+o.toFixed(2)+" ms)"),i.join(" ")}}function x(e,t){var r=t.logger,n=t.actionTransformer,o=t.titleFormatter,i=void 0===o?w(t):o,a=t.collapsed,f=t.colors,u=t.level,l=t.diff,c="undefined"==typeof t.titleFormatter;e.forEach(function(o,s){var d=o.started,p=o.startedTime,g=o.action,h=o.prevState,y=o.error,v=o.took,w=o.nextState,x=e[s+1];x&&(w=x.prevState,v=x.started-d);var S=n(g),k="function"==typeof a?a(function(){return w},g,o):a,j=D(p),E=f.title?"color: "+f.title(S)+";":"",A=["color: gray; font-weight: lighter;"];A.push(E),t.timestamp&&A.push("color: gray; font-weight: lighter;"),t.duration&&A.push("color: gray; font-weight: lighter;");var O=i(S,j,v);try{k?f.title&&c?r.groupCollapsed.apply(r,["%c "+O].concat(A)):r.groupCollapsed(O):f.title&&c?r.group.apply(r,["%c "+O].concat(A)):r.group(O)}catch(e){r.log(O)}var N=m(u,S,[h],"prevState"),P=m(u,S,[S],"action"),C=m(u,S,[y,h],"error"),F=m(u,S,[w],"nextState");if(N)if(f.prevState){var L="color: "+f.prevState(h)+"; font-weight: bold";r[N]("%c prev state",L,h)}else r[N]("prev state",h);if(P)if(f.action){var T="color: "+f.action(S)+"; font-weight: bold";r[P]("%c action    ",T,S)}else r[P]("action    ",S);if(y&&C)if(f.error){var M="color: "+f.error(y,h)+"; font-weight: bold;";r[C]("%c error     ",M,y)}else r[C]("error     ",y);if(F)if(f.nextState){var _="color: "+f.nextState(w)+"; font-weight: bold";r[F]("%c next state",_,w)}else r[F]("next state",w);l&&b(h,w,r,k);try{r.groupEnd()}catch(e){r.log("—— log end ——")}})}function S(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=Object.assign({},L,e),r=t.logger,n=t.stateTransformer,o=t.errorTransformer,i=t.predicate,a=t.logErrors,f=t.diffPredicate;if("undefined"==typeof r)return function(){return function(e){return function(t){return e(t)}}};if(e.getState&&e.dispatch)return console.error("[redux-logger] redux-logger not installed. Make sure to pass logger instance as middleware:\n// Logger with default options\nimport { logger } from 'redux-logger'\nconst store = createStore(\n  reducer,\n  applyMiddleware(logger)\n)\n// Or you can create your own logger with custom options http://bit.ly/redux-logger-options\nimport createLogger from 'redux-logger'\nconst logger = createLogger({\n  // ...options\n});\nconst store = createStore(\n  reducer,\n  applyMiddleware(logger)\n)\n"),function(){return function(e){return function(t){return e(t)}}};var u=[];return function(e){var r=e.getState;return function(e){return function(l){if("function"==typeof i&&!i(r,l))return e(l);var c={};u.push(c),c.started=O.now(),c.startedTime=new Date,c.prevState=n(r()),c.action=l;var s=void 0;if(a)try{s=e(l)}catch(e){c.error=o(e)}else s=e(l);c.took=O.now()-c.started,c.nextState=n(r());var d=t.diff&&"function"==typeof f?f(r,l):t.diff;if(x(u,Object.assign({},t,{diff:d})),u.length=0,c.error)throw c.error;return s}}}}var k,j,E=function(e,t){return new Array(t+1).join(e)},A=function(e,t){return E("0",t-e.toString().length)+e},D=function(e){return A(e.getHours(),2)+":"+A(e.getMinutes(),2)+":"+A(e.getSeconds(),2)+"."+A(e.getMilliseconds(),3)},O="undefined"!=typeof performance&&null!==performance&&"function"==typeof performance.now?performance:Date,N="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},P=function(e){if(Array.isArray(e)){for(var t=0,r=Array(e.length);t<e.length;t++)r[t]=e[t];return r}return Array.from(e)},C=[];k="object"===("undefined"==typeof global?"undefined":N(global))&&global?global:"undefined"!=typeof window?window:{},j=k.DeepDiff,j&&C.push(function(){"undefined"!=typeof j&&k.DeepDiff===c&&(k.DeepDiff=j,j=void 0)}),t(n,r),t(o,r),t(i,r),t(a,r),Object.defineProperties(c,{diff:{value:c,enumerable:!0},observableDiff:{value:l,enumerable:!0},applyDiff:{value:h,enumerable:!0},applyChange:{value:d,enumerable:!0},revertChange:{value:g,enumerable:!0},isConflict:{value:function(){return"undefined"!=typeof j},enumerable:!0},noConflict:{value:function(){return C&&(C.forEach(function(e){e()}),C=null),c},enumerable:!0}});var F={E:{color:"#2196F3",text:"CHANGED:"},N:{color:"#4CAF50",text:"ADDED:"},D:{color:"#F44336",text:"DELETED:"},A:{color:"#2196F3",text:"ARRAY:"}},L={level:"log",logger:console,logErrors:!0,collapsed:void 0,predicate:void 0,duration:!1,timestamp:!0,stateTransformer:function(e){return e},actionTransformer:function(e){return e},errorTransformer:function(e){return e},colors:{title:function(){return"inherit"},prevState:function(){return"#9E9E9E"},action:function(){return"#03A9F4"},nextState:function(){return"#4CAF50"},error:function(){return"#F20404"}},diff:!1,diffPredicate:void 0,transformer:void 0},T=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=e.dispatch,r=e.getState;return"function"==typeof t||"function"==typeof r?S()({dispatch:t,getState:r}):void console.error("\n[redux-logger v3] BREAKING CHANGE\n[redux-logger v3] Since 3.0.0 redux-logger exports by default logger with default settings.\n[redux-logger v3] Change\n[redux-logger v3] import createLogger from 'redux-logger'\n[redux-logger v3] to\n[redux-logger v3] import { createLogger } from 'redux-logger'\n")};e.defaults=L,e.createLogger=S,e.logger=T,e.default=T,Object.defineProperty(e,"__esModule",{value:!0})});
@@ -27334,7 +27044,7 @@ thunk.withExtraArgument = createThunkMiddleware;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(38)))
 
 /***/ }),
-/* 286 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27345,7 +27055,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Reducer = exports.defaultState = undefined;
 
-var _merge = __webpack_require__(287);
+var _merge = __webpack_require__(288);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -27356,12 +27066,9 @@ var _util = __webpack_require__(68);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var defaultState = exports.defaultState = Object.freeze({
-  start: _util.DEFAULT_TIME, // in minutes, later from midnight.
-  finish: _util.DEFAULT_TIME + 60, // in minutes
-  initialTime: _util.DEFAULT_TIME,
+  hour: _util.DEFAULT_HOUR,
   date: '2017-03-13',
-  loading: true,
-  extraShown: false
+  loading: true
 });
 
 var Reducer = exports.Reducer = function Reducer() {
@@ -27379,11 +27086,11 @@ var Reducer = exports.Reducer = function Reducer() {
 };
 
 /***/ }),
-/* 287 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseMerge = __webpack_require__(288),
-    createAssigner = __webpack_require__(345);
+var baseMerge = __webpack_require__(289),
+    createAssigner = __webpack_require__(346);
 
 /**
  * This method is like `_.assign` except that it recursively merges own and
@@ -27424,13 +27131,13 @@ module.exports = merge;
 
 
 /***/ }),
-/* 288 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Stack = __webpack_require__(289),
+var Stack = __webpack_require__(290),
     assignMergeValue = __webpack_require__(121),
-    baseFor = __webpack_require__(320),
-    baseMergeDeep = __webpack_require__(322),
+    baseFor = __webpack_require__(321),
+    baseMergeDeep = __webpack_require__(323),
     isObject = __webpack_require__(18),
     keysIn = __webpack_require__(131),
     safeGet = __webpack_require__(130);
@@ -27472,15 +27179,15 @@ module.exports = baseMerge;
 
 
 /***/ }),
-/* 289 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ListCache = __webpack_require__(40),
-    stackClear = __webpack_require__(295),
-    stackDelete = __webpack_require__(296),
-    stackGet = __webpack_require__(297),
-    stackHas = __webpack_require__(298),
-    stackSet = __webpack_require__(299);
+    stackClear = __webpack_require__(296),
+    stackDelete = __webpack_require__(297),
+    stackGet = __webpack_require__(298),
+    stackHas = __webpack_require__(299),
+    stackSet = __webpack_require__(300);
 
 /**
  * Creates a stack cache object to store key-value pairs.
@@ -27505,7 +27212,7 @@ module.exports = Stack;
 
 
 /***/ }),
-/* 290 */
+/* 291 */
 /***/ (function(module, exports) {
 
 /**
@@ -27524,7 +27231,7 @@ module.exports = listCacheClear;
 
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assocIndexOf = __webpack_require__(41);
@@ -27565,7 +27272,7 @@ module.exports = listCacheDelete;
 
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assocIndexOf = __webpack_require__(41);
@@ -27590,7 +27297,7 @@ module.exports = listCacheGet;
 
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assocIndexOf = __webpack_require__(41);
@@ -27612,7 +27319,7 @@ module.exports = listCacheHas;
 
 
 /***/ }),
-/* 294 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assocIndexOf = __webpack_require__(41);
@@ -27644,7 +27351,7 @@ module.exports = listCacheSet;
 
 
 /***/ }),
-/* 295 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ListCache = __webpack_require__(40);
@@ -27665,7 +27372,7 @@ module.exports = stackClear;
 
 
 /***/ }),
-/* 296 */
+/* 297 */
 /***/ (function(module, exports) {
 
 /**
@@ -27689,7 +27396,7 @@ module.exports = stackDelete;
 
 
 /***/ }),
-/* 297 */
+/* 298 */
 /***/ (function(module, exports) {
 
 /**
@@ -27709,7 +27416,7 @@ module.exports = stackGet;
 
 
 /***/ }),
-/* 298 */
+/* 299 */
 /***/ (function(module, exports) {
 
 /**
@@ -27729,12 +27436,12 @@ module.exports = stackHas;
 
 
 /***/ }),
-/* 299 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ListCache = __webpack_require__(40),
     Map = __webpack_require__(118),
-    MapCache = __webpack_require__(307);
+    MapCache = __webpack_require__(308);
 
 /** Used as the size to enable large array optimizations. */
 var LARGE_ARRAY_SIZE = 200;
@@ -27769,13 +27476,13 @@ module.exports = stackSet;
 
 
 /***/ }),
-/* 300 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isFunction = __webpack_require__(70),
-    isMasked = __webpack_require__(303),
+    isMasked = __webpack_require__(304),
     isObject = __webpack_require__(18),
-    toSource = __webpack_require__(305);
+    toSource = __webpack_require__(306);
 
 /**
  * Used to match `RegExp`
@@ -27822,7 +27529,7 @@ module.exports = baseIsNative;
 
 
 /***/ }),
-/* 301 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Symbol = __webpack_require__(119);
@@ -27874,7 +27581,7 @@ module.exports = getRawTag;
 
 
 /***/ }),
-/* 302 */
+/* 303 */
 /***/ (function(module, exports) {
 
 /** Used for built-in method references. */
@@ -27902,10 +27609,10 @@ module.exports = objectToString;
 
 
 /***/ }),
-/* 303 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var coreJsData = __webpack_require__(304);
+var coreJsData = __webpack_require__(305);
 
 /** Used to detect methods masquerading as native. */
 var maskSrcKey = (function() {
@@ -27928,7 +27635,7 @@ module.exports = isMasked;
 
 
 /***/ }),
-/* 304 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var root = __webpack_require__(23);
@@ -27940,7 +27647,7 @@ module.exports = coreJsData;
 
 
 /***/ }),
-/* 305 */
+/* 306 */
 /***/ (function(module, exports) {
 
 /** Used for built-in method references. */
@@ -27972,7 +27679,7 @@ module.exports = toSource;
 
 
 /***/ }),
-/* 306 */
+/* 307 */
 /***/ (function(module, exports) {
 
 /**
@@ -27991,14 +27698,14 @@ module.exports = getValue;
 
 
 /***/ }),
-/* 307 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var mapCacheClear = __webpack_require__(308),
-    mapCacheDelete = __webpack_require__(315),
-    mapCacheGet = __webpack_require__(317),
-    mapCacheHas = __webpack_require__(318),
-    mapCacheSet = __webpack_require__(319);
+var mapCacheClear = __webpack_require__(309),
+    mapCacheDelete = __webpack_require__(316),
+    mapCacheGet = __webpack_require__(318),
+    mapCacheHas = __webpack_require__(319),
+    mapCacheSet = __webpack_require__(320);
 
 /**
  * Creates a map cache object to store key-value pairs.
@@ -28029,10 +27736,10 @@ module.exports = MapCache;
 
 
 /***/ }),
-/* 308 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Hash = __webpack_require__(309),
+var Hash = __webpack_require__(310),
     ListCache = __webpack_require__(40),
     Map = __webpack_require__(118);
 
@@ -28056,14 +27763,14 @@ module.exports = mapCacheClear;
 
 
 /***/ }),
-/* 309 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var hashClear = __webpack_require__(310),
-    hashDelete = __webpack_require__(311),
-    hashGet = __webpack_require__(312),
-    hashHas = __webpack_require__(313),
-    hashSet = __webpack_require__(314);
+var hashClear = __webpack_require__(311),
+    hashDelete = __webpack_require__(312),
+    hashGet = __webpack_require__(313),
+    hashHas = __webpack_require__(314),
+    hashSet = __webpack_require__(315);
 
 /**
  * Creates a hash object.
@@ -28094,7 +27801,7 @@ module.exports = Hash;
 
 
 /***/ }),
-/* 310 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nativeCreate = __webpack_require__(44);
@@ -28115,7 +27822,7 @@ module.exports = hashClear;
 
 
 /***/ }),
-/* 311 */
+/* 312 */
 /***/ (function(module, exports) {
 
 /**
@@ -28138,7 +27845,7 @@ module.exports = hashDelete;
 
 
 /***/ }),
-/* 312 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nativeCreate = __webpack_require__(44);
@@ -28174,7 +27881,7 @@ module.exports = hashGet;
 
 
 /***/ }),
-/* 313 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nativeCreate = __webpack_require__(44);
@@ -28203,7 +27910,7 @@ module.exports = hashHas;
 
 
 /***/ }),
-/* 314 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nativeCreate = __webpack_require__(44);
@@ -28232,7 +27939,7 @@ module.exports = hashSet;
 
 
 /***/ }),
-/* 315 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getMapData = __webpack_require__(45);
@@ -28256,7 +27963,7 @@ module.exports = mapCacheDelete;
 
 
 /***/ }),
-/* 316 */
+/* 317 */
 /***/ (function(module, exports) {
 
 /**
@@ -28277,7 +27984,7 @@ module.exports = isKeyable;
 
 
 /***/ }),
-/* 317 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getMapData = __webpack_require__(45);
@@ -28299,7 +28006,7 @@ module.exports = mapCacheGet;
 
 
 /***/ }),
-/* 318 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getMapData = __webpack_require__(45);
@@ -28321,7 +28028,7 @@ module.exports = mapCacheHas;
 
 
 /***/ }),
-/* 319 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getMapData = __webpack_require__(45);
@@ -28349,10 +28056,10 @@ module.exports = mapCacheSet;
 
 
 /***/ }),
-/* 320 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var createBaseFor = __webpack_require__(321);
+var createBaseFor = __webpack_require__(322);
 
 /**
  * The base implementation of `baseForOwn` which iterates over `object`
@@ -28371,7 +28078,7 @@ module.exports = baseFor;
 
 
 /***/ }),
-/* 321 */
+/* 322 */
 /***/ (function(module, exports) {
 
 /**
@@ -28402,24 +28109,24 @@ module.exports = createBaseFor;
 
 
 /***/ }),
-/* 322 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assignMergeValue = __webpack_require__(121),
-    cloneBuffer = __webpack_require__(323),
-    cloneTypedArray = __webpack_require__(324),
-    copyArray = __webpack_require__(327),
-    initCloneObject = __webpack_require__(328),
+    cloneBuffer = __webpack_require__(324),
+    cloneTypedArray = __webpack_require__(325),
+    copyArray = __webpack_require__(328),
+    initCloneObject = __webpack_require__(329),
     isArguments = __webpack_require__(125),
     isArray = __webpack_require__(126),
-    isArrayLikeObject = __webpack_require__(332),
+    isArrayLikeObject = __webpack_require__(333),
     isBuffer = __webpack_require__(128),
     isFunction = __webpack_require__(70),
     isObject = __webpack_require__(18),
-    isPlainObject = __webpack_require__(334),
+    isPlainObject = __webpack_require__(335),
     isTypedArray = __webpack_require__(129),
     safeGet = __webpack_require__(130),
-    toPlainObject = __webpack_require__(338);
+    toPlainObject = __webpack_require__(339);
 
 /**
  * A specialized version of `baseMerge` for arrays and objects which performs
@@ -28502,7 +28209,7 @@ module.exports = baseMergeDeep;
 
 
 /***/ }),
-/* 323 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(23);
@@ -28544,10 +28251,10 @@ module.exports = cloneBuffer;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(39)(module)))
 
 /***/ }),
-/* 324 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var cloneArrayBuffer = __webpack_require__(325);
+var cloneArrayBuffer = __webpack_require__(326);
 
 /**
  * Creates a clone of `typedArray`.
@@ -28566,10 +28273,10 @@ module.exports = cloneTypedArray;
 
 
 /***/ }),
-/* 325 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Uint8Array = __webpack_require__(326);
+var Uint8Array = __webpack_require__(327);
 
 /**
  * Creates a clone of `arrayBuffer`.
@@ -28588,7 +28295,7 @@ module.exports = cloneArrayBuffer;
 
 
 /***/ }),
-/* 326 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var root = __webpack_require__(23);
@@ -28600,7 +28307,7 @@ module.exports = Uint8Array;
 
 
 /***/ }),
-/* 327 */
+/* 328 */
 /***/ (function(module, exports) {
 
 /**
@@ -28626,10 +28333,10 @@ module.exports = copyArray;
 
 
 /***/ }),
-/* 328 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseCreate = __webpack_require__(329),
+var baseCreate = __webpack_require__(330),
     getPrototype = __webpack_require__(123),
     isPrototype = __webpack_require__(124);
 
@@ -28650,7 +28357,7 @@ module.exports = initCloneObject;
 
 
 /***/ }),
-/* 329 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(18);
@@ -28686,7 +28393,7 @@ module.exports = baseCreate;
 
 
 /***/ }),
-/* 330 */
+/* 331 */
 /***/ (function(module, exports) {
 
 /**
@@ -28707,7 +28414,7 @@ module.exports = overArg;
 
 
 /***/ }),
-/* 331 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(43),
@@ -28731,7 +28438,7 @@ module.exports = baseIsArguments;
 
 
 /***/ }),
-/* 332 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isArrayLike = __webpack_require__(72),
@@ -28770,7 +28477,7 @@ module.exports = isArrayLikeObject;
 
 
 /***/ }),
-/* 333 */
+/* 334 */
 /***/ (function(module, exports) {
 
 /**
@@ -28794,7 +28501,7 @@ module.exports = stubFalse;
 
 
 /***/ }),
-/* 334 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(43),
@@ -28862,7 +28569,7 @@ module.exports = isPlainObject;
 
 
 /***/ }),
-/* 335 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(43),
@@ -28928,7 +28635,7 @@ module.exports = baseIsTypedArray;
 
 
 /***/ }),
-/* 336 */
+/* 337 */
 /***/ (function(module, exports) {
 
 /**
@@ -28948,7 +28655,7 @@ module.exports = baseUnary;
 
 
 /***/ }),
-/* 337 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(120);
@@ -28985,10 +28692,10 @@ module.exports = nodeUtil;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(39)(module)))
 
 /***/ }),
-/* 338 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(339),
+var copyObject = __webpack_require__(340),
     keysIn = __webpack_require__(131);
 
 /**
@@ -29023,10 +28730,10 @@ module.exports = toPlainObject;
 
 
 /***/ }),
-/* 339 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var assignValue = __webpack_require__(340),
+var assignValue = __webpack_require__(341),
     baseAssignValue = __webpack_require__(71);
 
 /**
@@ -29069,7 +28776,7 @@ module.exports = copyObject;
 
 
 /***/ }),
-/* 340 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseAssignValue = __webpack_require__(71),
@@ -29103,10 +28810,10 @@ module.exports = assignValue;
 
 
 /***/ }),
-/* 341 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseTimes = __webpack_require__(342),
+var baseTimes = __webpack_require__(343),
     isArguments = __webpack_require__(125),
     isArray = __webpack_require__(126),
     isBuffer = __webpack_require__(128),
@@ -29158,7 +28865,7 @@ module.exports = arrayLikeKeys;
 
 
 /***/ }),
-/* 342 */
+/* 343 */
 /***/ (function(module, exports) {
 
 /**
@@ -29184,12 +28891,12 @@ module.exports = baseTimes;
 
 
 /***/ }),
-/* 343 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(18),
     isPrototype = __webpack_require__(124),
-    nativeKeysIn = __webpack_require__(344);
+    nativeKeysIn = __webpack_require__(345);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -29223,7 +28930,7 @@ module.exports = baseKeysIn;
 
 
 /***/ }),
-/* 344 */
+/* 345 */
 /***/ (function(module, exports) {
 
 /**
@@ -29249,11 +28956,11 @@ module.exports = nativeKeysIn;
 
 
 /***/ }),
-/* 345 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseRest = __webpack_require__(346),
-    isIterateeCall = __webpack_require__(353);
+var baseRest = __webpack_require__(347),
+    isIterateeCall = __webpack_require__(354);
 
 /**
  * Creates a function like `_.assign`.
@@ -29292,12 +28999,12 @@ module.exports = createAssigner;
 
 
 /***/ }),
-/* 346 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var identity = __webpack_require__(133),
-    overRest = __webpack_require__(347),
-    setToString = __webpack_require__(349);
+    overRest = __webpack_require__(348),
+    setToString = __webpack_require__(350);
 
 /**
  * The base implementation of `_.rest` which doesn't validate or coerce arguments.
@@ -29315,10 +29022,10 @@ module.exports = baseRest;
 
 
 /***/ }),
-/* 347 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var apply = __webpack_require__(348);
+var apply = __webpack_require__(349);
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max;
@@ -29357,7 +29064,7 @@ module.exports = overRest;
 
 
 /***/ }),
-/* 348 */
+/* 349 */
 /***/ (function(module, exports) {
 
 /**
@@ -29384,11 +29091,11 @@ module.exports = apply;
 
 
 /***/ }),
-/* 349 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseSetToString = __webpack_require__(350),
-    shortOut = __webpack_require__(352);
+var baseSetToString = __webpack_require__(351),
+    shortOut = __webpack_require__(353);
 
 /**
  * Sets the `toString` method of `func` to return `string`.
@@ -29404,10 +29111,10 @@ module.exports = setToString;
 
 
 /***/ }),
-/* 350 */
+/* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var constant = __webpack_require__(351),
+var constant = __webpack_require__(352),
     defineProperty = __webpack_require__(122),
     identity = __webpack_require__(133);
 
@@ -29432,7 +29139,7 @@ module.exports = baseSetToString;
 
 
 /***/ }),
-/* 351 */
+/* 352 */
 /***/ (function(module, exports) {
 
 /**
@@ -29464,7 +29171,7 @@ module.exports = constant;
 
 
 /***/ }),
-/* 352 */
+/* 353 */
 /***/ (function(module, exports) {
 
 /** Used to detect hot functions by number of calls within a span of milliseconds. */
@@ -29507,7 +29214,7 @@ module.exports = shortOut;
 
 
 /***/ }),
-/* 353 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var eq = __webpack_require__(42),
@@ -29543,7 +29250,7 @@ module.exports = isIterateeCall;
 
 
 /***/ }),
-/* 354 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29552,25 +29259,282 @@ module.exports = isIterateeCall;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var initHeatmap = exports.initHeatmap = function initHeatmap(map, collisions) {
-  var heatmapData = collisions.map(function (collision) {
-    return new google.maps.LatLng(collision.latitude, collision.longitude);
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ChartPlaceholder = function ChartPlaceholder() {
+  return _react2.default.createElement(
+    "div",
+    { id: "chart-div" },
+    "Loading chart...",
+    _react2.default.createElement("img", { alt: "spinner", className: "spinner", src: "./assets/images/spinner.svg" })
+  );
+};
+
+exports.default = ChartPlaceholder;
+
+/***/ }),
+/* 356 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var initChart = function initChart(collisions, updateFilter) {
+  google.charts.load('current', {
+    packages: ['corechart']
   });
-  return new google.maps.visualization.HeatmapLayer({
-    data: heatmapData,
-    radius: 10,
-    maxIntensity: 3,
-    map: map
+  google.charts.setOnLoadCallback(function () {
+    var data = new google.visualization.DataTable();
+    data.addColumn({
+      type: 'timeofday',
+      label: 'Time'
+    });
+    data.addColumn({
+      type: 'number',
+      label: 'No Injuries/Deaths'
+    });
+    data.addColumn({
+      type: 'number',
+      label: 'With Injuries'
+    });
+    data.addColumn({
+      type: 'number',
+      label: 'With Deaths'
+    });
+    var noInjuriesThisHour = 0;
+    var injuriesThisHour = 0;
+    var deathsThisHour = 0;
+    var totalCount = 0;
+    for (var hour = 0; hour <= 23; hour++) {
+      if (hour in collisions) {
+        collisions[hour].forEach(function (collision) {
+          if (collision.number_of_persons_killed > 0) {
+            deathsThisHour += 1;
+          } else if (collision.number_of_persons_injured > 0) {
+            injuriesThisHour += 1;
+          } else {
+            noInjuriesThisHour += 1;
+          }
+        });
+      }
+      var label = hour.toString() + ':00 - ' + hour.toString() + ':59';
+      data.addRow([{
+        v: [hour, 30, 0],
+        f: label
+      }, noInjuriesThisHour, injuriesThisHour, deathsThisHour]);
+      totalCount += noInjuriesThisHour + injuriesThisHour + deathsThisHour;
+      noInjuriesThisHour = 0;
+      injuriesThisHour = 0;
+      deathsThisHour = 0;
+    }
+    var title = 'Time Distribution of ' + totalCount.toString() + ' Collisions';
+    var options = {
+      animation: {
+        startup: true,
+        duration: 300
+      },
+      chartArea: {
+        width: '90%'
+      },
+      colors: ['#4285f4', '#f4b400', '#db4437'],
+      width: 500,
+      height: 300,
+      hAxis: {
+        baselineColor: 'white',
+        gridlines: {
+          color: 'white'
+        }
+      },
+      vAxis: {
+        ticks: [0, 20, 40, 60]
+      },
+      fontSize: 14,
+      title: title,
+      legend: {
+        position: 'top',
+        maxLines: 5
+      },
+      isStacked: true,
+      bar: {
+        groupWidth: '100%'
+      }
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart-div'));
+
+    var selectHandler = function selectHandler() {
+      var selectedItem = chart.getSelection()[0];
+      if (selectedItem) {
+        var _hour = selectedItem.row;
+        updateFilter({
+          hour: _hour
+        });
+      }
+    };
+
+    google.visualization.events.addListener(chart, 'select', selectHandler);
+
+    chart.draw(data, options);
   });
 };
 
-var updateHeatmap = exports.updateHeatmap = function updateHeatmap(heatmap, map, collisions) {
-  var heatmapData = collisions.map(function (collision) {
-    return new google.maps.LatLng(collision.latitude, collision.longitude);
-  });
-  heatmap.setData(heatmapData);
-  heatmap.setMap(map);
+exports.default = initChart;
+
+/***/ }),
+/* 357 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/* global google:false */
+
+var isPairValid = function isPairValid(_ref) {
+  var _ref2 = _slicedToArray(_ref, 2),
+      key = _ref2[0],
+      value = _ref2[1];
+
+  return key !== 'location' && value !== null && value !== '0';
 };
+
+var capitalize = function capitalize(s) {
+  return s[0].toUpperCase() + s.slice(1);
+};
+
+var toDetailEntry = function toDetailEntry(_ref3) {
+  var _ref4 = _slicedToArray(_ref3, 2),
+      key = _ref4[0],
+      value = _ref4[1];
+
+  return '<section><p><strong>' + capitalize(key) + '</strong><br />' + value + '</p></section>';
+};
+
+var toDetailEntries = function toDetailEntries(collision) {
+  return '<div>' + Object.entries(collision).filter(isPairValid).map(toDetailEntry).join('') + '</div>';
+};
+
+var MarkerManager = function () {
+  function MarkerManager(map) {
+    _classCallCheck(this, MarkerManager);
+
+    this.map = map;
+    this.markersObj = {};
+    var markerClustererOptions = {
+      imagePath: './lib/marker-clusterer/m'
+      // gridSize: 40,
+    };
+    this.MarkerClusterer = new MarkerClusterer(map, [], markerClustererOptions);
+  }
+
+  _createClass(MarkerManager, [{
+    key: 'toggleMarkerClusterer',
+    value: function toggleMarkerClusterer(usingMarkerClusterer) {
+      var _this = this;
+
+      if (usingMarkerClusterer) {
+        var markersArray = Object.values(this.markersObj);
+        this.MarkerClusterer.addMarkers(markersArray);
+      } else {
+        this.MarkerClusterer.clearMarkers();
+        Object.values(this.markersObj).forEach(function (marker) {
+          return marker.setMap(_this.map);
+        });
+      }
+    }
+  }, {
+    key: 'updateMarkers',
+    value: function updateMarkers(collisionsArray, usingMarkerClusterer) {
+      var _this2 = this;
+
+      var collisionsObj = {};
+      collisionsArray.forEach(function (collision) {
+        collisionsObj[collision.unique_key] = collision;
+      });
+      collisionsArray.filter(function (collision) {
+        return !(collision.unique_key in _this2.markersObj);
+      }).forEach(function (newCollision) {
+        _this2.createMarker(newCollision, usingMarkerClusterer);
+      });
+      Object.keys(this.markersObj).filter(function (collisionUniqueKey) {
+        return !(collisionUniqueKey in collisionsObj);
+      }).forEach(function (collisionUniqueKey) {
+        _this2.removeMarker(_this2.markersObj[collisionUniqueKey], usingMarkerClusterer);
+      });
+    }
+  }, {
+    key: 'createMarker',
+    value: function createMarker(collision, usingMarkerClusterer) {
+      var _this3 = this;
+
+      var lat = collision.latitude;
+      var lng = collision.longitude;
+      var position = new google.maps.LatLng(lat, lng);
+      var icon = {
+        url: './assets/images/car-collision-favicon.svg',
+        scaledSize: new google.maps.Size(30, 30)
+      };
+      var marker = new google.maps.Marker({
+        position: position,
+        icon: icon,
+        map: this.map,
+        collisionUniqueKey: collision.unique_key
+      });
+      marker.addListener('click', function () {
+        var content = toDetailEntries(collision);
+        var infoWindow = new google.maps.InfoWindow({
+          content: content
+        });
+        infoWindow.open(_this3.map, marker);
+      });
+      this.markersObj[marker.collisionUniqueKey] = marker;
+      if (usingMarkerClusterer) {
+        this.MarkerClusterer.addMarker(marker);
+      }
+    }
+  }, {
+    key: 'removeAllMarkers',
+    value: function removeAllMarkers(usingMarkerClusterer) {
+      var _this4 = this;
+
+      if (usingMarkerClusterer) {
+        this.MarkerClusterer.clearMarkers();
+      }
+      Object.values(this.markersObj).forEach(function (marker) {
+        return _this4.removeMarker(marker);
+      });
+    }
+  }, {
+    key: 'removeMarker',
+    value: function removeMarker(marker, usingMarkerClusterer) {
+      this.markersObj[marker.collisionUniqueKey].setMap(null);
+      delete this.markersObj[marker.collisionUniqueKey];
+      if (usingMarkerClusterer) {
+        this.MarkerClusterer.removeMarker(marker);
+      }
+    }
+  }]);
+
+  return MarkerManager;
+}();
+
+exports.default = MarkerManager;
 
 /***/ })
 /******/ ]);

@@ -1,4 +1,5 @@
 const API_ENDPOINT = 'https://data.cityofnewyork.us/resource/h9gi-nx95.json';
+export const API_LINK = 'https://dev.socrata.com/foundry/data.cityofnewyork.us/h9gi-nx95';
 const API_DATE_FIELD_NAME = 'crash_date';
 const API_TOKEN = 'Vz2nbemWZ3Ttmz998p1ZUu0A3';
 

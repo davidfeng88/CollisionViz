@@ -4,7 +4,7 @@ export const initHeatmap = (map, collisions) => {
     data: heatmapData,
     radius: 10,
     maxIntensity: 3,
-    map: map,
+    map,
   });
 };
 
