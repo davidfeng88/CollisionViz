@@ -1,13 +1,19 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {
   fetchCollisionsFromApi,
   API_TIME_FIELD_NAME,
 } from '../../api';
 
+import {
+  initHeatmap,
+  updateHeatmap,
+} from './Heatmap';
+
 // Components
 import Toggle from '../toggle';
 import MapInfoContainer from './map_info_container';
+import Chart from './Chart';
+
 // Utilities
 import MarkerManager from './marker_manager';
 import {
@@ -41,7 +47,6 @@ class Map extends React.Component {
     this.MarkerManager = new MarkerManager(this.map);
 
     this.fetchCollisions(this.props.date, true);
-    this.updateChart();
   }
 
   fetchCollisions = (date, firstFetch = false) => {
@@ -62,7 +67,12 @@ class Map extends React.Component {
           loading: false,
         });
         this.updateMarkers(DEFAULT_TIME, DEFAULT_TIME);
-        this.updateHeatmap(validCollisions, firstFetch);
+        if (firstFetch) {
+          this.heatmap = initHeatmap(this.map, validCollisions);
+        } else {
+          updateHeatmap(this.heatmap, this.map, validCollisions);
+        }
+        this.initChart();
       });
   }
 
@@ -99,22 +109,7 @@ class Map extends React.Component {
     );
   }
 
-  updateHeatmap = (validCollisions, firstFetch) => {
-    const heatmapData = validCollisions.map(collision => new google.maps.LatLng(collision.latitude, collision.longitude));
-    if (firstFetch) {
-      this.heatmap = new google.maps.visualization.HeatmapLayer({
-        data: heatmapData,
-        radius: 10,
-        maxIntensity: 3,
-        map: this.map,
-      });
-    } else {
-      this.heatmap.setData(heatmapData);
-      this.heatmap.setMap(this.map);
-    }
-  }
-
-  updateChart = () => {
+  initChart = () => {
     google.charts.load('current', {
       packages: ['corechart'],
     });
@@ -279,19 +274,12 @@ class Map extends React.Component {
     </div>
   );
 
-  chart = () => (
-    <div id="chart-div">
-      Loading chart...
-      <img className="spinner" src="./assets/images/spinner.svg" />
-    </div>
-  );
-
   render = () => (
     <div>
 
       {this.extraPanel()}
       <div className="flex-row">
-        {this.chart()}
+        <Chart />
       </div>
       <div className="index-map" ref="map">
         Map Placeholder
