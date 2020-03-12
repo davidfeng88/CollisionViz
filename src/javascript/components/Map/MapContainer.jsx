@@ -10,8 +10,10 @@ import Map from './Map';
 
 const mapStateToProps = ({
   date,
+  hour,
 }) => ({
   date,
+  hour,
 });
 
 const mapDispatchToProps = dispatch => ({
