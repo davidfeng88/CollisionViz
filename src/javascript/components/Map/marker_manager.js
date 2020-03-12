@@ -45,7 +45,7 @@ class MarkerManager {
     }
   }
 
-  updateMarkers(collisionsArray, taxi, bike, motorcycle, ped, usingMarkerClusterer) {
+  updateMarkers(collisionsArray, usingMarkerClusterer) {
     const collisionsObj = {};
     collisionsArray.forEach(
       (collision) => {
@@ -55,7 +55,7 @@ class MarkerManager {
     collisionsArray
       .filter(collision => !(collision.unique_key in this.markersObj))
       .forEach((newCollision) => {
-        this.createMarker(newCollision, taxi, bike, motorcycle, ped, usingMarkerClusterer);
+        this.createMarker(newCollision, usingMarkerClusterer);
       });
     Object.keys(this.markersObj)
       .filter(collisionUniqueKey => !(collisionUniqueKey in collisionsObj))
@@ -64,11 +64,14 @@ class MarkerManager {
       });
   }
 
-  createMarker(collision, taxi, bike, motorcycle, ped, usingMarkerClusterer) {
+  createMarker(collision, usingMarkerClusterer) {
     const lat = collision.latitude;
     const lng = collision.longitude;
     const position = new google.maps.LatLng(lat, lng);
-    const icon = this.iconStyle(collision, taxi, bike, motorcycle, ped);
+    const icon = {
+      url: './assets/images/car-collision-favicon.svg',
+      scaledSize: new google.maps.Size(30, 30),
+    };
     const marker = new google.maps.Marker({
       position,
       icon,
@@ -86,55 +89,6 @@ class MarkerManager {
     if (usingMarkerClusterer) {
       this.MarkerClusterer.addMarker(marker);
     }
-  }
-
-  iconStyle(collision, taxi, bike, motorcycle, ped) {
-    if (taxi && (
-      collision.vehicle_type_code1 === 'TAXI'
-        || collision.vehicle_type_code2 === 'TAXI'
-        || collision.vehicle_type_code_3 === 'TAXI'
-        || collision.vehicle_type_code_4 === 'TAXI'
-        || collision.vehicle_type_code_5 === 'TAXI'
-    )) {
-      return {
-        url: './assets/images/taxi.png',
-        scaledSize: new google.maps.Size(20, 20),
-      };
-    } if (bike && (
-      collision.vehicle_type_code1 === 'BICYCLE'
-        || collision.vehicle_type_code2 === 'BICYCLE'
-        || collision.vehicle_type_code_3 === 'BICYCLE'
-        || collision.vehicle_type_code_4 === 'BICYCLE'
-        || collision.vehicle_type_code_5 === 'BICYCLE'
-    )) {
-      return {
-        url: './assets/images/bike.png',
-        scaledSize: new google.maps.Size(30, 30),
-      };
-    } if (motorcycle && (
-      collision.vehicle_type_code1 === 'MOTORCYCLE'
-        || collision.vehicle_type_code2 === 'MOTORCYCLE'
-        || collision.vehicle_type_code_3 === 'MOTORCYCLE'
-        || collision.vehicle_type_code_4 === 'MOTORCYCLE'
-        || collision.vehicle_type_code_5 === 'MOTORCYCLE'
-    )) {
-      return {
-        url: './assets/images/motorcycle.png',
-        scaledSize: new google.maps.Size(30, 30),
-      };
-    } if (ped && (
-      collision.number_of_pedestrians_injured > 0
-        || collision.number_of_pedestrians_killed > 0
-    )) {
-      return {
-        url: './assets/images/ped.png',
-        scaledSize: new google.maps.Size(30, 30),
-      };
-    }
-    return {
-      url: './assets/images/car-collision-favicon.svg',
-      scaledSize: new google.maps.Size(30, 30),
-    };
   }
 
   removeAllMarkers(usingMarkerClusterer) {

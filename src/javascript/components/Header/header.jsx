@@ -3,12 +3,6 @@ import PropTypes from 'prop-types';
 import { RepoLink } from './HeaderLinks';
 import ModalSwitcher from './ModalSwitcher';
 
-const BackgroundSound = () => (
-  <audio id="traffic" src="./assets/audio/traffic.mp3">
-    <track kind="captions" />
-  </audio>
-);
-
 const Logo = () => (
   <div className="logo">
     <img src="./assets/images/car-collision-favicon.svg" alt="" />
@@ -30,7 +24,6 @@ const Links = ({ flipModal }) => (
 
 const Header = ({ isModalOn, flipModal }) => (
   <header>
-    <BackgroundSound />
     <Logo />
     <Links
       flipModal={flipModal}

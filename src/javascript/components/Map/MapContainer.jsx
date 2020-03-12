@@ -12,12 +12,11 @@ const mapStateToProps = ({
   start,
   finish,
   date,
-  extraShown,
+
 }) => ({
   start,
   finish,
   date,
-  extraShown,
 });
 
 const mapDispatchToProps = dispatch => ({

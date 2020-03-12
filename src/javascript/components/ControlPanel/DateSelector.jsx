@@ -1,10 +1,9 @@
 import React from 'react';
 
-const DateSelector = ({ date, onChange, intervalId }) => {
-  const oneWeekAgo = new Date();
-  const disabled = intervalId ? 'disabled' : '';
-  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-  const oneWeekAgoString = oneWeekAgo.toJSON()
+const DateSelector = ({ date, onChange }) => {
+  const API_LATEST_DATE = new Date();
+  API_LATEST_DATE.setDate(API_LATEST_DATE.getDate() - 10);
+  const API_LATEST_DATE_STRING = API_LATEST_DATE.toJSON()
     .slice(0, 10);
   return (
     <div>
@@ -15,24 +14,18 @@ const DateSelector = ({ date, onChange, intervalId }) => {
         <br />
         2012-07-01 ~
         {' '}
-        {oneWeekAgoString}
+        {API_LATEST_DATE_STRING}
       </label>
       <input
         value={date}
         id="date"
         type="date"
         min="2012-07-01"
-        max={oneWeekAgoString}
+        max={API_LATEST_DATE_STRING}
         onChange={onChange}
-        disabled={disabled}
       />
     </div>
   );
 };
 
 export default DateSelector;
-
-// DateSelector.propTypes = {
-//   isModalOn: PropTypes.bool.isRequired,
-//   flipModal: PropTypes.func.isRequired,
-// };

@@ -5,7 +5,8 @@
   "rules": {
     "strict": 0,
     "babel/semi": 1,
-    "react/sort-comp": "off"
+    "react/sort-comp": "off",
+    "react/prop-types": "off"
   },
   "env": {
     "browser": true,

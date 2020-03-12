@@ -8,8 +8,6 @@ import {
 // Components
 import Toggle from '../toggle';
 import MapInfoContainer from './map_info_container';
-// Constants
-import alternativeMapStyle from './styles';
 // Utilities
 import MarkerManager from './marker_manager';
 import {
@@ -25,30 +23,15 @@ const NYC_CENTER = {
 };
 const DEFAULT_ZOOM_LEVEL = 10;
 
-export default class Map extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showChart: true,
-      alternativeMapStyle: false,
-      usingMarkerClusterer: true,
-      collisionCount: 0, // for map info panel refresh
-      // map layers
-      heatmap: true,
-      traffic: false,
-      transit: false,
-      bicycling: false,
-      // special icons
-      taxi: true,
-      bike: true,
-      motorcycle: true,
-      ped: true,
-    };
+class Map extends React.Component {
+  state = {
+    usingMarkerClusterer: true,
+    collisionCount: 0, // for map info panel refresh
+    // map layers
+    heatmap: true,
+  };
 
-    this.resetMapBorders = this.resetMapBorders.bind(this);
-  }
-
-  componentDidMount() {
+  componentDidMount = () => {
     const map = this.refs.map;
     this.map = new google.maps.Map(map, {
       center: NYC_CENTER,
@@ -57,13 +40,11 @@ export default class Map extends React.Component {
     });
     this.MarkerManager = new MarkerManager(this.map);
 
-    this.traffic = new google.maps.TrafficLayer();
-    this.transit = new google.maps.TransitLayer();
-    this.bicycling = new google.maps.BicyclingLayer();
     this.fetchCollisions(this.props.date, true);
+    this.updateChart();
   }
 
-  fetchCollisions(date, firstFetch = false) {
+  fetchCollisions = (date, firstFetch = false) => {
     this.collision = fetchCollisionsFromApi(date)
       .then((collisionsData) => {
         this.collisions = {};
@@ -82,13 +63,10 @@ export default class Map extends React.Component {
         });
         this.updateMarkers(DEFAULT_TIME, DEFAULT_TIME);
         this.updateHeatmap(validCollisions, firstFetch);
-        if (this.state.showChart) {
-          this.updateChart();
-        }
       });
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps = (nextProps) => {
     if (nextProps.date !== this.props.date) {
       // if the date is changed, clear all markers, draw a new heatmap
       this.heatmap.setMap(null);
@@ -102,7 +80,7 @@ export default class Map extends React.Component {
     }
   }
 
-  updateMarkers(start, finish) {
+  updateMarkers = (start, finish) => {
     let collisionsArray = [];
     for (let time = start; time <= finish; time++) {
       if (time in this.collisions) {
@@ -117,15 +95,11 @@ export default class Map extends React.Component {
     // filter the collisions based on start/finish/this.collisions
     this.MarkerManager.updateMarkers(
       collisionsArray,
-      this.state.taxi,
-      this.state.bike,
-      this.state.motorcycle,
-      this.state.ped,
       this.state.usingMarkerClusterer,
     );
   }
 
-  updateHeatmap(validCollisions, firstFetch) {
+  updateHeatmap = (validCollisions, firstFetch) => {
     const heatmapData = validCollisions.map(collision => new google.maps.LatLng(collision.latitude, collision.longitude));
     if (firstFetch) {
       this.heatmap = new google.maps.visualization.HeatmapLayer({
@@ -140,7 +114,7 @@ export default class Map extends React.Component {
     }
   }
 
-  updateChart() {
+  updateChart = () => {
     google.charts.load('current', {
       packages: ['corechart'],
     });
@@ -252,24 +226,13 @@ export default class Map extends React.Component {
     });
   }
 
-  toggle(field) {
+  toggle = (field) => {
     return (e) => {
       const newValue = !this.state[field];
       this.setState({
         [field]: !this.state[field],
       });
       switch (field) {
-        case 'alternativeMapStyle':
-          const newStyle = newValue ? alternativeMapStyle : [];
-          this.map.setOptions({
-            styles: newStyle,
-          });
-          break;
-        case 'showChart':
-          if (newValue) {
-            this.updateChart();
-          }
-          break;
         case 'usingMarkerClusterer':
           this.MarkerManager.toggleMarkerClusterer(newValue);
           break;
@@ -278,7 +241,7 @@ export default class Map extends React.Component {
     };
   }
 
-  toggleMapLayer(field) {
+  toggleMapLayer = (field) => {
     return (e) => {
       if (this.state[field]) {
         this[field].setMap(null);
@@ -294,135 +257,56 @@ export default class Map extends React.Component {
     };
   }
 
-  resetMapBorders() {
+  resetMapBorders = () => {
     this.map.setCenter(NYC_CENTER);
     this.map.setZoom(DEFAULT_ZOOM_LEVEL);
   }
 
-  extraPanel() {
-    let extraPanel = null;
-    if (this.props.extraShown) {
-      extraPanel = (
-        <div>
-          <div className="flex-row">
-            <Toggle
-              label="Chart"
-              checked={this.state.showChart}
-              onChange={this.toggle('showChart')}
-            />
-            <Toggle
-              label="Marker Clusterer"
-              checked={this.state.usingMarkerClusterer}
-              onChange={this.toggle('usingMarkerClusterer')}
-            />
-            <Toggle
-              label="Alternative Map Style"
-              checked={this.state.alternativeMapStyle}
-              onChange={this.toggle('alternativeMapStyle')}
-            />
-          </div>
-          <div className="flex-row">
-            Custom Markers
-            <Toggle
-              label="Taxi"
-              checked={this.state.taxi}
-              onChange={this.toggle('taxi')}
-            />
-            <Toggle
-              label="Bike"
-              checked={this.state.bike}
-              onChange={this.toggle('bike')}
-            />
-            <Toggle
-              label="Motorcycle"
-              checked={this.state.motorcycle}
-              onChange={this.toggle('motorcycle')}
-            />
-            <Toggle
-              label="Pedestrian"
-              checked={this.state.ped}
-              onChange={this.toggle('ped')}
-            />
-          </div>
-          <div className="flex-row">
-            Map Layers
-            <Toggle
-              label="Heatmap"
-              checked={this.state.heatmap}
-              onChange={this.toggleMapLayer('heatmap')}
-            />
-            <Toggle
-              label="Traffic"
-              checked={this.state.traffic}
-              onChange={this.toggleMapLayer('traffic')}
-            />
-            <Toggle
-              label="Transit"
-              checked={this.state.transit}
-              onChange={this.toggleMapLayer('transit')}
-            />
-            <Toggle
-              label="Bicycling"
-              checked={this.state.bicycling}
-              onChange={this.toggleMapLayer('bicycling')}
-            />
-          </div>
-        </div>
-      );
-    }
-    return (
-      <ReactCSSTransitionGroup
-        transitionName="extra"
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={200}
-      >
-        {extraPanel}
-      </ReactCSSTransitionGroup>
-    );
-  }
+  extraPanel = () => (
+    <div>
+      <div className="flex-row">
+        <Toggle
+          label="Marker Clusterer"
+          checked={this.state.usingMarkerClusterer}
+          onChange={this.toggle('usingMarkerClusterer')}
+        />
+        <Toggle
+          label="Heatmap"
+          checked={this.state.heatmap}
+          onChange={this.toggleMapLayer('heatmap')}
+        />
+      </div>
+    </div>
+  );
 
-  chart() {
-    let chart = null;
-    if (this.state.showChart) {
-      chart = (
-        <div id="chart-div">
-          Loading chart...
-          <img className="spinner" src="./assets/images/spinner.svg" />
-        </div>
-      );
-    }
-    return (
-      <ReactCSSTransitionGroup
-        transitionName="extra"
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={200}
-      >
-        {chart}
-      </ReactCSSTransitionGroup>
-    );
-  }
+  chart = () => (
+    <div id="chart-div">
+      Loading chart...
+      <img className="spinner" src="./assets/images/spinner.svg" />
+    </div>
+  );
 
-  render() {
-    return (
-      <div>
+  render = () => (
+    <div>
 
-        {this.extraPanel()}
-        <div className="flex-row">
-          {this.chart()}
-        </div>
-        <div className="index-map" ref="map">
-          Map
-        </div>
-        <div className="map-panel bordered flex-row">
-          <MapInfoContainer count={this.state.collisionCount} />
-          <div
-            className="clickable-div bordered"
-            onClick={this.resetMapBorders}
-          >
-            Reset Map Borders
-          </div>
+      {this.extraPanel()}
+      <div className="flex-row">
+        {this.chart()}
+      </div>
+      <div className="index-map" ref="map">
+        Map Placeholder
+      </div>
+      <div className="map-panel bordered flex-row">
+        <MapInfoContainer count={this.state.collisionCount} />
+        <div
+          className="clickable-div bordered"
+          onClick={this.resetMapBorders}
+        >
+          Reset Map Borders
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+export default Map;

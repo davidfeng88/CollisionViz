@@ -4859,11 +4859,11 @@ module.exports = function(module) {
 /* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var listCacheClear = __webpack_require__(306),
-    listCacheDelete = __webpack_require__(307),
-    listCacheGet = __webpack_require__(308),
-    listCacheHas = __webpack_require__(309),
-    listCacheSet = __webpack_require__(310);
+var listCacheClear = __webpack_require__(305),
+    listCacheDelete = __webpack_require__(306),
+    listCacheGet = __webpack_require__(307),
+    listCacheHas = __webpack_require__(308),
+    listCacheSet = __webpack_require__(309);
 
 /**
  * Creates an list cache object.
@@ -4968,8 +4968,8 @@ module.exports = eq;
 /***/ (function(module, exports, __webpack_require__) {
 
 var Symbol = __webpack_require__(124),
-    getRawTag = __webpack_require__(317),
-    objectToString = __webpack_require__(318);
+    getRawTag = __webpack_require__(316),
+    objectToString = __webpack_require__(317);
 
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
@@ -5013,7 +5013,7 @@ module.exports = nativeCreate;
 /* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isKeyable = __webpack_require__(332);
+var isKeyable = __webpack_require__(331);
 
 /**
  * Gets the data for `map`.
@@ -6997,20 +6997,12 @@ var updateFilter = exports.updateFilter = function updateFilter(filters) {
   };
 };
 
-var TOGGLE_EXTRA = exports.TOGGLE_EXTRA = 'TOGGLE_EXTRA';
-
-var toggleExtra = exports.toggleExtra = function toggleExtra() {
-  return {
-    type: TOGGLE_EXTRA
-  };
-};
-
 /***/ }),
 /* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsNative = __webpack_require__(316),
-    getValue = __webpack_require__(322);
+var baseIsNative = __webpack_require__(315),
+    getValue = __webpack_require__(321);
 
 /**
  * Gets the native function at `key` of `object`.
@@ -12059,7 +12051,7 @@ module.exports = defineProperty;
 /* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var overArg = __webpack_require__(346);
+var overArg = __webpack_require__(345);
 
 /** Built-in value references. */
 var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -12095,7 +12087,7 @@ module.exports = isPrototype;
 /* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsArguments = __webpack_require__(347),
+var baseIsArguments = __webpack_require__(346),
     isObjectLike = __webpack_require__(29);
 
 /** Used for built-in method references. */
@@ -12211,7 +12203,7 @@ module.exports = isLength;
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(23),
-    stubFalse = __webpack_require__(349);
+    stubFalse = __webpack_require__(348);
 
 /** Detect free variable `exports`. */
 var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
@@ -12255,9 +12247,9 @@ module.exports = isBuffer;
 /* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsTypedArray = __webpack_require__(351),
-    baseUnary = __webpack_require__(352),
-    nodeUtil = __webpack_require__(353);
+var baseIsTypedArray = __webpack_require__(350),
+    baseUnary = __webpack_require__(351),
+    nodeUtil = __webpack_require__(352);
 
 /* Node.js helper references. */
 var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
@@ -12315,8 +12307,8 @@ module.exports = safeGet;
 /* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeKeys = __webpack_require__(357),
-    baseKeysIn = __webpack_require__(359),
+var arrayLikeKeys = __webpack_require__(356),
+    baseKeysIn = __webpack_require__(358),
     isArrayLike = __webpack_require__(72);
 
 /**
@@ -12426,7 +12418,7 @@ var _Root = __webpack_require__(239);
 
 var _Root2 = _interopRequireDefault(_Root);
 
-var _store = __webpack_require__(299);
+var _store = __webpack_require__(298);
 
 var _store2 = _interopRequireDefault(_store);
 
@@ -26091,7 +26083,7 @@ var _ControlPanelContainer = __webpack_require__(277);
 
 var _ControlPanelContainer2 = _interopRequireDefault(_ControlPanelContainer);
 
-var _MapContainer = __webpack_require__(293);
+var _MapContainer = __webpack_require__(292);
 
 var _MapContainer2 = _interopRequireDefault(_MapContainer);
 
@@ -26204,14 +26196,6 @@ var _ModalSwitcher2 = _interopRequireDefault(_ModalSwitcher);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var BackgroundSound = function BackgroundSound() {
-  return _react2.default.createElement(
-    'audio',
-    { id: 'traffic', src: './assets/audio/traffic.mp3' },
-    _react2.default.createElement('track', { kind: 'captions' })
-  );
-};
-
 var Logo = function Logo() {
   return _react2.default.createElement(
     'div',
@@ -26246,7 +26230,6 @@ var Header = function Header(_ref2) {
   return _react2.default.createElement(
     'header',
     null,
-    _react2.default.createElement(BackgroundSound, null),
     _react2.default.createElement(Logo, null),
     _react2.default.createElement(Links, {
       flipModal: flipModal
@@ -26567,19 +26550,9 @@ var _actions = __webpack_require__(68);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(_ref) {
-  var start = _ref.start,
-      finish = _ref.finish,
-      initialTime = _ref.initialTime,
-      date = _ref.date,
-      loading = _ref.loading,
-      extraShown = _ref.extraShown;
+  var date = _ref.date;
   return {
-    start: start,
-    finish: finish,
-    initialTime: initialTime,
-    date: date,
-    loading: loading,
-    extraShown: extraShown
+    date: date
   };
 };
 
@@ -26587,9 +26560,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     updateFilter: function updateFilter(filters) {
       return dispatch((0, _actions.updateFilter)(filters));
-    },
-    toggleExtra: function toggleExtra() {
-      return dispatch((0, _actions.toggleExtra)());
     }
   };
 };
@@ -26611,31 +26581,11 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactAddonsCssTransitionGroup = __webpack_require__(119);
-
-var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
-
 var _DateSelector = __webpack_require__(290);
 
 var _DateSelector2 = _interopRequireDefault(_DateSelector);
 
-var _TimeSelector = __webpack_require__(291);
-
-var _TimeSelector2 = _interopRequireDefault(_TimeSelector);
-
-var _StartPauseButton = __webpack_require__(292);
-
-var _StartPauseButton2 = _interopRequireDefault(_StartPauseButton);
-
-var _util = __webpack_require__(28);
-
-var _toggle = __webpack_require__(122);
-
-var _toggle2 = _interopRequireDefault(_toggle);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -26657,184 +26607,23 @@ var ControlPanel = function (_React$Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ControlPanel.__proto__ || Object.getPrototypeOf(ControlPanel)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-      // changes need to trigger re-render
-      // grey out the inputs
-      intervalId: null,
-      // change of select
-      collisionMapTime: 15,
-      delay: 200,
-      // toggle
-      mute: true
-    }, _this.updateField = function (field) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ControlPanel.__proto__ || Object.getPrototypeOf(ControlPanel)).call.apply(_ref, [this].concat(args))), _this), _this.updateField = function (field) {
       return function (e) {
         e.preventDefault();
         switch (field) {
-          case 'collisionMapTime':
-          case 'delay':
-            _this.setState(_defineProperty({}, field, parseInt(e.currentTarget.value)));
-            break;
-
           case 'date':
-            _this.handleReset();
             _this.props.updateFilter({
               date: e.currentTarget.value,
               loading: true
             });
             break;
 
-          case 'time':
-            if (e.currentTarget.value !== '') {
-              var newTime = (0, _util.timeStringToInt)(e.currentTarget.value);
-              _this.setNewTime(newTime);
-            }
-            break;
-
           default:
+            break;
         }
       };
-    }, _this.handleReset = function () {
-      _this.handlePause();
-      _this.setNewTime(_util.DEFAULT_TIME);
-    }, _this.setNewTime = function (time) {
-      var updateFilter = _this.props.updateFilter;
-
-      updateFilter({
-        start: time,
-        finish: time,
-        initialTime: time
-      });
-    }, _this.handleStart = function () {
-      var _this$state = _this.state,
-          intervalId = _this$state.intervalId,
-          delay = _this$state.delay,
-          mute = _this$state.mute;
-
-      if (!intervalId) {
-        var newIntervalId = setInterval(_this.step, delay);
-        _this.setState({
-          intervalId: newIntervalId
-        });
-      }
-      if (!mute) {
-        var traffic = document.getElementById('traffic');
-        traffic.play();
-        traffic.loop = true;
-        traffic.volume = 0.2;
-      }
-    }, _this.handlePause = function () {
-      var intervalId = _this.state.intervalId;
-
-      if (intervalId) {
-        var traffic = document.getElementById('traffic');
-        traffic.pause();
-        clearInterval(intervalId);
-        _this.setState({
-          intervalId: null
-        });
-      }
-    }, _this.step = function () {
-      var newTime = _this.props.finish + 1;
-      if (newTime > _util.END_TIME) {
-        _this.handlePause();
-      } else {
-        var start = newTime - _this.state.collisionMapTime + 1;
-        var finish = newTime;
-        start = start > _this.props.initialTime ? start : _this.props.initialTime;
-        start = start > _util.START_TIME ? start : _util.START_TIME;
-        _this.props.updateFilter({
-          start: start,
-          finish: finish
-        });
-      }
-    }, _this.toggle = function (field) {
-      return function (e) {
-        var newValue = !_this.state[field];
-        _this.setState(_defineProperty({}, field, newValue));
-        if (field === 'mute') {
-          var traffic = document.getElementById('traffic');
-          if (_this.state.intervalId && !newValue) {
-            traffic.play();
-            traffic.loop = true;
-            traffic.volume = 0.2;
-          } else {
-            traffic.pause();
-          }
-        }
-      };
-    }, _this.extraPanel = function () {
-      var extraPanel = null;
-      if (_this.props.extraShown) {
-        extraPanel = _react2.default.createElement(
-          'div',
-          { className: 'flex-row' },
-          _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-              'label',
-              { htmlFor: 'collision-map-time' },
-              'Collisions Stay on Map for',
-              _react2.default.createElement('br', null),
-              _this.state.collisionMapTime,
-              ' ',
-              'Minute(s)'
-            ),
-            _react2.default.createElement('input', {
-              id: 'collision-map-time',
-              value: _this.state.collisionMapTime,
-              type: 'range',
-              min: '1',
-              max: '60',
-              onChange: _this.updateField('collisionMapTime'),
-              disabled: _this.state.intervalId ? 'disabled' : ''
-            })
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-              'label',
-              { htmlFor: 'delay' },
-              '1 Minute Map Time =',
-              ' ',
-              _react2.default.createElement('br', null),
-              _this.state.delay,
-              ' ',
-              'Milliseconds Wall Time'
-            ),
-            _react2.default.createElement('input', {
-              id: 'delay',
-              value: _this.state.delay,
-              type: 'range',
-              min: '50',
-              max: '1000',
-              onChange: _this.updateField('delay'),
-              disabled: _this.state.intervalId ? 'disabled' : ''
-            })
-          ),
-          _react2.default.createElement(_toggle2.default, {
-            label: 'Sound',
-            checked: !_this.state.mute,
-            onChange: _this.toggle('mute')
-          })
-        );
-      }
-      return _react2.default.createElement(
-        _reactAddonsCssTransitionGroup2.default,
-        {
-          transitionName: 'extra',
-          transitionEnterTimeout: 300,
-          transitionLeaveTimeout: 200
-        },
-        extraPanel
-      );
     }, _this.render = function () {
-      var intervalId = _this.state.intervalId;
-      var _this$props = _this.props,
-          loading = _this$props.loading,
-          date = _this$props.date,
-          finish = _this$props.finish;
+      var date = _this.props.date;
 
       return _react2.default.createElement(
         'div',
@@ -26844,19 +26633,7 @@ var ControlPanel = function (_React$Component) {
           { className: 'flex-row' },
           _react2.default.createElement(_DateSelector2.default, {
             date: date,
-            onChange: _this.updateField('date'),
-            intervalId: intervalId
-          }),
-          _react2.default.createElement(_TimeSelector2.default, {
-            finish: finish,
-            onChange: _this.updateField('time'),
-            intervalId: intervalId
-          }),
-          _react2.default.createElement(_StartPauseButton2.default, {
-            loading: loading,
-            intervalId: intervalId,
-            handleStart: _this.handleStart,
-            handlePause: _this.handlePause
+            onChange: _this.updateField('date')
           })
         ),
         _react2.default.createElement(
@@ -26866,22 +26643,8 @@ var ControlPanel = function (_React$Component) {
             'b',
             null,
             '4. Click on markers for details'
-          ),
-          _react2.default.createElement(
-            'div',
-            {
-              className: 'clickable-div bordered',
-              onClick: _this.handleReset
-            },
-            'Reset Time'
-          ),
-          _react2.default.createElement(_toggle2.default, {
-            label: 'More Settings',
-            checked: _this.props.extraShown,
-            onChange: _this.props.toggleExtra
-          })
-        ),
-        _this.extraPanel()
+          )
+        )
       );
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
@@ -27943,13 +27706,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var DateSelector = function DateSelector(_ref) {
   var date = _ref.date,
-      onChange = _ref.onChange,
-      intervalId = _ref.intervalId;
+      onChange = _ref.onChange;
 
-  var oneWeekAgo = new Date();
-  var disabled = intervalId ? 'disabled' : '';
-  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-  var oneWeekAgoString = oneWeekAgo.toJSON().slice(0, 10);
+  var API_LATEST_DATE = new Date();
+  API_LATEST_DATE.setDate(API_LATEST_DATE.getDate() - 10);
+  var API_LATEST_DATE_STRING = API_LATEST_DATE.toJSON().slice(0, 10);
   return _react2.default.createElement(
     'div',
     null,
@@ -27964,142 +27725,24 @@ var DateSelector = function DateSelector(_ref) {
       _react2.default.createElement('br', null),
       '2012-07-01 ~',
       ' ',
-      oneWeekAgoString
+      API_LATEST_DATE_STRING
     ),
     _react2.default.createElement('input', {
       value: date,
       id: 'date',
       type: 'date',
       min: '2012-07-01',
-      max: oneWeekAgoString,
-      onChange: onChange,
-      disabled: disabled
+      max: API_LATEST_DATE_STRING,
+      onChange: onChange
     })
   );
 };
 
 exports.default = DateSelector;
 
-// DateSelector.propTypes = {
-//   isModalOn: PropTypes.bool.isRequired,
-//   flipModal: PropTypes.func.isRequired,
-// };
-
 /***/ }),
-/* 291 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _util = __webpack_require__(28);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var TimeSelector = function TimeSelector(_ref) {
-  var finish = _ref.finish,
-      onChange = _ref.onChange,
-      intervalId = _ref.intervalId;
-
-  var time = (0, _util.timeIntToString)(finish);
-  var disabled = intervalId ? 'disabled' : '';
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      'label',
-      { htmlFor: 'time' },
-      _react2.default.createElement(
-        'b',
-        null,
-        '2. Select Start Time'
-      )
-    ),
-    _react2.default.createElement('input', {
-      id: 'time',
-      type: 'time',
-      value: time,
-      onChange: onChange,
-      disabled: disabled
-    })
-  );
-};
-
-exports.default = TimeSelector;
-
-// TimeSelector.propTypes = {
-//   isModalOn: PropTypes.bool.isRequired,
-//   flipModal: PropTypes.func.isRequired,
-// };
-
-/***/ }),
+/* 291 */,
 /* 292 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var StartPauseButton = function StartPauseButton(_ref) {
-  var loading = _ref.loading,
-      intervalId = _ref.intervalId,
-      handlePause = _ref.handlePause,
-      handleStart = _ref.handleStart;
-
-  if (loading) {
-    return _react2.default.createElement(
-      "div",
-      { className: "spinner bordered" },
-      _react2.default.createElement("img", { src: "./assets/images/spinner.svg" })
-    );
-  }
-  var startPauseButtonText = intervalId ? 'Pause' : 'Start';
-  var handleClick = intervalId ? handlePause : handleStart;
-  return _react2.default.createElement(
-    "div",
-    null,
-    _react2.default.createElement(
-      "b",
-      null,
-      "3. Click Here!"
-    ),
-    _react2.default.createElement(
-      "div",
-      {
-        className: "start-button clickable-div bordered",
-        onClick: handleClick
-      },
-      startPauseButtonText
-    )
-  );
-};
-
-exports.default = StartPauseButton;
-
-// StartPauseButton.propTypes = {
-//   isModalOn: PropTypes.bool.isRequired,
-//   flipModal: PropTypes.func.isRequired,
-// };
-
-/***/ }),
-/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28113,7 +27756,7 @@ var _reactRedux = __webpack_require__(38);
 
 var _actions = __webpack_require__(68);
 
-var _Map = __webpack_require__(294);
+var _Map = __webpack_require__(293);
 
 var _Map2 = _interopRequireDefault(_Map);
 
@@ -28122,13 +27765,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStateToProps = function mapStateToProps(_ref) {
   var start = _ref.start,
       finish = _ref.finish,
-      date = _ref.date,
-      extraShown = _ref.extraShown;
+      date = _ref.date;
   return {
     start: start,
     finish: finish,
-    date: date,
-    extraShown: extraShown
+    date: date
   };
 };
 
@@ -28143,7 +27784,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Map2.default);
 
 /***/ }),
-/* 294 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28153,8 +27794,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
@@ -28163,21 +27802,17 @@ var _reactAddonsCssTransitionGroup = __webpack_require__(119);
 
 var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 
-var _api = __webpack_require__(295);
+var _api = __webpack_require__(294);
 
 var _toggle = __webpack_require__(122);
 
 var _toggle2 = _interopRequireDefault(_toggle);
 
-var _map_info_container = __webpack_require__(296);
+var _map_info_container = __webpack_require__(295);
 
 var _map_info_container2 = _interopRequireDefault(_map_info_container);
 
-var _styles = __webpack_require__(297);
-
-var _styles2 = _interopRequireDefault(_styles);
-
-var _marker_manager = __webpack_require__(298);
+var _marker_manager = __webpack_require__(297);
 
 var _marker_manager2 = _interopRequireDefault(_marker_manager);
 
@@ -28195,8 +27830,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 // Components
 
-// Constants
-
 // Utilities
 
 
@@ -28209,134 +27842,98 @@ var DEFAULT_ZOOM_LEVEL = 10;
 var Map = function (_React$Component) {
   _inherits(Map, _React$Component);
 
-  function Map(props) {
+  function Map() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
     _classCallCheck(this, Map);
 
-    var _this = _possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this, props));
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-    _this.state = {
-      showChart: true,
-      alternativeMapStyle: false,
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Map.__proto__ || Object.getPrototypeOf(Map)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       usingMarkerClusterer: true,
       collisionCount: 0, // for map info panel refresh
       // map layers
-      heatmap: true,
-      traffic: false,
-      transit: false,
-      bicycling: false,
-      // special icons
-      taxi: true,
-      bike: true,
-      motorcycle: true,
-      ped: true
-    };
-
-    _this.resetMapBorders = _this.resetMapBorders.bind(_this);
-    return _this;
-  }
-
-  _createClass(Map, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var map = this.refs.map;
-      this.map = new google.maps.Map(map, {
+      heatmap: true
+    }, _this.componentDidMount = function () {
+      var map = _this.refs.map;
+      _this.map = new google.maps.Map(map, {
         center: NYC_CENTER,
         zoom: DEFAULT_ZOOM_LEVEL,
         fullscreenControl: false
       });
-      this.MarkerManager = new _marker_manager2.default(this.map);
+      _this.MarkerManager = new _marker_manager2.default(_this.map);
 
-      this.traffic = new google.maps.TrafficLayer();
-      this.transit = new google.maps.TransitLayer();
-      this.bicycling = new google.maps.BicyclingLayer();
-      this.fetchCollisions(this.props.date, true);
-    }
-  }, {
-    key: 'fetchCollisions',
-    value: function fetchCollisions(date) {
-      var _this2 = this;
-
+      _this.fetchCollisions(_this.props.date, true);
+      _this.updateChart();
+    }, _this.fetchCollisions = function (date) {
       var firstFetch = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
-      this.collision = (0, _api.fetchCollisionsFromApi)(date).then(function (collisionsData) {
-        _this2.collisions = {};
+      _this.collision = (0, _api.fetchCollisionsFromApi)(date).then(function (collisionsData) {
+        _this.collisions = {};
         var validCollisions = collisionsData.filter(function (collision) {
           return collision.latitude && collision.longitude && collision[_api.API_TIME_FIELD_NAME];
         });
         validCollisions.forEach(function (collision) {
           var time = (0, _util.timeStringToInt)(collision[_api.API_TIME_FIELD_NAME]);
           // if (this.collisions[time]) {
-          if (time in _this2.collisions) {
-            _this2.collisions[time].push(collision);
+          if (time in _this.collisions) {
+            _this.collisions[time].push(collision);
           } else {
-            _this2.collisions[time] = [collision];
+            _this.collisions[time] = [collision];
           }
         });
-        _this2.props.updateFilter({
+        _this.props.updateFilter({
           loading: false
         });
-        _this2.updateMarkers(_util.DEFAULT_TIME, _util.DEFAULT_TIME);
-        _this2.updateHeatmap(validCollisions, firstFetch);
-        if (_this2.state.showChart) {
-          _this2.updateChart();
-        }
+        _this.updateMarkers(_util.DEFAULT_TIME, _util.DEFAULT_TIME);
+        _this.updateHeatmap(validCollisions, firstFetch);
       });
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      if (nextProps.date !== this.props.date) {
+    }, _this.componentWillReceiveProps = function (nextProps) {
+      if (nextProps.date !== _this.props.date) {
         // if the date is changed, clear all markers, draw a new heatmap
-        this.heatmap.setMap(null);
-        this.MarkerManager.removeAllMarkers(this.state.usingMarkerClusterer);
+        _this.heatmap.setMap(null);
+        _this.MarkerManager.removeAllMarkers(_this.state.usingMarkerClusterer);
         if (nextProps.date !== '') {
-          this.fetchCollisions(nextProps.date);
+          _this.fetchCollisions(nextProps.date);
         }
       } else {
         // only the time is updated, add & remove markers
-        this.updateMarkers(nextProps.start, nextProps.finish);
+        _this.updateMarkers(nextProps.start, nextProps.finish);
       }
-    }
-  }, {
-    key: 'updateMarkers',
-    value: function updateMarkers(start, finish) {
+    }, _this.updateMarkers = function (start, finish) {
       var collisionsArray = [];
       for (var time = start; time <= finish; time++) {
-        if (time in this.collisions) {
+        if (time in _this.collisions) {
           // if (collisions[time]) will treat undefined the same as other
           // falsey values: false, 0, -0, "", '', null, NaN
-          collisionsArray = collisionsArray.concat(this.collisions[time]);
+          collisionsArray = collisionsArray.concat(_this.collisions[time]);
         }
       }
-      this.setState({
+      _this.setState({
         collisionCount: collisionsArray.length
       });
       // filter the collisions based on start/finish/this.collisions
-      this.MarkerManager.updateMarkers(collisionsArray, this.state.taxi, this.state.bike, this.state.motorcycle, this.state.ped, this.state.usingMarkerClusterer);
-    }
-  }, {
-    key: 'updateHeatmap',
-    value: function updateHeatmap(validCollisions, firstFetch) {
+      _this.MarkerManager.updateMarkers(collisionsArray, _this.state.usingMarkerClusterer);
+    }, _this.updateHeatmap = function (validCollisions, firstFetch) {
       var heatmapData = validCollisions.map(function (collision) {
         return new google.maps.LatLng(collision.latitude, collision.longitude);
       });
       if (firstFetch) {
-        this.heatmap = new google.maps.visualization.HeatmapLayer({
+        _this.heatmap = new google.maps.visualization.HeatmapLayer({
           data: heatmapData,
           radius: 10,
           maxIntensity: 3,
-          map: this.map
+          map: _this.map
         });
       } else {
-        this.heatmap.setData(heatmapData);
-        this.heatmap.setMap(this.map);
+        _this.heatmap.setData(heatmapData);
+        _this.heatmap.setMap(_this.map);
       }
-    }
-  }, {
-    key: 'updateChart',
-    value: function updateChart() {
-      var _this3 = this;
-
+    }, _this.updateChart = function () {
       google.charts.load('current', {
         packages: ['corechart']
       });
@@ -28363,10 +27960,10 @@ var Map = function (_React$Component) {
         var deaths = 0;
         var totalCount = 0;
         for (var time = _util.START_TIME; time <= _util.END_TIME; time++) {
-          if (time in _this3.collisions) {
+          if (time in _this.collisions) {
             // if (this.collisions[time]) will treat undefined the same as other
             // falsey values: false, 0, -0, "", '', null, NaN
-            _this3.collisions[time].forEach(function (collision) {
+            _this.collisions[time].forEach(function (collision) {
               if (collision.number_of_persons_killed > 0) {
                 deaths += 1;
               } else if (collision.number_of_persons_injured > 0) {
@@ -28389,7 +27986,7 @@ var Map = function (_React$Component) {
             deaths = 0;
           }
         }
-        var title = 'Time Distribution of ' + totalCount.toString() + ' Collisions on ' + _this3.props.date + '\n (click on bar to update time)';
+        var title = 'Time Distribution of ' + totalCount.toString() + ' Collisions on ' + _this.props.date + '\n (click on bar to update time)';
         var options = {
           animation: {
             startup: true,
@@ -28427,7 +28024,7 @@ var Map = function (_React$Component) {
           var selectedItem = chart.getSelection()[0];
           if (selectedItem) {
             var newTime = selectedItem.row * 60;
-            _this3.props.updateFilter({
+            _this.props.updateFilter({
               start: newTime,
               finish: newTime,
               initialTime: newTime
@@ -28439,199 +28036,87 @@ var Map = function (_React$Component) {
 
         chart.draw(data, options);
       });
-    }
-  }, {
-    key: 'toggle',
-    value: function toggle(field) {
-      var _this4 = this;
-
+    }, _this.toggle = function (field) {
       return function (e) {
-        var newValue = !_this4.state[field];
-        _this4.setState(_defineProperty({}, field, !_this4.state[field]));
+        var newValue = !_this.state[field];
+        _this.setState(_defineProperty({}, field, !_this.state[field]));
         switch (field) {
-          case 'alternativeMapStyle':
-            var newStyle = newValue ? _styles2.default : [];
-            _this4.map.setOptions({
-              styles: newStyle
-            });
-            break;
-          case 'showChart':
-            if (newValue) {
-              _this4.updateChart();
-            }
-            break;
           case 'usingMarkerClusterer':
-            _this4.MarkerManager.toggleMarkerClusterer(newValue);
+            _this.MarkerManager.toggleMarkerClusterer(newValue);
             break;
           default:
         }
       };
-    }
-  }, {
-    key: 'toggleMapLayer',
-    value: function toggleMapLayer(field) {
-      var _this5 = this;
-
+    }, _this.toggleMapLayer = function (field) {
       return function (e) {
-        if (_this5.state[field]) {
-          _this5[field].setMap(null);
-          _this5.setState(_defineProperty({}, field, false));
+        if (_this.state[field]) {
+          _this[field].setMap(null);
+          _this.setState(_defineProperty({}, field, false));
         } else {
-          _this5[field].setMap(_this5.map);
-          _this5.setState(_defineProperty({}, field, true));
+          _this[field].setMap(_this.map);
+          _this.setState(_defineProperty({}, field, true));
         }
       };
-    }
-  }, {
-    key: 'resetMapBorders',
-    value: function resetMapBorders() {
-      this.map.setCenter(NYC_CENTER);
-      this.map.setZoom(DEFAULT_ZOOM_LEVEL);
-    }
-  }, {
-    key: 'extraPanel',
-    value: function extraPanel() {
-      var extraPanel = null;
-      if (this.props.extraShown) {
-        extraPanel = _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'div',
-            { className: 'flex-row' },
-            _react2.default.createElement(_toggle2.default, {
-              label: 'Chart',
-              checked: this.state.showChart,
-              onChange: this.toggle('showChart')
-            }),
-            _react2.default.createElement(_toggle2.default, {
-              label: 'Marker Clusterer',
-              checked: this.state.usingMarkerClusterer,
-              onChange: this.toggle('usingMarkerClusterer')
-            }),
-            _react2.default.createElement(_toggle2.default, {
-              label: 'Alternative Map Style',
-              checked: this.state.alternativeMapStyle,
-              onChange: this.toggle('alternativeMapStyle')
-            })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'flex-row' },
-            'Custom Markers',
-            _react2.default.createElement(_toggle2.default, {
-              label: 'Taxi',
-              checked: this.state.taxi,
-              onChange: this.toggle('taxi')
-            }),
-            _react2.default.createElement(_toggle2.default, {
-              label: 'Bike',
-              checked: this.state.bike,
-              onChange: this.toggle('bike')
-            }),
-            _react2.default.createElement(_toggle2.default, {
-              label: 'Motorcycle',
-              checked: this.state.motorcycle,
-              onChange: this.toggle('motorcycle')
-            }),
-            _react2.default.createElement(_toggle2.default, {
-              label: 'Pedestrian',
-              checked: this.state.ped,
-              onChange: this.toggle('ped')
-            })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'flex-row' },
-            'Map Layers',
-            _react2.default.createElement(_toggle2.default, {
-              label: 'Heatmap',
-              checked: this.state.heatmap,
-              onChange: this.toggleMapLayer('heatmap')
-            }),
-            _react2.default.createElement(_toggle2.default, {
-              label: 'Traffic',
-              checked: this.state.traffic,
-              onChange: this.toggleMapLayer('traffic')
-            }),
-            _react2.default.createElement(_toggle2.default, {
-              label: 'Transit',
-              checked: this.state.transit,
-              onChange: this.toggleMapLayer('transit')
-            }),
-            _react2.default.createElement(_toggle2.default, {
-              label: 'Bicycling',
-              checked: this.state.bicycling,
-              onChange: this.toggleMapLayer('bicycling')
-            })
-          )
-        );
-      }
-      return _react2.default.createElement(
-        _reactAddonsCssTransitionGroup2.default,
-        {
-          transitionName: 'extra',
-          transitionEnterTimeout: 300,
-          transitionLeaveTimeout: 200
-        },
-        extraPanel
-      );
-    }
-  }, {
-    key: 'chart',
-    value: function chart() {
-      var chart = null;
-      if (this.state.showChart) {
-        chart = _react2.default.createElement(
-          'div',
-          { id: 'chart-div' },
-          'Loading chart...',
-          _react2.default.createElement('img', { className: 'spinner', src: './assets/images/spinner.svg' })
-        );
-      }
-      return _react2.default.createElement(
-        _reactAddonsCssTransitionGroup2.default,
-        {
-          transitionName: 'extra',
-          transitionEnterTimeout: 300,
-          transitionLeaveTimeout: 200
-        },
-        chart
-      );
-    }
-  }, {
-    key: 'render',
-    value: function render() {
+    }, _this.resetMapBorders = function () {
+      _this.map.setCenter(NYC_CENTER);
+      _this.map.setZoom(DEFAULT_ZOOM_LEVEL);
+    }, _this.extraPanel = function () {
       return _react2.default.createElement(
         'div',
         null,
-        this.extraPanel(),
         _react2.default.createElement(
           'div',
           { className: 'flex-row' },
-          this.chart()
+          _react2.default.createElement(_toggle2.default, {
+            label: 'Marker Clusterer',
+            checked: _this.state.usingMarkerClusterer,
+            onChange: _this.toggle('usingMarkerClusterer')
+          }),
+          _react2.default.createElement(_toggle2.default, {
+            label: 'Heatmap',
+            checked: _this.state.heatmap,
+            onChange: _this.toggleMapLayer('heatmap')
+          })
+        )
+      );
+    }, _this.chart = function () {
+      return _react2.default.createElement(
+        'div',
+        { id: 'chart-div' },
+        'Loading chart...',
+        _react2.default.createElement('img', { className: 'spinner', src: './assets/images/spinner.svg' })
+      );
+    }, _this.render = function () {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _this.extraPanel(),
+        _react2.default.createElement(
+          'div',
+          { className: 'flex-row' },
+          _this.chart()
         ),
         _react2.default.createElement(
           'div',
           { className: 'index-map', ref: 'map' },
-          'Map'
+          'Map Placeholder'
         ),
         _react2.default.createElement(
           'div',
           { className: 'map-panel bordered flex-row' },
-          _react2.default.createElement(_map_info_container2.default, { count: this.state.collisionCount }),
+          _react2.default.createElement(_map_info_container2.default, { count: _this.state.collisionCount }),
           _react2.default.createElement(
             'div',
             {
               className: 'clickable-div bordered',
-              onClick: this.resetMapBorders
+              onClick: _this.resetMapBorders
             },
             'Reset Map Borders'
           )
         )
       );
-    }
-  }]);
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
 
   return Map;
 }(_react2.default.Component);
@@ -28639,7 +28124,7 @@ var Map = function (_React$Component) {
 exports.default = Map;
 
 /***/ }),
-/* 295 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28669,7 +28154,7 @@ var fetchCollisionsFromApi = exports.fetchCollisionsFromApi = function fetchColl
 };
 
 /***/ }),
-/* 296 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28740,125 +28225,8 @@ var MapInfo = function MapInfo(_ref) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(MapInfo);
 
 /***/ }),
+/* 296 */,
 /* 297 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var alternativeMapStyle = [{
-  elementType: 'geometry',
-  stylers: [{
-    color: '#f5f5f5'
-  }]
-}, {
-  elementType: 'labels.icon',
-  stylers: [{
-    visibility: 'off'
-  }]
-}, {
-  elementType: 'labels.text.fill',
-  stylers: [{
-    color: '#616161'
-  }]
-}, {
-  elementType: 'labels.text.stroke',
-  stylers: [{
-    color: '#f5f5f5'
-  }]
-}, {
-  featureType: 'administrative.land_parcel',
-  elementType: 'labels.text.fill',
-  stylers: [{
-    color: '#bdbdbd'
-  }]
-}, {
-  featureType: 'poi',
-  elementType: 'geometry',
-  stylers: [{
-    color: '#eeeeee'
-  }]
-}, {
-  featureType: 'poi',
-  elementType: 'labels.text.fill',
-  stylers: [{
-    color: '#757575'
-  }]
-}, {
-  featureType: 'poi.park',
-  elementType: 'geometry',
-  stylers: [{
-    color: '#e5e5e5'
-  }]
-}, {
-  featureType: 'poi.park',
-  elementType: 'labels.text.fill',
-  stylers: [{
-    color: '#9e9e9e'
-  }]
-}, {
-  featureType: 'road',
-  elementType: 'geometry',
-  stylers: [{
-    color: '#ffffff'
-  }]
-}, {
-  featureType: 'road.arterial',
-  elementType: 'labels.text.fill',
-  stylers: [{
-    color: '#757575'
-  }]
-}, {
-  featureType: 'road.highway',
-  elementType: 'geometry',
-  stylers: [{
-    color: '#dadada'
-  }]
-}, {
-  featureType: 'road.highway',
-  elementType: 'labels.text.fill',
-  stylers: [{
-    color: '#616161'
-  }]
-}, {
-  featureType: 'road.local',
-  elementType: 'labels.text.fill',
-  stylers: [{
-    color: '#9e9e9e'
-  }]
-}, {
-  featureType: 'transit.line',
-  elementType: 'geometry',
-  stylers: [{
-    color: '#e5e5e5'
-  }]
-}, {
-  featureType: 'transit.station',
-  elementType: 'geometry',
-  stylers: [{
-    color: '#eeeeee'
-  }]
-}, {
-  featureType: 'water',
-  elementType: 'geometry',
-  stylers: [{
-    color: '#c9c9c9'
-  }]
-}, {
-  featureType: 'water',
-  elementType: 'labels.text.fill',
-  stylers: [{
-    color: '#9e9e9e'
-  }]
-}];
-
-exports.default = alternativeMapStyle;
-
-/***/ }),
-/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28924,7 +28292,7 @@ var MarkerManager = function () {
     }
   }, {
     key: 'updateMarkers',
-    value: function updateMarkers(collisionsArray, taxi, bike, motorcycle, ped, usingMarkerClusterer) {
+    value: function updateMarkers(collisionsArray, usingMarkerClusterer) {
       var _this2 = this;
 
       var collisionsObj = {};
@@ -28934,7 +28302,7 @@ var MarkerManager = function () {
       collisionsArray.filter(function (collision) {
         return !(collision.unique_key in _this2.markersObj);
       }).forEach(function (newCollision) {
-        _this2.createMarker(newCollision, taxi, bike, motorcycle, ped, usingMarkerClusterer);
+        _this2.createMarker(newCollision, usingMarkerClusterer);
       });
       Object.keys(this.markersObj).filter(function (collisionUniqueKey) {
         return !(collisionUniqueKey in collisionsObj);
@@ -28944,13 +28312,16 @@ var MarkerManager = function () {
     }
   }, {
     key: 'createMarker',
-    value: function createMarker(collision, taxi, bike, motorcycle, ped, usingMarkerClusterer) {
+    value: function createMarker(collision, usingMarkerClusterer) {
       var _this3 = this;
 
       var lat = collision.latitude;
       var lng = collision.longitude;
       var position = new google.maps.LatLng(lat, lng);
-      var icon = this.iconStyle(collision, taxi, bike, motorcycle, ped);
+      var icon = {
+        url: './assets/images/car-collision-favicon.svg',
+        scaledSize: new google.maps.Size(30, 30)
+      };
       var marker = new google.maps.Marker({
         position: position,
         icon: icon,
@@ -28968,35 +28339,6 @@ var MarkerManager = function () {
       if (usingMarkerClusterer) {
         this.MarkerClusterer.addMarker(marker);
       }
-    }
-  }, {
-    key: 'iconStyle',
-    value: function iconStyle(collision, taxi, bike, motorcycle, ped) {
-      if (taxi && (collision.vehicle_type_code1 === 'TAXI' || collision.vehicle_type_code2 === 'TAXI' || collision.vehicle_type_code_3 === 'TAXI' || collision.vehicle_type_code_4 === 'TAXI' || collision.vehicle_type_code_5 === 'TAXI')) {
-        return {
-          url: './assets/images/taxi.png',
-          scaledSize: new google.maps.Size(20, 20)
-        };
-      }if (bike && (collision.vehicle_type_code1 === 'BICYCLE' || collision.vehicle_type_code2 === 'BICYCLE' || collision.vehicle_type_code_3 === 'BICYCLE' || collision.vehicle_type_code_4 === 'BICYCLE' || collision.vehicle_type_code_5 === 'BICYCLE')) {
-        return {
-          url: './assets/images/bike.png',
-          scaledSize: new google.maps.Size(30, 30)
-        };
-      }if (motorcycle && (collision.vehicle_type_code1 === 'MOTORCYCLE' || collision.vehicle_type_code2 === 'MOTORCYCLE' || collision.vehicle_type_code_3 === 'MOTORCYCLE' || collision.vehicle_type_code_4 === 'MOTORCYCLE' || collision.vehicle_type_code_5 === 'MOTORCYCLE')) {
-        return {
-          url: './assets/images/motorcycle.png',
-          scaledSize: new google.maps.Size(30, 30)
-        };
-      }if (ped && (collision.number_of_pedestrians_injured > 0 || collision.number_of_pedestrians_killed > 0)) {
-        return {
-          url: './assets/images/ped.png',
-          scaledSize: new google.maps.Size(30, 30)
-        };
-      }
-      return {
-        url: './assets/images/car-collision-favicon.svg',
-        scaledSize: new google.maps.Size(30, 30)
-      };
     }
   }, {
     key: 'removeAllMarkers',
@@ -29027,7 +28369,7 @@ var MarkerManager = function () {
 exports.default = MarkerManager;
 
 /***/ }),
-/* 299 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29039,13 +28381,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(110);
 
-var _reduxThunk = __webpack_require__(300);
+var _reduxThunk = __webpack_require__(299);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reduxLogger = __webpack_require__(301);
+var _reduxLogger = __webpack_require__(300);
 
-var _reducer = __webpack_require__(302);
+var _reducer = __webpack_require__(301);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29064,7 +28406,7 @@ exports.default = configureStore;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 300 */
+/* 299 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29091,7 +28433,7 @@ thunk.withExtraArgument = createThunkMiddleware;
 /* harmony default export */ __webpack_exports__["default"] = (thunk);
 
 /***/ }),
-/* 301 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {!function(e,t){ true?t(exports):"function"==typeof define&&define.amd?define(["exports"],t):t(e.reduxLogger=e.reduxLogger||{})}(this,function(e){"use strict";function t(e,t){e.super_=t,e.prototype=Object.create(t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}})}function r(e,t){Object.defineProperty(this,"kind",{value:e,enumerable:!0}),t&&t.length&&Object.defineProperty(this,"path",{value:t,enumerable:!0})}function n(e,t,r){n.super_.call(this,"E",e),Object.defineProperty(this,"lhs",{value:t,enumerable:!0}),Object.defineProperty(this,"rhs",{value:r,enumerable:!0})}function o(e,t){o.super_.call(this,"N",e),Object.defineProperty(this,"rhs",{value:t,enumerable:!0})}function i(e,t){i.super_.call(this,"D",e),Object.defineProperty(this,"lhs",{value:t,enumerable:!0})}function a(e,t,r){a.super_.call(this,"A",e),Object.defineProperty(this,"index",{value:t,enumerable:!0}),Object.defineProperty(this,"item",{value:r,enumerable:!0})}function f(e,t,r){var n=e.slice((r||t)+1||e.length);return e.length=t<0?e.length+t:t,e.push.apply(e,n),e}function u(e){var t="undefined"==typeof e?"undefined":N(e);return"object"!==t?t:e===Math?"math":null===e?"null":Array.isArray(e)?"array":"[object Date]"===Object.prototype.toString.call(e)?"date":"function"==typeof e.toString&&/^\/.*\//.test(e.toString())?"regexp":"object"}function l(e,t,r,c,s,d,p){s=s||[],p=p||[];var g=s.slice(0);if("undefined"!=typeof d){if(c){if("function"==typeof c&&c(g,d))return;if("object"===("undefined"==typeof c?"undefined":N(c))){if(c.prefilter&&c.prefilter(g,d))return;if(c.normalize){var h=c.normalize(g,d,e,t);h&&(e=h[0],t=h[1])}}}g.push(d)}"regexp"===u(e)&&"regexp"===u(t)&&(e=e.toString(),t=t.toString());var y="undefined"==typeof e?"undefined":N(e),v="undefined"==typeof t?"undefined":N(t),b="undefined"!==y||p&&p[p.length-1].lhs&&p[p.length-1].lhs.hasOwnProperty(d),m="undefined"!==v||p&&p[p.length-1].rhs&&p[p.length-1].rhs.hasOwnProperty(d);if(!b&&m)r(new o(g,t));else if(!m&&b)r(new i(g,e));else if(u(e)!==u(t))r(new n(g,e,t));else if("date"===u(e)&&e-t!==0)r(new n(g,e,t));else if("object"===y&&null!==e&&null!==t)if(p.filter(function(t){return t.lhs===e}).length)e!==t&&r(new n(g,e,t));else{if(p.push({lhs:e,rhs:t}),Array.isArray(e)){var w;e.length;for(w=0;w<e.length;w++)w>=t.length?r(new a(g,w,new i(void 0,e[w]))):l(e[w],t[w],r,c,g,w,p);for(;w<t.length;)r(new a(g,w,new o(void 0,t[w++])))}else{var x=Object.keys(e),S=Object.keys(t);x.forEach(function(n,o){var i=S.indexOf(n);i>=0?(l(e[n],t[n],r,c,g,n,p),S=f(S,i)):l(e[n],void 0,r,c,g,n,p)}),S.forEach(function(e){l(void 0,t[e],r,c,g,e,p)})}p.length=p.length-1}else e!==t&&("number"===y&&isNaN(e)&&isNaN(t)||r(new n(g,e,t)))}function c(e,t,r,n){return n=n||[],l(e,t,function(e){e&&n.push(e)},r),n.length?n:void 0}function s(e,t,r){if(r.path&&r.path.length){var n,o=e[t],i=r.path.length-1;for(n=0;n<i;n++)o=o[r.path[n]];switch(r.kind){case"A":s(o[r.path[n]],r.index,r.item);break;case"D":delete o[r.path[n]];break;case"E":case"N":o[r.path[n]]=r.rhs}}else switch(r.kind){case"A":s(e[t],r.index,r.item);break;case"D":e=f(e,t);break;case"E":case"N":e[t]=r.rhs}return e}function d(e,t,r){if(e&&t&&r&&r.kind){for(var n=e,o=-1,i=r.path?r.path.length-1:0;++o<i;)"undefined"==typeof n[r.path[o]]&&(n[r.path[o]]="number"==typeof r.path[o]?[]:{}),n=n[r.path[o]];switch(r.kind){case"A":s(r.path?n[r.path[o]]:n,r.index,r.item);break;case"D":delete n[r.path[o]];break;case"E":case"N":n[r.path[o]]=r.rhs}}}function p(e,t,r){if(r.path&&r.path.length){var n,o=e[t],i=r.path.length-1;for(n=0;n<i;n++)o=o[r.path[n]];switch(r.kind){case"A":p(o[r.path[n]],r.index,r.item);break;case"D":o[r.path[n]]=r.lhs;break;case"E":o[r.path[n]]=r.lhs;break;case"N":delete o[r.path[n]]}}else switch(r.kind){case"A":p(e[t],r.index,r.item);break;case"D":e[t]=r.lhs;break;case"E":e[t]=r.lhs;break;case"N":e=f(e,t)}return e}function g(e,t,r){if(e&&t&&r&&r.kind){var n,o,i=e;for(o=r.path.length-1,n=0;n<o;n++)"undefined"==typeof i[r.path[n]]&&(i[r.path[n]]={}),i=i[r.path[n]];switch(r.kind){case"A":p(i[r.path[n]],r.index,r.item);break;case"D":i[r.path[n]]=r.lhs;break;case"E":i[r.path[n]]=r.lhs;break;case"N":delete i[r.path[n]]}}}function h(e,t,r){if(e&&t){var n=function(n){r&&!r(e,t,n)||d(e,t,n)};l(e,t,n)}}function y(e){return"color: "+F[e].color+"; font-weight: bold"}function v(e){var t=e.kind,r=e.path,n=e.lhs,o=e.rhs,i=e.index,a=e.item;switch(t){case"E":return[r.join("."),n,"→",o];case"N":return[r.join("."),o];case"D":return[r.join(".")];case"A":return[r.join(".")+"["+i+"]",a];default:return[]}}function b(e,t,r,n){var o=c(e,t);try{n?r.groupCollapsed("diff"):r.group("diff")}catch(e){r.log("diff")}o?o.forEach(function(e){var t=e.kind,n=v(e);r.log.apply(r,["%c "+F[t].text,y(t)].concat(P(n)))}):r.log("—— no diff ——");try{r.groupEnd()}catch(e){r.log("—— diff end —— ")}}function m(e,t,r,n){switch("undefined"==typeof e?"undefined":N(e)){case"object":return"function"==typeof e[n]?e[n].apply(e,P(r)):e[n];case"function":return e(t);default:return e}}function w(e){var t=e.timestamp,r=e.duration;return function(e,n,o){var i=["action"];return i.push("%c"+String(e.type)),t&&i.push("%c@ "+n),r&&i.push("%c(in "+o.toFixed(2)+" ms)"),i.join(" ")}}function x(e,t){var r=t.logger,n=t.actionTransformer,o=t.titleFormatter,i=void 0===o?w(t):o,a=t.collapsed,f=t.colors,u=t.level,l=t.diff,c="undefined"==typeof t.titleFormatter;e.forEach(function(o,s){var d=o.started,p=o.startedTime,g=o.action,h=o.prevState,y=o.error,v=o.took,w=o.nextState,x=e[s+1];x&&(w=x.prevState,v=x.started-d);var S=n(g),k="function"==typeof a?a(function(){return w},g,o):a,j=D(p),E=f.title?"color: "+f.title(S)+";":"",A=["color: gray; font-weight: lighter;"];A.push(E),t.timestamp&&A.push("color: gray; font-weight: lighter;"),t.duration&&A.push("color: gray; font-weight: lighter;");var O=i(S,j,v);try{k?f.title&&c?r.groupCollapsed.apply(r,["%c "+O].concat(A)):r.groupCollapsed(O):f.title&&c?r.group.apply(r,["%c "+O].concat(A)):r.group(O)}catch(e){r.log(O)}var N=m(u,S,[h],"prevState"),P=m(u,S,[S],"action"),C=m(u,S,[y,h],"error"),F=m(u,S,[w],"nextState");if(N)if(f.prevState){var L="color: "+f.prevState(h)+"; font-weight: bold";r[N]("%c prev state",L,h)}else r[N]("prev state",h);if(P)if(f.action){var T="color: "+f.action(S)+"; font-weight: bold";r[P]("%c action    ",T,S)}else r[P]("action    ",S);if(y&&C)if(f.error){var M="color: "+f.error(y,h)+"; font-weight: bold;";r[C]("%c error     ",M,y)}else r[C]("error     ",y);if(F)if(f.nextState){var _="color: "+f.nextState(w)+"; font-weight: bold";r[F]("%c next state",_,w)}else r[F]("next state",w);l&&b(h,w,r,k);try{r.groupEnd()}catch(e){r.log("—— log end ——")}})}function S(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=Object.assign({},L,e),r=t.logger,n=t.stateTransformer,o=t.errorTransformer,i=t.predicate,a=t.logErrors,f=t.diffPredicate;if("undefined"==typeof r)return function(){return function(e){return function(t){return e(t)}}};if(e.getState&&e.dispatch)return console.error("[redux-logger] redux-logger not installed. Make sure to pass logger instance as middleware:\n// Logger with default options\nimport { logger } from 'redux-logger'\nconst store = createStore(\n  reducer,\n  applyMiddleware(logger)\n)\n// Or you can create your own logger with custom options http://bit.ly/redux-logger-options\nimport createLogger from 'redux-logger'\nconst logger = createLogger({\n  // ...options\n});\nconst store = createStore(\n  reducer,\n  applyMiddleware(logger)\n)\n"),function(){return function(e){return function(t){return e(t)}}};var u=[];return function(e){var r=e.getState;return function(e){return function(l){if("function"==typeof i&&!i(r,l))return e(l);var c={};u.push(c),c.started=O.now(),c.startedTime=new Date,c.prevState=n(r()),c.action=l;var s=void 0;if(a)try{s=e(l)}catch(e){c.error=o(e)}else s=e(l);c.took=O.now()-c.started,c.nextState=n(r());var d=t.diff&&"function"==typeof f?f(r,l):t.diff;if(x(u,Object.assign({},t,{diff:d})),u.length=0,c.error)throw c.error;return s}}}}var k,j,E=function(e,t){return new Array(t+1).join(e)},A=function(e,t){return E("0",t-e.toString().length)+e},D=function(e){return A(e.getHours(),2)+":"+A(e.getMinutes(),2)+":"+A(e.getSeconds(),2)+"."+A(e.getMilliseconds(),3)},O="undefined"!=typeof performance&&null!==performance&&"function"==typeof performance.now?performance:Date,N="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},P=function(e){if(Array.isArray(e)){for(var t=0,r=Array(e.length);t<e.length;t++)r[t]=e[t];return r}return Array.from(e)},C=[];k="object"===("undefined"==typeof global?"undefined":N(global))&&global?global:"undefined"!=typeof window?window:{},j=k.DeepDiff,j&&C.push(function(){"undefined"!=typeof j&&k.DeepDiff===c&&(k.DeepDiff=j,j=void 0)}),t(n,r),t(o,r),t(i,r),t(a,r),Object.defineProperties(c,{diff:{value:c,enumerable:!0},observableDiff:{value:l,enumerable:!0},applyDiff:{value:h,enumerable:!0},applyChange:{value:d,enumerable:!0},revertChange:{value:g,enumerable:!0},isConflict:{value:function(){return"undefined"!=typeof j},enumerable:!0},noConflict:{value:function(){return C&&(C.forEach(function(e){e()}),C=null),c},enumerable:!0}});var F={E:{color:"#2196F3",text:"CHANGED:"},N:{color:"#4CAF50",text:"ADDED:"},D:{color:"#F44336",text:"DELETED:"},A:{color:"#2196F3",text:"ARRAY:"}},L={level:"log",logger:console,logErrors:!0,collapsed:void 0,predicate:void 0,duration:!1,timestamp:!0,stateTransformer:function(e){return e},actionTransformer:function(e){return e},errorTransformer:function(e){return e},colors:{title:function(){return"inherit"},prevState:function(){return"#9E9E9E"},action:function(){return"#03A9F4"},nextState:function(){return"#4CAF50"},error:function(){return"#F20404"}},diff:!1,diffPredicate:void 0,transformer:void 0},T=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=e.dispatch,r=e.getState;return"function"==typeof t||"function"==typeof r?S()({dispatch:t,getState:r}):void console.error("\n[redux-logger v3] BREAKING CHANGE\n[redux-logger v3] Since 3.0.0 redux-logger exports by default logger with default settings.\n[redux-logger v3] Change\n[redux-logger v3] import createLogger from 'redux-logger'\n[redux-logger v3] to\n[redux-logger v3] import { createLogger } from 'redux-logger'\n")};e.defaults=L,e.createLogger=S,e.logger=T,e.default=T,Object.defineProperty(e,"__esModule",{value:!0})});
@@ -29099,7 +28441,7 @@ thunk.withExtraArgument = createThunkMiddleware;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(39)))
 
 /***/ }),
-/* 302 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29110,7 +28452,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Reducer = exports.defaultState = undefined;
 
-var _merge = __webpack_require__(303);
+var _merge = __webpack_require__(302);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -29122,7 +28464,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var defaultState = exports.defaultState = Object.freeze({
   start: _util.DEFAULT_TIME, // in minutes, later from midnight.
-  finish: _util.DEFAULT_TIME, // in minutes
+  finish: _util.DEFAULT_TIME + 60, // in minutes
   initialTime: _util.DEFAULT_TIME,
   date: '2017-03-13',
   loading: true,
@@ -29138,21 +28480,17 @@ var Reducer = exports.Reducer = function Reducer() {
   switch (action.type) {
     case _actions.UPDATE_FILTER:
       return (0, _merge2.default)({}, state, action.filters);
-
-    case _actions.TOGGLE_EXTRA:
-      return (0, _merge2.default)({}, state, { extraShown: !state.extraShown });
-
     default:
       return state;
   }
 };
 
 /***/ }),
-/* 303 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseMerge = __webpack_require__(304),
-    createAssigner = __webpack_require__(361);
+var baseMerge = __webpack_require__(303),
+    createAssigner = __webpack_require__(360);
 
 /**
  * This method is like `_.assign` except that it recursively merges own and
@@ -29193,13 +28531,13 @@ module.exports = merge;
 
 
 /***/ }),
-/* 304 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Stack = __webpack_require__(305),
+var Stack = __webpack_require__(304),
     assignMergeValue = __webpack_require__(126),
-    baseFor = __webpack_require__(336),
-    baseMergeDeep = __webpack_require__(338),
+    baseFor = __webpack_require__(335),
+    baseMergeDeep = __webpack_require__(337),
     isObject = __webpack_require__(18),
     keysIn = __webpack_require__(136),
     safeGet = __webpack_require__(135);
@@ -29241,15 +28579,15 @@ module.exports = baseMerge;
 
 
 /***/ }),
-/* 305 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ListCache = __webpack_require__(41),
-    stackClear = __webpack_require__(311),
-    stackDelete = __webpack_require__(312),
-    stackGet = __webpack_require__(313),
-    stackHas = __webpack_require__(314),
-    stackSet = __webpack_require__(315);
+    stackClear = __webpack_require__(310),
+    stackDelete = __webpack_require__(311),
+    stackGet = __webpack_require__(312),
+    stackHas = __webpack_require__(313),
+    stackSet = __webpack_require__(314);
 
 /**
  * Creates a stack cache object to store key-value pairs.
@@ -29274,7 +28612,7 @@ module.exports = Stack;
 
 
 /***/ }),
-/* 306 */
+/* 305 */
 /***/ (function(module, exports) {
 
 /**
@@ -29293,7 +28631,7 @@ module.exports = listCacheClear;
 
 
 /***/ }),
-/* 307 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assocIndexOf = __webpack_require__(42);
@@ -29334,7 +28672,7 @@ module.exports = listCacheDelete;
 
 
 /***/ }),
-/* 308 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assocIndexOf = __webpack_require__(42);
@@ -29359,7 +28697,7 @@ module.exports = listCacheGet;
 
 
 /***/ }),
-/* 309 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assocIndexOf = __webpack_require__(42);
@@ -29381,7 +28719,7 @@ module.exports = listCacheHas;
 
 
 /***/ }),
-/* 310 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assocIndexOf = __webpack_require__(42);
@@ -29413,7 +28751,7 @@ module.exports = listCacheSet;
 
 
 /***/ }),
-/* 311 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ListCache = __webpack_require__(41);
@@ -29434,7 +28772,7 @@ module.exports = stackClear;
 
 
 /***/ }),
-/* 312 */
+/* 311 */
 /***/ (function(module, exports) {
 
 /**
@@ -29458,7 +28796,7 @@ module.exports = stackDelete;
 
 
 /***/ }),
-/* 313 */
+/* 312 */
 /***/ (function(module, exports) {
 
 /**
@@ -29478,7 +28816,7 @@ module.exports = stackGet;
 
 
 /***/ }),
-/* 314 */
+/* 313 */
 /***/ (function(module, exports) {
 
 /**
@@ -29498,12 +28836,12 @@ module.exports = stackHas;
 
 
 /***/ }),
-/* 315 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ListCache = __webpack_require__(41),
     Map = __webpack_require__(123),
-    MapCache = __webpack_require__(323);
+    MapCache = __webpack_require__(322);
 
 /** Used as the size to enable large array optimizations. */
 var LARGE_ARRAY_SIZE = 200;
@@ -29538,13 +28876,13 @@ module.exports = stackSet;
 
 
 /***/ }),
-/* 316 */
+/* 315 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isFunction = __webpack_require__(70),
-    isMasked = __webpack_require__(319),
+    isMasked = __webpack_require__(318),
     isObject = __webpack_require__(18),
-    toSource = __webpack_require__(321);
+    toSource = __webpack_require__(320);
 
 /**
  * Used to match `RegExp`
@@ -29591,7 +28929,7 @@ module.exports = baseIsNative;
 
 
 /***/ }),
-/* 317 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Symbol = __webpack_require__(124);
@@ -29643,7 +28981,7 @@ module.exports = getRawTag;
 
 
 /***/ }),
-/* 318 */
+/* 317 */
 /***/ (function(module, exports) {
 
 /** Used for built-in method references. */
@@ -29671,10 +29009,10 @@ module.exports = objectToString;
 
 
 /***/ }),
-/* 319 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var coreJsData = __webpack_require__(320);
+var coreJsData = __webpack_require__(319);
 
 /** Used to detect methods masquerading as native. */
 var maskSrcKey = (function() {
@@ -29697,7 +29035,7 @@ module.exports = isMasked;
 
 
 /***/ }),
-/* 320 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var root = __webpack_require__(23);
@@ -29709,7 +29047,7 @@ module.exports = coreJsData;
 
 
 /***/ }),
-/* 321 */
+/* 320 */
 /***/ (function(module, exports) {
 
 /** Used for built-in method references. */
@@ -29741,7 +29079,7 @@ module.exports = toSource;
 
 
 /***/ }),
-/* 322 */
+/* 321 */
 /***/ (function(module, exports) {
 
 /**
@@ -29760,14 +29098,14 @@ module.exports = getValue;
 
 
 /***/ }),
-/* 323 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var mapCacheClear = __webpack_require__(324),
-    mapCacheDelete = __webpack_require__(331),
-    mapCacheGet = __webpack_require__(333),
-    mapCacheHas = __webpack_require__(334),
-    mapCacheSet = __webpack_require__(335);
+var mapCacheClear = __webpack_require__(323),
+    mapCacheDelete = __webpack_require__(330),
+    mapCacheGet = __webpack_require__(332),
+    mapCacheHas = __webpack_require__(333),
+    mapCacheSet = __webpack_require__(334);
 
 /**
  * Creates a map cache object to store key-value pairs.
@@ -29798,10 +29136,10 @@ module.exports = MapCache;
 
 
 /***/ }),
-/* 324 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Hash = __webpack_require__(325),
+var Hash = __webpack_require__(324),
     ListCache = __webpack_require__(41),
     Map = __webpack_require__(123);
 
@@ -29825,14 +29163,14 @@ module.exports = mapCacheClear;
 
 
 /***/ }),
-/* 325 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var hashClear = __webpack_require__(326),
-    hashDelete = __webpack_require__(327),
-    hashGet = __webpack_require__(328),
-    hashHas = __webpack_require__(329),
-    hashSet = __webpack_require__(330);
+var hashClear = __webpack_require__(325),
+    hashDelete = __webpack_require__(326),
+    hashGet = __webpack_require__(327),
+    hashHas = __webpack_require__(328),
+    hashSet = __webpack_require__(329);
 
 /**
  * Creates a hash object.
@@ -29863,7 +29201,7 @@ module.exports = Hash;
 
 
 /***/ }),
-/* 326 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nativeCreate = __webpack_require__(45);
@@ -29884,7 +29222,7 @@ module.exports = hashClear;
 
 
 /***/ }),
-/* 327 */
+/* 326 */
 /***/ (function(module, exports) {
 
 /**
@@ -29907,7 +29245,7 @@ module.exports = hashDelete;
 
 
 /***/ }),
-/* 328 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nativeCreate = __webpack_require__(45);
@@ -29943,7 +29281,7 @@ module.exports = hashGet;
 
 
 /***/ }),
-/* 329 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nativeCreate = __webpack_require__(45);
@@ -29972,7 +29310,7 @@ module.exports = hashHas;
 
 
 /***/ }),
-/* 330 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nativeCreate = __webpack_require__(45);
@@ -30001,7 +29339,7 @@ module.exports = hashSet;
 
 
 /***/ }),
-/* 331 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getMapData = __webpack_require__(46);
@@ -30025,7 +29363,7 @@ module.exports = mapCacheDelete;
 
 
 /***/ }),
-/* 332 */
+/* 331 */
 /***/ (function(module, exports) {
 
 /**
@@ -30046,7 +29384,7 @@ module.exports = isKeyable;
 
 
 /***/ }),
-/* 333 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getMapData = __webpack_require__(46);
@@ -30068,7 +29406,7 @@ module.exports = mapCacheGet;
 
 
 /***/ }),
-/* 334 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getMapData = __webpack_require__(46);
@@ -30090,7 +29428,7 @@ module.exports = mapCacheHas;
 
 
 /***/ }),
-/* 335 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getMapData = __webpack_require__(46);
@@ -30118,10 +29456,10 @@ module.exports = mapCacheSet;
 
 
 /***/ }),
-/* 336 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var createBaseFor = __webpack_require__(337);
+var createBaseFor = __webpack_require__(336);
 
 /**
  * The base implementation of `baseForOwn` which iterates over `object`
@@ -30140,7 +29478,7 @@ module.exports = baseFor;
 
 
 /***/ }),
-/* 337 */
+/* 336 */
 /***/ (function(module, exports) {
 
 /**
@@ -30171,24 +29509,24 @@ module.exports = createBaseFor;
 
 
 /***/ }),
-/* 338 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assignMergeValue = __webpack_require__(126),
-    cloneBuffer = __webpack_require__(339),
-    cloneTypedArray = __webpack_require__(340),
-    copyArray = __webpack_require__(343),
-    initCloneObject = __webpack_require__(344),
+    cloneBuffer = __webpack_require__(338),
+    cloneTypedArray = __webpack_require__(339),
+    copyArray = __webpack_require__(342),
+    initCloneObject = __webpack_require__(343),
     isArguments = __webpack_require__(130),
     isArray = __webpack_require__(131),
-    isArrayLikeObject = __webpack_require__(348),
+    isArrayLikeObject = __webpack_require__(347),
     isBuffer = __webpack_require__(133),
     isFunction = __webpack_require__(70),
     isObject = __webpack_require__(18),
-    isPlainObject = __webpack_require__(350),
+    isPlainObject = __webpack_require__(349),
     isTypedArray = __webpack_require__(134),
     safeGet = __webpack_require__(135),
-    toPlainObject = __webpack_require__(354);
+    toPlainObject = __webpack_require__(353);
 
 /**
  * A specialized version of `baseMerge` for arrays and objects which performs
@@ -30271,7 +29609,7 @@ module.exports = baseMergeDeep;
 
 
 /***/ }),
-/* 339 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(23);
@@ -30313,10 +29651,10 @@ module.exports = cloneBuffer;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)(module)))
 
 /***/ }),
-/* 340 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var cloneArrayBuffer = __webpack_require__(341);
+var cloneArrayBuffer = __webpack_require__(340);
 
 /**
  * Creates a clone of `typedArray`.
@@ -30335,10 +29673,10 @@ module.exports = cloneTypedArray;
 
 
 /***/ }),
-/* 341 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Uint8Array = __webpack_require__(342);
+var Uint8Array = __webpack_require__(341);
 
 /**
  * Creates a clone of `arrayBuffer`.
@@ -30357,7 +29695,7 @@ module.exports = cloneArrayBuffer;
 
 
 /***/ }),
-/* 342 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var root = __webpack_require__(23);
@@ -30369,7 +29707,7 @@ module.exports = Uint8Array;
 
 
 /***/ }),
-/* 343 */
+/* 342 */
 /***/ (function(module, exports) {
 
 /**
@@ -30395,10 +29733,10 @@ module.exports = copyArray;
 
 
 /***/ }),
-/* 344 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseCreate = __webpack_require__(345),
+var baseCreate = __webpack_require__(344),
     getPrototype = __webpack_require__(128),
     isPrototype = __webpack_require__(129);
 
@@ -30419,7 +29757,7 @@ module.exports = initCloneObject;
 
 
 /***/ }),
-/* 345 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(18);
@@ -30455,7 +29793,7 @@ module.exports = baseCreate;
 
 
 /***/ }),
-/* 346 */
+/* 345 */
 /***/ (function(module, exports) {
 
 /**
@@ -30476,7 +29814,7 @@ module.exports = overArg;
 
 
 /***/ }),
-/* 347 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(44),
@@ -30500,7 +29838,7 @@ module.exports = baseIsArguments;
 
 
 /***/ }),
-/* 348 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isArrayLike = __webpack_require__(72),
@@ -30539,7 +29877,7 @@ module.exports = isArrayLikeObject;
 
 
 /***/ }),
-/* 349 */
+/* 348 */
 /***/ (function(module, exports) {
 
 /**
@@ -30563,7 +29901,7 @@ module.exports = stubFalse;
 
 
 /***/ }),
-/* 350 */
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(44),
@@ -30631,7 +29969,7 @@ module.exports = isPlainObject;
 
 
 /***/ }),
-/* 351 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(44),
@@ -30697,7 +30035,7 @@ module.exports = baseIsTypedArray;
 
 
 /***/ }),
-/* 352 */
+/* 351 */
 /***/ (function(module, exports) {
 
 /**
@@ -30717,7 +30055,7 @@ module.exports = baseUnary;
 
 
 /***/ }),
-/* 353 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(125);
@@ -30754,10 +30092,10 @@ module.exports = nodeUtil;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)(module)))
 
 /***/ }),
-/* 354 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(355),
+var copyObject = __webpack_require__(354),
     keysIn = __webpack_require__(136);
 
 /**
@@ -30792,10 +30130,10 @@ module.exports = toPlainObject;
 
 
 /***/ }),
-/* 355 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var assignValue = __webpack_require__(356),
+var assignValue = __webpack_require__(355),
     baseAssignValue = __webpack_require__(71);
 
 /**
@@ -30838,7 +30176,7 @@ module.exports = copyObject;
 
 
 /***/ }),
-/* 356 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseAssignValue = __webpack_require__(71),
@@ -30872,10 +30210,10 @@ module.exports = assignValue;
 
 
 /***/ }),
-/* 357 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseTimes = __webpack_require__(358),
+var baseTimes = __webpack_require__(357),
     isArguments = __webpack_require__(130),
     isArray = __webpack_require__(131),
     isBuffer = __webpack_require__(133),
@@ -30927,7 +30265,7 @@ module.exports = arrayLikeKeys;
 
 
 /***/ }),
-/* 358 */
+/* 357 */
 /***/ (function(module, exports) {
 
 /**
@@ -30953,12 +30291,12 @@ module.exports = baseTimes;
 
 
 /***/ }),
-/* 359 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(18),
     isPrototype = __webpack_require__(129),
-    nativeKeysIn = __webpack_require__(360);
+    nativeKeysIn = __webpack_require__(359);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -30992,7 +30330,7 @@ module.exports = baseKeysIn;
 
 
 /***/ }),
-/* 360 */
+/* 359 */
 /***/ (function(module, exports) {
 
 /**
@@ -31018,11 +30356,11 @@ module.exports = nativeKeysIn;
 
 
 /***/ }),
-/* 361 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseRest = __webpack_require__(362),
-    isIterateeCall = __webpack_require__(369);
+var baseRest = __webpack_require__(361),
+    isIterateeCall = __webpack_require__(368);
 
 /**
  * Creates a function like `_.assign`.
@@ -31061,12 +30399,12 @@ module.exports = createAssigner;
 
 
 /***/ }),
-/* 362 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var identity = __webpack_require__(138),
-    overRest = __webpack_require__(363),
-    setToString = __webpack_require__(365);
+    overRest = __webpack_require__(362),
+    setToString = __webpack_require__(364);
 
 /**
  * The base implementation of `_.rest` which doesn't validate or coerce arguments.
@@ -31084,10 +30422,10 @@ module.exports = baseRest;
 
 
 /***/ }),
-/* 363 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var apply = __webpack_require__(364);
+var apply = __webpack_require__(363);
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max;
@@ -31126,7 +30464,7 @@ module.exports = overRest;
 
 
 /***/ }),
-/* 364 */
+/* 363 */
 /***/ (function(module, exports) {
 
 /**
@@ -31153,11 +30491,11 @@ module.exports = apply;
 
 
 /***/ }),
-/* 365 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseSetToString = __webpack_require__(366),
-    shortOut = __webpack_require__(368);
+var baseSetToString = __webpack_require__(365),
+    shortOut = __webpack_require__(367);
 
 /**
  * Sets the `toString` method of `func` to return `string`.
@@ -31173,10 +30511,10 @@ module.exports = setToString;
 
 
 /***/ }),
-/* 366 */
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var constant = __webpack_require__(367),
+var constant = __webpack_require__(366),
     defineProperty = __webpack_require__(127),
     identity = __webpack_require__(138);
 
@@ -31201,7 +30539,7 @@ module.exports = baseSetToString;
 
 
 /***/ }),
-/* 367 */
+/* 366 */
 /***/ (function(module, exports) {
 
 /**
@@ -31233,7 +30571,7 @@ module.exports = constant;
 
 
 /***/ }),
-/* 368 */
+/* 367 */
 /***/ (function(module, exports) {
 
 /** Used to detect hot functions by number of calls within a span of milliseconds. */
@@ -31276,7 +30614,7 @@ module.exports = shortOut;
 
 
 /***/ }),
-/* 369 */
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var eq = __webpack_require__(43),
