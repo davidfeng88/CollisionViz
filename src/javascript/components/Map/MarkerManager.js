@@ -15,7 +15,7 @@ const toDetailEntries = collision => (
 class MarkerManager {
   constructor(map) {
     this.map = map;
-    this.markersObj = {};
+    this.markers = [];
     const markerClustererOptions = {
       imagePath: './lib/marker-clusterer/m',
       // gridSize: 40,
@@ -25,32 +25,18 @@ class MarkerManager {
 
   toggleMarkerClusterer(usingMarkerClusterer) {
     if (usingMarkerClusterer) {
-      const markersArray = Object.values(this.markersObj);
-      this.MarkerClusterer.addMarkers(markersArray);
+      this.MarkerClusterer.addMarkers(this.markers);
     } else {
       this.MarkerClusterer.clearMarkers();
-      Object.values(this.markersObj)
-        .forEach(marker => marker.setMap(this.map));
+      this.markers.forEach(marker => marker.setMap(this.map));
     }
   }
 
-  updateMarkers(collisionsArray, usingMarkerClusterer) {
-    const collisionsObj = {};
-    collisionsArray.forEach(
-      (collision) => {
-        collisionsObj[collision.unique_key] = collision;
-      },
-    );
-    collisionsArray
-      .filter(collision => !(collision.unique_key in this.markersObj))
-      .forEach((newCollision) => {
-        this.createMarker(newCollision, usingMarkerClusterer);
-      });
-    Object.keys(this.markersObj)
-      .filter(collisionUniqueKey => !(collisionUniqueKey in collisionsObj))
-      .forEach((collisionUniqueKey) => {
-        this.removeMarker(this.markersObj[collisionUniqueKey], usingMarkerClusterer);
-      });
+  updateMarkers(collisions, usingMarkerClusterer) {
+    this.removeAllMarkers(usingMarkerClusterer);
+    collisions.forEach((collision) => {
+      this.createMarker(collision, usingMarkerClusterer);
+    });
   }
 
   createMarker(collision, usingMarkerClusterer) {
@@ -74,26 +60,18 @@ class MarkerManager {
       });
       infoWindow.open(this.map, marker);
     });
-    this.markersObj[marker.collisionUniqueKey] = marker;
     if (usingMarkerClusterer) {
       this.MarkerClusterer.addMarker(marker);
     }
+    this.markers.push(marker);
   }
 
   removeAllMarkers(usingMarkerClusterer) {
     if (usingMarkerClusterer) {
       this.MarkerClusterer.clearMarkers();
     }
-    Object.values(this.markersObj)
-      .forEach(marker => this.removeMarker(marker));
-  }
-
-  removeMarker(marker, usingMarkerClusterer) {
-    this.markersObj[marker.collisionUniqueKey].setMap(null);
-    delete this.markersObj[marker.collisionUniqueKey];
-    if (usingMarkerClusterer) {
-      this.MarkerClusterer.removeMarker(marker);
-    }
+    this.markers.forEach(marker => marker.setMap(null));
+    this.markers = [];
   }
 }
 

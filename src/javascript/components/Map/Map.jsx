@@ -5,16 +5,11 @@ import {
   fetchCollisionsFromApi,
   API_TIME_FIELD_NAME,
 } from '../../api';
-
 import initChart from './initChart';
-
-import {
-  initHeatmap,
-  updateHeatmap,
-} from './Heatmap';
+import initHeatmap from './initHeatmap';
 
 // Components
-import Toggle from '../toggle';
+import Toggle from './Toggle';
 import MapInfoContainer from './MapInfoContainer';
 import ChartPlaceholder from './ChartPlaceholder';
 
@@ -47,34 +42,33 @@ class Map extends React.Component {
       fullscreenControl: false,
     });
     this.MarkerManager = new MarkerManager(this.map);
-
-    this.fetchCollisions(this.props.date, true);
+    this.onNewDate(this.props.date);
   };
 
-  fetchCollisions = (date, firstFetch = false) => {
-    this.collision = fetchCollisionsFromApi(date)
+  onNewDate = (newDate) => {
+    fetchCollisionsFromApi(newDate)
       .then((collisionsData) => {
-        this.collisions = {};
-        const validCollisions = collisionsData.filter(collision => collision.latitude && collision.longitude && collision[API_TIME_FIELD_NAME]);
-        validCollisions.forEach((collision) => {
-          const hour = timeStringToHour(collision[API_TIME_FIELD_NAME]);
-          if (hour in this.collisions) {
-            this.collisions[hour].push(collision);
-          } else {
-            this.collisions[hour] = [collision];
-          }
-        });
+        this.storeCollisionsForNewDate(collisionsData);
         this.props.updateFilter({
           loading: false,
         });
         this.updateMarkers(DEFAULT_HOUR);
-        if (firstFetch) {
-          this.heatmap = initHeatmap(this.map, validCollisions);
-        } else {
-          updateHeatmap(this.heatmap, this.map, validCollisions);
-        }
+        this.heatmap = initHeatmap(this.map, this.collisionsArray);
         initChart(this.collisions, this.props.updateFilter);
       });
+  };
+
+  storeCollisionsForNewDate = (collisionsData) => {
+    this.collisions = {};
+    this.collisionsArray = collisionsData;
+    this.collisionsArray.forEach((collision) => {
+      const hour = timeStringToHour(collision[API_TIME_FIELD_NAME]);
+      if (hour in this.collisions) {
+        this.collisions[hour].push(collision);
+      } else {
+        this.collisions[hour] = [collision];
+      }
+    });
   };
 
   componentWillReceiveProps = (nextProps) => {
@@ -83,11 +77,11 @@ class Map extends React.Component {
       this.heatmap.setMap(null);
       this.MarkerManager.removeAllMarkers(this.state.usingMarkerClusterer);
       if (nextProps.date !== '') {
-        this.fetchCollisions(nextProps.date);
+        this.onNewDate(nextProps.date);
       }
     } else {
-      // only the time is updated, add & remove markers
-      this.updateMarkers(nextProps.start, nextProps.finish);
+      // only the hour is changed, add & remove markers
+      this.updateMarkers(nextProps.hour);
     }
   };
 
@@ -102,31 +96,25 @@ class Map extends React.Component {
     );
   };
 
-  toggle = field => (e) => {
-    const newValue = !this.state[field];
+  toggleMarkerClusterer = () => {
+    const { usingMarkerClusterer } = this.state;
+    const newValue = !usingMarkerClusterer;
     this.setState({
-      [field]: !this.state[field],
+      usingMarkerClusterer: newValue,
     });
-    switch (field) {
-      case 'usingMarkerClusterer':
-        this.MarkerManager.toggleMarkerClusterer(newValue);
-        break;
-      default:
-    }
+    this.MarkerManager.toggleMarkerClusterer(newValue);
   };
 
-  toggleMapLayer = field => (e) => {
-    if (this.state[field]) {
-      this[field].setMap(null);
-      this.setState({
-        [field]: false,
-      });
+  toggleHeatmap = () => {
+    const { heatmap } = this.state;
+    if (heatmap) {
+      this.heatmap.setMap(null);
     } else {
-      this[field].setMap(this.map);
-      this.setState({
-        [field]: true,
-      });
+      this.heatmap.setMap(this.map);
     }
+    this.setState({
+      heatmap: !heatmap,
+    });
   };
 
   resetMapBorders = () => {
@@ -148,16 +136,17 @@ class Map extends React.Component {
         <Toggle
           label="Marker Clusterer"
           checked={this.state.usingMarkerClusterer}
-          onChange={this.toggle('usingMarkerClusterer')}
+          onChange={this.toggleMarkerClusterer}
         />
         <Toggle
           label="Heatmap"
           checked={this.state.heatmap}
-          onChange={this.toggleMapLayer('heatmap')}
+          onChange={this.toggleHeatmap}
         />
         <div
           className="clickable-div bordered"
           onClick={this.resetMapBorders}
+          onKeyDown={this.resetMapBorders}
         >
           Reset Map Borders
         </div>
