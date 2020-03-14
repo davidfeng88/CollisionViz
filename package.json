@@ -1,5 +1,5 @@
 {
-  "name": "CollisionViz",
+  "name": "collision-viz",
   "private": true,
   "dependencies": {
     "babel-core": "^6.26.3",
@@ -8,12 +8,6 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "eslint": "^5.12.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-react": "^7.12.3",
     "lodash": "^4.17.15",
     "prop-types": "^15.6.2",
     "react": "^15.6.2",
@@ -33,5 +27,13 @@
   "scripts": {
     "start": "webpack --watch",
     "postinstall": "webpack && sass src/scss/main.scss public/main.css"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0"
   }
 }

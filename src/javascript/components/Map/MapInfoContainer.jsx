@@ -26,8 +26,8 @@ Collision(s) During&nbsp;
       {hour}
 :00 -
       {' '}
-      {hour + 1}
-:00
+      {hour}
+:59
     </strong>
   </div>
 );
