@@ -10,7 +10,7 @@ import initHeatmap from './initHeatmap';
 
 // Components
 import Toggle from './Toggle';
-import MapInfoContainer from './MapInfoContainer';
+import MapInfo from './MapInfo';
 import ChartPlaceholder from './ChartPlaceholder';
 
 // Utilities
@@ -48,12 +48,12 @@ class Map extends React.Component {
     fetchCollisionsFromApi(newDate)
       .then((collisionsData) => {
         this.storeCollisionsForNewDate(collisionsData);
-        this.props.updateFilter({
+        this.props.updateAppState({
           loading: false,
         });
         this.updateMarkers(DEFAULT_HOUR);
         this.heatmap = initHeatmap(this.map, this.collisionsArray);
-        initChart(this.collisions, this.props.updateFilter);
+        initChart(this.collisions, this.props.updateAppState);
       });
   };
 
@@ -154,7 +154,11 @@ class Map extends React.Component {
         Map Placeholder
       </div>
       <div className="map-panel bordered flex-row">
-        <MapInfoContainer count={this.state.collisionCount} />
+        <MapInfo
+          count={this.state.collisionCount}
+          date={this.props.date}
+          hour={this.props.hour}
+        />
       </div>
     </div>
   );

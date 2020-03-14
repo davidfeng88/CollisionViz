@@ -1,10 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
-const mapStateToProps = ({ date, hour }) => ({
-  date,
-  hour,
-});
 
 const MapInfo = ({
   date, hour, count,
@@ -32,7 +26,4 @@ Collision(s) During&nbsp;
   </div>
 );
 
-export default connect(
-  mapStateToProps,
-  null,
-)(MapInfo);
+export default MapInfo;

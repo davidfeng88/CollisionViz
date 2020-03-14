@@ -4,7 +4,7 @@ import DateSelector from './DateSelector';
 
 class ControlPanel extends React.Component {
   updateDate = (e) => {
-    this.props.updateFilter({
+    this.props.updateAppState({
       date: e.currentTarget.value,
       loading: true,
     });

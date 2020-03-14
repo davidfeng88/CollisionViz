@@ -1,15 +1,25 @@
 import React from 'react';
 
 import HeaderContainer from './Header/HeaderContainer';
-import ControlPanelContainer from './ControlPanel/ControlPanelContainer';
-import MapContainer from './Map/MapContainer';
+import ControlPanel from './ControlPanel/ControlPanel';
+import Map from './Map/Map';
 
-const App = () => (
+const App = ({
+  date, hour, loading, updateAppState,
+}) => (
   <div className="container">
     <HeaderContainer />
     <div className="main bordered">
-      <ControlPanelContainer />
-      <MapContainer />
+      <ControlPanel
+        date={date}
+        updateAppState={updateAppState}
+      />
+      <Map
+        date={date}
+        hour={hour}
+        loading={loading}
+        updateAppState={updateAppState}
+      />
     </div>
   </div>
 );

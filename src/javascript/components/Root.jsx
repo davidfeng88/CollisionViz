@@ -1,11 +1,27 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+
 import App from './App';
 
-const Root = ({ store }) => (
-  <Provider store={store}>
-    <App />
-  </Provider>
-);
+export default class Root extends React.Component {
+  state = {
+    date: '2017-03-13',
+    hour: 8,
+    loading: true,
+  };
 
-export default Root;
+  updateAppState = (newState) => {
+    this.setState(newState);
+  };
+
+  render = () => {
+    const { date, hour, loading } = this.state;
+    return (
+      <App
+        date={date}
+        hour={hour}
+        loading={loading}
+        updateAppState={this.updateAppState}
+      />
+    );
+  };
+}

@@ -3,20 +3,13 @@
   "private": true,
   "dependencies": {
     "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.6",
     "babel-loader": "^7.1.5",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "lodash": "^4.17.15",
     "prop-types": "^15.6.2",
     "react": "^15.6.2",
-    "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^15.6.2",
-    "react-redux": "^5.1.1",
-    "redux": "^3.7.1",
-    "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0",
     "sass": "^1.26.2",
     "webpack": "^3.12.0"
   },
@@ -29,6 +22,7 @@
     "postinstall": "webpack && sass src/scss/main.scss public/main.css"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.6",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-plugin-babel": "^5.3.0",
