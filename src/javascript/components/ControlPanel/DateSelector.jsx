@@ -12,7 +12,7 @@ const DateSelector = ({ date, onChange }) => {
   1. Select Date
         </b>
         <br />
-        2012-07-01 ~
+        Range: 2012-07-01 ~
         {' '}
         {API_LATEST_DATE_STRING}
       </label>

@@ -30,7 +30,6 @@ class Map extends React.Component {
   state = {
     usingMarkerClusterer: true,
     collisionCount: 0, // for map info panel refresh
-    // map layers
     heatmap: true,
   };
 

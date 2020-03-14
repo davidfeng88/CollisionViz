@@ -26460,21 +26460,11 @@ var ControlPanel = function (_React$Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ControlPanel.__proto__ || Object.getPrototypeOf(ControlPanel)).call.apply(_ref, [this].concat(args))), _this), _this.updateField = function (field) {
-      return function (e) {
-        e.preventDefault();
-        switch (field) {
-          case 'date':
-            _this.props.updateFilter({
-              date: e.currentTarget.value,
-              loading: true
-            });
-            break;
-
-          default:
-            break;
-        }
-      };
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ControlPanel.__proto__ || Object.getPrototypeOf(ControlPanel)).call.apply(_ref, [this].concat(args))), _this), _this.updateDate = function (e) {
+      _this.props.updateFilter({
+        date: e.currentTarget.value,
+        loading: true
+      });
     }, _this.render = function () {
       var date = _this.props.date;
 
@@ -26486,7 +26476,7 @@ var ControlPanel = function (_React$Component) {
           { className: 'flex-row' },
           _react2.default.createElement(_DateSelector2.default, {
             date: date,
-            onChange: _this.updateField('date')
+            onChange: _this.updateDate
           })
         ),
         _react2.default.createElement(
@@ -26543,7 +26533,7 @@ var DateSelector = function DateSelector(_ref) {
         '1. Select Date'
       ),
       _react2.default.createElement('br', null),
-      '2012-07-01 ~',
+      'Range: 2012-07-01 ~',
       ' ',
       API_LATEST_DATE_STRING
     ),
@@ -26680,7 +26670,6 @@ var Map = function (_React$Component) {
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Map.__proto__ || Object.getPrototypeOf(Map)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       usingMarkerClusterer: true,
       collisionCount: 0, // for map info panel refresh
-      // map layers
       heatmap: true
     }, _this.componentDidMount = function () {
       var map = _this.refs.map;
