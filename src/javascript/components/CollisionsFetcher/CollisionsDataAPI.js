@@ -1,9 +1,7 @@
 const API_ENDPOINT = 'https://data.cityofnewyork.us/resource/h9gi-nx95.json';
 const API_DATE_FIELD_NAME = 'crash_date';
 const API_TOKEN = 'Vz2nbemWZ3Ttmz998p1ZUu0A3';
-
-export const API_LINK = 'https://dev.socrata.com/foundry/data.cityofnewyork.us/h9gi-nx95';
-export const API_TIME_FIELD_NAME = 'crash_time';
+const API_TIME_FIELD_NAME = 'crash_time';
 
 const isCollisionValid = collision => (
   collision.latitude && collision.longitude && collision[API_TIME_FIELD_NAME]);
@@ -20,3 +18,12 @@ export const fetchCollisionsFromApi = (date) => {
   return fetch(req).then(res => res.json())
     .then(collisionsData => collisionsData.filter(isCollisionValid));
 };
+
+export const getCollisionHour = (collision) => {
+  const timeString = collision[API_TIME_FIELD_NAME]; // e.g. '7:00'
+  const array = timeString.split(':');
+  const hour = parseInt(array[0], 10);
+  return hour; // e.g. 7
+};
+
+export const API_LINK = 'https://dev.socrata.com/foundry/data.cityofnewyork.us/h9gi-nx95';

@@ -1,4 +1,4 @@
-/* global google:false */
+const { google } = window;
 
 const isPairValid = ([key, value]) => (key !== 'location' && value !== null && value !== '0');
 

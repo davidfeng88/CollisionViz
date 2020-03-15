@@ -1,25 +1,27 @@
 import React from 'react';
 
 import HeaderContainer from './Header/HeaderContainer';
-import ControlPanel from './ControlPanel/ControlPanel';
+import CollisionsFetcher from './CollisionsFetcher/CollisionsFetcher';
+
 import Map from './Map/Map';
 
 const App = ({
-  date, hour, loading, updateAppState,
+  collisions, date, hour, loading, updateAppState,
 }) => (
   <div className="container">
     <HeaderContainer />
     <div className="main bordered">
-      <ControlPanel
+      <CollisionsFetcher
         date={date}
         updateAppState={updateAppState}
       />
-      <Map
+      {/* <Map
+        collisions={collisions}
         date={date}
         hour={hour}
         loading={loading}
         updateAppState={updateAppState}
-      />
+      /> */}
     </div>
   </div>
 );

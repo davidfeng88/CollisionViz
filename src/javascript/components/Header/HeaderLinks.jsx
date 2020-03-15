@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {
   API_LINK,
-} from '../../api';
+} from '../CollisionsFetcher/CollisionsDataAPI';
 
 const HeaderLinks = ({ href, text }) => (
   <a href={href} target="_blank" rel="noopener noreferrer">

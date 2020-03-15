@@ -1,24 +1,15 @@
-/* global google:false */
-
 import React from 'react';
-import {
-  fetchCollisionsFromApi,
-  API_TIME_FIELD_NAME,
-} from '../../api';
-import initChart from './initChart';
+
 import initHeatmap from './initHeatmap';
 
 // Components
 import Toggle from './Toggle';
 import MapInfo from './MapInfo';
-import ChartPlaceholder from './ChartPlaceholder';
 
 // Utilities
 import MarkerManager from './MarkerManager';
-import {
-  DEFAULT_HOUR,
-  timeStringToHour,
-} from '../../util';
+
+const { google } = window;
 
 const NYC_CENTER = {
   lat: 40.732663,
@@ -51,7 +42,7 @@ class Map extends React.Component {
         this.props.updateAppState({
           loading: false,
         });
-        this.updateMarkers(DEFAULT_HOUR);
+        this.updateMarkers(this.props.hour);
         this.heatmap = initHeatmap(this.map, this.collisionsArray);
         initChart(this.collisions, this.props.updateAppState);
       });
@@ -123,9 +114,6 @@ class Map extends React.Component {
 
   render = () => (
     <div>
-      <div className="flex-row">
-        <ChartPlaceholder />
-      </div>
       <div className="flex-row">
         <b>
           3. Click on a marker for details

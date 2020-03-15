@@ -2,8 +2,9 @@ import React from 'react';
 
 import App from './App';
 
-export default class Root extends React.Component {
+class Root extends React.Component {
   state = {
+    collisions: [],
     date: '2017-03-13',
     hour: 8,
     loading: true,
@@ -14,9 +15,12 @@ export default class Root extends React.Component {
   };
 
   render = () => {
-    const { date, hour, loading } = this.state;
+    const {
+      collisions, date, hour, loading,
+    } = this.state;
     return (
       <App
+        collisions={collisions}
         date={date}
         hour={hour}
         loading={loading}
@@ -25,3 +29,5 @@ export default class Root extends React.Component {
     );
   };
 }
+
+export default Root;

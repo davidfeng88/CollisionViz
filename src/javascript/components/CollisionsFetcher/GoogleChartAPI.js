@@ -1,4 +1,6 @@
-const initChart = (collisions, updateFilter) => {
+const { google } = window;
+
+const initChart = (collisions, updateAppState) => {
   google.charts.load('current', {
     packages: ['corechart'],
   });
@@ -88,7 +90,7 @@ const initChart = (collisions, updateFilter) => {
       const selectedItem = chart.getSelection()[0];
       if (selectedItem) {
         const hour = selectedItem.row;
-        updateFilter({
+        updateAppState({
           hour,
         });
       }

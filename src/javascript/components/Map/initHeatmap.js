@@ -1,4 +1,4 @@
-/* global google:false */
+const { google } = window;
 
 const initHeatmap = (map, collisions) => {
   const heatmapData = collisions.map(collision => new google.maps.LatLng(collision.latitude, collision.longitude));
