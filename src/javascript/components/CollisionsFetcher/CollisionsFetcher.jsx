@@ -1,13 +1,12 @@
 import React from 'react';
 
 import DateSelector from './DateSelector';
-import Chart from './Chart';
+
 
 import {
   fetchCollisionsFromApi,
   getCollisionHour,
 } from './CollisionsDataAPI';
-import initChart from './GoogleChartAPI';
 
 const parseCollisionsForNewDate = (collisionsData) => {
   const collisions = {};
@@ -30,7 +29,7 @@ class CollisionsFetcher extends React.Component {
 
   componentWillReceiveProps = (nextProps) => {
     const { date } = this.props;
-    if (nextProps.date !== date) {
+    if (nextProps.date !== date) { // TODO: do we need this line
       this.onNewDate(nextProps.date);
     }
   };
@@ -44,7 +43,6 @@ class CollisionsFetcher extends React.Component {
           loading: false,
           collisions,
         });
-        initChart(collisions, updateAppState);
       });
   };
 
@@ -70,9 +68,6 @@ class CollisionsFetcher extends React.Component {
           <b>
             2. Select Hour (click on bar)
           </b>
-        </div>
-        <div className="flex-row">
-          <Chart />
         </div>
       </div>
     );

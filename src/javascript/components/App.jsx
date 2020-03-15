@@ -2,6 +2,7 @@ import React from 'react';
 
 import HeaderContainer from './Header/HeaderContainer';
 import CollisionsFetcher from './CollisionsFetcher/CollisionsFetcher';
+import ChartContainer from './Chart/ChartContainer';
 
 import Map from './Map/Map';
 
@@ -13,6 +14,11 @@ const App = ({
     <div className="main bordered">
       <CollisionsFetcher
         date={date}
+        updateAppState={updateAppState}
+      />
+      <ChartContainer
+        loading={loading}
+        collisions={collisions}
         updateAppState={updateAppState}
       />
       {/* <Map
