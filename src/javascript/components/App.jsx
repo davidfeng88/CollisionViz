@@ -3,7 +3,6 @@ import React from 'react';
 import HeaderContainer from './Header/HeaderContainer';
 import CollisionsFetcher from './CollisionsFetcher/CollisionsFetcher';
 import ChartContainer from './Chart/ChartContainer';
-
 import Map from './Map/Map';
 
 const App = ({
@@ -17,17 +16,16 @@ const App = ({
         updateAppState={updateAppState}
       />
       <ChartContainer
-        loading={loading}
         collisions={collisions}
+        loading={loading}
         updateAppState={updateAppState}
       />
-      {/* <Map
+      <Map
         collisions={collisions}
-        date={date}
         hour={hour}
         loading={loading}
         updateAppState={updateAppState}
-      /> */}
+      />
     </div>
   </div>
 );

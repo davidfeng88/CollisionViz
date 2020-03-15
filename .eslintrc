@@ -6,7 +6,8 @@
     "strict": 0,
     "babel/semi": 1,
     "react/sort-comp": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
   },
   "env": {
     "browser": true,

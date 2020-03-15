@@ -1,12 +1,15 @@
 import React from 'react';
 
-import DateSelector from './DateSelector';
-
-
 import {
   fetchCollisionsFromApi,
   getCollisionHour,
 } from './CollisionsDataAPI';
+
+const FIRST_DATE_STRING = '2012-07-01';
+const FIRST_DATE = new Date(FIRST_DATE_STRING);
+const LAST_DATE = new Date();
+LAST_DATE.setDate(LAST_DATE.getDate() - 10);
+const LAST_DATE_STRING = LAST_DATE.toJSON().slice(0, 10);
 
 const parseCollisionsForNewDate = (collisionsData) => {
   const collisions = {};
@@ -29,7 +32,7 @@ class CollisionsFetcher extends React.Component {
 
   componentWillReceiveProps = (nextProps) => {
     const { date } = this.props;
-    if (nextProps.date !== date) { // TODO: do we need this line
+    if (nextProps.date !== date) {
       this.onNewDate(nextProps.date);
     }
   };
@@ -47,9 +50,14 @@ class CollisionsFetcher extends React.Component {
   };
 
   updateDate = (e) => {
+    const dateString = e.currentTarget.value;
+    const date = new Date(dateString);
+    if (date < FIRST_DATE || date > LAST_DATE) {
+      return;
+    }
     const { updateAppState } = this.props;
     updateAppState({
-      date: e.currentTarget.value,
+      date: dateString,
       loading: true,
     });
   };
@@ -59,10 +67,30 @@ class CollisionsFetcher extends React.Component {
     return (
       <div>
         <div className="flex-row">
-          <DateSelector
-            date={date}
-            onChange={this.updateDate}
-          />
+          <div>
+            <label htmlFor="date">
+              <b>
+              1. Select Date
+              </b>
+              <br />
+            Range:
+              {' '}
+              {FIRST_DATE_STRING}
+              {' '}
+~
+              {' '}
+              {LAST_DATE_STRING}
+            </label>
+            <input
+              value={date}
+              id="date"
+              type="date"
+              min={FIRST_DATE_STRING}
+              max={LAST_DATE_STRING}
+              onChange={this.updateDate}
+            />
+          </div>
+
         </div>
         <div className="flex-row">
           <b>

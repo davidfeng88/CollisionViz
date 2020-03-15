@@ -4,7 +4,7 @@ const API_TOKEN = 'Vz2nbemWZ3Ttmz998p1ZUu0A3';
 const API_TIME_FIELD_NAME = 'crash_time';
 
 const isCollisionValid = collision => (
-  collision.latitude && collision.longitude && collision[API_TIME_FIELD_NAME]);
+  collision && collision.latitude && collision.longitude && collision[API_TIME_FIELD_NAME]);
 
 export const fetchCollisionsFromApi = (date) => {
   const url = `${API_ENDPOINT}?${API_DATE_FIELD_NAME}=${date}T00:00:00.000`;

@@ -1,19 +1,21 @@
 import React from 'react';
 import Chart from './Chart';
-import initChart from './GoogleChartAPI';
+import drawChart from './GoogleChartAPI';
 
 class ChartContainer extends React.Component {
-  componentDidMount = () => {
-    const { loading, collisions, updateAppState } = this.props;
-    if (!loading) {
-      initChart(collisions, updateAppState);
-    }
-  };
+  constructor(props) {
+    super(props);
+    this.chartInited = false;
+  }
 
   componentWillReceiveProps = (nextProps) => {
-    const { loading, collisions, updateAppState } = nextProps;
-    if (!loading) {
-      initChart(collisions, updateAppState);
+    /* loading changes from true to false
+      => new collisions from a new date received
+      => need to redraw the chart
+    */
+    const { loading } = this.props;
+    if (loading && !nextProps.loading) {
+      drawChart(nextProps.collisions, nextProps.updateAppState);
     }
   };
 

@@ -1,13 +1,9 @@
 import React from 'react';
 
-import initHeatmap from './initHeatmap';
-
-// Components
-import Toggle from './Toggle';
-import MapInfo from './MapInfo';
-
-// Utilities
+import drawHeatmap from './GoogleHeatmapAPI';
 import MarkerManager from './MarkerManager';
+import Toggle from './Toggle';
+// import MapInfo from './MapInfo';
 
 const { google } = window;
 
@@ -20,7 +16,6 @@ const DEFAULT_ZOOM_LEVEL = 10;
 class Map extends React.Component {
   state = {
     usingMarkerClusterer: true,
-    collisionCount: 0, // for map info panel refresh
     heatmap: true,
   };
 
@@ -32,56 +27,33 @@ class Map extends React.Component {
       fullscreenControl: false,
     });
     this.MarkerManager = new MarkerManager(this.map);
-    this.onNewDate(this.props.date);
-  };
-
-  onNewDate = (newDate) => {
-    fetchCollisionsFromApi(newDate)
-      .then((collisionsData) => {
-        this.storeCollisionsForNewDate(collisionsData);
-        this.props.updateAppState({
-          loading: false,
-        });
-        this.updateMarkers(this.props.hour);
-        this.heatmap = initHeatmap(this.map, this.collisionsArray);
-        initChart(this.collisions, this.props.updateAppState);
-      });
-  };
-
-  storeCollisionsForNewDate = (collisionsData) => {
-    this.collisions = {};
-    this.collisionsArray = collisionsData;
-    this.collisionsArray.forEach((collision) => {
-      const hour = timeStringToHour(collision[API_TIME_FIELD_NAME]);
-      if (hour in this.collisions) {
-        this.collisions[hour].push(collision);
-      } else {
-        this.collisions[hour] = [collision];
-      }
-    });
   };
 
   componentWillReceiveProps = (nextProps) => {
-    if (nextProps.date !== this.props.date) {
-      // if the date is changed, clear all markers, draw a new heatmap
-      this.heatmap.setMap(null);
+    /* loading changes from true to false
+      => new collisions from a new date received
+      => need to redraw the markers and heatmap
+    */
+    const { loading } = this.props;
+    if (loading && !nextProps.loading) {
       this.MarkerManager.removeAllMarkers(this.state.usingMarkerClusterer);
-      if (nextProps.date !== '') {
-        this.onNewDate(nextProps.date);
+      this.updateMarkers(nextProps.collisions[nextProps.hour]);
+      if (typeof this.heatmap !== 'undefined') {
+        this.heatmap.setMap(null);
       }
+      this.heatmap = drawHeatmap(this.map, nextProps.collisions);
+
+      // } else {
+      //  // TODO: confirm if we need this if else
+      // }
     } else {
-      // only the hour is changed, add & remove markers
-      this.updateMarkers(nextProps.hour);
+      this.updateMarkers(nextProps.collisions[nextProps.hour]);
     }
   };
 
-  updateMarkers = (hour) => {
-    this.setState({
-      collisionCount: this.collisions[hour].length,
-    });
-    // filter the collisions based on start/finish/this.collisions
+  updateMarkers = (collisionsInAnHour) => {
     this.MarkerManager.updateMarkers(
-      this.collisions[hour],
+      collisionsInAnHour,
       this.state.usingMarkerClusterer,
     );
   };
@@ -126,7 +98,7 @@ class Map extends React.Component {
           onChange={this.toggleMarkerClusterer}
         />
         <Toggle
-          label="Heatmap"
+          label="Heatmap (All Day)"
           checked={this.state.heatmap}
           onChange={this.toggleHeatmap}
         />
@@ -141,13 +113,13 @@ class Map extends React.Component {
       <div className="index-map" ref="map">
         Map Placeholder
       </div>
-      <div className="map-panel bordered flex-row">
+      {/* <div className="map-panel bordered flex-row">
         <MapInfo
           count={this.state.collisionCount}
           date={this.props.date}
           hour={this.props.hour}
         />
-      </div>
+      </div> */}
     </div>
   );
 }

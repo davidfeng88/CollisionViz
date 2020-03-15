@@ -1,6 +1,6 @@
 const { google } = window;
 
-const initChart = (collisions, updateAppState) => {
+const drawChart = (collisions, updateAppState) => {
   google.charts.load('current', {
     packages: ['corechart'],
   });
@@ -103,4 +103,4 @@ const initChart = (collisions, updateAppState) => {
   });
 };
 
-export default initChart;
+export default drawChart;
