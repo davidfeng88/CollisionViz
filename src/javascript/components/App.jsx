@@ -4,6 +4,7 @@ import HeaderContainer from './Header/HeaderContainer';
 import CollisionsFetcher from './CollisionsFetcher/CollisionsFetcher';
 import ChartContainer from './Chart/ChartContainer';
 import Map from './Map/Map';
+import MapInfo from './MapInfo';
 
 const App = ({
   collisions, date, hour, loading, updateAppState,
@@ -24,7 +25,11 @@ const App = ({
         collisions={collisions}
         hour={hour}
         loading={loading}
-        updateAppState={updateAppState}
+      />
+      <MapInfo
+        date={date}
+        hour={hour}
+        collisions={collisions}
       />
     </div>
   </div>

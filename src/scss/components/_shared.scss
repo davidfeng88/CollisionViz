@@ -60,23 +60,3 @@ label {
     background-color: $dark-grey;
   }
 }
-
-/* --- ANIMATION --- */
-
-.extra-enter {
-  opacity: 0.01;
-
-  &.extra-enter-active {
-    opacity: 1;
-    transition: opacity 300ms linear;
-  }
-}
-
-.extra-leave {
-  opacity: 1;
-
-  &.extra-leave-active {
-    opacity: 0.01;
-    transition: opacity 200ms linear;
-  }
-}

@@ -20,7 +20,7 @@ strong {
   font-weight: bold;
 }
 
-/* --- MAIN --- */
+/* --- APP --- */
 .container {
   width: 45vw;
   margin-left: 3vw;
@@ -30,11 +30,7 @@ strong {
   padding: 0 20px;
 }
 
-/* --- CONTROL PANEL --- */
-.start-button {
-  width: 80px;
-}
-
+/* --- CHART --- */
 .spinner {
   width: 100px;
   margin: 5px;
@@ -44,10 +40,9 @@ strong {
   height: 38px;
 }
 
-.start-row {
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000;
-  padding: 10px 0;
+#chart-div {
+  width: 500px;
+  height: 300px;
 }
 
 /* --- HEADER --- */
@@ -92,24 +87,18 @@ header {
   width: 50vw;
 }
 
-/* --- MAP PANEL --- */
+/* --- MAP INFO --- */
 .map-panel {
   position: absolute;
   z-index: 1;
   padding: 10px;
   bottom: 13px;
-  right: 45px;
-  background-color: #fff;
+  right: 85px;
+  background-color: #bbb;
 }
 
 .map-info {
   margin-right: 10px;
-}
-
-/* --- CHART --- */
-#chart-div {
-  width: 500px;
-  height: 300px;
 }
 
 /* --- MODAL TEMPLATE --- */
@@ -224,23 +213,6 @@ label.switch {
 }
 .clickable-div:active {
   background-color: #aaa;
-}
-
-/* --- ANIMATION --- */
-.extra-enter {
-  opacity: 0.01;
-}
-.extra-enter.extra-enter-active {
-  opacity: 1;
-  transition: opacity 300ms linear;
-}
-
-.extra-leave {
-  opacity: 1;
-}
-.extra-leave.extra-leave-active {
-  opacity: 0.01;
-  transition: opacity 200ms linear;
 }
 
 /* --- TOGGLE --- */

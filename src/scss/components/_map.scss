@@ -7,24 +7,3 @@
   height: 100vh;
   width: $map-width;
 }
-
-/* --- MAP PANEL --- */
-
-.map-panel {
-  position: absolute;
-  z-index: 1;
-  padding: 10px;
-  bottom: 13px;
-  right: 45px;
-  background-color: $white;
-}
-
-.map-info {
-  margin-right: 10px;
-}
-
-/* --- CHART --- */
-#chart-div {
-  width: 500px;
-  height: 300px;
-}

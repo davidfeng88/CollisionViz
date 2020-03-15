@@ -3,7 +3,6 @@ import React from 'react';
 import drawHeatmap from './GoogleHeatmapAPI';
 import MarkerManager from './MarkerManager';
 import Toggle from './Toggle';
-// import MapInfo from './MapInfo';
 
 const { google } = window;
 
@@ -42,11 +41,7 @@ class Map extends React.Component {
         this.heatmap.setMap(null);
       }
       this.heatmap = drawHeatmap(this.map, nextProps.collisions);
-
-      // } else {
-      //  // TODO: confirm if we need this if else
-      // }
-    } else {
+    } else { // same date, hour updated.
       this.updateMarkers(nextProps.collisions[nextProps.hour]);
     }
   };
@@ -113,13 +108,6 @@ class Map extends React.Component {
       <div className="index-map" ref="map">
         Map Placeholder
       </div>
-      {/* <div className="map-panel bordered flex-row">
-        <MapInfo
-          count={this.state.collisionCount}
-          date={this.props.date}
-          hour={this.props.hour}
-        />
-      </div> */}
     </div>
   );
 }
