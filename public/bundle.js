@@ -22705,7 +22705,7 @@ var Logo = function Logo() {
   return _react2.default.createElement(
     'div',
     { className: 'logo' },
-    _react2.default.createElement('img', { src: './assets/images/car-collision-favicon.svg', alt: '' }),
+    _react2.default.createElement('img', { src: './assets/car-collision-favicon.svg', alt: '' }),
     _react2.default.createElement(
       'h1',
       null,
@@ -23004,21 +23004,21 @@ HeaderIcon.propTypes = {
 var WebsiteIcon = exports.WebsiteIcon = function WebsiteIcon() {
   return _react2.default.createElement(HeaderIcon, {
     href: 'https://davidfeng.us/',
-    src: './assets/images/font-awesome/user.png'
+    src: './assets/font-awesome/user.png'
   });
 };
 
 var GitHubIcon = exports.GitHubIcon = function GitHubIcon() {
   return _react2.default.createElement(HeaderIcon, {
     href: 'https://github.com/davidfeng88',
-    src: './assets/images/font-awesome/github.png'
+    src: './assets/font-awesome/github.png'
   });
 };
 
 var LinkedInIcon = exports.LinkedInIcon = function LinkedInIcon() {
   return _react2.default.createElement(HeaderIcon, {
     href: 'https://www.linkedin.com/in/gfeng/',
-    src: './assets/images/font-awesome/linkedin-square.png'
+    src: './assets/font-awesome/linkedin-square.png'
   });
 };
 
@@ -23322,7 +23322,7 @@ var MarkerManager = function () {
       var lng = collision.longitude;
       var position = new google.maps.LatLng(lat, lng);
       var icon = {
-        url: './assets/images/car-collision-favicon.svg',
+        url: './assets/car-collision-favicon.svg',
         scaledSize: new google.maps.Size(30, 30)
       };
       var marker = new google.maps.Marker({
@@ -23834,7 +23834,7 @@ var Chart = function Chart() {
       "div",
       { id: "chart-div" },
       "Loading chart...",
-      _react2.default.createElement("img", { alt: "spinner", className: "spinner", src: "./assets/images/spinner.svg" })
+      _react2.default.createElement("img", { alt: "spinner", className: "spinner", src: "./assets/spinner.svg" })
     )
   );
 };

@@ -5,7 +5,7 @@ import ModalSwitcher from './ModalSwitcher';
 
 const Logo = () => (
   <div className="logo">
-    <img src="./assets/images/car-collision-favicon.svg" alt="" />
+    <img src="./assets/car-collision-favicon.svg" alt="" />
     <h1>
       CollisionViz
     </h1>

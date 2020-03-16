@@ -44,7 +44,7 @@ class MarkerManager {
     const lng = collision.longitude;
     const position = new google.maps.LatLng(lat, lng);
     const icon = {
-      url: './assets/images/car-collision-favicon.svg',
+      url: './assets/car-collision-favicon.svg',
       scaledSize: new google.maps.Size(30, 30),
     };
     const marker = new google.maps.Marker({

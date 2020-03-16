@@ -20,20 +20,20 @@ HeaderIcon.propTypes = {
 export const WebsiteIcon = () => (
   <HeaderIcon
     href="https://davidfeng.us/"
-    src="./assets/images/font-awesome/user.png"
+    src="./assets/font-awesome/user.png"
   />
 );
 
 export const GitHubIcon = () => (
   <HeaderIcon
     href="https://github.com/davidfeng88"
-    src="./assets/images/font-awesome/github.png"
+    src="./assets/font-awesome/github.png"
   />
 );
 
 export const LinkedInIcon = () => (
   <HeaderIcon
     href="https://www.linkedin.com/in/gfeng/"
-    src="./assets/images/font-awesome/linkedin-square.png"
+    src="./assets/font-awesome/linkedin-square.png"
   />
 );
