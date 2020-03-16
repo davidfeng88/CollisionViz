@@ -27,7 +27,7 @@ module.exports = {
   context: __dirname,
   entry: './src/javascript/CollisionViz.jsx',
   output: {
-    path: path.join(__dirname, 'public'),
+    path: __dirname,
     filename: 'bundle.js',
   },
   plugins,
