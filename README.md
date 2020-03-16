@@ -15,7 +15,8 @@ CollisionViz is a data visualization web app for motor vehicle collisions in New
 1. `npm install`: this builds development version of JS and css, which can be generated with `npx webpack` and `npx sass src/scss/main.scss public/main.css`.
 2. Build production / minified version JS: `NODE_ENV=production npx webpack`
 3. Webpack to watch jsx file changes: `npm start`
-4. Open `index.html` in browser.
+4. Adjust css: change scss files in `src/scss`, and run `npx sass src/scss/main.scss public/main.css`
+4. Open `index.html` in browser
 
 ## Instructions
 1. Select the date. A collision heatmap and a time distribution chart of all the collisions on that day will show up.
