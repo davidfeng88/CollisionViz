@@ -27,8 +27,8 @@ CollisionViz is a data visualization web app for motor vehicle collisions in New
 
 ## Recent Changes
 
-* 8/1/2020: updated dependencies
-* 3/16/2020: [major update](https://davidfeng.us/2020/03/advice-to-new-programmers/)
+* 8/2/2020: updated dependencies
+* 3/16/2020: major update
   * Add
     * adaptors for third party APIs
   * Change
